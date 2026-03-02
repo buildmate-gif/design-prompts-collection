@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathable Space | Organic Minimal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Zen+Old+Mincho:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Reset & Base Variables */
+        :root {
+            --color-bg: #FAF7F2;
+            --color-text-main: #4A3B32;
+            --color-text-sub: #8A9A86;
+            --color-border: #D4CDC4;
+            --color-accent: #C87965;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: 'Zen Old Mincho', serif;
+            font-weight: 400;
+            line-height: 2.2;
+            letter-spacing: 0.08em;
+            overflow-x: hidden;
+        }
+
+        /* Accessibility Focus */
+        *:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+
+        /* Layout Wrapper */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Scroll Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. HERO Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 12rem 2rem 8rem 2rem;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.2;
+            width: 60%;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            margin-left: clamp(2rem, 30%, 20rem);
+            max-width: 60ch;
+            color: var(--color-text-sub);
+        }
+
+        /* 2. FEATURES Section */
+        .features {
+            padding: 8rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .feature-item {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            color: var(--color-accent);
+        }
+
+        .feature-item:hover h2 {
+            color: var(--color-accent);
+        }
+
+        .feature-item h2 {
+            font-family: 'Zen Old Mincho', serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .feature-item p {
+            max-width: 60ch;
+        }
+
+        /* 3. CTA Section */
+        .cta {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            text-align: center;
+            padding: 6rem 2rem;
+            width: 100%;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-link {
+            color: var(--color-bg);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-link:hover {
+            color: var(--color-text-main);
+        }
+
+        /* 4. FOOTER */
+        .footer {
+            border-top: 1px solid var(--color-border);
+            color: var(--color-text-sub);
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 2rem 6rem 2rem;
+            }
+
+            .hero h1 {
+                width: 100%;
+            }
+
+            .hero p {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 6rem 1.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .features {
+                padding: 6rem 0;
+            }
+
+            .cta {
+                padding: 4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. HERO -->
+    <section class="hero reveal">
+        <div class="hero-container">
+            <h1>Deep breath in a quiet forest. Embodying natural purity.</h1>
+            <p>深呼吸したくなるような余白と、自然由来の温もり。私たちは、植物本来の力を活かしたオーガニック・スキンケアを通じて、心と肌に不要なものを削ぎ落とす時間を提供します。</p>
+        </div>
+    </section>
+
+    <!-- 2. FEATURES -->
+    <section class="features">
+        <div class="container features-grid">
+            <div class="feature-item reveal">
+                <h2>Botanical Extraction</h2>
+                <p>農薬を一切使用せずに育てられたハーブのみを使用。水蒸気蒸留法を用いて、植物成分を損なうことなく、純度の高いエッセンスを一滴ずつ丁寧に抽出しています。</p>
+            </div>
+            <div class="feature-item reveal">
+                <h2>Minimal Ingredients</h2>
+                <p>肌にとって本当に必要なものだけを。合成香料、着色料、防腐剤は一切使用せず、全成分の99%以上が自然由来の原料で構成されています。</p>
+            </div>
+            <div class="feature-item reveal">
+                <h2>Earth Harmony</h2>
+                <p>製品パッケージには再生ガラスとバンブー素材を採用。製造過程における環境負荷を最小限に抑え、自然のサイクルと調和するモノづくりを徹底しています。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CTA -->
+    <section class="cta reveal">
+        <h2>Discover our pure collection</h2>
+        <a href="#" class="cta-link" aria-label="オンラインストアへ進む">Experience the Nature</a>
+    </section>
+
+    <!-- 4. FOOTER -->
+    <footer class="footer reveal">
+        <p>&copy; 2026 ORGANIC MINIMAL BOTANICS.</p>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+
+            // 初回表示時にすでに見えている要素にも反映するため、即時実行も行う
+            setTimeout(() => {
+                reveals.forEach(reveal => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 50) {
+                        reveal.classList.add("active");
+                    }
+                });
+            }, 100);
+
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.15
+            };
+
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        // 一度アニメーションしたら監視を外す
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(reveal => {
+                scrollObserver.observe(reveal);
+            });
+        });
+    </script>
+</body>
+
+</html>

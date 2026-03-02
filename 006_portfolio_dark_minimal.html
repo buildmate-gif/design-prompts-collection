@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silence & Presence | Minimal Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Outfit:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #141412;
+            --bg-alt: #1E1D1A;
+            --text-main: #EDE9E0;
+            --text-sub: #8A8680;
+            --accent: #B8975A;
+            --border-thin: 1px solid rgba(237, 233, 224, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            font-size: 0.9rem;
+            line-height: 1.9;
+            letter-spacing: 0.04em;
+        }
+
+        /* SVG Grain Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+        }
+
+        .label {
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            color: var(--text-sub);
+        }
+
+        /* CSS Grid Basics */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            padding: 10rem 0;
+            border-bottom: var(--border-thin);
+            position: relative;
+        }
+
+        /* Text Reveal Anim */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 5vh;
+            left: 5vw;
+            right: 5vw;
+            bottom: 5vh;
+            background-color: var(--bg-alt);
+            background-image: linear-gradient(to bottom, transparent, rgba(20, 20, 18, 0.8));
+            z-index: -1;
+        }
+
+        /* Text Mask Image Effect */
+        .text-mask {
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.9;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23B8975A" opacity="0.4"/><rect width="100" height="100" fill="%231E1D1A" opacity="0.6"/></svg>') center/cover no-repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            /* Fallback */
+        }
+
+        .hero-name {
+            position: absolute;
+            bottom: 8vh;
+            left: 5vw;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+        }
+
+        /* 2. SELECTED WORKS */
+        .works .grid-container {
+            align-items: center;
+        }
+
+        .works-title {
+            grid-column: 1 / 4;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+        }
+
+        .work-item {
+            position: relative;
+            margin-bottom: 6rem;
+        }
+
+        /* Asymmetric image placeholders */
+        .work-img {
+            background-color: var(--bg-alt);
+            width: 100%;
+            aspect-ratio: 3/4;
+        }
+
+        .work-img-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .work-caption {
+            position: absolute;
+            bottom: -30px;
+            right: -20px;
+            background: rgba(30, 29, 26, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            border: var(--border-thin);
+        }
+
+        .w1 {
+            grid-column: 5 / 10;
+        }
+
+        .w2 {
+            grid-column: 2 / 8;
+            margin-top: -4rem;
+            z-index: 2;
+        }
+
+        .w3 {
+            grid-column: 7 / 12;
+            margin-top: 2rem;
+        }
+
+        /* Numbering Foliio */
+        .folio-num {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--text-sub);
+            font-style: italic;
+        }
+
+        /* 3. ABOUT */
+        .about {
+            overflow: hidden;
+        }
+
+        .about .grid-container {
+            position: relative;
+        }
+
+        .about-text {
+            grid-column: 3 / 8;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 2.2;
+        }
+
+        /* Vertical Japanese Text */
+        .vertical-jp {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-family: serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.5em;
+            color: var(--text-sub);
+            height: 100%;
+        }
+
+        /* 4. CONTACT */
+        .contact {
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transform: scaleX(0.3);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .grid-container {
+                display: flex;
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .work-item {
+                width: 100%;
+                margin-bottom: 3rem;
+                margin-top: 0 !important;
+            }
+
+            .folio-num {
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .vertical-jp {
+                position: relative;
+                writing-mode: horizontal-tb;
+                right: auto;
+                left: 0;
+                margin-bottom: 2rem;
+                letter-spacing: 0.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <svg class="grain-overlay">
+        <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noise)" />
+    </svg>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="folio-num">01</div>
+        <h1 class="text-mask reveal-text">SILENCE &<br>PRESENCE</h1>
+        <div class="hero-name label reveal-text" style="transition-delay: 0.3s;">K. NAKAMURA / PHOTOGRAPHY</div>
+    </section>
+
+    <!-- 2. SELECTED WORKS -->
+    <section class="works" id="works">
+        <div class="folio-num">02</div>
+        <div class="grid-container">
+            <h2 class="works-title reveal-text">Selected<br>Archives</h2>
+
+            <div class="work-item w1 reveal-text">
+                <div class="work-img"></div>
+                <div class="work-caption">
+                    <div class="label">Vol. I</div>
+                    <h3>The Quiet Room</h3>
+                </div>
+            </div>
+
+            <div class="work-item w2 reveal-text">
+                <div class="work-img work-img-wide"></div>
+                <div class="work-caption">
+                    <div class="label">Vol. II</div>
+                    <h3>Midnight Texture</h3>
+                </div>
+            </div>
+
+            <div class="work-item w3 reveal-text">
+                <div class="work-img"></div>
+                <div class="work-caption">
+                    <div class="label">Vol. III</div>
+                    <h3>Fading Light</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ABOUT -->
+    <section class="about" id="about">
+        <div class="folio-num">03</div>
+        <div class="grid-container">
+            <div class="about-text reveal-text">
+                <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Philosophy</h2>
+                <p>I believe that true presence is found in silence. My work focuses on capturing the subtle textures of
+                    light and shadow, extracting the essence of human emotion through minimal composition.</p>
+                <p>Based in Tokyo. Exploring the boundaries between commercial intent and pure artistic expression.</p>
+            </div>
+            <div class="vertical-jp reveal-text" style="transition-delay: 0.2s;">
+                光と影が織りなす、言葉なき対話。その一瞬の永遠を定着させる。
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CONTACT -->
+    <section class="contact" id="contact">
+        <div class="folio-num">04</div>
+        <div class="reveal-text">
+            <h2>Let's Talk.</h2>
+            <a href="#" class="contact-link">studio@example.com</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 K. NAKAMURA. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            // Immediate reveal for elements already in viewport
+            setTimeout(() => {
+                document.querySelectorAll('.reveal-text').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('visible');
+                    } else {
+                        observer.observe(el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

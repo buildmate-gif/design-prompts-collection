@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy & Craft | Corporate Philosophy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Noto+Sans+JP:wght@400&family=Noto+Serif+JP:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F2EFE8;
+            /* Linen */
+            --bg-alt: #DDD9D2;
+            /* Dust Grey */
+            --text-main: #1A1916;
+            /* Deep Charcoal */
+            --text-sub: #706C65;
+            /* Warm Grey */
+            --accent: #4A5C3A;
+            /* Dark Moss */
+            --border-thin: 1px solid rgba(26, 25, 22, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 2.0;
+            letter-spacing: 0.04em;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+        }
+
+        .num-large {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+        }
+
+        .label {
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-sub);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* Fixed Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            padding: 0 4vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(242, 239, 232, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: var(--border-thin);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            padding: 10rem 0;
+            position: relative;
+        }
+
+        .border-bottom {
+            border-bottom: var(--border-thin);
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* SVG Grain Overlay */
+        .svg-filter {
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+
+        .grain-img {
+            background-color: var(--bg-alt);
+            filter: url(#grain);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Folio Number */
+        .folio {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            position: absolute;
+            bottom: 2rem;
+            right: 4vw;
+        }
+
+        /* 1. OPENING */
+        .opening {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .huge-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(10rem, 25vw, 25rem);
+            color: var(--text-main);
+            opacity: 0.06;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .opening h1 {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 2. OUR STORY */
+        .story .grid {
+            position: relative;
+        }
+
+        .story-title {
+            grid-column: 1 / 4;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            padding-top: 10rem;
+        }
+
+        .story-content {
+            grid-column: 5 / 11;
+        }
+
+        .story-content p {
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .story-img-wrap {
+            aspect-ratio: 16/9;
+            margin: 4rem 0;
+            width: 120%;
+            position: relative;
+            left: -10%;
+            /* Break grid / asymmetry */
+        }
+
+        /* 3. PHILOSOPHY */
+        .philosophy {
+            background-color: var(--bg-alt);
+        }
+
+        .phil-item {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            margin-bottom: 8rem;
+            align-items: center;
+        }
+
+        /* Asymmetric shifting */
+        .phil-item:nth-child(1) .phil-text {
+            grid-column: 2 / 7;
+        }
+
+        .phil-item:nth-child(1) .phil-num {
+            grid-column: 8 / 12;
+            text-align: right;
+        }
+
+        .phil-item:nth-child(2) .phil-num {
+            grid-column: 2 / 6;
+        }
+
+        .phil-item:nth-child(2) .phil-text {
+            grid-column: 7 / 12;
+        }
+
+        .phil-item:nth-child(3) .phil-text {
+            grid-column: 3 / 8;
+        }
+
+        .phil-item:nth-child(3) .phil-num {
+            grid-column: 10 / 12;
+            color: var(--accent);
+        }
+
+        .phil-num {
+            font-size: clamp(4rem, 10vw, 8rem);
+            color: rgba(26, 25, 22, 0.2);
+        }
+
+        .phil-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        /* 4. PEOPLE */
+        .people {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10rem 4vw;
+            position: relative;
+        }
+
+        .quote-wrap {
+            grid-column: 2 / 7;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(1.5rem, 2vw, 2.2rem);
+            line-height: 2.5;
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+            /* vertical space */
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+        }
+
+        .portrait-wrap {
+            grid-column: 8 / 12;
+            aspect-ratio: 3/4;
+            position: relative;
+            margin-top: -4rem;
+            /* overlap effect */
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 4rem 4vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-info {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .contact-link {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transform: scaleX(0.2);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .story-title {
+                grid-column: 1 / -1;
+                writing-mode: horizontal-tb;
+                padding-top: 0;
+                margin-bottom: 3rem;
+            }
+
+            .story-content {
+                grid-column: 1 / -1;
+            }
+
+            .story-img-wrap {
+                width: 100%;
+                left: 0;
+            }
+
+            .phil-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 5rem;
+            }
+
+            .phil-item>* {
+                grid-column: 1 / -1 !important;
+                text-align: left !important;
+            }
+
+            .phil-num {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .quote-wrap {
+                grid-column: 1 / -1;
+                writing-mode: horizontal-tb;
+                margin-bottom: 4rem;
+            }
+
+            .quote-text {
+                line-height: 1.8;
+                margin-bottom: 1rem;
+            }
+
+            .portrait-wrap {
+                grid-column: 1 / -1;
+                aspect-ratio: 16/9;
+                margin-top: 0;
+            }
+
+            section {
+                padding: 6rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Grain Filter -->
+    <svg class="svg-filter">
+        <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.12 0" />
+            <feBlend mode="multiply" in="SourceGraphic" in2="noise" />
+        </filter>
+    </svg>
+
+    <nav>
+        <div class="nav-logo">HASEGAWA ARCHITECTS</div>
+        <div class="label">EST. 1921</div>
+    </nav>
+
+    <!-- 1. OPENING -->
+    <section class="opening">
+        <div class="huge-year">1921</div>
+        <h1 class="reveal" style="transition-delay: 0.2s;">
+            時を耐え抜く、<br>静かなる建築。
+        </h1>
+        <div class="folio">01</div>
+    </section>
+    <div class="border-bottom"></div>
+
+    <!-- 2. OUR STORY -->
+    <section class="story">
+        <div class="grid">
+            <h2 class="story-title reveal serif">美しき堅牢</h2>
+
+            <div class="story-content">
+                <p class="reveal">
+                    私たちは1921年の創業以来、一貫して「100年後の風景に馴染む」建築を追求してきました。奇抜な造形や一時的なトレンドに乗ることはありません。素材の持つ真の強さを引き出し、周辺の風土と静かに対話する空間を生み出すことこそが、私たちの使命です。
+                </p>
+                <p class="reveal" style="transition-delay: 0.2s;">
+                    木材の呼吸、石の肌触り、鉄の時間経過による変化。これら自然の摂理に逆らうことなく、人工物としての極限の美しさと強度を両立させる。それは、職人の手仕事と、現代のエンジニアリングが高度に融合した時にのみ達成されます。
+                </p>
+
+                <div class="story-img-wrap reveal" style="transition-delay: 0.4s;">
+                    <div class="grain-img"></div>
+                </div>
+
+                <p class="reveal">
+                    私たちが建てるものは、単なる生活の器ではありません。世代を超えて受け継がれる記憶の拠り所であり、街の歴史の一部となる存在です。だからこそ、私たちは目に見えない基礎の深部から、手に触れる建具の細部に至るまで、一切の妥協を許さないのです。
+                </p>
+            </div>
+        </div>
+        <div class="folio">02</div>
+    </section>
+
+    <!-- 3. PHILOSOPHY -->
+    <section class="philosophy">
+        <div class="grid">
+
+            <div class="phil-item reveal">
+                <div class="phil-text">
+                    <h3 class="serif">素材への誠実さ</h3>
+                    <p>表層的な化粧を嫌い、構造材がそのまま意匠となる手法を重んじます。無垢材や自然石など、時間とともに味わいが増す本物の素材のみを使用し、偽りのない建築を実現します。</p>
+                </div>
+                <div class="phil-num num-large">I</div>
+            </div>
+
+            <div class="phil-item reveal">
+                <div class="phil-num num-large">II</div>
+                <div class="phil-text">
+                    <h3 class="serif">光と影の彫刻</h3>
+                    <p>建築とは、光をどう捉え、影をどう落とすかの計算に他なりません。季節や時間によって移ろいゆく自然光を室内に導き入れ、劇的でありながらも安らぐ空間を設計します。</p>
+                </div>
+            </div>
+
+            <div class="phil-item reveal">
+                <div class="phil-text">
+                    <h3 class="serif">余白の雄弁さ</h3>
+                    <p>何も置かれない空間「余白」にこそ、使い手の想像力が宿る余地があります。私たちは必要最小限の線で空間を描き出し、住まう人の人生が主役になる舞台を整えます。</p>
+                </div>
+                <div class="phil-num num-large">III</div>
+            </div>
+
+        </div>
+        <div class="folio">03</div>
+    </section>
+
+    <!-- 4. PEOPLE -->
+    <section class="people">
+        <div class="quote-wrap reveal">
+            <div class="quote-text">
+                「良い建築とは、完成した時が最も美しいのではなく、<br>
+                人が住まい、年月を経た時、初めてその真価を現すものです。」
+            </div>
+            <div class="quote-author label">代表建築家 / 長谷川 宗光</div>
+        </div>
+        <div class="portrait-wrap reveal" style="transition-delay: 0.3s;">
+            <div class="grain-img" style="background-color: #A39E93;"></div>
+        </div>
+        <div class="folio">04</div>
+    </section>
+    <div class="border-bottom"></div>
+
+    <!-- 5. FOOTER -->
+    <footer class="footer">
+        <div class="footer-info">
+            TOKYO STUDIO<br>
+            〒107-0000 東京都港区南青山5-X-X<br>
+            T. 03-XXXX-XXXX
+        </div>
+        <a href="mailto:info@example.com" class="contact-link">Inquiry</a>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            // Staggered reveal setup
+            document.querySelectorAll('.reveal').forEach((el, i) => {
+                // If no transition-delay is set inline, add a small cascading delay based on element's index in the nodelist
+                if (!el.style.transitionDelay && window.innerWidth > 900) {
+                    // el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+                }
+                observer.observe(el);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+        });
+    </script>
+</body>
+
+</html>

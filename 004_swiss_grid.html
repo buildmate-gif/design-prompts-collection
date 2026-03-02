@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFORMATION SYSTEM | Swiss Grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&family=Space+Grotesk:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FDFDFD;
+            --color-black: #050505;
+            --color-gray: #888888;
+            --color-red: #DA291C;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            font-family: 'M PLUS 1p', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 400;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        .label,
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--color-red);
+            outline-offset: 4px;
+        }
+
+        /* Grid System */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0;
+        }
+
+        /* Header */
+        .header {
+            height: 60px;
+            border-bottom: 1px solid var(--color-black);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 253, 253, 0.95);
+            backdrop-filter: blur(4px);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-cta {
+            color: var(--color-red);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hero */
+        .hero {
+            grid-column: 1 / -1;
+            min-height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            padding: 4rem 2rem;
+        }
+
+        .hero-side {
+            position: relative;
+        }
+
+        .hero-label {
+            transform: rotate(-90deg);
+            transform-origin: left top;
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--color-gray);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .hero-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            /* Animation */
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-divider {
+            width: 100%;
+            height: 1px;
+            background-color: var(--color-gray);
+            margin: 1.5rem 0;
+            opacity: 0.5;
+        }
+
+        .hero p {
+            max-width: 55ch;
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 2fr 4fr 2fr;
+        }
+
+        .feature-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 2fr 4fr 2fr;
+            border-top: 1px solid var(--color-black);
+            padding: 3rem 2rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .feature-row:hover {
+            background-color: rgba(218, 41, 28, 0.04);
+        }
+
+        .feature-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .feature-meta .label {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--color-gray);
+        }
+
+        .feature-meta h2 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-red);
+        }
+
+        .feature-text {
+            padding-right: 2rem;
+        }
+
+        .feature-empty {
+            /* Intentionally left blank */
+        }
+
+        /* CTA */
+        .cta {
+            grid-column: 1 / -1;
+            background-color: var(--color-red);
+            border-top: 2px solid var(--color-red);
+            border-bottom: 2px solid var(--color-red);
+            padding: 6rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2.5rem;
+        }
+
+        .cta h2 {
+            color: var(--color-white);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            border: 2px solid var(--color-white);
+            color: var(--color-white);
+            text-decoration: none;
+            padding: 1rem 3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--color-white);
+            color: var(--color-red);
+        }
+
+        /* Footer */
+        .footer {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            border-top: 2px solid var(--color-black);
+            padding: 2rem;
+            color: var(--color-gray);
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 2rem;
+            }
+
+            .hero-side {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .feature-empty {
+                display: none;
+            }
+
+            .hero,
+            .cta,
+            .footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .footer {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="header" aria-label="メインナビゲーション">
+        <div class="nav-logo">NEUE FORMAT</div>
+        <a href="#" class="nav-cta">GET STARTED</a>
+    </nav>
+
+    <main class="grid-container">
+
+        <!-- 2. HERO -->
+        <section class="hero">
+            <div class="hero-side">
+                <div class="hero-label">INTERNATIONAL STYLE.1950</div>
+            </div>
+            <div class="hero-main">
+                <h1>STRICT GRID<br>HIGH CONTRAST</h1>
+                <div class="hero-divider"></div>
+                <p>数学的なグリッドシステムと極端なフォントサイズの対比により構成される、スイス・スタイルのタイポグラフィの美学。情報は装飾ではなく、構造として提示されます。</p>
+            </div>
+        </section>
+
+        <!-- 3. FEATURES -->
+        <section class="features">
+
+            <div class="feature-row">
+                <div class="feature-meta">
+                    <span class="label">01. PRINCIPLE</span>
+                    <h2>Objective Clarity</h2>
+                </div>
+                <div class="feature-text">
+                    <p>主観的な感情を排除し、情報を客観的かつ明確に伝達することを目的としています。過度な装飾は情報のノイズとみなされ、徹底的に削ぎ落とされます。</p>
+                </div>
+                <div class="feature-empty"></div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-meta">
+                    <span class="label">02. PRINCIPLE</span>
+                    <h2>Asymmetric Balance</h2>
+                </div>
+                <div class="feature-text">
+                    <p>均等割りや中央揃えを避け、アシンメトリー（非対称）な配置によって紙面・画面に緊張感と動的なリズムを生み出します。余白は空きスペースではなく、構成要素の一部です。</p>
+                </div>
+                <div class="feature-empty"></div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-meta">
+                    <span class="label">03. PRINCIPLE</span>
+                    <h2>Sans-serif Only</h2>
+                </div>
+                <div class="feature-text">
+                    <p>装飾のないサンセリフ体を使用し、フォントファミリーを極限まで制限します。情報の階層は、色ではなくサイズとウェイト（太さ）のコントラストのみで表現します。</p>
+                </div>
+                <div class="feature-empty"></div>
+            </div>
+
+        </section>
+
+        <!-- 4. CTA -->
+        <section class="cta">
+            <h2>REQUEST DOCUMENTATION</h2>
+            <a href="#" class="cta-btn" role="button" aria-label="ドキュメントを請求する">VIEW GUIDELINES</a>
+        </section>
+
+        <!-- 5. FOOTER -->
+        <footer class="footer">
+            <div>&copy; 2026 INTERNATIONAL TYPOGRAPHIC STYLE.</div>
+            <div>ZÜRICH, CH</div>
+        </footer>
+
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINTAGE SOUNDS | 70s Retro Pop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dela+Gothic+One&family=Noto+Sans+JP:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-base: #F4F1EA;
+            --color-text: #2C2C2C;
+            --color-yellow: #E1AD01;
+            --color-red: #D9534F;
+            --border-main: 3px solid var(--color-text);
+            --border-thick: 5px solid var(--color-yellow);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-base);
+            color: var(--color-text);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        .number {
+            font-family: 'Bebas Neue', sans-serif;
+            text-transform: uppercase;
+        }
+
+        h2,
+        .btn {
+            font-family: 'Dela Gothic One', sans-serif;
+        }
+
+        *:focus-visible {
+            outline: 3px solid var(--color-yellow);
+            outline-offset: 2px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInAnim 0.6s ease forwards;
+        }
+
+        @keyframes fadeInAnim {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 100vh;
+            background-color: var(--color-yellow);
+            border: 4px solid var(--color-text);
+            display: grid;
+            grid-template-rows: 1fr auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-h1-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(5rem, 12vw, 10rem);
+            letter-spacing: 0.03em;
+            line-height: 0.9;
+            width: 100%;
+            text-align: left;
+            /* Stamp Animation */
+            opacity: 0;
+            transform: scale(1.1);
+            animation: stampAnim 0.4s ease 0.2s forwards;
+        }
+
+        @keyframes stampAnim {
+            from {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 400px;
+            justify-self: end;
+            text-align: right;
+        }
+
+        /* 2. FEATURES */
+        .features {
+            border: var(--border-main);
+            margin: -1px 0;
+            /* ボーダーの重なり調整 */
+            background-color: var(--color-base);
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            border-bottom: var(--border-main);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-num-box {
+            border-right: var(--border-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .feature-item .number {
+            font-size: clamp(5rem, 10vw, 8rem);
+            color: var(--color-yellow);
+            text-shadow: 2px 2px 0 var(--color-text), -1px -1px 0 var(--color-text), 1px -1px 0 var(--color-text), -1px 1px 0 var(--color-text), 1px 1px 0 var(--color-text);
+            /* アウトライン風 */
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover .number {
+            transform: scale(1.05);
+        }
+
+        .feature-content {
+            padding: 3rem 2rem;
+        }
+
+        .feature-content h2 {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        /* 3. CTA */
+        .cta {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            background-color: var(--color-red);
+            color: var(--color-base);
+            padding: 6rem 2rem;
+            text-align: center;
+            border: var(--border-main);
+            margin-top: -1px;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 3px solid var(--color-base);
+            color: var(--color-base);
+            text-decoration: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--color-base);
+            color: var(--color-red);
+        }
+
+        /* 4. FOOTER */
+        .footer {
+            background-color: var(--color-text);
+            color: var(--color-base);
+            border-top: var(--border-thick);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .feature-num-box {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .hero p {
+                justify-self: start;
+                text-align: left;
+                margin-top: 2rem;
+            }
+
+            .feature-item {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-num-box {
+                border-right: none;
+                border-bottom: var(--border-main);
+                padding: 1rem;
+                justify-content: flex-start;
+            }
+
+            .feature-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-h1-wrapper">
+            <h1>RETRO<br>GROOVY<br>SOUND</h1>
+        </div>
+        <p class="fade-in" style="animation-delay: 0.6s;">
+            1970年代のレコードジャケットからインスパイアされた、大胆な色使いと極太タイポグラフィ。<br>アナログレコードの温もりを現代に再構築します。
+        </p>
+    </section>
+
+    <section class="features">
+        <div class="feature-item fade-in" style="animation-delay: 0.8s;">
+            <div class="feature-num-box"><span class="number">01</span></div>
+            <div class="feature-content">
+                <h2>BOLD SHAPES</h2>
+                <p>図形的な力強さを持つフォントと、明確に区切られたグリッドシステム。情報はブロックとして扱われ、視覚的なインパクトを最優先に構成されます。</p>
+            </div>
+        </div>
+        <div class="feature-item fade-in" style="animation-delay: 1.0s;">
+            <div class="feature-num-box"><span class="number">02</span></div>
+            <div class="feature-content">
+                <h2>PRINT AESTHETIC</h2>
+                <p>シルクスクリーン印刷のようなベタ塗りカラー。グラデーションやドロップシャドウなどのデジタル的なごまかしを排除し、インクの力強さを表現しています。</p>
+            </div>
+        </div>
+        <div class="feature-item fade-in" style="animation-delay: 1.2s;">
+            <div class="feature-num-box"><span class="number">03</span></div>
+            <div class="feature-content">
+                <h2>HIGH CONTRAST</h2>
+                <p>マスタードイエローとブリックレッドの強力なコントラスト。文字色は漆黒に近いインクブラックを採用し、高い可読性を維持します。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta fade-in" style="animation-delay: 1.4s;">
+        <h2>JOIN THE MOVEMENT</h2>
+        <a href="#" class="btn" aria-label="レコードコレクションを見る">EXPLORE COLLECTION</a>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 GROOVY RECORDS. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+</body>
+
+</html>

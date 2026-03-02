@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHITECTURAL FOUNDATIONS | Industrial Brutalism</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base Variables */
+    :root {
+      --color-bg: #E0E0E0;
+      --color-dark: #1C1C1C;
+      --color-accent: #FFD700;
+      --border-width-thin: 2px;
+      --border-width-mid: 3px;
+      --border-width-thick: 4px;
+      --space-sm: 2rem;
+      --space-md: 4rem;
+      --space-lg: 8rem;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-dark);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, .number-label {
+      font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    /* Accessibility Focus */
+    *:focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 4px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    /* 1. HERO Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-md);
+      border: var(--border-width-thick) solid var(--color-dark);
+      margin: var(--space-sm);
+    }
+    
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero p {
+      align-self: flex-end;
+      max-width: 400px;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+
+    /* 2. FEATURES Section */
+    .features {
+      padding: var(--space-lg) var(--space-sm);
+      border-top: var(--border-width-mid) solid var(--color-dark);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0; /* borders will overlap visually */
+    }
+
+    .feature-card {
+      border: var(--border-width-thin) solid var(--color-dark);
+      padding: var(--space-md) var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease;
+      background-color: var(--color-bg);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .feature-card .number-label {
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 800;
+      color: var(--color-dark);
+      margin-bottom: var(--space-sm);
+      align-self: flex-start;
+    }
+
+    .feature-card h2 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--color-dark);
+      padding-bottom: 0.5rem;
+    }
+
+    /* 3. CTA Section */
+    .cta-container {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+    }
+
+    .cta-block {
+      display: block;
+      width: 100%;
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+      text-decoration: none;
+      text-align: center;
+      padding: var(--space-lg) var(--space-sm);
+      cursor: pointer;
+      border-top: var(--border-width-mid) solid var(--color-dark);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .cta-block:hover {
+      background-color: var(--color-dark);
+      color: var(--color-accent);
+    }
+
+    .cta-block h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* 4. FOOTER */
+    .footer {
+      border-top: var(--border-width-mid) solid var(--color-dark);
+      padding: var(--space-sm);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+      .feature-card:first-child {
+        grid-column: span 2;
+      }
+      .hero {
+        margin: 1rem;
+        padding: var(--space-sm);
+      }
+      .hero p {
+        text-align: left;
+        align-self: flex-start;
+        margin-top: var(--space-sm);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .feature-card:first-child {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HERO -->
+  <section class="hero fade-in" style="animation-delay: 0.1s;">
+    <h1>Raw Material<br>Structural<br>Integrity</h1>
+    <p>装飾を完全に削ぎ落とし、機能と構造をむき出しにする。<br>これはデザインに対するアンチテーゼであり、本質の探求である。</p>
+  </section>
+
+  <!-- 2. FEATURES -->
+  <section class="features fade-in" style="animation-delay: 0.2s;">
+    <div class="feature-card">
+      <div class="number-label">01</div>
+      <h2>Exposed Logic</h2>
+      <p>裏側に隠されるべき配管や構造材をあえて露出させることで、システムの動作原理を視覚化します。要素の境界線は曖昧にせず、明確な区切りとして機能します。</p>
+    </div>
+    <div class="feature-card">
+      <div class="number-label">02</div>
+      <h2>Anti Design</h2>
+      <p>ユーザーに媚びない無骨なインターフェース。過度な余白やラウンドコーナーを排除。</p>
+    </div>
+    <div class="feature-card">
+      <div class="number-label">03</div>
+      <h2>Function First</h2>
+      <p>すべてのアクションは直接的でなければなりません。機能美の極限を目指した設計。</p>
+    </div>
+  </section>
+
+  <!-- 3. CTA -->
+  <div class="cta-container fade-in" style="animation-delay: 0.3s;">
+    <a href="#" class="cta-block" role="link" tabindex="0">
+      <h2>INITIALIZE SEQUENCE</h2>
+    </a>
+  </div>
+
+  <!-- 4. FOOTER -->
+  <footer class="footer fade-in" style="animation-delay: 0.4s;">
+    <p>&copy; 2026 BRUTALIST ARCHITECTURE. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SHADOWS | Cinematic Noir</title>
+    <meta name="color-scheme" content="dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400&family=Shippori+Mincho&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0A0A0B;
+            --color-text-main: #E3DEC6;
+            --color-text-sub: #7A7669;
+            --color-border: #333333;
+            --color-accent: #8A0303;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: 'Shippori Mincho', serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+            /* 映画の暗転明けフェードイン */
+            animation: movieFadeIn 1.2s ease forwards;
+        }
+
+        @keyframes movieFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                animation: none;
+                opacity: 1;
+            }
+
+            .scroll-reveal {
+                transition: none !important;
+                opacity: 1 !important;
+            }
+
+            .line-grow {
+                transition: none !important;
+                height: 100% !important;
+            }
+        }
+
+        h1,
+        h2,
+        .cta-btn {
+            font-family: 'Caudex', serif;
+            text-transform: uppercase;
+        }
+
+        *:focus-visible {
+            outline: 1px solid var(--color-text-main);
+            outline-offset: 6px;
+        }
+
+        /* Container for limited width */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transition: opacity 1.0s ease;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 100vh;
+            padding: 12vh 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+        }
+
+        .hero-divider {
+            border-bottom: 1px solid var(--color-border);
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .hero p {
+            max-width: 50ch;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            line-height: 2.6;
+            letter-spacing: 0.06em;
+            color: var(--color-text-sub);
+        }
+
+        /* 2. FEATURES */
+        .features {
+            padding-top: 5vh;
+            padding-bottom: 5vh;
+        }
+
+        .features-top-line {
+            border-top: 1px solid var(--color-border);
+            margin-bottom: 4rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-item {
+            padding: 4rem 0 4rem 2rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .line-grow {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            background-color: var(--color-accent);
+            height: 0;
+            transition: height 0.6s ease;
+        }
+
+        .feature-item.visible .line-grow {
+            height: 100%;
+        }
+
+        .feature-item h2 {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--color-text-sub);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            line-height: 2.2;
+            color: var(--color-text-main);
+        }
+
+        /* 3. CTA */
+        .cta {
+            text-align: center;
+            padding: 10vh 2rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            border: 1px solid var(--color-text-main);
+            color: var(--color-text-main);
+            text-decoration: none;
+            padding: 1.2rem 4rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            background: transparent;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--color-text-main);
+            color: var(--color-bg);
+        }
+
+        /* 4. FOOTER */
+        .footer {
+            border-top: 1px solid var(--color-border);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--color-text-sub);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            font-family: 'Caudex', serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 0 1.5rem;
+            }
+
+            .hero {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                letter-spacing: 0.1em;
+            }
+
+            .cta {
+                padding: 8vh 1.5rem;
+            }
+
+            .feature-item {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <h1>Secrets in the<br>Deep Shadow</h1>
+        <div class="hero-divider"></div>
+        <p>光が当たらない場所にこそ、真実が隠されている。<br>モノクロームの緊張感と、一筋の赤いノイズが描き出す、シネマティックな体験。</p>
+    </section>
+
+    <!-- 2. FEATURES -->
+    <section class="features container">
+        <div class="features-top-line"></div>
+        <div class="feature-list">
+
+            <div class="feature-item scroll-reveal">
+                <div class="line-grow"></div>
+                <h2>ACT 01. Tension</h2>
+                <p>余白は空虚ではなく、次に何かが起こるかもしれないという緊張感を孕んだ空間として機能する。沈黙が物語の一部となる。</p>
+            </div>
+
+            <div class="feature-item scroll-reveal">
+                <div class="line-grow"></div>
+                <h2>ACT 02. Monochromatic</h2>
+                <p>色は情報を伝達するが、同時に想像力を奪う。徹底された漆黒とセピアの中で、ユーザー自身の記憶と感情が色彩を補完する。</p>
+            </div>
+
+            <div class="feature-item scroll-reveal">
+                <div class="line-grow"></div>
+                <h2>ACT 03. The Climax</h2>
+                <p>全てが徐々に明かされるのではなく、唐突なカットバックのように。静寂の後に訪れる、決定的な瞬間への導線。</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. CTA -->
+    <section class="cta scroll-reveal">
+        <a href="#" class="cta-btn" aria-label="真実のタレコミを見る">UNCOVER THE TRUTH</a>
+    </section>
+
+    <!-- 4. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>DEAD END AGENCY &copy; 2026. CONFIDENTIAL.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach(elem => {
+                observer.observe(elem);
+            });
+        });
+    </script>
+</body>
+
+</html>

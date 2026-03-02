@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Crafting | Magazine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Noto+Sans+JP:wght@400&family=Noto+Serif+JP:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F5F0;
+            --bg-alt: #ECEAE4;
+            --text-main: #1C1C1A;
+            --text-sub: #707070;
+            --accent: #A0522D;
+            /* Burnt Sienna */
+            --border-thin: 1px solid rgba(28, 28, 26, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.9;
+            letter-spacing: 0.03em;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+        }
+
+        .cormorant {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .label {
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--text-sub);
+        }
+
+        .lead {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            line-height: 2.0;
+            margin-bottom: 3rem;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4vw;
+            position: relative;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: var(--border-thin);
+        }
+
+        /* SVG Grain Overlay for Images */
+        .grain-filter {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .img-placeholder {
+            background-color: var(--text-sub);
+            filter: url(#grain);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. HEADER (Hero) */
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 6rem;
+        }
+
+        .hero-meta {
+            grid-column: 2 / 12;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: var(--border-thin);
+            padding-bottom: 1rem;
+        }
+
+        .hero-title {
+            grid-column: 2 / 11;
+        }
+
+        .hero-img-wrapper {
+            grid-column: 1 / -1;
+            aspect-ratio: 21/9;
+            background-color: var(--bg-alt);
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        /* 2 & 3. BODY (Article Content) */
+        .article-body {
+            padding-top: 6rem;
+        }
+
+        .main-content {
+            grid-column: 4 / 11;
+            /* 7 columns for text */
+        }
+
+        .sidebar {
+            grid-column: 1 / 3;
+            /* Left sidebar */
+            position: relative;
+        }
+
+        /* Vertical Text in Sidebar */
+        .vertical-title {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            position: sticky;
+            top: 100px;
+            height: 300px;
+            /* Force vertical scroll space */
+            margin: 0 auto;
+        }
+
+        .chapter-num {
+            color: var(--accent);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            margin-right: 1rem;
+            line-height: 1;
+        }
+
+        .body-h2 {
+            display: flex;
+            align-items: baseline;
+            font-size: 1.8rem;
+            margin: 4rem 0 2rem 0;
+            border-bottom: var(--border-thin);
+            padding-bottom: 1rem;
+        }
+
+        .main-content p {
+            margin-bottom: 2rem;
+        }
+
+        /* Image Overlap Layout */
+        .overlap-img {
+            grid-column: 2 / 9;
+            /* Breaks out of main-content grid */
+            aspect-ratio: 4/3;
+            margin: 4rem 0;
+            position: relative;
+            left: -5vw;
+            /* Pull left */
+            width: calc(100% + 5vw);
+        }
+
+        .img-caption {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        /* 4. PULL QUOTE */
+        .pull-quote-wrapper {
+            grid-column: 3 / 12;
+            margin: 6rem 0;
+            padding: 3rem 4rem;
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+            background: rgba(236, 234, 228, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .pull-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.4;
+            color: var(--accent);
+        }
+
+        /* 5. RELATED ARTICLES */
+        .related {
+            padding: 8rem 0;
+            background-color: var(--bg-alt);
+            border-bottom: none;
+        }
+
+        .related-title {
+            grid-column: 2 / 12;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        .card-large {
+            grid-column: 2 / 7;
+        }
+
+        .card-small {
+            grid-column: 8 / 12;
+            margin-top: 6rem;
+            /* Asymmetric offset */
+        }
+
+        .rel-img {
+            aspect-ratio: 3/4;
+            background-color: var(--text-sub);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-small .rel-img {
+            aspect-ratio: 1/1;
+        }
+
+        .rel-title {
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-column: 2 / 12;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .overlap-img {
+                grid-column: 1 / -1;
+                left: 0;
+                width: 100%;
+                margin: 3rem 0;
+            }
+
+            .pull-quote-wrapper {
+                grid-column: 1 / -1;
+                padding: 2rem;
+                margin: 4rem 0;
+            }
+
+            .card-large,
+            .card-small {
+                grid-column: 1 / -1;
+                margin-top: 2rem;
+            }
+
+            .card-small .rel-img {
+                aspect-ratio: 16/9;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                grid-column: 1 / -1;
+            }
+
+            .hero-meta {
+                grid-column: 1 / -1;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SVG Filter for Grain -->
+    <svg class="grain-filter">
+        <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0" />
+            <feBlend mode="multiply" in="SourceGraphic" in2="noise" />
+        </filter>
+    </svg>
+
+    <!-- 1. HEADER (Hero) -->
+    <section class="hero">
+        <div class="grid">
+            <div class="hero-meta reveal">
+                <span class="label">Architecture & Design</span>
+                <span class="label">Reading Time: 8 min</span>
+            </div>
+            <div class="hero-title reveal" style="transition-delay: 0.1s;">
+                <h1 class="cormorant">The Aesthetics of Subtraction.</h1>
+                <h1>引き算の美学が空間に与える、<br>静かなる雄弁さ。</h1>
+                <div class="label" style="margin-top: 2rem;">Text by A. KAWAKAMI / Photography by E. HIRAOKA /
+                    2026.10.12</div>
+            </div>
+            <div class="hero-img-wrapper reveal" style="transition-delay: 0.2s;">
+                <div class="img-placeholder" style="background-color: #B0AFA6;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 & 3. LEAD & BODY -->
+    <section class="article-body">
+        <div class="grid">
+
+            <!-- Vertical Accent -->
+            <aside class="sidebar reveal">
+                <div class="vertical-title">連載・空間の哲学</div>
+            </aside>
+
+            <div class="main-content">
+                <p class="lead reveal">
+                    何もない空間にこそ、豊かな時間が宿る。近代建築が追い求めた機能主義のその先に見える、日本的な「余白」の解釈。私たちはなぜ、削ぎ落とされたデザインに惹かれるのだろうか。
+                </p>
+
+                <h2 class="body-h2 reveal"><span class="chapter-num">01</span>情報過多の時代における避難所</h2>
+                <p class="reveal">
+                    街を歩けば視覚的なノイズに溢れ、スマートフォンを開けばアルゴリズムが絶え間なく情報を提示してくる現代。私たちの脳は、常に処理能力の限界に近い状態を強いられている。こうした環境下において、物理的・視覚的に「何もない」空間は、単なるデザインのトレンドを超えて、一種の心理的な避難所（シェルター）として機能し始めている。
+                </p>
+                <p class="reveal">
+                    建築家たちは、あえて要素を減らすことで、光の移ろいや風の音、あるいはそこにいる人々の気配といった「微細な情報」の解像度を上げる試みを行っている。
+                </p>
+
+                <!-- Overlap Image -->
+                <div class="overlap-img reveal">
+                    <div class="img-placeholder" style="background-color: #8C8881;"></div>
+                    <div class="img-caption">Naoshima, 2025. 光と重力のみで構成された回廊。</div>
+                </div>
+
+                <h2 class="body-h2 reveal"><span class="chapter-num">02</span>素材の声を聴く</h2>
+                <p class="reveal">
+                    装飾を剥ぎ取るということは、素材そのものの質感が露わになるということだ。コンクリートの冷やかさ、無垢材の温もり、そして鉄の重層的な表情。これらは、ペンキや壁紙で覆い隠されてしまうと決して語りかけてこない。
+                </p>
+                <p class="reveal">
+                    本当に優れたミニマリズムは、単に「要素が少ない」ことではない。残されたわずかな要素それぞれが、極めて高い純度と必然性を持ってそこに存在している状態を指す。
+                </p>
+
+                <!-- 4. PULL QUOTE -->
+                <div class="pull-quote-wrapper reveal">
+                    <p class="pull-quote">"True minimalism is not the absence of elements, but the presence of absolute
+                        necessity."</p>
+                </div>
+
+                <h2 class="body-h2 reveal"><span class="chapter-num">03</span>不完全さへの回帰</h2>
+                <p class="reveal">
+                    西洋的な完全無欠のミニマリズムに対し、近年注目を集めているのが「Wabi-Sabi」的なアプローチである。経年変化による劣化や、職人の手仕事が生む僅かな揺らぎ。これらを排除すべきノイズとするのではなく、空間の個性として受け入れる。
+                </p>
+                <p class="reveal">
+                    デジタル空間で完璧なピクセルを操作することに慣れきった私たちにとって、予測不可能な自然光の反射や素材の経年変化は、むしろ新鮮な驚きとなる。引き算の果てに残るのは、極限まで磨き上げられた「人間らしさ」の痕跡なのである。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. RELATED ARTICLES -->
+    <section class="related">
+        <div class="grid">
+            <h2 class="related-title serif reveal">Read Next —</h2>
+
+            <a href="#" class="card-large reveal" style="text-decoration: none; color: inherit;">
+                <div class="rel-img"></div>
+                <div class="label">Interview / Sep 12</div>
+                <h3 class="rel-title serif">光を彫刻する。気鋭の照明デザイナーが語る、影の作法。</h3>
+            </a>
+
+            <a href="#" class="card-small reveal"
+                style="text-decoration: none; color: inherit; transition-delay: 0.2s;">
+                <div class="rel-img" style="background-color: #B0AFA6;"></div>
+                <div class="label">Object / Aug 04</div>
+                <h3 class="rel-title serif">The Silent Chair.</h3>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 EDITORIAL DESIGN ARCHIVE.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Initialize viewport items immediately
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+        });
+    </script>
+</body>
+
+</html>

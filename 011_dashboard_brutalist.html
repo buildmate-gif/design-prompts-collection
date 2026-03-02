@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORE/SYS | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #2C2C2C;
+            /* Concrete Grey */
+            --panel-bg: #1A1A1A;
+            /* Charcoal */
+            --text-main: #39FF14;
+            /* Lime Green (dimmed) */
+            --text-sub: #E8E8E8;
+            /* Off White */
+            --accent-warn: #F5C400;
+            /* Warning Yellow */
+            --accent-err: #CC2200;
+            /* Error Red */
+            --border-thick: 3px solid #E8E8E8;
+            --border-thin: 1px solid rgba(232, 232, 232, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            /* Dull the lime green slightly */
+            filter: contrast(0.95) saturate(0.9);
+        }
+
+        /* Typography */
+        h1,
+        h2 {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--text-sub);
+        }
+
+        h2 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-sub);
+            border-bottom: var(--border-thin);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .data-val {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--text-main);
+            outline-offset: 2px;
+        }
+
+        /* Blink Animation */
+        .blink {
+            animation: blink-anim 0.8s step-end infinite;
+        }
+
+        @keyframes blink-anim {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .alert-blink {
+            animation: alert-anim 1s infinite alternate;
+            color: var(--accent-err);
+        }
+
+        @keyframes alert-anim {
+            from {
+                text-shadow: 0 0 2px var(--accent-err);
+            }
+
+            to {
+                text-shadow: 0 0 10px var(--accent-err);
+            }
+        }
+
+        .warn-color {
+            color: var(--accent-warn);
+        }
+
+        .err-color {
+            color: var(--accent-err);
+        }
+
+        /* Layout Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            flex-grow: 1;
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* ASCII Corner Decor */
+        .panel::before,
+        .panel::after {
+            content: '+---+';
+            position: absolute;
+            color: var(--text-sub);
+            font-size: 0.7rem;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .panel::before {
+            top: 2px;
+            left: 4px;
+        }
+
+        .panel::after {
+            bottom: 2px;
+            right: 4px;
+        }
+
+        /* 1. HEADER BAR */
+        .header-bar {
+            border: var(--border-thick);
+            background-color: var(--panel-bg);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sys-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* 2. KEY METRICS */
+        /* Asymmetric Panel Sizes */
+        .p-metric-1 {
+            grid-column: 1 / 5;
+        }
+
+        .p-metric-2 {
+            grid-column: 5 / 8;
+        }
+
+        .p-metric-3 {
+            grid-column: 8 / 13;
+        }
+
+        .p-metric-4 {
+            grid-column: 1 / 4;
+        }
+
+        .metric-flex {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        /* 3. DATA STREAM (Terminal) */
+        .p-terminal {
+            grid-column: 4 / 13;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .log-stream {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Scroll-up effect */
+            height: calc(100% - 2rem);
+        }
+
+        .log-line {
+            margin-bottom: 0.2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: log-in 0.2s forwards;
+        }
+
+        @keyframes log-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 4. GRID CHARTS */
+        .p-chart {
+            grid-column: 1 / 8;
+            min-height: 200px;
+        }
+
+        .ascii-chart {
+            font-size: 0.8rem;
+            line-height: 1.2;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* 5. SYSTEM STATUS TABLE */
+        .p-table {
+            grid-column: 8 / 13;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--text-sub);
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        th {
+            color: var(--text-sub);
+            font-weight: 700;
+        }
+
+        /* Progress Bar */
+        .progress-track {
+            width: 100%;
+            height: 20px;
+            border: 1px solid var(--text-sub);
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--text-main);
+            width: 0%;
+            animation: load-progress 2s ease-out forwards;
+        }
+
+        @keyframes load-progress {
+            to {
+                width: 78%;
+            }
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--panel-bg);
+            font-weight: 700;
+            font-size: 0.75rem;
+            mix-blend-mode: difference;
+        }
+
+        /* Overlap element */
+        .overlap-tag {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--text-main);
+            color: var(--panel-bg);
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 10;
+            border: 1px solid var(--text-sub);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+
+            .p-metric-1,
+            .p-metric-2,
+            .p-metric-3,
+            .p-metric-4 {
+                grid-column: span 6;
+            }
+
+            .p-terminal {
+                grid-column: 1 / 13;
+            }
+
+            .p-chart {
+                grid-column: 1 / 13;
+            }
+
+            .p-table {
+                grid-column: 1 / 13;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .panel {
+                grid-column: 1 / 13 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. HEADER BAR -->
+    <header class="header-bar">
+        <h1>CORE/SYS_V.9.2<span class="blink">_</span></h1>
+        <div class="sys-status">
+            <span class="label">LOCAL_TIME:</span>
+            <span id="clock" style="font-size: 1.2rem;">00:00:00</span>
+            <span style="color:var(--text-main)">[ ONLINE ]</span>
+        </div>
+    </header>
+
+    <main class="grid">
+
+        <!-- 2. KEY METRICS -->
+        <section class="panel p-metric-1">
+            <div class="metric-flex">
+                <h2>NODE_COUNT <span>[ACTV]</span></h2>
+                <div>
+                    <div class="data-val" id="count1">0</div>
+                    <div class="label">ACTIVE INSTANCES</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel p-metric-2">
+            <div class="overlap-tag">WARN</div>
+            <div class="metric-flex">
+                <h2>CPU_LOAD <span>[%]</span></h2>
+                <div>
+                    <div class="data-val warn-color" id="count2">0</div>
+                    <div class="label">AVG THREAD USAGE</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel p-metric-3">
+            <div class="overlap-tag alert-blink">CRIT</div>
+            <div class="metric-flex">
+                <h2>MEM_ALLOC <span>[TB]</span></h2>
+                <div>
+                    <div class="data-val err-color">
+                        <span id="count3">0</span>.84
+                    </div>
+                    <div class="label">HEAP SATURATION LIMIT</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel p-metric-4">
+            <div class="metric-flex">
+                <h2>NET_I/O <span>[GB/s]</span></h2>
+                <div>
+                    <div class="data-val" id="count4">0</div>
+                    <div class="label">THROUGHPUT RATIO</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DATA STREAM -->
+        <section class="panel p-terminal">
+            <h2>STREAM_LOG <span class="blink">▒</span></h2>
+            <div class="log-stream" id="logStream">
+                <!-- Logs injected via JS -->
+            </div>
+        </section>
+
+        <!-- 4. GRID CHARTS -->
+        <section class="panel p-chart">
+            <h2>LATENCY_DIST <span>[ms]</span></h2>
+            <div class="ascii-chart">
+                100 | #
+                80 | # #
+                60 | # # # #
+                40 | # # # # # #
+                20 | # # # # # # # #
+                0 +-------------------------
+                A B C D E F G H
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+                <div class="progress-text">SYS_MAINTENANCE_PRG: 78%</div>
+            </div>
+        </section>
+
+        <!-- 5. SYSTEM STATUS -->
+        <section class="panel p-table">
+            <h2>SVC_STATUS <span>[ALL]</span></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>PID</th>
+                        <th>SERVICE</th>
+                        <th>STAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>8912</td>
+                        <td>auth_daemon</td>
+                        <td>RUN</td>
+                    </tr>
+                    <tr>
+                        <td>3409</td>
+                        <td>data_indexer</td>
+                        <td class="warn-color">SLW</td>
+                    </tr>
+                    <tr>
+                        <td>1102</td>
+                        <td>gpu_cluster_5</td>
+                        <td class="err-color alert-blink">ERR</td>
+                    </tr>
+                    <tr>
+                        <td>9931</td>
+                        <td>cache_sync</td>
+                        <td>RUN</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script>
+        // Realtime Clock
+        const clockEl = document.getElementById('clock');
+        setInterval(() => {
+            const d = new Date();
+            clockEl.innerText = d.toLocaleTimeString('en-US', { hour12: false });
+        }, 1000);
+
+        // Count Up Animations
+        const animateValue = (id, start, end, duration) => {
+            let current = start;
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const increment = end > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / range));
+
+            const timer = setInterval(function () {
+                current += increment;
+                obj.innerHTML = current;
+                if (current == end) clearInterval(timer);
+            }, stepTime);
+        }
+
+        // Simulate initial data loading
+        setTimeout(() => {
+            animateValue("count1", 0, 1024, 1500);
+            animateValue("count2", 0, 89, 1000);
+            animateValue("count3", 0, 42, 1200);
+            animateValue("count4", 0, 15, 800);
+        }, 500);
+
+        // Terminal Log Stream Simulation
+        const logStream = document.getElementById('logStream');
+        const logMessages = [
+            "[INFO] Connection established on port 8080",
+            "[WARN] Retry packet seq# 5821",
+            "[INFO] Auth token refreshed for user_x99",
+            "[ERR ] Database timeout detected (30.1s)",
+            "[INFO] Garbage collection triggered...",
+            "[INFO] Node 4 joined cluster",
+            "[WARN] High memory usage detected in PID 3409"
+        ];
+
+        const addLog = () => {
+            if (logStream.childElementCount > 10) {
+                logStream.removeChild(logStream.firstChild);
+            }
+
+            const line = document.createElement('div');
+            line.className = 'log-line';
+
+            const msg = logMessages[Math.floor(Math.random() * logMessages.length)];
+
+            // Colorize based on content
+            if (msg.includes('[ERR')) line.classList.add('err-color');
+            if (msg.includes('[WARN')) line.classList.add('warn-color');
+
+            line.innerText = `> ${new Date().toISOString().substring(11, 23)} ${msg}`;
+            logStream.appendChild(line);
+
+            // Random delay for next log
+            setTimeout(addLog, Math.random() * 2000 + 500);
+        };
+
+        // Start logs after small delay
+        setTimeout(addLog, 1000);
+
+    </script>
+</body>
+
+</html>

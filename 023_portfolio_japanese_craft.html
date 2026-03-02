@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodo | 和クラフト ポートフォリオ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Zen+Kaku+Gothic+New:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F4EF;
+            /* 生成り */
+            --text-main: #1A1614;
+            /* 墨 */
+            --text-sub: #7A7673;
+            /* 鼠 */
+            --accent-color: #8B2E16;
+            /* 弁柄 */
+            --border-color: #CECAC4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-size: 0.95rem;
+            line-height: 2.0;
+            letter-spacing: 0.05em;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        .sans-en {
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        h2 {
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            font-weight: 400;
+            color: var(--text-main);
+            transition: color 0.4s ease;
+        }
+
+        .meta {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+        }
+
+        /* Layout & Spacing */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            margin-bottom: 200px;
+            /* 大きな「間」 */
+        }
+
+        /* 1. Header */
+        header {
+            padding: 4rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 120px;
+            /* Fade in prep */
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .clock {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* 2. Intro */
+        .intro {
+            max-width: 600px;
+            /* Fade in prep */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s ease forwards 0.3s;
+        }
+
+        .intro-catch {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+
+        /* 3. Works List */
+        .work-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-color);
+            /* Slide in prep */
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .work-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .work-num {
+            width: 15%;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        .work-info {
+            width: 35%;
+            padding-right: 2rem;
+        }
+
+        .work-title {
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .work-img-wrapper {
+            width: 50%;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background-color: var(--border-color);
+        }
+
+        .work-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+            filter: grayscale(80%) sepia(20%);
+            /* 和風な落ち着きを足す */
+        }
+
+        /* Hover Interaction */
+        .work-item:hover .work-img {
+            transform: scale(1.03);
+        }
+
+        .work-item:hover h2 {
+            color: var(--accent-color);
+        }
+
+        /* 4. Profile / Expertise */
+        .expertise-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .exp-tag {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1.5rem;
+            color: var(--text-main);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .exp-tag:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* 5. Contact */
+        .contact-sec {
+            text-align: center;
+            padding: 100px 0 200px 0;
+        }
+
+        .contact-link {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--text-main);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--border-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                margin-bottom: 100px;
+            }
+
+            .work-item {
+                flex-direction: column;
+                padding: 3rem 0;
+            }
+
+            .work-img-wrapper {
+                width: 100%;
+                margin-bottom: 2rem;
+                order: 1;
+                /* 画像を上に */
+            }
+
+            .work-info {
+                width: 100%;
+                padding-right: 0;
+                order: 2;
+                /* テキストを下へ */
+                display: flex;
+                /* 番号とタイトルを並べる */
+                flex-direction: column;
+            }
+
+            .work-num {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 1. Header -->
+        <header>
+            <div>
+                <h1 class="sans-en">Kodo Crafts</h1>
+                <div class="meta" style="margin-top: 5px;">Woodcraft / Furniture</div>
+            </div>
+            <div class="clock sans-en" id="realtime-clock">00:00:00</div>
+        </header>
+
+        <!-- 2. Intro -->
+        <section class="intro">
+            <div class="intro-catch">
+                静けさを、<br>かたちにする。
+            </div>
+            <p style="color: var(--text-sub);">
+                木が持っていた記憶と向き合い、削ぎ落とした先にある美しさを見出す。<br>
+                無駄を排し、機能と造形が完全に調和する家具を製作しています。
+            </p>
+        </section>
+
+        <!-- 3. Works -->
+        <section class="works">
+            <!-- 作品1 -->
+            <div class="work-item">
+                <div class="work-num sans-en">01</div>
+                <div class="work-info">
+                    <div class="meta sans-en">Chair / 2024</div>
+                    <h2 class="work-title">無垢椅子「静」</h2>
+                    <p style="color: var(--text-sub); font-size: 0.85rem; line-height: 1.8;">
+                        背面から脚にかけての流線が特徴的なダイニングチェア。釘を一切使用しない伝統的な接合技法を用いています。</p>
+                </div>
+                <div class="work-img-wrapper">
+                    <div class="work-img" style="background-color: #D3CDC5;"></div>
+                </div>
+            </div>
+
+            <!-- 作品2 -->
+            <div class="work-item">
+                <div class="work-num sans-en">02</div>
+                <div class="work-info">
+                    <div class="meta sans-en">Table / 2023</div>
+                    <h2 class="work-title">円卓「環」</h2>
+                    <p style="color: var(--text-sub); font-size: 0.85rem; line-height: 1.8;">
+                        空間の中心となる存在。真円ではなく、わずかな歪みを持たせることで有機的な温もりが生まれます。</p>
+                </div>
+                <div class="work-img-wrapper">
+                    <div class="work-img" style="background-color: #B8B3AC;"></div>
+                </div>
+            </div>
+
+            <!-- 作品3 -->
+            <div class="work-item">
+                <div class="work-num sans-en">03</div>
+                <div class="work-info">
+                    <div class="meta sans-en">Cabinet / 2023</div>
+                    <h2 class="work-title">収納棚「陰影」</h2>
+                    <p style="color: var(--text-sub); font-size: 0.85rem; line-height: 1.8;">
+                        ルーバー状の扉が光を遮り、美しい影を落とします。中に収めたものが仄かに透けて見える設計。</p>
+                </div>
+                <div class="work-img-wrapper">
+                    <div class="work-img" style="background-color: #A9A59E;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Profile -->
+        <section class="profile">
+            <div class="meta sans-en" style="margin-bottom: 2rem;">Expertise</div>
+            <div class="expertise-list">
+                <div class="exp-tag">無垢材家具製作</div>
+                <div class="exp-tag">空間オブジェ</div>
+                <div class="exp-tag">特注什器</div>
+            </div>
+        </section>
+
+        <!-- 5. Contact -->
+        <section class="contact-sec">
+            <div class="meta sans-en" style="margin-bottom: 1rem;">Inquiries</div>
+            <a href="mailto:info@kodocrafts.jp" class="contact-link">info@kodocrafts.jp</a>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Real-time Clock
+            const clockEl = document.getElementById('realtime-clock');
+            function updateClock() {
+                const now = new Date();
+                const hr = String(now.getHours()).padStart(2, '0');
+                const min = String(now.getMinutes()).padStart(2, '0');
+                const sec = String(now.getSeconds()).padStart(2, '0');
+                clockEl.textContent = `${hr}:${min}:${sec} JST`;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // 2. Scroll Reveal Animation for Works
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            document.querySelectorAll('.work-item').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

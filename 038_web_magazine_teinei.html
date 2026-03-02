@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>てのひら | 暮らしの中の小さな豊かさ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Noto+Sans+JP:wght@400&family=Shippori+Mincho:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F5F1E8;
+            /* アイボリー */
+            --bg-alt: #EDE7D8;
+            /* クリームイエロー */
+            --text-main: #2C2018;
+            /* ダークブラウン */
+            --text-sub: #7A6552;
+            /* ミドルブラウン */
+            --accent-color: #B8604A;
+            /* テラコッタ */
+            --sage: #7A8F72;
+            /* セージグリーン */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.92rem;
+            line-height: 2.2;
+            letter-spacing: 0.06em;
+            position: relative;
+        }
+
+        /* Washi Paper Texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Typography */
+        .h-mincho {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        .h-en {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            letter-spacing: 0.05em;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        /* Hand-drawn SVG Divider */
+        .section-divider {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 4rem 0;
+        }
+
+        .svg-line {
+            width: 150px;
+            height: 20px;
+            stroke: var(--text-main);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.5;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 2s ease-out;
+        }
+
+        .svg-line.drawn {
+            stroke-dashoffset: 0;
+        }
+
+        /* Placeholder Images */
+        .img-ph {
+            background: linear-gradient(135deg, #E6DCD1, #D9CAC0);
+            width: 100%;
+            display: block;
+        }
+
+        /* 1. MASTHEAD */
+        .masthead {
+            padding: 6rem 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+
+        .brand-main {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            padding-top: 1rem;
+            color: var(--text-main);
+        }
+
+        .brand-sub-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 1rem;
+            color: var(--text-sub);
+            height: 120px;
+            letter-spacing: 0.3em;
+        }
+
+        .issue-date {
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: -1rem;
+        }
+
+        /* 2. FEATURED */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 8fr 4fr;
+            gap: 5vw;
+            align-items: center;
+        }
+
+        .f-img {
+            aspect-ratio: 4/3;
+        }
+
+        .f-text-area {
+            display: flex;
+            justify-content: center;
+        }
+
+        .f-title-vertical {
+            writing-mode: vertical-rl;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.6;
+            height: 300px;
+            /* Fixed height for vertical layout impact */
+            display: inline-block;
+        }
+
+        .f-desc {
+            writing-mode: vertical-rl;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            height: 250px;
+            margin-right: 2rem;
+            line-height: 2.4;
+        }
+
+        /* 3. CONTENTS (Irregular Grid) */
+        .contents-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2vw;
+            column-gap: 3vw;
+            row-gap: 5rem;
+        }
+
+        .c-article {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .c-title {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .c-label {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+        }
+
+        .c-item-1 {
+            grid-column: 1 / 8;
+        }
+
+        .c-item-1 .img-ph {
+            aspect-ratio: 16/9;
+        }
+
+        .c-item-2 {
+            grid-column: 8 / 13;
+            margin-top: 5rem;
+        }
+
+        .c-item-2 .img-ph {
+            aspect-ratio: 3/4;
+        }
+
+        .c-item-3 {
+            grid-column: 2 / 6;
+        }
+
+        .c-item-3 .img-ph {
+            aspect-ratio: 1/1;
+        }
+
+        .c-item-4 {
+            grid-column: 6 / 11;
+            margin-top: -3rem;
+        }
+
+        .c-item-4 .img-ph {
+            aspect-ratio: 4/3;
+        }
+
+        /* 4. SEASON */
+        .season-sec {
+            background-color: var(--bg-alt);
+            padding: 8rem 0;
+        }
+
+        .season-inner {
+            display: flex;
+            justify-content: center;
+            gap: 8vw;
+        }
+
+        .season-title-col {
+            writing-mode: vertical-rl;
+        }
+
+        .season-list-col {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 400px;
+        }
+
+        .s-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .s-num {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--sage);
+            font-size: 1.2rem;
+        }
+
+        /* 5. COLUMN */
+        .column-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .col-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .col-item {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .col-img-wrap {
+            width: 100px;
+            flex-shrink: 0;
+        }
+
+        .col-img-wrap .img-ph {
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+
+        /* 6. SUBSCRIBE & FOOTER */
+        .subscribe {
+            text-align: center;
+            padding: 10rem 0 5rem 0;
+        }
+
+        .btn-sub {
+            display: inline-block;
+            padding: 1rem 4rem;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            text-decoration: none;
+            border: 1px solid var(--text-main);
+            border-radius: 4px;
+            margin-top: 3rem;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        .btn-sub:hover {
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        .editor-note {
+            max-width: 600px;
+            margin: 4rem auto 0 auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .f-text-area {
+                padding-top: 3rem;
+            }
+
+            .f-title-vertical {
+                height: 250px;
+                font-size: 2rem;
+            }
+
+            .f-desc {
+                height: 200px;
+            }
+
+            .contents-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 4rem;
+            }
+
+            .c-item-1,
+            .c-item-2,
+            .c-item-3,
+            .c-item-4 {
+                margin-top: 0;
+                width: 100%;
+            }
+
+            .c-item-2 .img-ph {
+                aspect-ratio: 4/3;
+            }
+
+            .season-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .season-title-col {
+                writing-mode: horizontal-tb;
+            }
+
+            .col-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. MASTHEAD -->
+        <header class="masthead">
+            <div class="brand-group">
+                <h1 class="h-mincho brand-main">てのひら</h1>
+                <div class="h-mincho brand-sub-vertical">暮らしの中の<br>小さな豊かさ</div>
+            </div>
+            <div class="h-mincho" style="color: var(--text-sub); margin-bottom: 2rem;">秋の気配を探すころ。</div>
+            <div class="issue-date">October 2026 Issue</div>
+        </header>
+
+        <div class="section-divider">
+            <svg class="trigger-line" viewBox="0 0 150 20">
+                <path class="svg-line" d="M10,10 Q75,-5 140,10" />
+            </svg>
+        </div>
+
+        <!-- 2. FEATURED -->
+        <section class="featured">
+            <div class="featured-grid">
+                <div class="img-ph f-img"></div>
+                <div class="f-text-area">
+                    <div class="f-desc">
+                        季節が移ろう音に耳をすませば、<br>
+                        台所に立つ時間も少しだけ愛おしくなる。<br>
+                        忙しない日々の中で見つけた、<br>
+                        小さな冬支度の記録。
+                    </div>
+                    <h2 class="h-mincho f-title-vertical">秋の台所仕事、<br>十二のこと。</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CONTENTS -->
+        <section class="contents">
+            <div class="contents-grid">
+
+                <article class="c-article c-item-1">
+                    <div class="img-ph"></div>
+                    <div class="c-label">Craft</div>
+                    <h3 class="h-mincho c-title">古着から生まれる、新しい鍋敷き</h3>
+                    <p style="color:var(--text-sub);">着なくなったセーターをほぐして、休日の午後にちくちくと。</p>
+                </article>
+
+                <article class="c-article c-item-2">
+                    <div class="img-ph"></div>
+                    <div class="c-label">Food</div>
+                    <h3 class="h-mincho c-title">りんごを煮る夜</h3>
+                    <p style="color:var(--text-sub);">部屋中に広がる甘い香りが、一日の疲れを溶かしてゆく時間。</p>
+                </article>
+
+                <article class="c-article c-item-3">
+                    <div class="img-ph"></div>
+                    <div class="c-label">Essay</div>
+                    <h3 class="h-mincho c-title">窓辺の植物図鑑</h3>
+                    <p style="color:var(--text-sub);">少しずつ伸びる枝葉を眺める、朝のコーヒータイム。</p>
+                </article>
+
+                <article class="c-article c-item-4">
+                    <div class="img-ph"></div>
+                    <div class="c-label">Life</div>
+                    <h3 class="h-mincho c-title">直して使う喜び</h3>
+                    <p style="color:var(--text-sub);">欠けた器を金継ぎで蘇らせる。傷跡も愛すべき個性になる。</p>
+                </article>
+
+            </div>
+        </section>
+    </div> <!-- End Container -->
+
+    <!-- 4. SEASON -->
+    <section class="season-sec">
+        <div class="container season-inner">
+            <div class="season-title-col">
+                <span class="h-en" style="color:var(--sage); margin-bottom: 1rem; display:block;">Seasonal Notes</span>
+                <h2 class="h-mincho" style="font-size:2.5rem; line-height: 1.5;">霜月、<br>冬を待つ暮らし</h2>
+            </div>
+            <div class="season-list-col">
+
+                <div class="s-item">
+                    <div class="s-num">01.</div>
+                    <div>
+                        <h4 class="h-mincho" style="font-size: 1.1rem; margin-bottom: 0.5rem;">厚手の靴下を出す</h4>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">足元を温めると、心までほっとする。お気に入りのウール素材を準備して。</p>
+                    </div>
+                </div>
+
+                <div class="s-item">
+                    <div class="s-num">02.</div>
+                    <div>
+                        <h4 class="h-mincho" style="font-size: 1.1rem; margin-bottom: 0.5rem;">根菜のスープを仕込む</h4>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">土の香りを感じる野菜たちを、ことこと弱火で煮込む静かな午後。</p>
+                    </div>
+                </div>
+
+                <div class="s-item">
+                    <div class="s-num">03.</div>
+                    <div>
+                        <h4 class="h-mincho" style="font-size: 1.1rem; margin-bottom: 0.5rem;">夜長の読書スペースづくり</h4>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">柔らかなブランケットと、手元を照らす小さな灯りをセットして。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="section-divider">
+            <svg class="trigger-line" viewBox="0 0 150 20">
+                <path class="svg-line" d="M10,10 Q75,25 140,10" />
+            </svg>
+        </div>
+
+        <!-- 5. COLUMN -->
+        <section class="column">
+            <div class="column-header">
+                <span class="h-en" style="color: var(--accent-color); font-size:1.2rem;">Regular Columns</span>
+            </div>
+
+            <div class="col-grid">
+                <div class="col-item">
+                    <div class="col-img-wrap">
+                        <div class="img-ph"></div>
+                    </div>
+                    <div>
+                        <span class="h-en" style="color:var(--text-sub); font-size:0.8rem;">Vol 12.</span>
+                        <h4 class="h-mincho" style="margin: 0.5rem 0;">「手紙を書く夜」</h4>
+                        <p style="font-size:0.85rem; color:var(--text-sub);">便箋を選ぶ時間から、想いを伝える準備は始まっている。</p>
+                    </div>
+                </div>
+
+                <div class="col-item">
+                    <div class="col-img-wrap">
+                        <div class="img-ph"></div>
+                    </div>
+                    <div>
+                        <span class="h-en" style="color:var(--text-sub); font-size:0.8rem;">Vol 08.</span>
+                        <h4 class="h-mincho" style="margin: 0.5rem 0;">「無垢の木と暮らす」</h4>
+                        <p style="font-size:0.85rem; color:var(--text-sub);">年月とともに深まる色合いを、ゆっくりと一緒に育てる。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SUBSCRIBE -->
+        <section class="subscribe">
+            <h2 class="h-mincho" style="font-size: 2rem; margin-bottom: 1rem;">言葉を、手元に置く。</h2>
+            <p style="color:var(--text-sub);">
+                紙の匂い、ページをめくる音。<br>
+                定期購読で、毎月あなたのお手元に小さな豊かさをお届けします。
+            </p>
+            <a href="#" class="btn-sub h-mincho">購読のご案内</a>
+
+            <div class="editor-note">
+                【編集後記】 庭の金木犀が香り始めました。季節の移ろいを感じるたびに、私たちは自然の一部なのだと気づかされます。今日のあなたのコーヒーが、いつもより少し美味しく淹れられますように。(編集部・佐藤)
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // SVG Draw Animation on Scroll
+            const lines = document.querySelectorAll('.svg-line');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('drawn');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            lines.forEach(line => {
+                observer.observe(line);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSSGARDEN | Organic Botanical</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400&family=Shippori+Mincho&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F4EFE3;
+            /* 生成り */
+            --bg-alt: #EAE3D2;
+            /* クリーム */
+            --text-main: #3D2B1F;
+            /* ウォームブラウン */
+            --text-sub: #4A5C3A;
+            /* アッシュグリーン */
+            --accent-terra: #C4693A;
+            /* テラコッタ */
+            --accent-sage: #8A9E7A;
+            /* セージグリーン */
+            --border-thin: 1px solid rgba(61, 43, 31, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            line-height: 2.1;
+            letter-spacing: 0.04em;
+            overflow-x: hidden;
+            /* 全体的にほんの少し退色したトーン */
+            filter: sepia(0.05) contrast(0.95);
+        }
+
+        /* Paper Texture Overlay */
+        .paper-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 0.03em;
+            font-weight: 500;
+            color: var(--text-sub);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-family: 'Klee One', cursive;
+            /* Japanese handwritten feel */
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .shippori {
+            font-family: 'Shippori Mincho', serif;
+        }
+
+        .klee {
+            font-family: 'Klee One', cursive;
+        }
+
+        .caveat {
+            font-family: 'Caveat', cursive;
+        }
+
+        .label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-terra);
+            letter-spacing: 0.1em;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent-terra);
+            outline-offset: 4px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        /* Hand-drawn SVG Divider */
+        .svg-divider {
+            width: 100%;
+            height: 40px;
+            margin: 2rem 0;
+            overflow: visible;
+        }
+
+        .svg-line {
+            fill: none;
+            stroke: var(--text-sub);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2s ease-out;
+        }
+
+        .svg-divider.active .svg-line {
+            stroke-dashoffset: 0;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Asymmetric & Organic Shapes */
+        .blob-img {
+            background-color: var(--bg-alt);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Organic shape */
+            border-radius: 40% 60% 55% 45% / 40% 55% 60% 45%;
+            transition: border-radius 3s ease-in-out infinite alternate;
+        }
+
+        .blob-img:hover {
+            border-radius: 50% 50% 40% 60% / 55% 45% 50% 50%;
+        }
+
+        .tilt-text {
+            transform: rotate(-1.5deg);
+        }
+
+        .tilt-text-alt {
+            transform: rotate(1deg);
+        }
+
+        /* Stamp Decor */
+        .stamp-new {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            border: 2px solid var(--accent-terra);
+            color: var(--accent-terra);
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            /* Oval */
+            transform: rotate(15deg);
+            background: var(--bg-color);
+            z-index: 10;
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 5rem;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            grid-column: 2 / 10;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-h1 {
+            transform: rotate(-2deg);
+            margin-bottom: 2rem;
+        }
+
+        .hero-lead {
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-top: 2rem;
+            color: var(--text-main);
+        }
+
+        .hero-img-wrap {
+            grid-column: 7 / 12;
+            aspect-ratio: 1/1;
+            margin-top: -10rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Parallax Elements */
+        .leaf-deco {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-sage);
+            opacity: 0.2;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(5px);
+        }
+
+        .leaf-1 {
+            top: 20%;
+            left: 10%;
+            transform: rotate(45deg);
+        }
+
+        .leaf-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 120px;
+            height: 120px;
+        }
+
+        /* 2. STORY */
+        .story-img-wrap {
+            grid-column: 2 / 6;
+            aspect-ratio: 3/4;
+        }
+
+        .story-text {
+            grid-column: 7 / 12;
+            align-self: center;
+            background: rgba(234, 227, 210, 0.5);
+            /* Semi-transparent bg-alt */
+            padding: 3rem;
+            border-radius: 20px;
+            /* Slight rounding, not too perfect */
+            transform: rotate(1deg);
+        }
+
+        .story-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* 3. PRODUCTS */
+        .products {
+            background-color: var(--bg-alt);
+        }
+
+        .prod-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .prod-item {
+            position: relative;
+        }
+
+        .prod-1 {
+            grid-column: 2 / 6;
+            transform: rotate(-1deg);
+        }
+
+        .prod-2 {
+            grid-column: 8 / 12;
+            margin-top: 6rem;
+            transform: rotate(1.5deg);
+        }
+
+        .prod-3 {
+            grid-column: 4 / 8;
+            margin-top: 4rem;
+        }
+
+        .prod-img-wrap {
+            aspect-ratio: 1/1;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .prod-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-sub);
+        }
+
+        /* 4. INGREDIENTS */
+        .ingredients-text {
+            grid-column: 3 / 11;
+            text-align: center;
+        }
+
+        .ing-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .ing-item {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.1rem;
+            color: var(--accent-sage);
+        }
+
+        /* 5. ORDER CTA */
+        .cta-sec {
+            text-align: center;
+            padding-bottom: 10rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--text-sub);
+            color: var(--bg-color);
+            font-family: 'Klee One', cursive;
+            font-size: 1.3rem;
+            text-decoration: none;
+            padding: 1rem 3rem;
+            border-radius: 40% 60% 55% 45% / 40% 55% 60% 45%;
+            transition: background-color 0.3s ease, border-radius 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--accent-terra);
+            border-radius: 50% 50% 40% 60% / 55% 45% 50% 50%;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            font-family: 'Caveat', cursive;
+            color: var(--text-sub);
+            border-top: var(--border-thin);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-text {
+                grid-column: 1 / -1;
+            }
+
+            .hero-img-wrap {
+                grid-column: 3 / 11;
+                margin-top: 2rem;
+            }
+
+            .story-img-wrap,
+            .story-text {
+                grid-column: 1 / -1;
+                transform: rotate(0);
+            }
+
+            .story-text {
+                margin-top: 2rem;
+                padding: 2rem;
+            }
+
+            .prod-item {
+                grid-column: 1 / -1 !important;
+                margin-top: 3rem !important;
+                transform: rotate(0) !important;
+                padding: 0 2rem;
+            }
+
+            section {
+                padding: 5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="paper-texture"></div>
+
+    <!-- Decorative Leaves -->
+    <div class="leaf-deco leaf-1" data-speed="0.2"></div>
+    <div class="leaf-deco leaf-2" data-speed="-0.1"></div>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="grid">
+            <div class="hero-text reveal tilt-text">
+                <h1 class="hero-h1">Mossgarden<br>Apothecary</h1>
+                <div class="shippori" style="font-size: 1.5rem; color: var(--accent-terra);">土の匂いがする、スキンケア。</div>
+                <p class="hero-lead klee">
+                    週末の朝、庭で摘んだばかりのハーブの香り。<br>
+                    完璧ではないけれど、手作りの温もりがそこにあると思うのです。自然のリズムを、そのまま肌へ。
+                </p>
+            </div>
+
+            <div class="hero-img-wrap reveal" style="transition-delay: 0.2s;">
+                <div class="blob-img" style="background-color: #D3D0C2;"></div>
+                <div class="stamp-new">Handmade</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider Line -->
+    <svg class="svg-divider reveal" viewBox="0 0 1000 40" preserveAspectRatio="none">
+        <path class="svg-line" d="M0,20 Q250,5 500,20 T1000,20" />
+    </svg>
+
+    <!-- 2. STORY -->
+    <section class="story">
+        <div class="grid">
+            <div class="story-img-wrap reveal">
+                <div class="blob-img"
+                    style="background-color: #C0C5B1; border-radius: 40% 50% 60% 40% / 50% 40% 50% 60%;"></div>
+            </div>
+
+            <div class="story-text reveal tilt-text-alt" style="transition-delay: 0.2s;">
+                <h2 class="klee">不揃いであることの、誠実さ。</h2>
+                <p>
+                    大量生産された化粧品のように、いつも同じ色、同じ香りではありません。収穫した季節や土地の雨量によって、少しずつ表情を変えるのです。
+                </p>
+                <p>
+                    私たちはそれを「ブレ」ではなく「自然そのもの」だと考えています。ボトルに詰めるのは、工房の庭で育った植物たちだけで、余計なものは一切加えていません。
+                </p>
+                <div class="label" style="text-align: right; margin-top: 2rem;">Since 2026</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PRODUCTS -->
+    <section class="products">
+        <div class="grid">
+            <div class="prod-header reveal">
+                <h2 class="caveat" style="font-size: 3rem; color: var(--text-sub);">Our Remedies</h2>
+            </div>
+
+            <div class="prod-item prod-1 reveal">
+                <div class="prod-img-wrap">
+                    <div class="blob-img" style="background-color: #D2A88A;"></div>
+                </div>
+                <h3 class="klee prod-title">カモミールと月のバーム</h3>
+                <p>夜の休息のための、こっくりとしたクリーム。乾燥した肌を優しく包み込みます。</p>
+            </div>
+
+            <div class="prod-item prod-2 reveal" style="transition-delay: 0.1s;">
+                <div class="prod-img-wrap">
+                    <div class="blob-img" style="background-color: #A3B599;"></div>
+                    <div class="stamp-new"
+                        style="font-size: 1rem; right: -10px; color: var(--text-sub); border-color: var(--text-sub);">
+                        Seasonal</div>
+                </div>
+                <h3 class="klee prod-title">森の雨宿り オイル</h3>
+                <p>雨上がりの森を思わせる、深く澄んだ香り。全身に使える万能な保湿オイルです。</p>
+            </div>
+
+            <div class="prod-item prod-3 reveal" style="transition-delay: 0.2s;">
+                <div class="prod-img-wrap">
+                    <div class="blob-img" style="background-color: #E0CFA1;"></div>
+                </div>
+                <h3 class="klee prod-title">陽だまりのハーブティー</h3>
+                <p>レモングラスとカレンデュラのブレンド。身体の芯からゆっくりと温めてくれます。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider Line -->
+    <svg class="svg-divider reveal" viewBox="0 0 1000 40" preserveAspectRatio="none">
+        <path class="svg-line" d="M0,20 Q300,35 600,10 T1000,20" />
+    </svg>
+
+    <!-- 4. INGREDIENTS -->
+    <section class="ingredients">
+        <div class="grid">
+            <div class="ingredients-text reveal tilt-text">
+                <h2 class="klee" style="color: var(--accent-terra);">畑から、瓶の中へ。</h2>
+                <p>私たちが大切に育て、あるいは信頼できる農家さんから分けていただいた素材たち。どれも土の香りがする、力強い植物ばかりです。</p>
+
+                <div class="ing-list">
+                    <span class="ing-item">#無農薬カモミール</span>
+                    <span class="ing-item">#野生のローズマリー</span>
+                    <span class="ing-item">#未精製ホホバオイル</span>
+                    <span class="ing-item">#自家製ミツロウ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ORDER CTA -->
+    <section class="cta-sec tilt-text-alt">
+        <div class="reveal">
+            <p class="klee" style="font-size: 1.2rem;">ひとつひとつ、手作業でお包みしてお届けします。</p>
+            <a href="#order" class="cta-btn">工房から取り寄せる</a>
+            <div class="label">For your quiet moments</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>with love, from the garden.<br>&copy; 2026 MOSSGARDEN</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Reveal & SVG drawing Observer
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+
+                        // If it's an SVG divider, trigger the stroke dash animation
+                        if (entry.target.classList.contains('svg-divider')) {
+                            // Class 'active' handles the CSS transition
+                        }
+
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Init visibility check
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+
+            // Gentle Parallax for leaf decorations
+            const leaves = document.querySelectorAll('.leaf-deco');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                leaves.forEach(leaf => {
+                    const speed = parseFloat(leaf.getAttribute('data-speed'));
+                    leaf.style.transform = `translateY(${scrolled * speed}px) rotate(45deg)`;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

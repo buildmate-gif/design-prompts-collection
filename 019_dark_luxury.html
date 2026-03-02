@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOCTURNE | Dark Luxury</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=DM+Sans:wght@400&family=Noto+Serif+JP:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0F0E0C;
+            /* 深夜色 */
+            --bg-alt: #1A1916;
+            /* ミッドナイト */
+            --text-main: #E8E4DC;
+            /* クリームホワイト */
+            --text-muted: #8A8680;
+            /* フォグ */
+            --accent-gold: #B8964E;
+            /* ゴールド */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-muted);
+            /* 本文はあえて薄く */
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.95rem;
+            line-height: 2.0;
+            overflow-x: hidden;
+            /* スムーススクロール用 */
+            overscroll-behavior-y: none;
+        }
+
+        /* Film Grain Noise */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+            /* Noise animation 8s loop */
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            10% {
+                transform: translate(-5px, 5px);
+            }
+
+            30% {
+                transform: translate(5px, -5px);
+            }
+
+            50% {
+                transform: translate(-5px, -5px);
+            }
+
+            70% {
+                transform: translate(5px, 5px);
+            }
+
+            90% {
+                transform: translate(-5px, 0);
+            }
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(3rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .gold-text {
+            color: var(--accent-gold);
+        }
+
+        /* Hover effect for all text blocks to reveal */
+        p {
+            transition: color 0.4s ease;
+        }
+
+        p:hover {
+            color: var(--text-main);
+        }
+
+        /* Layout & Grid */
+        .container {
+            /* Left aligned asymmetrical wrap */
+            max-width: 1000px;
+            margin-left: 8%;
+            padding-right: 4vw;
+            position: relative;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 20px;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Push content to bottom 1/3 */
+            justify-content: flex-end;
+            padding-bottom: 10vh;
+            position: relative;
+        }
+
+        /* Divider Line */
+        .gold-divider {
+            position: absolute;
+            left: -4%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(184, 150, 78, 0.5), transparent);
+        }
+
+        /* Images */
+        .img-wrap {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-alt);
+        }
+
+        .img-inner {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(60%) contrast(110%);
+            transition: filter 0.8s ease, transform 0.8s ease;
+            will-change: transform;
+        }
+
+        /* Dark Overlay */
+        .img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 14, 12, 0.6);
+            /* Color overlay */
+            transition: background 0.8s ease;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* JS Hover class for localized color reveal */
+        .img-inner.reveal-color {
+            filter: grayscale(0%) contrast(100%);
+            transform: scale(1.02);
+        }
+
+        .img-overlay.reveal-color {
+            background: rgba(15, 14, 12, 0.2);
+        }
+
+        /* Glassmorph Panel */
+        .glass-panel {
+            background: rgba(15, 14, 12, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(184, 150, 78, 0.2);
+            padding: 3rem;
+        }
+
+        /* Fade-in Animation */
+        .fade-elem {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .fade-elem.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom styles for sections */
+
+        /* 1. HERO */
+        .hero-title {
+            grid-column: 1 / 9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-desc {
+            grid-column: 5 / 10;
+        }
+
+        /* 2. FEATURE */
+        .feature-img {
+            grid-column: 2 / 10;
+            aspect-ratio: 16/9;
+            margin-bottom: -4rem;
+            /* Overlap with panel */
+            z-index: 1;
+        }
+
+        .feature-panel {
+            grid-column: 1 / 6;
+            z-index: 5;
+        }
+
+        /* 3. DETAILS (2 col) */
+        .detail-item-1 {
+            grid-column: 1 / 5;
+            margin-top: 10rem;
+        }
+
+        .detail-item-2 {
+            grid-column: 6 / 10;
+        }
+
+        .d-img {
+            aspect-ratio: 3/4;
+            margin-bottom: 2rem;
+        }
+
+        /* 4. FOOTER */
+        footer {
+            padding: 10rem 0 5rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-footer {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--text-main);
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero-desc {
+                grid-column: 1 / 10;
+                margin-top: 2rem;
+            }
+
+            .feature-img {
+                grid-column: 1 / 11;
+                aspect-ratio: 4/5;
+            }
+
+            .feature-panel {
+                grid-column: 1 / 10;
+                margin-top: -2rem;
+                padding: 2rem;
+            }
+
+            .detail-item-1,
+            .detail-item-2 {
+                grid-column: 1 / 11;
+                margin-top: 4rem;
+            }
+
+            .gold-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="film-grain"></div>
+
+    <div class="container">
+        <div class="gold-divider"></div>
+
+        <!-- 1. HERO -->
+        <section>
+            <div class="grid">
+                <div class="hero-title fade-elem">
+                    <h2>The Nocturnal Elegance</h2>
+                    <h1>Silence speaks <br>volumes.</h1>
+                </div>
+                <div class="hero-desc fade-elem" style="transition-delay: 0.3s;">
+                    <p>
+                        喧騒を離れ、深く沈み込むような夜の時間。照明が落ちた空間でこそ、<span
+                            class="gold-text">本物の品格</span>は暗闇のなかに浮かび上がります。私たちが提供するのは、五感を研ぎ澄ますための静寂と、抑制された艶やかさです。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. FEATURE -->
+        <section>
+            <div class="grid">
+                <div class="img-wrap feature-img fade-elem parallax-wrap">
+                    <div class="img-inner parallax-target" style="background-color: var(--text-muted);"></div>
+                    <div class="img-overlay"></div>
+                </div>
+
+                <div class="glass-panel feature-panel fade-elem" style="transition-delay: 0.2s;">
+                    <h2>Material Richness</h2>
+                    <h3
+                        style="font-family: 'Cormorant Garamond'; font-size: 2rem; color: var(--text-main); font-style: italic; margin-bottom: 1rem;">
+                        Crafted Shadows</h3>
+                    <p>
+                        輝きを強調するのではなく、影をいかに美しく見せるかを計算し尽くしたマテリアル選定。触れたときの重厚な冷たさと、微かな温もり。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DETAILS -->
+        <section>
+            <div class="grid">
+                <div class="detail-item-1 fade-elem">
+                    <div class="img-wrap d-img parallax-wrap">
+                        <div class="img-inner parallax-target" style="background-color: #3A352F;"></div>
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h2>01. The Texture</h2>
+                    <p>目に映る情報よりも、指先に伝わるかすかな摩擦を重んじる。それは所有する者だけが知る、密やかな<span class="gold-text">悦び</span>です。</p>
+                </div>
+
+                <div class="detail-item-2 fade-elem" style="transition-delay: 0.2s;">
+                    <div class="img-wrap d-img parallax-wrap">
+                        <div class="img-inner parallax-target" style="background-color: #2D2C28;"></div>
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h2>02. The Scent</h2>
+                    <p>記憶の奥底に触れる、シダーウッドとアンバーの沈むような香り。空間全体が、一つの物語を紡ぎ出します。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. FOOTER -->
+        <footer>
+            <p class="quote-footer fade-elem">"True luxury only whispers."</p>
+            <div
+                style="margin-top: 5rem; font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase;">
+                © 2026 Nocturne Reserve.
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Fade-in Observer
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-elem').forEach(el => observer.observe(el));
+
+            // Init check
+            setTimeout(() => {
+                document.querySelectorAll('.fade-elem').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+
+            // 2. Parallax floating effect for images
+            const parallaxWraps = document.querySelectorAll('.parallax-wrap');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                parallaxWraps.forEach(wrap => {
+                    const target = wrap.querySelector('.parallax-target');
+                    if (target) {
+                        const rect = wrap.getBoundingClientRect();
+                        // If in viewport
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            // Translate img-inner by a small fraction to simulate depth
+                            const dist = (window.innerHeight - rect.top) * 0.05;
+                            target.style.transform = `translateY(${dist}px)`;
+                        }
+                    }
+                });
+            });
+
+            // 3. Hover Color Reveal Logic (Cursor proximity simulation)
+            // Since evaluating exact distance to cursor for all images per frame is heavy,
+            // we use mouseenter/move on the image wrappers to reveal color.
+            document.querySelectorAll('.img-wrap').forEach(wrap => {
+                const inner = wrap.querySelector('.img-inner');
+                const overlay = wrap.querySelector('.img-overlay');
+
+                wrap.addEventListener('mouseenter', () => {
+                    inner.classList.add('reveal-color');
+                    overlay.classList.add('reveal-color');
+                });
+
+                wrap.addEventListener('mouseleave', () => {
+                    inner.classList.remove('reveal-color');
+                    overlay.classList.remove('reveal-color');
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

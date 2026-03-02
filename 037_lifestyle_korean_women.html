@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAHLIA ROOM | Lifestyle Select Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Noto+Sans+JP:wght@300;400&family=Playfair+Display:ital,wght@1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FAF4F0;
+            /* くすみピンクホワイト */
+            --bg-alt: #F2EAE2;
+            /* ミルクベージュ */
+            --text-main: #2E2420;
+            /* ウォームチャコール */
+            --text-sub: #8A7D76;
+            /* ミドルグレージュ */
+            --accent-color: #D4A8A0;
+            /* くすみダスティローズ */
+            --sage: #A8B8A0;
+            /* ウォームセージ */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 300;
+            font-size: 0.88rem;
+            line-height: 2.0;
+            letter-spacing: 0.08em;
+            position: relative;
+        }
+
+        /* Scroll Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-color);
+            z-index: 9999;
+        }
+
+        /* Subtle pink Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(212, 168, 160, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 168, 160, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Typography */
+        h1,
+        .h-serif {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-weight: 300;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            letter-spacing: 0.12em;
+        }
+
+        .label {
+            font-family: 'Jost', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            color: var(--text-sub);
+        }
+
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            padding: 10rem 0;
+            /* Padding requirements */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--text-main);
+            background: transparent;
+            color: var(--text-main);
+            font-family: 'Jost', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            border-radius: 20px;
+            /* Soft radius */
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .btn-dark {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .btn-dark:hover {
+            background-color: var(--text-sub);
+            border-color: var(--text-sub);
+        }
+
+        /* Soft Image Placeholders */
+        .img-wrap {
+            background-color: var(--bg-alt);
+            border-radius: 16px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            /* Soft lift prep */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .img-wrap.hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(46, 36, 32, 0.08);
+            /* Must be soft */
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .hero-title-area {
+            margin-bottom: 4rem;
+        }
+
+        .hero-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .h-img-1 {
+            width: 33%;
+            aspect-ratio: 4/5;
+            border-radius: 200px 200px 0 0;
+            background-color: #EADCD6;
+        }
+
+        .h-img-2 {
+            width: 40%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background-color: #D6DBD2;
+            margin-top: -3rem;
+            z-index: 2;
+        }
+
+        .h-img-3 {
+            width: 25%;
+            aspect-ratio: 4/5;
+            border-radius: 0 0 100px 100px;
+            background-color: #DFD7CD;
+        }
+
+        /* 2. NEW ARRIVALS */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .new-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 3vw;
+            align-items: end;
+        }
+
+        .item-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card .img-wrap {
+            aspect-ratio: 4/5;
+            margin-bottom: 1.5rem;
+        }
+
+        .item-title {
+            font-size: 1rem;
+            border-bottom: none;
+        }
+
+        .item-price {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--bg-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .n-item1 {
+            grid-column: 1 / 4;
+            margin-bottom: 4rem;
+        }
+
+        .n-item2 {
+            grid-column: 4 / 8;
+        }
+
+        .n-item2 .img-wrap {
+            aspect-ratio: 1/1;
+        }
+
+        .n-item3 {
+            grid-column: 8 / 11;
+            margin-bottom: 2rem;
+        }
+
+        .n-item4 {
+            grid-column: 11 / 13;
+            margin-bottom: 8rem;
+        }
+
+        /* 3. LIFESTYLE */
+        .lifestyle-block {
+            display: flex;
+            align-items: center;
+            gap: 8vw;
+            margin-bottom: 8rem;
+        }
+
+        .lifestyle-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .lifestyle-block.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .ls-text {
+            width: 45%;
+        }
+
+        .ls-text p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-top: 1.5rem;
+        }
+
+        .ls-img {
+            width: 55%;
+            aspect-ratio: 4/3;
+        }
+
+        /* 4. RANKING */
+        .bg-band {
+            background-color: var(--bg-alt);
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+
+        .rank-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3vw;
+        }
+
+        .rank-item {
+            position: relative;
+        }
+
+        .rank-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            font-style: italic;
+            color: var(--bg-color);
+            /* Very subtle on bg-alt */
+            position: absolute;
+            top: -4rem;
+            left: -2rem;
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .rank-item .img-wrap {
+            aspect-ratio: 1/1;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .rank-item .item-info {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* 5. ABOUT */
+        .about-sec {
+            position: relative;
+            padding: 15rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-content {
+            text-align: center;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-img-side {
+            position: absolute;
+            top: 10rem;
+            right: 10vw;
+            width: 250px;
+            aspect-ratio: 4/5;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .floating-memo {
+            position: absolute;
+            bottom: 5rem;
+            left: 15vw;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 16px;
+            font-style: italic;
+            color: var(--text-sub);
+            max-width: 250px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 6. CTA / FOOTER */
+        .footer-cta {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 8rem 0;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .sns-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .sns-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-family: 'Jost', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .new-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 4rem;
+            }
+
+            .n-item1,
+            .n-item2,
+            .n-item3,
+            .n-item4 {
+                margin-bottom: 0;
+                width: 100%;
+            }
+
+            .n-item2 .img-wrap,
+            .n-item3 .img-wrap {
+                aspect-ratio: 4/5;
+            }
+
+            .lifestyle-block,
+            .lifestyle-block.reverse {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .ls-text,
+            .ls-img {
+                width: 100%;
+            }
+
+            .rank-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .about-img-side,
+            .floating-memo {
+                display: none;
+            }
+
+            .about-sec {
+                padding: 8rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="progress-bar"></div>
+
+    <!-- 1. HERO -->
+    <header class="hero container">
+        <div class="hero-title-area">
+            <div class="label" style="margin-bottom: 1rem;">Curated for your space</div>
+            <h1 style="margin-bottom: 1rem;">Dahlia Room</h1>
+            <p style="color: var(--text-sub);">春の気配を、部屋の片隅から。<br>あなたの日常に寄り添う小さな心地よさ。</p>
+        </div>
+        <div class="hero-images">
+            <div class="h-img-1 img-wrap hover-lift"></div>
+            <div class="h-img-2 img-wrap hover-lift"></div>
+            <div class="h-img-3 img-wrap hover-lift"></div>
+        </div>
+    </header>
+
+    <!-- 2. NEW ARRIVALS -->
+    <section class="container">
+        <div class="section-header">
+            <div class="label" style="margin-bottom: 0.5rem;">New In</div>
+            <h2>新しく届いたもの</h2>
+        </div>
+
+        <div class="new-grid">
+            <div class="item-card n-item1">
+                <div class="img-wrap hover-lift" style="background-color: #E6DFCA;">
+                    <div class="badge" style="color: var(--accent-color);">New</div>
+                </div>
+                <div class="item-title">Mellow Glow Toner</div>
+                <div class="item-price">¥ 2,800</div>
+            </div>
+
+            <div class="item-card n-item2">
+                <div class="img-wrap hover-lift" style="background-color: #D3CDC6;"></div>
+                <div class="item-title">Yua Serum - Morning Rose</div>
+                <div class="item-price">¥ 3,400</div>
+            </div>
+
+            <div class="item-card n-item3">
+                <div class="img-wrap hover-lift" style="background-color: #E0CFCF;">
+                    <div class="badge">Limited</div>
+                </div>
+                <div class="item-title">Ceramic Incense Holder</div>
+                <div class="item-price">¥ 4,200</div>
+            </div>
+
+            <div class="item-card n-item4">
+                <div class="img-wrap hover-lift" style="background-color: #D4DAD0;"></div>
+                <div class="item-title">Linen Room Spray</div>
+                <div class="item-price">¥ 2,100</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. LIFESTYLE -->
+    <section class="container">
+        <div class="lifestyle-block">
+            <div class="ls-text">
+                <div class="label" style="margin-bottom: 1rem;">Morning Routine</div>
+                <h1 class="h-serif" style="font-size: 2.2rem; margin-bottom: 1rem;">Start Softly.</h1>
+                <h2>やわらかな光で目覚める朝</h2>
+                <p>慌ただしい1日の始まりも、お気に入りの香りをシュッとひと吹きするだけで、塗った後、心まで満たされるような感覚に。自分だけの余白を作る小さなスイッチ。</p>
+            </div>
+            <div class="ls-img img-wrap" style="background-color: #D9D2D2;"></div>
+        </div>
+
+        <div class="lifestyle-block reverse">
+            <div class="ls-text">
+                <div class="label" style="margin-bottom: 1rem;">Night Care</div>
+                <h1 class="h-serif" style="font-size: 2.2rem; margin-bottom: 1rem;">Into the calm.</h1>
+                <h2>私をリセットする夜の儀式</h2>
+                <p>メイクと一緒に今日の疲れも落として。肌に触れるたび、丁寧に自分を労わる「〇〇している私が好き」と思える、ご褒美のようなスキンケアタイムを。</p>
+            </div>
+            <div class="ls-img img-wrap" style="background-color: #C0C5BF;"></div>
+        </div>
+    </section>
+
+    <!-- 4. RANKING -->
+    <section class="bg-band">
+        <div class="container">
+            <div class="section-header">
+                <div class="label" style="margin-bottom: 0.5rem;">Most Loved</div>
+                <h2>みんなが選んだアイテム</h2>
+            </div>
+
+            <div class="rank-list">
+                <div class="rank-item">
+                    <div class="rank-num">1</div>
+                    <div class="img-wrap hover-lift" style="background-color: #E8DCCB;"></div>
+                    <div class="item-info">
+                        <div class="item-title">Mellow Glow Toner</div>
+                        <div class="item-price">¥ 2,800</div>
+                    </div>
+                </div>
+
+                <div class="rank-item">
+                    <div class="rank-num">2</div>
+                    <div class="img-wrap hover-lift" style="background-color: #D1CFCD;"></div>
+                    <div class="item-info">
+                        <div class="item-title">Vegan Lip Butter</div>
+                        <div class="item-price">¥ 1,600</div>
+                    </div>
+                </div>
+
+                <div class="rank-item">
+                    <div class="rank-num">3</div>
+                    <div class="img-wrap hover-lift" style="background-color: #DFCECA;"></div>
+                    <div class="item-info">
+                        <div class="item-title">Wooden Hand Mirror</div>
+                        <div class="item-price">¥ 3,200</div>
+                    </div>
+                </div>
+
+                <div class="rank-item">
+                    <div class="rank-num">4</div>
+                    <div class="img-wrap hover-lift" style="background-color: #D8DFD4;"></div>
+                    <div class="item-info">
+                        <div class="item-title">Nudy Nail Polish</div>
+                        <div class="item-price">¥ 1,400</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="#" class="btn">View All Items</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ABOUT -->
+    <section class="container about-sec">
+        <div class="about-img-side img-wrap" style="background-color: #D6CCC6;"></div>
+        <div class="floating-memo">
+            "Find beauty in simplicity. Your space, your rules."
+        </div>
+
+        <div class="about-content">
+            <div class="label" style="margin-bottom: 1rem;">About Us</div>
+            <h1 class="h-serif" style="margin-bottom: 2rem;">A gentle touch.</h1>
+            <p style="color: var(--text-sub); margin-bottom: 2rem;">
+                DAHLIA ROOM は、ソウルの路地裏で見つけたような、<br>静かで洗練されたアイテムを集めたオンラインストアです。<br><br>
+                トレンドを追いすぎるのではなく、<br>あなたの生活のペースにゆっくりと馴染むもの。<br>ふと視界に入ったとき、心が少しだけ軽くなるような<br>デザインと質感を大切にセレクトしています。
+            </p>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='30'%3E%3Cpath d='M10,15 Q30,5 50,15 T90,15' fill='none' stroke='%23D4A8A0' stroke-width='1'/%3E%3C/svg%3E"
+                alt="decorative line" style="display:block; margin: 0 auto;">
+        </div>
+    </section>
+
+    <!-- 6. FOOTER CTA -->
+    <footer class="footer-cta">
+        <div class="container">
+            <h1 class="h-serif" style="margin-bottom: 1rem; color: var(--bg-color);">Shop the Collection</h1>
+            <p style="color: var(--text-sub); margin-bottom: 3rem;">お気に入りのアイテムを見つけてみませんか。</p>
+            <a href="#" class="btn btn-dark">Go to Store</a>
+
+            <div class="sns-links">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">Journal</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Scroll Progress Bar
+            const progressBar = document.getElementById('progress-bar');
+
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K_MACHINES | Industrial Craft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #D9D6CF;
+            /* コンクリートグレー */
+            --bg-alt: #EDEAE4;
+            /* スモークホワイト */
+            --text-main: #1C1B18;
+            /* インクブラック */
+            --text-sub: #5C5C5C;
+            /* スレート */
+            --accent-orange: #C45C1A;
+            /* インダストリアルオレンジ */
+            --border-thin: 1px solid rgba(28, 27, 24, 0.12);
+            /* #1C1B1820 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Concrete Texture Overlay */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+            mix-blend-mode: multiply;
+        }
+
+        /* Fixed Left Column Navigation */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 5%;
+            min-width: 60px;
+            border-right: var(--border-thin);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background-color: var(--bg-color);
+        }
+
+        .nav-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin: 2rem 0;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-num.active {
+            color: var(--accent-orange);
+            font-weight: 500;
+        }
+
+        /* Typography */
+        .space-grotesk {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .dm-mono {
+            font-family: 'DM Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        h1,
+        h2 {
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .engraved {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent-orange);
+            outline-offset: 4px;
+        }
+
+        /* Layout Container */
+        .main-content {
+            margin-left: max(5%, 60px);
+            /* Leave room for fixed nav */
+            max-width: 1100px;
+            margin-right: auto;
+            /* Asymmetric padding: left 5%, right 12% (roughly simulated via margin/padding logic) */
+            padding: 0 12% 0 5%;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-border-top {
+            border-top: var(--border-thin);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Measurement Scale Decor */
+        .scale-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--text-main);
+            opacity: 0.15;
+        }
+
+        .scale-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-image: repeating-linear-gradient(90deg, var(--text-main) 0, var(--text-main) 1px, transparent 1px, transparent 10px);
+            opacity: 0.3;
+        }
+
+        .text-scale {
+            border-top: 1px solid rgba(28, 27, 24, 0.15);
+            border-bottom: 1px solid rgba(28, 27, 24, 0.15);
+            padding: 1rem 0;
+            margin: 2rem 0;
+        }
+
+        /* Hover Underline */
+        .hover-underline {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text-main);
+            padding-bottom: 2px;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-orange);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Continuous Marquee Text */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            border-top: var(--border-thin);
+            border-bottom: var(--border-thin);
+            padding: 1rem 0;
+            background-color: var(--bg-alt);
+            margin: 4rem 0;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+
+        .hero-num-col {
+            grid-column: 1 / 3;
+            align-self: start;
+            margin-top: 1rem;
+        }
+
+        .hero-content-col {
+            grid-column: 3 / 13;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .blueprint-svg {
+            width: 100%;
+            height: 200px;
+            margin-top: 4rem;
+            border: var(--border-thin);
+            background-image:
+                linear-gradient(rgba(28, 27, 24, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(28, 27, 24, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+        }
+
+        /* Dotted line SVG decor */
+        .svg-dash {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+        }
+
+        .svg-dash line {
+            stroke: var(--accent-orange);
+            stroke-width: 1;
+            stroke-dasharray: 4 4;
+        }
+
+        /* 2. SPECIFICATIONS (Numbers) */
+        .specs-sec {
+            background-color: var(--bg-alt);
+            margin-left: calc(-1 * max(5%, 60px));
+            /* Pull out to edge */
+            padding-left: max(5%, 60px);
+            /* Add padding back inside */
+            padding-right: 12%;
+            /* Keep right asymmetric padding */
+        }
+
+        .spec-item {
+            border-top: var(--border-thin);
+            padding: 2rem 0;
+        }
+
+        .spec-num {
+            font-family: 'DM Mono', monospace;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1;
+            color: var(--text-main);
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* 3. APPROACH / PHILOSOPHY */
+        .approach-content {
+            grid-column: 5 / 13;
+            /* Offset layout */
+        }
+
+        .approach-img {
+            grid-column: 1 / 5;
+            aspect-ratio: 3/4;
+            background-color: var(--text-main);
+            opacity: 0.8;
+            filter: grayscale(100%);
+            position: relative;
+        }
+
+        /* Target Crosshair */
+        .crosshair {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            background: var(--bg-color);
+        }
+
+        .crosshair::before {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .crosshair::after {
+            width: 1px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+        }
+
+        /* 4. FOOTER */
+        footer {
+            padding: 4rem 0;
+            border-top: var(--border-thin);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding-right: 5%;
+            }
+
+            .hero-content-col {
+                grid-column: 1 / 13;
+            }
+
+            .hero-num-col {
+                display: none;
+            }
+
+            .approach-content,
+            .approach-img {
+                grid-column: 1 / 13;
+            }
+
+            .spec-item {
+                padding: 1rem 0;
+            }
+
+            .fixed-nav {
+                display: none;
+            }
+
+            .main-content,
+            .specs-sec {
+                margin-left: 0;
+                padding-left: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="texture-overlay"></div>
+
+    <!-- Left Fixed Nav -->
+    <nav class="fixed-nav">
+        <div class="nav-num active" data-target="sec-1">01. OVERVIEW</div>
+        <div class="nav-num" data-target="sec-2">02. METRICS</div>
+        <div class="nav-num" data-target="sec-3">03. SYSTEM</div>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- 1. HERO -->
+        <section class="hero" id="sec-1">
+            <div class="scale-line"></div>
+            <div class="grid">
+                <div class="hero-num-col dm-mono" style="color:var(--accent-orange);">
+                    [SEC_01]
+                </div>
+                <div class="hero-content-col">
+                    <div class="hero-meta reveal">
+                        <span class="engraved">Industrial Engineering</span>
+                        <span class="dm-mono">v.2.0.4</span>
+                    </div>
+                    <h1 class="reveal" style="transition-delay: 0.1s;">Precision<br>Crafted<br>Systems</h1>
+
+                    <div class="text-scale reveal" style="transition-delay: 0.2s;">
+                        <p style="max-width: 600px;">
+                            我々は、都市の骨格を構築するインダストリアル・エンジニアリング・ファームです。不要な装飾を排し、純粋な機能美と構造的強度のみを追求する。<br><br>
+                            <a href="#" class="hover-underline dm-mono" style="color:var(--accent-orange);">EXPLORE
+                                BLUEPRINT -></a>
+                        </p>
+                    </div>
+
+                    <!-- Blueprint SVG Decor -->
+                    <div class="blueprint-svg reveal" style="transition-delay: 0.3s;">
+                        <svg class="svg-dash">
+                            <line x1="0" y1="0" x2="100%" y2="0" />
+                        </svg>
+                        <div style="position:absolute; bottom:10px; right:10px; font-size:0.7rem;" class="dm-mono">FIG.
+                            1-A</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Text -->
+        <div class="marquee-wrapper">
+            <div class="marquee-text">
+                RAW MATERIAL // STRUCTURAL INTEGRITY // BRUTALIST FUNCTION // PRECISION CRAFT // RAW MATERIAL //
+                STRUCTURAL INTEGRITY // BRUTALIST FUNCTION // PRECISION CRAFT //
+            </div>
+        </div>
+
+        <!-- 2. SPECIFICATIONS -->
+        <section class="specs-sec section-border-top" id="sec-2">
+            <div class="grid">
+                <div class="hero-num-col dm-mono" style="color:var(--accent-orange);">
+                    [SEC_02]
+                </div>
+                <div class="hero-content-col">
+                    <h2 class="reveal dm-mono" style="margin-bottom: 3rem; font-size:1.2rem;">>>> SYSTEM_METRICS</h2>
+
+                    <div class="grid">
+                        <div class="spec-item reveal" style="grid-column: 1 / 5;">
+                            <div class="spec-num count-up" data-val="1200">0</div>
+                            <div class="spec-label engraved">Active Sites</div>
+                        </div>
+                        <div class="spec-item reveal" style="grid-column: 5 / 9; transition-delay: 0.1s;">
+                            <div class="spec-num count-up" data-val="25">0</div>
+                            <div class="spec-label engraved">Years of Precision</div>
+                        </div>
+                        <div class="spec-item reveal" style="grid-column: 9 / 13; transition-delay: 0.2s;">
+                            <div class="spec-num count-up" data-val="8400">0</div>
+                            <div class="spec-label engraved">Tons of Steel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. APPROACH -->
+        <section class="approach section-border-top" id="sec-3">
+            <div class="grid">
+                <div class="approach-img reveal">
+                    <div class="crosshair"></div>
+                    <div class="dm-mono"
+                        style="position:absolute; top:10px; left:10px; color:var(--bg-color); font-size:0.7rem;">
+                        IMG_SRC_04</div>
+                </div>
+
+                <div class="approach-content reveal" style="transition-delay: 0.2s;">
+                    <div class="dm-mono" style="color:var(--accent-orange); margin-bottom: 1rem;">[SEC_03]</div>
+                    <h2 style="margin-bottom: 2rem;">Redefining<br>Foundation.</h2>
+
+                    <p style="margin-bottom: 1.5rem;">
+                        工場の設計図が内包する「無駄のなさ」は、最高のユーザー体験と同義語である。私たちは物理的な建築物だけでなく、そこに関わるシステムを含め、すべてを「削ぎ落とされた機能体」として再設計します。
+                    </p>
+                    <p>
+                        妥協のない素材選定、計算し尽くされた構造解析。それは冷徹なデータに基づくものでありながら、最後は熟練の職人の手によって命が吹き込まれる。
+                    </p>
+
+                    <div style="margin-top: 3rem; border-top: var(--border-thin); padding-top: 1rem;">
+                        <a href="#" class="hover-underline dm-mono">VIEW FULL SPECIFICATIONS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="engraved">K_MACHINES INC. &copy; 2026</div>
+            <div class="dm-mono" style="color:var(--accent-orange);">SYS_STATUS: ONLINE</div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Reveal Animation
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Init visibility check
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+
+            // 2. Count UP Animation trigger on scroll
+            const countObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const targetVal = parseInt(el.getAttribute('data-val'), 10);
+                        animateValue(el, 0, targetVal, 1500);
+                        obs.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // Optional: format numbers like "1,200" if needed
+                        obj.innerHTML = end.toLocaleString();
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // 3. ScrollSpy for Fixed Nav
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-num');
+
+            window.addEventListener('scroll', () => {
+                let current = "";
+                sections.forEach(sec => {
+                    const sectionTop = sec.offsetTop;
+                    // Offset for header/padding
+                    if (scrollY >= sectionTop - 200) {
+                        current = sec.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-target') === current) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

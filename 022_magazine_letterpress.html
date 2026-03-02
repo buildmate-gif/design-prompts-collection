@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Analog Archive | 記事</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #FAF6EE;
+            /* クリーム */
+            --bg-paper: #F2EBD9;
+            /* ウォームペーパー */
+            --text-main: #1F1208;
+            /* インクブラウン */
+            --text-sub: #6B5744;
+            /* ミッドブラウン */
+            --accent-color: #C05A2A;
+            /* テラコッタ */
+            --border-color: #C4A882;
+            /* ボーダー・区切り */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            line-height: 1.95;
+            letter-spacing: 0.015em;
+            overflow-x: hidden;
+            /* Letterpress texture simulation */
+            position: relative;
+        }
+
+        /* Paper Texture Overlay */
+        .paper-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+            mix-blend-mode: multiply;
+        }
+
+        /* Progress Bar */
+        .read-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-style: italic;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-main);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Hand-drawn SVG underline */
+        .h1-underline {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 1.5s ease-out forwards 0.5s;
+        }
+
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        h2 {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+            margin: 4rem 0 2rem 0;
+            color: var(--text-main);
+        }
+
+        .meta {
+            font-family: 'Nunito Sans', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            color: var(--text-sub);
+        }
+
+        /* Layout */
+        .wrapper {
+            max-width: 1000px;
+            /* Contains main + aside */
+            margin: 0 auto;
+            padding: 0 4vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center main content */
+        }
+
+        /* 1. HEADER */
+        header {
+            width: 100%;
+            max-width: 660px;
+            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-top: 4rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 2. TITLE AREA */
+        .title-area {
+            width: 100%;
+            /* 140% width logic: break out of the 660px main container */
+            max-width: 924px;
+            /* 660 * 1.4 */
+            text-align: center;
+            margin: 5rem 0;
+        }
+
+        .lead-text {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            max-width: 660px;
+            margin: 3rem auto 0 auto;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* 3. BYLINE */
+        .byline {
+            width: 100%;
+            max-width: 660px;
+            text-align: left;
+            margin-bottom: 4rem;
+        }
+
+        .author-name {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* 4. MAIN BODY */
+        .article-body {
+            width: 100%;
+            max-width: 660px;
+            position: relative;
+            /* For absolutely positioning marginalia outside */
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        p:first-of-type::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+            color: var(--accent-color);
+        }
+
+        /* Ornament separator */
+        .ornament {
+            text-align: center;
+            margin: 4rem 0;
+            color: var(--border-color);
+            letter-spacing: 0.5rem;
+        }
+
+        .ornament::before {
+            content: '❦ ❦ ❦';
+            font-size: 1.5rem;
+        }
+
+        /* 2-Column Section */
+        .two-col-sec {
+            column-count: 2;
+            column-gap: 3rem;
+            column-rule: 1px solid var(--border-color);
+            background-color: var(--bg-paper);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-size: 0.95rem;
+            /* slightly smaller for newspaper feel */
+            text-align: justify;
+        }
+
+        .two-col-sec p:first-of-type::first-letter {
+            font-size: 1rem;
+            /* reset dropcap inside 2 col */
+            float: none;
+            color: inherit;
+            line-height: inherit;
+        }
+
+        /* 5. PULL QUOTE */
+        .pull-quote {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: clamp(1.3rem, 2vw, 1.5rem);
+            color: var(--accent-color);
+            text-align: center;
+            margin: 5rem -4vw;
+            /* Pull out slightly */
+            padding: 0 4vw;
+            line-height: 1.6;
+        }
+
+        /* Marginalia (Annotations) */
+        .footnote-ref {
+            color: var(--accent-color);
+            cursor: help;
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent-color);
+            position: relative;
+        }
+
+        /* Tooltip logic via CSS */
+        .footnote-ref:hover::after {
+            content: attr(data-note);
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-main);
+            color: var(--bg-base);
+            padding: 0.5rem;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.8rem;
+            width: max-content;
+            max-width: 200px;
+            z-index: 10;
+            border-radius: 2px;
+            opacity: 1;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .marginalia {
+            position: absolute;
+            left: calc(100% + 40px);
+            /* Place outside right */
+            width: 200px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+            font-style: italic;
+            /* Scroll opacity handled via JS */
+            opacity: 0.3;
+            transition: opacity 0.5s;
+        }
+
+        /* 6. FOOTER */
+        .article-footer {
+            width: 100%;
+            max-width: 660px;
+            margin: 8rem 0 4rem 0;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .author-box {
+            background-color: var(--bg-paper);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tags {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tags span {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .marginalia {
+                display: none;
+                /* Hide marginalia on smaller screens or transform to inline */
+            }
+
+            .marginalia.mobile-inline {
+                display: block;
+                position: static;
+                width: 100%;
+                margin: 2rem 0;
+                background: var(--bg-paper);
+                padding: 1rem;
+                border-left: 3px solid var(--accent-color);
+                opacity: 1 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .two-col-sec {
+                column-count: 1;
+            }
+
+            .title-area {
+                max-width: 100%;
+                margin: 3rem 0;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .pull-quote {
+                margin: 4rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="paper-texture"></div>
+    <div class="read-progress" id="progressBar"></div>
+
+    <div class="wrapper">
+
+        <!-- 1. HEADER -->
+        <header class="meta">
+            <span>CULTURE / ESSAY</span>
+            <span>2026.04.12</span>
+        </header>
+
+        <!-- 2. TITLE AREA -->
+        <div class="title-area">
+            <h1>
+                The Weight of Ink:<br>Reviving Print in a Digital Age.
+                <svg class="h1-underline" viewBox="0 0 500 20" preserveAspectRatio="none">
+                    <path d="M5,10 Q250,20 495,5" />
+                </svg>
+            </h1>
+            <p class="lead-text">
+                情報が光の速さで消費され、ピクセルとして消え去る時代。あえて物理的な重みを持つ「印刷物」へと回帰する独立系パブリッシャーたちの、静かなる反逆を追う。
+            </p>
+        </div>
+
+        <!-- 3. BYLINE -->
+        <div class="byline">
+            <div class="author-name">by Arthur Pendelton</div>
+            <div class="meta" style="margin-top: 5px; text-transform:none; letter-spacing:0.05em;">Cultural Critic based
+                in Brooklyn, NY.</div>
+        </div>
+
+        <!-- 4. MAIN BODY -->
+        <article class="article-body">
+
+            <!-- Marginalia Example 1 -->
+            <aside class="marginalia m-1" style="top: 50px;">
+                ※1: The concept of "Digital Fatigue" has been central to post-2020 sociological discourse.
+            </aside>
+
+            <p>
+                スクリーンの上を滑る指先の感覚に、私たちは疲れ果てていないだろうか。朝目覚めてから夜眠りにつくまで、私たちは数え切れないほどの文字を読んでいる。しかし、そのどれだけが記憶に重みを残しているだろうか。情報を「摂取」することは容易になったが、それを「咀嚼」する時間は不釣り合いなほどに減少しつつある。<a
+                    href="#" class="footnote-ref" data-note="デジタル・ファティーグ（情報過多による疲労）に関する最新の研究結果より">※1</a>
+            </p>
+
+            <p>
+                ブルックリンの小さなガレージで、100年前のハイデルベルグ社製・活版印刷機が重々しい音を立てていた。インクの匂いが漂う薄暗い空間で、マスタープリンターのジョン・ヘイズは、一文字ずつ金属の活字を拾い上げている。「ここにはCmd+Z（取り消し）はないんだ」と彼は笑う。「すべての決断が物理的な結果を伴う。だからこそ、言葉を選ぶことに真剣になれるのさ」
+            </p>
+
+            <h2>The Aesthetics of Imperfection</h2>
+
+            <p>
+                ピクセルで作られたテキストは完璧だ。ベクターデータのフォントは、どれだけ拡大しても粗が見えない。しかし、活版印刷によって紙に押し付けられたインテーリョ（凹み）には、インクの滲みや、かすかな掠れが存在する。この「不完全さ」こそが、読者に書き手の身体性を想像させるのだ。
+            </p>
+
+            <div class="ornament"></div>
+
+            <!-- 2-Column Section -->
+            <div class="two-col-sec">
+                <p>
+                    近年、欧米を中心にインディペンデント・マガジンの創刊が相次いでいる。彼らはウェブサイトを持たず、あえて年2回の手触りのある紙媒体のみで発信する道を選んでいる。「情報を伝えるだけならネットで十分だ。我々が紙に印刷するのは、それが『残すべき価値のあるもの』だと信じているからだ」と、ロンドンを拠点とするあるエディターは語る。
+                </p>
+                <p>
+                    彼らの印刷物は、単なる情報のパッケージではない。意図的にざらついた手漉きの紙、特殊なインクの調合、そして糸綴じの製本。そのすべてが、読者に「読む」という行為以上の、一種の儀式的な体験を提供するように設計されているのだ。
+                </p>
+            </div>
+
+            <!-- Marginalia Example 2 -->
+            <aside class="marginalia m-2" style="top: 650px;">
+                Physical media requires intent to consume, contrasting with algorithmic passive feeding.
+            </aside>
+
+            <h2>A Slower Metrabolism of Information</h2>
+
+            <p>
+                インターネット上のテキストは、アルゴリズムによって流れては消えていく。しかし、本棚に置かれた本や雑誌は、そこにある物理的な空間を占有する。目に入るたびに、その装丁や背表紙の色が読者に語りかけてくる。これは情報の代謝が遅いということだ。すぐには消化されず、時間をかけてゆっくりと読者の奥底へと染み込んでいく。
+            </p>
+
+            <!-- 5. PULL QUOTE -->
+            <blockquote class="pull-quote">
+                「私たちは情報にアクセスする方法を無限に手に入れたが、その情報を体験する方法を見失いつつあるのかもしれない。」
+            </blockquote>
+
+            <p>
+                活字を拾い、インクを練り、圧力をかけて紙に印づける。この気が遠くなるようなアナログな工程は、効率化の対極にある。しかし、その重みと手触りは、スクリーン上の光の点滅には決して代替できない「確からしさ」を帯びている。<br>
+                未来はデジタルかもしれない。しかし、そのデジタルの海の中で、物理的なアンカー（錨）としての印刷物の価値は、かつてないほど高まっているのだ。
+            </p>
+
+        </article>
+
+        <!-- 6. FOOTER -->
+        <footer class="article-footer">
+            <div class="author-box">
+                <div class="author-name" style="margin-bottom: 0.5rem;">Arthur Pendelton</div>
+                <p style="font-size: 0.9rem; margin-bottom: 0;">
+                    アーサー・ペンデルトン。ニューヨークを拠点とするカルチャー・クリティック。テクノロジーとアナログメディアの交差点における人間性をテーマに執筆活動を行う。著書に『The Last Print』がある。
+                </p>
+            </div>
+
+            <div class="meta" style="margin-bottom: 0.5rem;">TAGS:</div>
+            <div class="tags">
+                <span>Editorial Design</span>
+                <span>Letterpress</span>
+                <span>Slow Media</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Reading Progress Bar
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            });
+
+            // 2. Marginalia Opacity on Scroll
+            // Make marginalia more visible when scrolled into center view
+            const marginalias = document.querySelectorAll('.marginalia');
+
+            // Move marginalia to inline if mobile
+            if (window.innerWidth <= 1200) {
+                marginalias.forEach(m => m.classList.add('mobile-inline'));
+            }
+
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth > 1200) {
+                    const centerY = window.innerHeight / 2;
+                    marginalias.forEach(m => {
+                        const rect = m.getBoundingClientRect();
+                        // Distance from center of viewport
+                        const dist = Math.abs(rect.top + rect.height / 2 - centerY);
+                        // Full opacity when near center, fade out when far
+                        let op = 1 - (dist / (window.innerHeight / 2));
+                        if (op < 0.2) op = 0.2; // Min opacity
+                        if (op > 1) op = 1;
+                        m.style.opacity = op;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

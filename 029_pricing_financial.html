@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Wealth Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F5F5F3;
+            /* ニュートラルホワイト */
+            --bg-alt: #EDEDEB;
+            /* ライトグレー */
+            --text-main: #141414;
+            /* チャコール */
+            --text-sub: #686866;
+            /* ミッドグレー */
+            --border-color: #D4D4D2;
+            --accent-color: #C4870A;
+            /* アンバーゴールド */
+            --dark-bg: #1A1A1A;
+            --dark-text: #F5F5F3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Epilogue', 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Epilogue', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            text-transform: uppercase;
+        }
+
+        .price-num {
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: middle;
+            height: clamp(2.5rem, 5vw, 4rem);
+            /* To contain sliding text */
+            line-height: 1;
+        }
+
+        .price-val-track {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .val-monthly,
+        .val-yearly {
+            height: clamp(2.5rem, 5vw, 4rem);
+            display: flex;
+            align-items: center;
+        }
+
+        .label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 4vw;
+        }
+
+        section {
+            margin-bottom: 120px;
+        }
+
+        /* 1. Header & Toggle */
+        .header-sec {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .toggle-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .toggle-track {
+            width: 50px;
+            height: 26px;
+            background-color: var(--border-color);
+            border-radius: 0;
+            /* Strictly no radius > 16, using 0 for brutalist/financial feel */
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-track.active {
+            background-color: var(--text-main);
+        }
+
+        .toggle-knob {
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-color);
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-track.active .toggle-knob {
+            transform: translateX(24px);
+        }
+
+        .discount-badge {
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        /* 2. Pricing Cards */
+        .cards-container {
+            display: grid;
+            /* Non-uniform 3 columns: 1fr 1.1fr 1fr */
+            grid-template-columns: 1fr 1.1fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .plan-card {
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s;
+        }
+
+        .plan-card:hover {
+            border-color: var(--accent-color);
+        }
+
+        .plan-card.recommended {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: var(--dark-bg);
+            padding: 4rem 2.5rem;
+            /* slightly larger padding for emphasis */
+            margin: -1rem 0;
+            /* pop out slightly */
+        }
+
+        .plan-card.recommended:hover {
+            border-color: var(--accent-color);
+        }
+
+        .plan-card.recommended .text-sub {
+            color: #A0A0A0;
+        }
+
+        .text-sub {
+            color: var(--text-sub);
+        }
+
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            margin-top: auto;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .plan-card.recommended .btn {
+            border-color: var(--dark-text);
+            color: var(--dark-text);
+        }
+
+        .plan-card.recommended .btn:hover {
+            background-color: var(--dark-text);
+            color: var(--dark-bg);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .plan-card.recommended .feature-list {
+            border-top-color: #333;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-list li::before {
+            content: '●';
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        /* 3. Comparison Table */
+        .compare-sec {
+            margin-top: 150px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background-color: var(--bg-color);
+        }
+
+        /* Sticky header for table */
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        td:first-child,
+        th:first-child {
+            text-align: left;
+            font-weight: 600;
+            width: 40%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            /* Recommended col slightly highlighted via text bolding or bg */
+            background-color: var(--bg-alt);
+        }
+
+        /* 4. FAQ */
+        .faq-sec {
+            max-width: 800px;
+            margin: 150px auto;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-q {
+            padding: 1.5rem 0;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out;
+            color: var(--text-sub);
+        }
+
+        .faq-a-inner {
+            padding-bottom: 1.5rem;
+        }
+
+        /* 5. Guarantee / CTA */
+        .cta-sec {
+            text-align: center;
+            padding: 100px 0;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-alt);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .plan-card.recommended {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. Header & Toggle -->
+        <header class="header-sec">
+            <h1>Investment<br>Architect Plans</h1>
+            <p class="text-sub" style="font-size: 1.1rem; margin-top: 1rem;">
+                長期的な資産構築のための強固なプラットフォーム。あなたのポートフォリオ戦略に最適なプランを選択してください。
+            </p>
+
+            <div class="toggle-wrap">
+                <span id="label-monthly">Monthly</span>
+                <div class="toggle-track" id="billing-toggle">
+                    <div class="toggle-knob"></div>
+                </div>
+                <span id="label-yearly" style="color:var(--text-sub);">Annually <span class="discount-badge">SAVE
+                        20%</span></span>
+            </div>
+        </header>
+
+        <!-- 2. Plan Cards -->
+        <section class="cards-container">
+
+            <!-- Basic -->
+            <div class="plan-card">
+                <span class="label">Tier 1</span>
+                <h2>Standard</h2>
+                <p class="text-sub" style="margin-bottom: 2rem; font-size: 0.85rem;">個人投資家向けの基礎的な分析ツールと市場データ。</p>
+                <div style="margin-bottom: 0.5rem;">
+                    <span style="font-weight:600; vertical-align:top; margin-right:4px;">$</span>
+                    <div class="price-num">
+                        <div class="price-val-track">
+                            <span class="val-monthly">49</span>
+                            <span class="val-yearly">39</span>
+                        </div>
+                    </div>
+                    <span style="color:var(--text-sub);">/ mo</span>
+                </div>
+
+                <ul class="feature-list">
+                    <li>リアルタイム市場データ（主要取引所）</li>
+                    <li>基礎的なポートフォリオ分析</li>
+                    <li>月報レポートへのアクセス</li>
+                    <li>メールサポート（48時間以内）</li>
+                </ul>
+                <a href="#" class="btn">Select Standard</a>
+            </div>
+
+            <!-- Professional (Recommended) -->
+            <div class="plan-card recommended">
+                <span class="label">Tier 2 / Recommended</span>
+                <h2>Professional</h2>
+                <p class="text-sub" style="margin-bottom: 2rem; font-size: 0.85rem;">専業トレーダー・資産管理者向けの高度な要件を満たすフルセット。</p>
+                <div style="margin-bottom: 0.5rem;">
+                    <span style="font-weight:600; vertical-align:top; margin-right:4px;">$</span>
+                    <div class="price-num">
+                        <div class="price-val-track">
+                            <span class="val-monthly">149</span>
+                            <span class="val-yearly">119</span>
+                        </div>
+                    </div>
+                    <span style="color:#A0A0A0;">/ mo</span>
+                </div>
+                <div style="font-size:0.8rem; color:#A0A0A0; margin-bottom:1rem;">Billed annually at $1,428</div>
+
+                <ul class="feature-list">
+                    <li>グローバル市場のリアルタイムデータ</li>
+                    <li>AI駆動のリスク評価とシナリオ分析</li>
+                    <li>専用APIアクセス（10k req/日）</li>
+                    <li>アナリストへのダイレクトコンタクト</li>
+                    <li>優先サポート（4時間以内）</li>
+                </ul>
+                <a href="#" class="btn">Select Professional</a>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="plan-card">
+                <span class="label">Tier 3</span>
+                <h2>Corporate</h2>
+                <p class="text-sub" style="margin-bottom: 2rem; font-size: 0.85rem;">機関投資家・ファンド向けのオーダーメイド型データインフラ。</p>
+                <div style="margin-bottom: 0.5rem; height: 50px; display:flex; align-items:center;">
+                    <h3 style="font-weight: 800; font-size: 2rem;">Custom</h3>
+                </div>
+
+                <ul class="feature-list">
+                    <li>無制限のAPIアクセス</li>
+                    <li>オンプレミス展開オプション</li>
+                    <li>専任のアカウントマネージャー</li>
+                    <li>カスタムデータパイプライン構築</li>
+                    <li>24/7 電話サポート</li>
+                </ul>
+                <a href="#" class="btn">Contact Sales</a>
+            </div>
+
+        </section>
+
+        <!-- 3. Compare Table -->
+        <section class="compare-sec">
+            <h2 style="text-align:center; margin-bottom: 3rem;">Compare Features</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Standard</th>
+                            <th>Professional</th>
+                            <th>Corporate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>リアルタイム市場データ</td>
+                            <td>米国内のみ</td>
+                            <td>グローバル（主要40市場）</td>
+                            <td>全市場網羅</td>
+                        </tr>
+                        <tr>
+                            <td>ヒストリカルデータ範囲</td>
+                            <td>過去5年</td>
+                            <td>過去20年</td>
+                            <td>制限なし</td>
+                        </tr>
+                        <tr>
+                            <td>API アクセス</td>
+                            <td>—</td>
+                            <td>● (制限あり)</td>
+                            <td>● (無制限)</td>
+                        </tr>
+                        <tr>
+                            <td>AI シナリオモデリング</td>
+                            <td>—</td>
+                            <td>●</td>
+                            <td>● (カスタムモデル)</td>
+                        </tr>
+                        <tr>
+                            <td>サポート体制</td>
+                            <td>メール</td>
+                            <td>優先チャット</td>
+                            <td>24/7 専任電話対応</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. FAQ -->
+        <section class="faq-sec">
+            <div class="label" style="text-align: center;">FAQ</div>
+            <h2 style="text-align:center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    年間プランへ途中で変更することは可能ですか？
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        はい、アカウント設定画面からいつでも年間プランへアップグレード可能です。変更した時点での残りの日数は日割り計算され、次の請求額から精算されます。
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    ProfessionalプランのAPI制限を超過した場合はどうなりますか？
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        ハードリミットには達せず、超過分は一時的にリクエスト間隔が調整（スロットル）されます。永続的に高い帯域が必要な場合はCorporateプランへの移行をご検討ください。
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    解約時のデータエクスポートは可能ですか？
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        構築したポートフォリオデータや、独自に設定したインジケーターの設定ファイルはCSV形式でいつでもエクスポート可能です。当社が利用者のデータをロックインすることはありません。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End Container -->
+
+    <!-- 5. CTA Area -->
+    <section class="cta-sec" style="margin-bottom:0;">
+        <h2 style="margin-bottom: 1rem;">Start your analysis today.</h2>
+        <p class="text-sub" style="margin-bottom: 2rem;">※ 30日間の完全返金保証が全プランに適用されます。</p>
+        <a href="#" class="btn"
+            style="display:inline-block; padding: 1rem 4rem; width: auto; background-color:var(--text-main); color:var(--bg-color);">Create
+            Account</a>
+        <div style="margin-top: 2rem; font-size: 0.8rem;">
+            <a href="mailto:sales@wealth-arch.example" style="color: var(--text-main);">sales@wealth-arch.example</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Toggle Logic
+            const toggleFn = document.getElementById('billing-toggle');
+            const valTracks = document.querySelectorAll('.price-val-track');
+            const lblMonthly = document.getElementById('label-monthly');
+            const lblYearly = document.getElementById('label-yearly');
+            let isAnnually = false;
+
+            toggleFn.addEventListener('click', () => {
+                isAnnually = !isAnnually;
+                toggleFn.classList.toggle('active');
+
+                if (isAnnually) {
+                    lblMonthly.style.color = "var(--text-sub)";
+                    lblYearly.style.color = "var(--text-main)";
+                    // slide up to show yearly
+                    valTracks.forEach(track => {
+                        track.style.transform = "translateY(-50%)";
+                    });
+                } else {
+                    lblMonthly.style.color = "var(--text-main)";
+                    lblYearly.style.color = "var(--text-sub)";
+                    // slide down to show monthly
+                    valTracks.forEach(track => {
+                        track.style.transform = "translateY(0)";
+                    });
+                }
+            });
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const q = item.querySelector('.faq-q');
+                const a = item.querySelector('.faq-a');
+
+                q.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Close others (optional, but clean)
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-a').style.maxHeight = null;
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        a.style.maxHeight = a.scrollHeight + "px";
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

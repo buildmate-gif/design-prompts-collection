@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Studio OAK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,200;1,9..144,300;1,9..144,400&family=Noto+Sans+JP:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #F8F3EB;
+            /* ウォームリネン */
+            --bg-alt: #EDE6D8;
+            /* ライトサンド */
+            --text-main: #1E1208;
+            /* ディープブラウン */
+            --text-sub: #756B60;
+            /* ウォームグレー */
+            --accent-color: #4A6741;
+            /* モスグリーン */
+            --border-color: #C9BBA8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--text-main);
+            margin-bottom: 2rem;
+        }
+
+        .num-huge {
+            font-family: 'Fraunces', serif;
+            font-weight: 200;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            margin-top: 10rem;
+            margin-bottom: 10rem;
+        }
+
+        .grid-12 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        /* Fade-in Animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            margin-top: 4rem;
+            /* less top margin for hero */
+        }
+
+        .hero-text {
+            grid-column: 1 / 7;
+            /* Left align */
+            z-index: 2;
+        }
+
+        .hero-img {
+            grid-column: 7 / 13;
+            aspect-ratio: 3/4;
+            background-color: var(--bg-alt);
+            position: relative;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-base);
+        }
+
+        /* 2. CULTURE (Full Bleed Band) */
+        .culture-sec {
+            position: relative;
+        }
+
+        .culture-band {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            height: 60vh;
+            background-color: var(--bg-alt);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .parallax-img {
+            width: 120%;
+            height: 120%;
+            background-color: #D3C9BA;
+            /* Placeholder color darker than alt */
+            /* image would go here */
+            transform: translateX(-5%);
+            /* Parallax init */
+            will-change: transform;
+        }
+
+        .culture-grid {
+            margin-top: -10vh;
+            /* overlap */
+            position: relative;
+            z-index: 10;
+        }
+
+        .c-item {
+            background-color: var(--bg-base);
+            padding: 3rem 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .c-item:nth-child(1) {
+            grid-column: 2 / 6;
+        }
+
+        .c-item:nth-child(2) {
+            grid-column: 6 / 10;
+            margin-top: 4rem;
+        }
+
+        .c-item:nth-child(3) {
+            grid-column: 8 / 12;
+            margin-top: 8rem;
+        }
+
+        /* 3. POSITIONS (Accordion) */
+        .positions-col {
+            grid-column: 3 / 11;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-item:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            padding: 2rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .accordion-inner {
+            padding-bottom: 2rem;
+            color: var(--text-sub);
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        /* 4. REQUIREMENTS */
+        .req-col {
+            grid-column: 2 / 8;
+        }
+
+        .req-list {
+            list-style-type: none;
+        }
+
+        .req-item {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .req-num {
+            margin-right: 1.5rem;
+            margin-top: -0.5rem;
+        }
+
+        .req-text {
+            flex: 1;
+        }
+
+        /* 5. CONDITIONS (Grid) */
+        .cond-grid {
+            grid-column: 1 / 13;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .cond-item {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem;
+        }
+
+        /* 6. FLOW (Horizontal Steps) */
+        .flow-sec {
+            overflow-x: auto;
+            padding-bottom: 2rem;
+        }
+
+        .flow-track {
+            display: flex;
+            gap: 2rem;
+            min-width: 800px;
+            /* Ensure horizontal scroll on small screens */
+        }
+
+        .flow-step {
+            flex: 1;
+            border-top: 1px solid var(--accent-color);
+            padding-top: 1.5rem;
+            position: relative;
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 5px;
+            height: 5px;
+            /* removed border-radius per requirement */
+            background-color: var(--accent-color);
+        }
+
+        .step-num {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* 7. CTA */
+        .cta-sec {
+            text-align: center;
+            padding: 5rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-text {
+                grid-column: 1 / 13;
+                margin-bottom: 3rem;
+            }
+
+            .hero-img {
+                grid-column: 1 / 13;
+                aspect-ratio: 16/9;
+            }
+
+            .c-item:nth-child(n) {
+                grid-column: 1 / 13;
+                margin-top: 2rem;
+                margin-bottom: 0;
+            }
+
+            .culture-grid {
+                margin-top: 0;
+            }
+
+            .positions-col,
+            .req-col {
+                grid-column: 1 / 13;
+            }
+
+            .cond-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Flow to vertical */
+            .flow-track {
+                flex-direction: column;
+                min-width: 0;
+            }
+
+            .flow-step {
+                border-top: none;
+                border-left: 1px solid var(--accent-color);
+                padding-top: 0;
+                padding-left: 1.5rem;
+                padding-bottom: 2rem;
+            }
+
+            .flow-step::before {
+                top: 0;
+                left: -3px;
+            }
+
+            section {
+                margin-top: 6rem;
+                margin-bottom: 6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. HERO -->
+        <section class="hero grid-12 fade-up">
+            <div class="hero-text">
+                <div class="label">Join the team</div>
+                <h1>Design with<br>Intention.</h1>
+                <p style="font-size: 1.1rem; color: var(--text-sub); margin-bottom: 2rem;">
+                    私たちは、使い捨てられない「生活の道具」としてのデジタルプロダクトを創護るデザインスタジオです。手触りのある思想を、形にしませんか。
+                </p>
+                <a href="#contact" class="btn">話を聞く</a>
+            </div>
+            <div class="hero-img"></div>
+        </section>
+
+        <!-- 2. CULTURE -->
+        <section class="culture-sec fade-up">
+            <h2 style="text-align: center;">Our Culture</h2>
+
+            <div class="culture-band">
+                <div class="parallax-img" id="parallaxLayer"></div>
+            </div>
+
+            <div class="grid-12 culture-grid">
+                <div class="c-item">
+                    <div class="label">01 / Process</div>
+                    <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">対話から始める</h3>
+                    <p style="color:var(--text-sub); font-size: 0.9rem;">
+                        効率よりも納得を。クライアントの奥底にある言葉にならない想いを言語化するところから、デザインは始まります。</p>
+                </div>
+                <div class="c-item">
+                    <div class="label">02 / Craft</div>
+                    <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">細部への執着</h3>
+                    <p style="color:var(--text-sub); font-size: 0.9rem;">
+                        ピクセル単位の余白、1文字のタイポグラフィ。「神は細部に宿る」というクラフトマンシップを全員が共有しています。</p>
+                </div>
+                <div class="c-item">
+                    <div class="label">03 / Life</div>
+                    <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">生活者の視点</h3>
+                    <p style="color:var(--text-sub); font-size: 0.9rem;">
+                        良いデザインは、豊かな生活から生まれる。十分な休息と、文化的なインプットを推奨する環境を整えています。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. POSITIONS -->
+        <section class="fade-up">
+            <div class="label" style="text-align: center;">Open Roles</div>
+            <h2 style="text-align: center;">募集職種</h2>
+
+            <div class="grid-12" style="margin-top: 3rem;">
+                <div class="positions-col">
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div>
+                                <div class="label">DESIGN</div>
+                                <h3>UI/UX Designer</h3>
+                            </div>
+                            <div class="accordion-icon">+</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                クライアントの事業課題を解決するため、体験設計からUI実装ディレクションまで一貫して担当していただきます。単なる表層のデザインではなく、情報の構造化から取り組める方を募集します。
+                                <div style="margin-top:1rem;"><a href="#" style="color:var(--accent-color);">詳細を見る</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div>
+                                <div class="label">ENGINEERING</div>
+                                <h3>Frontend Developer</h3>
+                            </div>
+                            <div class="accordion-icon">+</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                デザインの意図を汲み取り、アクセシビリティとパフォーマンスを両立した堅牢なマークアップ・フロントエンド実装を担当します。CSS設計やアニメーションの実装にこだわりを持つ方を歓迎します。
+                                <div style="margin-top:1rem;"><a href="#" style="color:var(--accent-color);">詳細を見る</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div>
+                                <div class="label">DIRECTION</div>
+                                <h3>Project Manager</h3>
+                            </div>
+                            <div class="accordion-icon">+</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                プロジェクト全体の進行管理、クライアントとの折衝、品質管理を担います。「良いものを作る」ための適切なプロセス設計とチームメイキングができる要のポジションです。
+                                <div style="margin-top:1rem;"><a href="#" style="color:var(--accent-color);">詳細を見る</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. REQUIREMENTS -->
+        <section class="fade-up">
+            <div class="grid-12">
+                <div class="req-col">
+                    <div class="label">Requirements</div>
+                    <h2>こんな方と働きたい</h2>
+
+                    <ul class="req-list" style="margin-top: 3rem;">
+                        <li class="req-item">
+                            <div class="num-huge req-num">1</div>
+                            <div class="req-text">
+                                <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">美意識を言葉で説明できる方
+                                </h3>
+                                <p style="color:var(--text-sub); font-size:0.9rem;">
+                                    「なんとなく」ではなく、なぜそのデザイン表現を選んだのか、論理的に言語化し、議論できる姿勢を重視します。</p>
+                            </div>
+                        </li>
+                        <li class="req-item">
+                            <div class="num-huge req-num">2</div>
+                            <div class="req-text">
+                                <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">
+                                    領域を横断することを楽しめる方</h3>
+                                <p style="color:var(--text-sub); font-size:0.9rem;">
+                                    職能の境界線を引かず、デザインから実装、ときには企画まで、越境してプロジェクトに関わろうとする知的好奇心を歓迎します。</p>
+                            </div>
+                        </li>
+                        <li class="req-item">
+                            <div class="num-huge req-num">3</div>
+                            <div class="req-text">
+                                <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">長期的な視点を持てる方
+                                </h3>
+                                <p style="color:var(--text-sub); font-size:0.9rem;">
+                                    短期的なトレンド消費ではなく、5年後、10年後も機能する本質的な価値づくりに向き合える根気強さがあること。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CONDITIONS -->
+        <section class="fade-up">
+            <div class="label" style="text-align: center;">Conditions</div>
+            <h2 style="text-align: center;">働く環境について</h2>
+
+            <div class="grid-12" style="margin-top: 3rem;">
+                <div class="cond-grid">
+
+                    <div class="cond-item">
+                        <div class="label">SALARY</div>
+                        <h3 style="font-size: 1.1rem; margin:0.5rem 0;">年収 500〜800万円</h3>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">経験・能力を考慮の上、協議にて決定。年2回の給与見直しあり。</p>
+                    </div>
+
+                    <div class="cond-item">
+                        <div class="label">LOCATION</div>
+                        <h3 style="font-size: 1.1rem; margin:0.5rem 0;">ハイブリッド勤務</h3>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">
+                            代々木上原オフィス（週2日推奨）＋リモートワーク（週3日）。全国どこからでも勤務可能。</p>
+                    </div>
+
+                    <div class="cond-item">
+                        <div class="label">HOURS</div>
+                        <h3 style="font-size: 1.1rem; margin:0.5rem 0;">フルフレックスタイム</h3>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">
+                            コアタイムなしのフレックス制。（標準労働時間8時間/日）自身の生活リズムに合わせた働き方が可能です。</p>
+                    </div>
+
+                    <div class="cond-item">
+                        <div class="label">BENEFITS</div>
+                        <h3 style="font-size: 1.1rem; margin:0.5rem 0;">インプット支援</h3>
+                        <p style="color:var(--text-sub); font-size: 0.85rem;">各種社会保険完備。書籍購入費、美術館や展示会のチケット代を月1万円まで会社負担。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FLOW -->
+        <section class="fade-up flow-sec">
+            <div class="label">Selection Flow</div>
+            <h2 style="margin-bottom: 3rem;">選考プロセス</h2>
+
+            <div class="flow-track">
+                <div class="flow-step">
+                    <div class="step-num">STEP 01</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">書類選考・ポートフォリオ提出</h3>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">これまでの制作物や、携わったプロジェクトでの役割がわかる資料をご提出ください。</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 02</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">カジュアル面談（オンライン）</h3>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">お互いの価値観が合うか、まずはざっくばらんにお話ししましょう。</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 03</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">スキルトライアル（1Day）</h3>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">小さな課題を通じて、実際の思考プロセスやアウトプットの質を拝見します。</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 04</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">最終面接（対面推奨）</h3>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">代表とメンバー全員との面接。オフィスの空気感も感じていただきます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CTA -->
+        <section class="cta-sec fade-up" id="contact">
+            <h2>Let's Talk.</h2>
+            <p style="color:var(--text-sub); margin-bottom: 2rem;">
+                本格的な応募の前に、まずは話を聞くだけでも大歓迎です。<br>あなたの「作りたいもの」について、お話ししませんか。</p>
+            <a href="mailto:careers@studiooak.example" class="btn"
+                style="background-color: var(--accent-color); color: var(--bg-base); font-size: 1rem;">エントリーはこちら</a>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Fade-up Observer
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // 2. Accordion Logic
+            const accordions = document.querySelectorAll('.accordion-item');
+            accordions.forEach(acc => {
+                const header = acc.querySelector('.accordion-header');
+                const content = acc.querySelector('.accordion-content');
+
+                header.addEventListener('click', () => {
+                    const isOpen = acc.classList.contains('open');
+
+                    // Close all
+                    accordions.forEach(a => {
+                        a.classList.remove('open');
+                        a.querySelector('.accordion-content').style.maxHeight = null;
+                    });
+
+                    // Open clicked if it wasn't open
+                    if (!isOpen) {
+                        acc.classList.add('open');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // 3. Parallax for Culture Band
+            const plxLayer = document.getElementById('parallaxLayer');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                // Simple horizontal parallax translation
+                const val = -5 + (scrolled * 0.02);
+                plxLayer.style.transform = `translateX(${val}%)`;
+            });
+
+        });
+    </script>
+</body>
+
+</html>

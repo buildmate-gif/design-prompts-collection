@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE | K. TAKAHASHI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans+JP:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F6F6F4;
+            /* リサーチホワイト */
+            --text-main: #111110;
+            /* データブラック */
+            --text-sub: #727270;
+            /* サブグレー */
+            --grid-line: #DDDDD8;
+            /* グリッド線 */
+            --accent-color: #1A5FA8;
+            /* サイエンスブルー */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'IBM Plex Mono', monospace;
+            /* Default is mono */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            /* Main grid bounds */
+            max-width: 1000px;
+            margin: 0 auto;
+            border-left: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+            min-height: 100vh;
+        }
+
+        .ja {
+            font-family: 'IBM Plex Sans JP', sans-serif;
+            line-height: 1.9;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        h2.sec-heading {
+            font-size: 1.1rem;
+            uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--grid-line);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            display: inline-block;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Underline scale interaction for headers */
+        h2.sec-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .sec-wrapper:hover h2.sec-heading::after {
+            transform: scaleX(1);
+        }
+
+        /* Layout Components */
+        .sec-wrapper {
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        /* 1. File Header (Meta block) */
+        .file-header {
+            display: flex;
+            border-bottom: 1px solid var(--grid-line);
+            background-color: #EEEEEC;
+        }
+
+        .meta-col {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border-right: 1px solid var(--grid-line);
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+
+        .meta-col:last-child {
+            border-right: none;
+        }
+
+        .meta-val {
+            color: var(--text-main);
+            font-weight: 700;
+            display: block;
+        }
+
+        /* 2. Overview */
+        .hero-sec {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--grid-line);
+        }
+
+        /* 3. Metrics Grid */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--grid-line);
+            border-bottom: 1px solid var(--grid-line);
+            margin: 0 -2rem 4rem -2rem;
+            /* bleed out to wrapper bounds */
+        }
+
+        .metric-box {
+            border-right: 1px solid var(--grid-line);
+            padding: 2rem;
+        }
+
+        .metric-box:last-child {
+            border-right: none;
+        }
+
+        .m-num {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: var(--accent-color);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 4. Timeline */
+        .timeline-row {
+            display: flex;
+            border-top: 1px solid var(--grid-line);
+        }
+
+        .timeline-row:last-child {
+            border-bottom: 1px solid var(--grid-line);
+        }
+
+        .tl-year {
+            width: 20%;
+            padding: 1rem;
+            border-right: 1px solid var(--grid-line);
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .tl-content {
+            width: 80%;
+            padding: 1rem;
+        }
+
+        /* 5. Expertise Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            border: 1px solid var(--text-main);
+            padding: 0.2rem 0.8rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        /* 6. Contact Footer */
+        .contact-footer {
+            border-top: 1px solid var(--grid-line);
+            padding: 4rem 2rem;
+            background-color: #EEEEEC;
+            text-align: center;
+        }
+
+        /* Typewriter JS utility class */
+        .typewriter-line {
+            opacity: 0;
+            /* Hidden initially, JS will reveal */
+            white-space: pre-wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .file-header {
+                flex-direction: column;
+            }
+
+            .meta-col {
+                border-right: none;
+                border-bottom: 1px solid var(--grid-line);
+            }
+
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-box {
+                border-right: none;
+                border-bottom: 1px solid var(--grid-line);
+            }
+
+            .timeline-row {
+                flex-direction: column;
+            }
+
+            .tl-year {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px dashed var(--grid-line);
+                padding-bottom: 0.5rem;
+            }
+
+            .tl-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Meta Header -->
+    <div class="file-header">
+        <div class="meta-col">DOC_TYPE: <span class="meta-val">VITA / PROFILE</span></div>
+        <div class="meta-col">ID: <span class="meta-val">USR-8492</span></div>
+        <div class="meta-col">DATE: <span class="meta-val">2026-11-04</span></div>
+        <div class="meta-col">STATUS: <span class="meta-val" style="color:var(--accent-color);">ACTIVE</span></div>
+    </div>
+
+    <!-- 2. Hero / Overview -->
+    <div class="hero-sec">
+        <h1>Kenji T.</h1>
+        <div style="color: var(--accent-color); letter-spacing: 0.1em; margin-bottom: 3rem;">SYSTEM ARCHITECT /
+            RESEARCHER</div>
+
+        <div class="sec-wrapper" style="padding:0;">
+            <h2 class="sec-heading">section_01: ABSTRACT</h2>
+            <p class="ja tw-target">「データとインフラの間に、美学を構築する。」</p>
+            <p class="ja tw-target">
+                複雑に絡み合うシステムを解きほぐし、論理的でスケーラブルなアーキテクチャへと再構築します。<br>技術的な正しさだけでなく、開発者体験と長期的な運用性を考慮した「息の長いコード」を書くことを信条としています。
+            </p>
+        </div>
+    </div>
+
+    <div class="sec-wrapper">
+        <!-- 3. Metrics -->
+        <h2 class="sec-heading">section_02: METRICS</h2>
+        <div class="metrics-container">
+            <div class="metric-box">
+                <div class="m-num count-up" data-val="12">0</div>
+                <div class="ja" style="font-size:0.85rem; color:var(--text-sub);">設計した大規模システム数</div>
+            </div>
+            <div class="metric-box">
+                <div class="m-num count-up" data-val="99">0</div>
+                <div class="ja" style="font-size:0.85rem; color:var(--text-sub);">稼働率の維持目標 (%)</div>
+            </div>
+            <div class="metric-box">
+                <div class="m-num count-up" data-val="450">0</div>
+                <div class="ja" style="font-size:0.85rem; color:var(--text-sub);">貢献したOSSコミット数</div>
+            </div>
+        </div>
+
+        <!-- 4. Timeline -->
+        <h2 class="sec-heading">section_03: TIMELINE</h2>
+        <div style="margin-bottom: 4rem;">
+            <div class="timeline-row">
+                <div class="tl-year">2023 - Present</div>
+                <div class="tl-content ja">
+                    <strong>シニア・アーキテクト @ DataOps Inc.</strong><br>
+                    <span style="color:var(--text-sub); font-size:0.85rem;">分散処理エンジンの基盤移行プロジェクトを主導。処理コストを40%削減。</span>
+                </div>
+            </div>
+            <div class="timeline-row">
+                <div class="tl-year">2019 - 2023</div>
+                <div class="tl-content ja">
+                    <strong>バックエンドエンジニア @ BlueCloud JP</strong><br>
+                    <span style="color:var(--text-sub); font-size:0.85rem;">マイクロサービス化の設計および実装。社内共通ライブラリの開発。</span>
+                </div>
+            </div>
+            <div class="timeline-row">
+                <div class="tl-year">2016 - 2019</div>
+                <div class="tl-content ja">
+                    <strong>情報工学修士過程修了</strong><br>
+                    <span style="color:var(--text-sub); font-size:0.85rem;">分散データベースアルゴリズムに関する研究論文を発表。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Expertise -->
+        <h2 class="sec-heading">section_04: EXPERTISE</h2>
+        <div class="tags">
+            <div class="tag">System Design</div>
+            <div class="tag">Go</div>
+            <div class="tag">Rust</div>
+            <div class="tag">Distributed Systems</div>
+            <div class="tag">Cloud Native</div>
+        </div>
+    </div>
+
+    <!-- 6. Footer -->
+    <div class="contact-footer">
+        <div style="font-size:0.8rem; color:var(--text-sub); margin-bottom:1rem;">END OF DOCUMENT</div>
+        <div style="font-size: 1.5rem; font-weight:700;">CONTACT: <a href="mailto:sys@example.com"
+                style="color:var(--accent-color); text-decoration:none;">sys@example.com</a></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Typewriter Effect for target paragraphs
+            const twElements = document.querySelectorAll('.tw-target');
+
+            twElements.forEach((el) => {
+                const text = el.innerHTML;
+                el.innerHTML = '';
+                el.classList.add('typewriter-line'); // Ensure base class styles are there
+                el.style.opacity = '1'; // Make container visible
+
+                // Split text by lines to animate line by line (simplified as char by char per prompt constraint)
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        // handle html tags primitive bypass
+                        if (text.charAt(i) === '<') {
+                            let tag = "";
+                            while (text.charAt(i) !== '>') {
+                                tag += text.charAt(i);
+                                i++;
+                            }
+                            tag += '>';
+                            el.innerHTML += tag;
+                            i++;
+                        } else {
+                            el.innerHTML += text.charAt(i);
+                            i++;
+                        }
+                        // 0.05s delay per char-ish step
+                        setTimeout(typeWriter, 50);
+                    }
+                };
+                // start with slight delay
+                setTimeout(typeWriter, 500);
+            });
+
+            // 2. Count UP Animation on scroll
+            const countObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const targetVal = parseInt(el.getAttribute('data-val'), 10);
+                        animateValue(el, 0, targetVal, 1500);
+                        obs.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+        });
+    </script>
+</body>
+
+</html>

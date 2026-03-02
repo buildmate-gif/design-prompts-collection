@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPACT | Bold Editorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Pattern A: Ash x Sharp Yellow */
+        :root {
+            --bg-color: #EDEAE2;
+            --text-main: #1A1A16;
+            --accent-color: #D4A017;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            /* Custom cursor */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            overflow-x: hidden;
+            /* Remove smooth scroll to keep it raw/abrupt if desired, but we'll stick to default */
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 18vw, 15rem);
+            /* Massive, overflows naturally */
+            letter-spacing: -0.02em;
+            line-height: 0.85;
+            text-transform: uppercase;
+            white-space: nowrap;
+            /* Force overflow for impact */
+        }
+
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        /* Grid & Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Asymmetric padding as requested */
+            padding: 0 4vw 0 12vw;
+        }
+
+        section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-only-sec {
+            min-height: 60vh;
+        }
+
+        /* SVG Scribble */
+        .scribble {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: -5%;
+            z-index: 0;
+            pointer-events: none;
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* 1. HERO */
+        .hero {
+            overflow: visible;
+            /* Allow H1 to bleed */
+        }
+
+        .hero-h1-wrap {
+            /* Intentionally break grid bounds */
+            position: absolute;
+            top: 30%;
+            left: -5vw;
+            z-index: 10;
+            mix-blend-mode: multiply;
+            /* Blend with images behind */
+            transform: rotate(-1deg);
+            transition: transform 0.5s ease;
+            /* For scroll reaction */
+        }
+
+        .hero-img-box {
+            grid-column: 5 / 12;
+            aspect-ratio: 3/4;
+            background-color: var(--text-main);
+            position: relative;
+            z-index: 1;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .hero-img-box::after {
+            content: 'IMG_01';
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            font-family: 'DM Sans';
+            font-size: 0.7rem;
+            color: var(--text-main);
+        }
+
+        .hero-caption {
+            grid-column: 2 / 5;
+            align-self: end;
+            margin-bottom: 10%;
+            font-size: 0.7rem;
+            /* Extreme contrast with H1 */
+            line-height: 1.5;
+        }
+
+        /* 2. STATEMENT (Text Only) */
+        .statement {
+            padding-top: 10rem;
+            position: relative;
+        }
+
+        .st-text {
+            grid-column: 2 / 9;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 1.6;
+            font-weight: 700;
+            /* Clip-path reveal animation prep */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .st-sub {
+            grid-column: 9 / 13;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            align-self: end;
+            padding-bottom: 1rem;
+        }
+
+        /* 3. HORIZONTAL SLIDE SECTION */
+        .horizontal-slider {
+            min-height: 150vh;
+            /* Extra height to allow scrolling */
+            position: relative;
+        }
+
+        .sticky-wrap {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .slide-track {
+            display: flex;
+            gap: 5vw;
+            padding: 0 10vw;
+            /* JS will translate this */
+            will-change: transform;
+        }
+
+        .slide-item {
+            flex: 0 0 60vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: var(--accent-color);
+            margin-bottom: 2rem;
+            filter: grayscale(100%);
+            mix-blend-mode: screen;
+            /* Inverse blend on dark bg */
+        }
+
+        .slide-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            line-height: 0.9;
+            color: var(--bg-color);
+        }
+
+        /* 4. FOOTER / BIG TYPE */
+        .footer-sec {
+            min-height: 80vh;
+            overflow: hidden;
+            justify-content: flex-end;
+            padding-bottom: 2rem;
+        }
+
+        .footer-giant {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 25vw;
+            /* Fills screen width almost */
+            line-height: 0.8;
+            color: var(--bg-color);
+            /* Hidden by default */
+            /* Text stroke effect */
+            -webkit-text-stroke: 2px var(--text-main);
+            text-align: center;
+            mix-blend-mode: multiply;
+            transform: rotate(1deg);
+        }
+
+        /* Interactive Elements */
+        a {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--text-main);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .grid {
+                padding: 0 5vw;
+            }
+
+            .hero-img-box {
+                grid-column: 2 / 12;
+                margin-top: 30vh;
+            }
+
+            .hero-caption {
+                grid-column: 2 / 10;
+                margin-bottom: 2rem;
+            }
+
+            .st-text {
+                grid-column: 1 / 13;
+            }
+
+            .st-sub {
+                grid-column: 1 / 13;
+                margin-top: 2rem;
+            }
+
+            .slide-item {
+                flex: 0 0 85vw;
+            }
+
+            .hero-h1-wrap {
+                top: 15%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Random Scribble SVG -->
+    <svg class="scribble" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10,90 Q50,10 100,50 T180,20 Q150,150 100,100 T20,180" />
+    </svg>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="hero-h1-wrap" id="react-tilt">
+            <h1>DO NOT<br>BLINK.</h1>
+        </div>
+        <div class="grid">
+            <div class="hero-caption">
+                <p>WE DISRUPT THE NOISE BY BECOMING THE NOISE.</p>
+                <p>A NEW MANIFESTO FOR DIGITAL PRESENCE.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#">READ THE DOC</a>
+                </div>
+            </div>
+            <div class="hero-img-box parallax-img" data-speed="0.1"></div>
+        </div>
+    </section>
+
+    <!-- 2. STATEMENT -->
+    <section class="statement text-only-sec">
+        <div class="grid">
+            <div class="st-text">
+                洗練という名の退屈を破壊する。我々が求めるのは、見た瞬間に思考が停止し、視覚的な暴力が記憶に焼き付くような、絶対的な存在感だ。
+            </div>
+            <div class="st-sub">
+                <p>VOL. 01</p>
+                <p>TOKYO, JAPAN</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HORIZONTAL SLIDE -->
+    <section class="horizontal-slider" id="slider-sec">
+        <div class="sticky-wrap">
+            <div class="slide-track" id="slide-track">
+
+                <div class="slide-item">
+                    <div class="slide-img"></div>
+                    <div class="slide-title">CHAOS</div>
+                    <p
+                        style="font-family: 'DM Sans'; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent-color);">
+                        001 - EMBRACE DISORDER</p>
+                </div>
+
+                <div class="slide-item">
+                    <div class="slide-img" style="aspect-ratio: 4/5;"></div>
+                    <div class="slide-title">CONTROL</div>
+                    <p
+                        style="font-family: 'DM Sans'; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent-color);">
+                        002 - FIND THE CENTER</p>
+                </div>
+
+                <div class="slide-item">
+                    <div class="slide-img"></div>
+                    <div class="slide-title">IMPACT</div>
+                    <p
+                        style="font-family: 'DM Sans'; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent-color);">
+                        003 - LEAVE A MARK</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FOOTER -->
+    <section class="footer-sec grid" style="padding:0;">
+        <div style="grid-column: 2/6; align-self:center;">
+            <h2>JOIN THE CULT</h2>
+            <p style="font-size:0.8rem;">Ready to break the rules?</p>
+            <a href="#" style="font-size:1.5rem; font-weight:bold; margin-top:1rem; color:var(--accent-color);">START
+                NOW</a>
+        </div>
+        <div class="footer-giant" style="grid-column: 1/-1;">
+            END.
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Custom Cursor JS
+            const cursor = document.getElementById('cursor');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth cursor follow
+            const renderCursor = () => {
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                requestAnimationFrame(renderCursor);
+            };
+            requestAnimationFrame(renderCursor);
+
+            // Enlarge cursor on links
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    cursor.style.width = '80px'; cursor.style.height = '80px';
+                });
+                link.addEventListener('mouseleave', () => {
+                    cursor.style.width = '48px'; cursor.style.height = '48px';
+                });
+            });
+
+            // 2. Scroll dependent rotation for H1
+            const tiltEl = document.getElementById('react-tilt');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                // Map scroll to rotation: -1deg base, add up to 3deg
+                const rotation = -1 + (scrolled * 0.005);
+                if (tiltEl) tiltEl.style.transform = `rotate(${Math.min(rotation, 3)}deg)`;
+            });
+
+            // 3. Parallax for hero image
+            const pImg = document.querySelector('.parallax-img');
+            window.addEventListener('scroll', () => {
+                const speed = parseFloat(pImg.getAttribute('data-speed'));
+                pImg.style.transform = `translateY(${window.scrollY * speed}px)`;
+            });
+
+            // 4. Horizontal Scroll Section
+            const sliderSec = document.getElementById('slider-sec');
+            const track = document.getElementById('slide-track');
+
+            window.addEventListener('scroll', () => {
+                const rect = sliderSec.getBoundingClientRect();
+                // Check if slider section is within viewport
+                if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+                    // Calculate progress 0 to 1
+                    const progress = Math.abs(rect.top) / (rect.height - window.innerHeight);
+                    // Translate track (max translate is roughly track width - 100vw)
+                    const maxTranslate = track.scrollWidth - window.innerWidth;
+                    track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+                } else if (rect.top > 0) {
+                    track.style.transform = `translateX(0px)`;
+                } else {
+                    // Ensure it stays at end when scrolled past
+                    const maxTranslate = track.scrollWidth - window.innerWidth;
+                    track.style.transform = `translateX(-${maxTranslate}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

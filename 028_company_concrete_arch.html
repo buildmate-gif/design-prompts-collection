@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>構造建築デザイン | STRUCT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Unbounded:wght@400;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #EBEBEA;
+            /* コンクリートグレー */
+            --bg-alt: #F2F2F1;
+            /* ライトコンクリート */
+            --text-main: #0A0A0A;
+            /* ストラクチャルブラック */
+            --text-sub: #707070;
+            /* ミッドグレー */
+            --line-color: #B0B0AE;
+            /* アクセントライン */
+            --accent-color: #9E2A1C;
+            /* ブリックレッド */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1rem;
+            line-height: 1.95;
+            letter-spacing: 0.04em;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            overflow: hidden;
+            /* For word anim */
+        }
+
+        h2 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 400;
+            font-size: clamp(1rem, 2vw, 1.6rem);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .label {
+            font-family: 'Unbounded', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            color: var(--text-sub);
+        }
+
+        .value-num {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: clamp(4rem, 8vw, 7rem);
+            opacity: 0.07;
+            position: absolute;
+            top: -20%;
+            left: -5%;
+            z-index: 0;
+            line-height: 1;
+            will-change: transform;
+        }
+
+        /* Layout & Grid */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 4vw;
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 150px 0;
+            border-top: 1px solid var(--line-color);
+            position: relative;
+        }
+
+        section:first-child {
+            border-top: none;
+            padding-top: 50px;
+        }
+
+        /* 1. Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 1rem;
+            margin-bottom: auto;
+            /* Push mission down */
+        }
+
+        .mission-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: wordFadeIn 0.8s ease forwards;
+        }
+
+        @keyframes wordFadeIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 2. Overview */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            border-top: 1px solid var(--line-color);
+            border-left: 1px solid var(--line-color);
+        }
+
+        .metric-item {
+            padding: 2rem;
+            border-right: 1px solid var(--line-color);
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .m-val {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 3. Values */
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .value-box {
+            position: relative;
+            padding: 3rem 2rem;
+            background-color: var(--bg-alt);
+            border: 1px solid var(--line-color);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .value-box h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-box p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 4. Members */
+        .member-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .member-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .member-item:first-child {
+            border-top: 1px solid var(--line-color);
+        }
+
+        .member-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: var(--line-color);
+            filter: grayscale(100%);
+            transition: filter 0.4s ease;
+        }
+
+        .member-item:hover .member-img {
+            filter: grayscale(0%);
+        }
+
+        .member-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .member-role {
+            font-family: 'Unbounded', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .member-comment {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-sub);
+            max-width: 600px;
+        }
+
+        /* 5. History */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tl-line {
+            position: absolute;
+            left: 150px;
+            /* Offset for year */
+            top: 0;
+            width: 1px;
+            background-color: var(--line-color);
+            height: 0;
+            /* Animate this */
+            transition: height 1s ease-out;
+        }
+
+        .tl-item {
+            display: flex;
+            padding: 3rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .tl-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tl-year {
+            width: 150px;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding-right: 2rem;
+            text-align: right;
+        }
+
+        .tl-content {
+            padding-left: 3rem;
+            flex: 1;
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: 147px;
+            /* 150 - 3px */
+            top: 3.5rem;
+            /* align with text approx */
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent-color);
+            border-radius: 0;
+            /* No radius per rules, so square */
+        }
+
+        /* 6. Contact */
+        .contact-sec {
+            text-align: center;
+            padding-bottom: 200px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Unbounded', sans-serif;
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--bg-color);
+            background-color: var(--text-main);
+            padding: 1.5rem 4rem;
+            text-decoration: none;
+            margin-top: 3rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-alt);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+
+            .overview-grid,
+            .values-list {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics {
+                margin-top: 2rem;
+            }
+
+            .value-box {
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+            }
+
+            .tl-year {
+                width: 100px;
+                font-size: 1.2rem;
+            }
+
+            .tl-line {
+                left: 100px;
+            }
+
+            .tl-dot {
+                left: 97px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .member-item {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .member-img {
+                width: 60%;
+                max-width: 250px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. Hero -->
+        <section class="hero">
+            <div class="hero-top">
+                <div class="label" style="font-weight:900; color:var(--text-main); font-size:1rem;">STRUCT INC.</div>
+                <div class="label">EST. 2011 // TOKYO</div>
+            </div>
+
+            <div class="mission-text">
+                <h1 id="mission-heading">
+                    Architecture<br>
+                    without<br>
+                    ornament.
+                </h1>
+            </div>
+            <div style="margin-top: 2rem; max-width: 500px; color: var(--text-sub);">
+                私たちは、装飾を排し、構造そのものの美しさと力強さを引き出す建築設計事務所です。コンクリート、鉄、ガラス。素材の純度を極限まで高めた空間を構築します。
+            </div>
+        </section>
+
+        <!-- 2. Overview -->
+        <section id="overview">
+            <div class="label" style="margin-bottom:1rem;">01. Overview</div>
+            <h2>The Foundation</h2>
+            <div class="overview-grid">
+                <div>
+                    <p>都市の文脈を読み解き、そこに相応しい強度を持つランドマークを設計します。私たちの仕事は表面的な意匠ではなく、骨格から空間を思考することです。<br><br>2011年の設立以来、商業施設からプライベートレジデンスまで、機能と構造が完全に一致した建築を追求し続けています。
+                    </p>
+                </div>
+                <div class="metrics">
+                    <div class="metric-item">
+                        <div class="m-val">42</div>
+                        <div class="label">Completed Projects</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="m-val">12</div>
+                        <div class="label">Awards Won</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="m-val">3</div>
+                        <div class="label">Global Offices</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="m-val">2011</div>
+                        <div class="label">Year Founded</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Values -->
+        <section id="values">
+            <div class="label" style="margin-bottom:1rem;">02. Philosophy</div>
+            <h2>Core Values</h2>
+            <div class="values-list">
+                <div class="value-box">
+                    <div class="value-num num-anim">01</div>
+                    <h3>Structural Honesty</h3>
+                    <p>構造的誠実さ。柱は柱として、梁は梁として見せる。荷重を支える骨格を隠さず、むしろその力学的な美しさをデザインの主役とします。</p>
+                </div>
+                <div class="value-box">
+                    <div class="value-num num-anim">02</div>
+                    <h3>Material Purity</h3>
+                    <p>素材の純度。コンクリートの質感、鉄の冷たさ。素材が持つ本来のテクスチャを尊重し、過剰な仕上げやコーティングを避けます。</p>
+                </div>
+                <div class="value-box">
+                    <div class="value-num num-anim">03</div>
+                    <h3>Timeless Form</h3>
+                    <p>時を超える造形。一時的なトレンドに消費されない、幾何学的な普遍性を持ったフォルムを追求します。廃墟となっても美しい建築を。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Members -->
+        <section id="members">
+            <div class="label" style="margin-bottom:1rem;">03. Team</div>
+            <h2>Partners</h2>
+            <div class="member-list">
+
+                <div class="member-item">
+                    <div class="member-img"></div>
+                    <div class="member-info">
+                        <div class="member-name">黒川 健</div>
+                        <div class="member-role">Founder / Principal Architect</div>
+                        <div class="member-comment">「重力に逆らうのではなく、重力を可視化する構成を探求している。」</div>
+                    </div>
+                </div>
+
+                <div class="member-item">
+                    <div class="member-img"></div>
+                    <div class="member-info">
+                        <div class="member-name">S. Reynolds</div>
+                        <div class="member-role">Partner / Structural Engineer</div>
+                        <div class="member-comment">「計算された極限の薄さが、空間に独特の緊張感をもたらす。」</div>
+                    </div>
+                </div>
+
+                <div class="member-item">
+                    <div class="member-img"></div>
+                    <div class="member-info">
+                        <div class="member-name">安藤 玲子</div>
+                        <div class="member-role">Director / Interior Design</div>
+                        <div class="member-comment">「冷たい素材の中に、光と影のグラデーションで温度を与える。」</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. History -->
+        <section id="history" style="padding-bottom: 200px;">
+            <div class="label" style="margin-bottom:1rem; text-align:center;">04. Timeline</div>
+            <h2 style="text-align:center;">History</h2>
+            <div class="timeline" id="tl-container">
+                <div class="tl-line" id="tl-line"></div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2011</div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">STRUCT事務所設立</h3>
+                        <p style="color:var(--text-sub); font-size:0.95rem;">東京・青山にて、黒川とReynoldsの2名により共同設立。</p>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2015</div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">The Concrete Box 完成</h3>
+                        <p style="color:var(--text-sub); font-size:0.95rem;">初の大型商業施設プロジェクト。日本建築構造賞を受賞。</p>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2019</div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">ベルリンオフィス開設</h3>
+                        <p style="color:var(--text-sub); font-size:0.95rem;">ヨーロッパ展開の拠点として設立。インダストリアルデザインとの融合を進める。</p>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2024</div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">国立現代美術館 新館設計コンペ最優秀賞</h3>
+                        <p style="color:var(--text-sub); font-size:0.95rem;">地下深くへと続く、重力と光のシェルター構造を提案し採用される。</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. Contact -->
+        <section class="contact-sec">
+            <h1 style="font-size: clamp(1.5rem, 4vw, 3rem); margin-bottom: 2rem;">Build with us.</h1>
+            <p style="color: var(--text-sub);">新規プロジェクトのご相談、協業についてのお問い合わせは<br>下記よりご連絡ください。</p>
+            <a href="mailto:info@struct-arch.example" class="btn">Contact Us</a>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Hero Text Wrap for animation
+            const heading = document.getElementById('mission-heading');
+            const text = heading.innerHTML;
+            // Primitive split by word (handling <br> roughly)
+            const words = text.split(/<br>|\s+/).filter(w => w.length > 0);
+            let newHtml = '';
+            let delay = 0.2;
+
+            // Quick manual rebuild to preserve <br> and wrap words
+            const rawText = "Architecture<br>without<br>ornament.";
+            const parts = rawText.split("<br>");
+
+            heading.innerHTML = parts.map(part => {
+                const lineWords = part.split(' ').map(w => {
+                    delay += 0.15;
+                    return `<span style="animation-delay: ${delay}s">${w}</span>`;
+                }).join(' ');
+                return lineWords;
+            }).join('<br>');
+
+            // 2. Value Number Rotation on Scroll
+            const numAnims = document.querySelectorAll('.num-anim');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                numAnims.forEach(el => {
+                    // simple rotate based on scroll
+                    const deg = Math.min((scrolled * 0.05), 15);
+                    el.style.transform = `rotate(${deg}deg)`;
+                });
+            });
+
+            // 3. Timeline Animation Observer
+            const tlContainer = document.getElementById('tl-container');
+            const tlLine = document.getElementById('tl-line');
+            const tlItems = document.querySelectorAll('.tl-item');
+
+            const tlObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Calculate how far down we are
+                        const rect = tlContainer.getBoundingClientRect();
+                        // Start growing line
+                        tlLine.style.height = '100%';
+
+                        // Show items stagger
+                        tlItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 300);
+                        });
+                        tlObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            tlObserver.observe(tlContainer);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESONANT ARCHIVE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;700&family=Noto+Sans+JP:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F4F1EC;
+            /* ポスターホワイト */
+            --text-color: #0D0D0D;
+            /* ポスターブラック */
+            --accent-color: #CC3422;
+            /* バーミリオン */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .ja {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 15vw, 10rem);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 0.85;
+            margin: 2rem 0;
+            /* Slide in animation prep */
+            transform: translateX(-150%);
+            animation: slideInH1 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideInH1 {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .date-huge {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .label {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 1. Hero Poster View */
+        .hero-poster {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4vw;
+            position: relative;
+        }
+
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .hero-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 2px solid var(--text-color);
+            padding-top: 2rem;
+        }
+
+        .venue-info {
+            max-width: 300px;
+        }
+
+        /* CTA Button Target */
+        .cta-btn {
+            display: inline-block;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            background-color: transparent;
+            padding: 1rem 3rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            /* initial state negative false */
+        }
+
+        .cta-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Countdown */
+        .countdown-timer {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        /* 2. Marquee Band */
+        .accent-band {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            /* Negative logic */
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 1rem 0;
+            border-top: 2px solid var(--text-color);
+            border-bottom: 2px solid var(--text-color);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            padding-right: 2rem;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* General Layout bounds */
+        .container {
+            padding: 6vw 4vw;
+        }
+
+        /* 3. Timetable */
+        .timetable {
+            display: flex;
+            flex-direction: column;
+            border-top: 2px solid var(--text-color);
+        }
+
+        .time-row {
+            display: flex;
+            border-bottom: 1px solid var(--text-color);
+            padding: 2rem 0;
+        }
+
+        .time-col {
+            width: 25%;
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+        }
+
+        .event-col {
+            width: 75%;
+        }
+
+        .event-col h3 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 4. Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 8rem;
+            border-top: 2px solid var(--text-color);
+            padding-top: 2rem;
+        }
+
+        .detail-item {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* 5. Footer CTA */
+        .footer-cta {
+            margin-top: 8rem;
+            text-align: center;
+            padding-bottom: 6rem;
+        }
+
+        .footer-cta .cta-btn {
+            font-size: 3rem;
+            padding: 1rem 5rem;
+            border-width: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-top {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 16vw, 5rem);
+            }
+
+            /* Adjusted per prompt */
+            .hero-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            .time-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .time-col,
+            .event-col {
+                width: 100%;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-cta .cta-btn {
+                font-size: 2rem;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Hero Poster -->
+    <div class="hero-poster">
+        <div class="hero-top">
+            <div>
+                <div class="label">LIVE PERFORMANCE</div>
+                <div class="ja" style="font-size: 0.9rem;">音響と映像の融合、次世代の感覚体験</div>
+            </div>
+            <div>
+                <div class="label">T-MINUS</div>
+                <div class="countdown-timer" id="timer">00:00:00:00</div>
+            </div>
+        </div>
+
+        <div class="hero-main">
+            <h1>Resonant<br>Archive</h1>
+            <div class="date-huge">
+                2026.10.24 SAT<br>
+                18:00 - 22:00
+            </div>
+        </div>
+
+        <div class="hero-bottom">
+            <div class="venue-info">
+                <div class="label">VENUE</div>
+                <div class="ja" style="font-weight: bold; font-size: 1.2rem;">LIQUIDROOM TOKYO</div>
+                <p class="ja" style="font-size: 0.85rem;">渋谷区東3-16-6</p>
+            </div>
+            <div>
+                <a href="#register" class="cta-btn">Get Tickets</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Accent Band -->
+    <div class="accent-band">
+        <div class="marquee-text">
+            EXPERIENCE THE UNSEEN SOUND / EXPERIMENTAL VISUALS / FEEL THE BASS / EXCEED YOUR SENSES /
+            EXPERIENCE THE UNSEEN SOUND / EXPERIMENTAL VISUALS / FEEL THE BASS / EXCEED YOUR SENSES /
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container">
+
+        <!-- 3. Timetable -->
+        <div class="label">TIMETABLE</div>
+        <div class="timetable">
+
+            <div class="time-row">
+                <div class="time-col">18:00</div>
+                <div class="event-col">
+                    <h3>Doors Open / Ambient DJ</h3>
+                    <p class="ja">オープニングDJによるアンビエントセット。ラウンジエリアにてウェルカムドリンクの提供。</p>
+                </div>
+            </div>
+
+            <div class="time-row">
+                <div class="time-col">19:00</div>
+                <div class="event-col">
+                    <h3>Visual Showcase "SYNTHESIS"</h3>
+                    <p class="ja">3組の映像作家による、リアルタイムジェネラティブアートと音響のセッション。</p>
+                </div>
+            </div>
+
+            <div class="time-row">
+                <div class="time-col">20:30</div>
+                <div class="event-col">
+                    <h3 style="color: var(--accent-color);">Main Act: The Resonants</h3>
+                    <p class="ja">最新アルバムの完全再現ライブパフォーマンス。</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 4. Details Grid -->
+        <div class="details-grid">
+            <div>
+                <div class="label">CAPACITY</div>
+                <div class="detail-item">800 <span class="ja" style="font-size:1rem; font-weight:normal;">名</span></div>
+            </div>
+            <div>
+                <div class="label">TICKET FEE</div>
+                <div class="detail-item">¥ 5,500 <span class="ja" style="font-size:1rem; font-weight:normal;">/
+                        ADV.</span></div>
+            </div>
+            <div>
+                <div class="label">TARGET</div>
+                <div class="detail-item ja" style="font-size: 1.2rem;">電子音楽・映像芸術愛好家</div>
+            </div>
+        </div>
+
+        <!-- 5. Footer CTA -->
+        <div class="footer-cta" id="register">
+            <a href="#" class="cta-btn">Register Now</a>
+            <div style="margin-top: 2rem;" class="ja">
+                <span class="label">ORGANIZER:</span><br>
+                Soundscape Arts Project
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Countdown Timer Logic
+            const timerBase = new Date("2026-10-24T18:00:00").getTime();
+            const timerEl = document.getElementById("timer");
+
+            const updateTimer = () => {
+                const now = new Date().getTime();
+                const dist = timerBase - now;
+
+                if (dist < 0) {
+                    timerEl.innerHTML = "00:00:00:00";
+                    return;
+                }
+
+                const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((dist % (1000 * 60)) / 1000);
+
+                timerEl.innerHTML =
+                    String(days).padStart(2, '0') + ":" +
+                    String(hours).padStart(2, '0') + ":" +
+                    String(mins).padStart(2, '0') + ":" +
+                    String(secs).padStart(2, '0');
+            };
+
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        });
+    </script>
+</body>
+
+</html>

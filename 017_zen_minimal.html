@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Minimal | 禅ミニマル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Noto+Serif+JP:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F2EFE8;
+            /* 和紙白 */
+            --bg-alt: #E5E0D8;
+            /* 霞グレー */
+            --text-main: #1E1C18;
+            /* 墨色 */
+            --text-sub: #7A7570;
+            /* 薄墨 */
+            --accent-color: #8B3A3A;
+            /* 辰砂(しんしゃ) - 暗い赤 */
+            /* Transition parameters set as requirement */
+            --ease-zen: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* All transitions use zen easing */
+            transition: all 0.8s var(--ease-zen);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1rem;
+            line-height: 2.2;
+            letter-spacing: 0.05em;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Washi Paper Grain */
+        .washi-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+        }
+
+        /* Giant Kanji Backgrounds */
+        .bg-kanji {
+            position: absolute;
+            font-size: clamp(8rem, 20vw, 16rem);
+            opacity: 0.04;
+            line-height: 1;
+            pointer-events: none;
+            font-family: 'Noto Serif JP', serif;
+            user-select: none;
+        }
+
+        .k1 {
+            top: 20%;
+            right: 10%;
+        }
+
+        .k2 {
+            top: 60%;
+            left: 5%;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            letter-spacing: 0.08em;
+            color: var(--text-sub);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 0.3em;
+            color: var(--text-sub);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 680px;
+            /* Small width */
+            margin: 0 auto;
+            padding: 0 5vw;
+            position: relative;
+        }
+
+        section {
+            padding: 12rem 0;
+            /* Massive vertical padding */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Default left align */
+        }
+
+        /* Fixed Left Vertical Nav/Subtitle */
+        .fixed-vert {
+            position: fixed;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .fixed-line {
+            width: 1px;
+            height: 100%;
+            background-color: rgba(30, 28, 24, 0.08);
+            /* #1E1C1815 approx */
+            margin-right: 2rem;
+        }
+
+        /* Staggered Fade In Animation Logic (CSS only on page load) */
+        .fade-in {
+            animation: fadeIn 1.2s var(--ease-zen) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Delay assignment for text flow */
+        .d-1 {
+            animation-delay: 0.2s;
+        }
+
+        .d-2 {
+            animation-delay: 0.4s;
+        }
+
+        .d-3 {
+            animation-delay: 0.6s;
+        }
+
+        .d-4 {
+            animation-delay: 0.8s;
+        }
+
+        .d-5 {
+            animation-delay: 1.0s;
+        }
+
+        .d-6 {
+            animation-delay: 1.2s;
+        }
+
+        .d-7 {
+            animation-delay: 1.4s;
+        }
+
+        /* Minimalist Elements */
+        .circle-accent {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin: 2rem auto;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            border-bottom: 0.5px solid rgba(30, 28, 24, 0.15);
+            padding-bottom: 2px;
+        }
+
+        /* B&W Image Filter */
+        img {
+            max-width: 100%;
+            filter: grayscale(100%);
+            opacity: 0.9;
+        }
+
+        p {
+            /* Keep line lengths short per requirement */
+            margin-bottom: 2rem;
+            max-width: 100%;
+        }
+
+        /* Hero Center Align Override */
+        .hero {
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+            padding-top: 5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .fixed-vert {
+                display: none;
+            }
+
+            section {
+                padding: 8rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="washi-bg"></div>
+
+    <!-- Giant Kanji Backgrounds -->
+    <div class="bg-kanji k1">間</div>
+    <div class="bg-kanji k2">空</div>
+
+    <!-- Fixed Left Nav Element -->
+    <div class="fixed-vert fade-in d-1">
+        <div class="fixed-line"></div>
+        <div class="vertical-text" style="font-size: 0.85rem;">何も置かないという、選択。</div>
+    </div>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h2 class="fade-in d-2">Emptiness is form</h2>
+            <h1 class="fade-in d-3" style="margin-bottom: 2rem;">
+                余白のなかに<br>
+                本質は在る。
+            </h1>
+            <div class="circle-accent fade-in d-4"></div>
+
+            <p class="fade-in d-5" style="text-align: center; color: var(--text-sub);">
+                何かを付け足すのではなく、<br>
+                削ぎ落とすことで見えてくるものがあります。
+            </p>
+        </section>
+
+        <!-- PHILOSOPHY SECTION -->
+        <section>
+            <div class="vertical-text fade-in"
+                style="font-size: 1.5rem; margin-bottom: 3rem; color: var(--accent-color);">理念</div>
+
+            <p class="fade-in" style="animation-delay: 0.2s;">
+                過剰な情報が溢れる現代において、一番の贅沢は「何もない空間」なのかもしれません。私たちは、機能と意味を極小まで絞り込み、受け手自身の想像力が入り込む「間（ま）」を設計します。
+            </p>
+
+            <p class="fade-in" style="animation-delay: 0.4s;">
+                雄弁に語ることをやめ、沈黙の力に身を委ねる。<br>
+                それが私たちの提供する、無のコンサルティングです。
+            </p>
+        </section>
+
+        <!-- APPROACH SECTION (with Image) -->
+        <section>
+            <h2 class="fade-in" style="text-align: left; margin-bottom: 1rem;">Approach</h2>
+
+            <!-- Minimalist gray placeholder image using div -->
+            <div class="fade-in"
+                style="width: 100%; height: 250px; background-color: var(--bg-alt); margin-bottom: 3rem; animation-delay: 0.2s;">
+            </div>
+
+            <p class="fade-in" style="animation-delay: 0.4s;">
+                目に見えるデザインは、全体のほんの一部に過ぎません。<br>
+                水面下にある見えない思考の重みが、目に見えるわずかな線を支えているのです。
+            </p>
+
+            <div class="fade-in" style="margin-top: 2rem; animation-delay: 0.6s;">
+                <a href="#">詳細を読み解く</a>
+            </div>
+        </section>
+
+        <!-- FOOTER SECTION (Zen Koan) -->
+        <section style="padding-bottom: 4rem; align-items: center; text-align: center;">
+            <div class="fade-in" style="color: var(--text-sub); font-size: 0.9rem;">
+                —— 余白について ——
+                <br><br>
+                器は、空っぽであるからこそ、<br>
+                何かを入れる役に立つのです。
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Note: JavaScript is intentionally omitted as per requirement "JavaScript：一切使用しない（CSS Animationのみで完結させること）" -->
+</body>
+
+</html>

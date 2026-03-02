@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERIS Pro | 究極の環境センサー</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Outfit:wght@200;300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F2F2F0;
+            /* アッシュホワイト */
+            --bg-alt: #E6E6E4;
+            /* ライトスモーク */
+            --text-main: #161618;
+            /* スレート */
+            --text-sub: #72727A;
+            /* ミッドスレート */
+            --border-color: #D0D0CE;
+            --accent-color: #1E4A6E;
+            /* スティールブルー */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.75;
+            letter-spacing: 0.01em;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 200;
+            font-size: clamp(3rem, 7vw, 6rem);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .label-spec {
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            color: var(--text-sub);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .price-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border: 1px solid var(--text-main);
+            transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* 1. HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 10vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-img-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-alt);
+            /* Placeholder */
+            /* gradient simulating light hitting product */
+            background-image: radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+            z-index: -1;
+            transition: transform 0.5s ease-out;
+        }
+
+        .hero-text {
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* 2. INTRO */
+        .intro {
+            padding: 8rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro p {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: var(--text-sub);
+        }
+
+        /* 3. FEATURES (Sticky Side-by-Side) */
+        .features-wrap {
+            /* Setup for inner sticky layout */
+        }
+
+        .feature-row {
+            display: flex;
+            min-height: 100vh;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .f-text-col,
+        .f-img-col {
+            width: 50%;
+        }
+
+        .f-text-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5vw;
+        }
+
+        .f-img-col {
+            position: relative;
+        }
+
+        /* The sticky visual container */
+        .sticky-visual {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* subtle border to separate */
+            border-left: 1px solid var(--border-color);
+        }
+
+        .feature-row:nth-child(even) .sticky-visual {
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* 4. SPECS TABLE */
+        .specs-sec {
+            padding: 10rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            /* Custom Scrollbar styling */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--bg-alt);
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: var(--bg-alt);
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 2rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        th {
+            width: 25%;
+        }
+
+        /* 5. TARGET SCENARIO */
+        .target-sec {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .scenario-grid {
+            display: flex;
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: left;
+        }
+
+        .s-box {
+            flex: 1;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* 6. CTA / Sticky Footer */
+        .cta-pad {
+            height: 40vh;
+            /* padding div so content isn't hidden under sticky bar at end */
+        }
+
+        .sticky-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            /* subtle shadow allowed per rules (<8px) */
+            box-shadow: 0 -4px 6px rgba(22, 22, 24, 0.02);
+        }
+
+        .sticky-cta-bar.visible {
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .feature-row,
+            .feature-row:nth-child(even) {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .f-text-col,
+            .f-img-col {
+                width: 100%;
+            }
+
+            .f-text-col {
+                padding: 4rem 5vw;
+            }
+
+            .sticky-visual {
+                position: relative;
+                height: 60vh;
+                top: auto;
+                border-left: none !important;
+                border-right: none !important;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .scenario-grid {
+                flex-direction: column;
+            }
+
+            .s-box {
+                padding: 2rem;
+            }
+
+            .sticky-cta-bar {
+                /* Always show on mobile */
+                transform: translateY(0);
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding-bottom: 2rem;
+                /* safe area env */
+            }
+
+            .sticky-cta-bar .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. HERO -->
+    <header class="hero">
+        <div class="hero-img-bg" id="heroBg">
+            <!-- "product image placeholders" are simulated by bg gradient / text for now -->
+            <div
+                style="position:absolute; bottom:20%; left:50%; transform:translateX(-50%); font-family:'Outfit'; color:var(--text-sub); opacity:0.5;">
+                [ PRODUCT IMAGE ]</div>
+        </div>
+
+        <div class="hero-text" id="heroText">
+            <div class="label-spec" style="color:var(--text-main); font-weight:600;">AERIS PRO</div>
+            <h1>Silence<br>is measured.</h1>
+            <p style="font-size: 1.2rem; color: var(--text-sub);">空気質、照度、ノイズレベル。見えない環境を可視化する究極のセンサー。</p>
+        </div>
+    </header>
+
+    <!-- 2. INTRO -->
+    <section class="intro container">
+        <p>
+            妥協のないアルミニウムの削り出しボディに、7つの高精度センサーを統合。生活空間やワークスペースの環境データをミリ秒単位で解析し、あなたのパフォーマンスを最大化するためのインサイトを提供します。
+        </p>
+    </section>
+
+    <!-- 3. FEATURES -->
+    <section class="features-wrap">
+
+        <div class="feature-row">
+            <div class="f-text-col">
+                <span class="label-spec">01. Aesthetic Function</span>
+                <h2>Machined from<br>solid block.</h2>
+                <p>航空機グレードのアルミニウム合金から削り出されたシームレスな筐体。接合部のない構造は、ノイズ計測の精度を高める機能的必然生から生まれました。どんな空間にも静かに溶け込みます。</p>
+            </div>
+            <div class="f-img-col">
+                <div class="sticky-visual">
+                    <span style="font-family:'Outfit'; color:var(--text-sub);">[ Detail Shot - Body ]</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="f-text-col">
+                <span class="label-spec">02. Micro Precision</span>
+                <h2>Detect the<br>undetectable.</h2>
+                <p>搭載されたレーザー散乱方式センサーにより、PM2.5からVOC（揮発性有機化合物）まで、空気中の微粒子を正確に検出。目に見えない健康リスクを事前に把握します。</p>
+            </div>
+            <div class="f-img-col">
+                <div class="sticky-visual" style="background-color: #DFDFDD;">
+                    <span style="font-family:'Outfit'; color:var(--text-sub);">[ UI Shot - Laser Sensor ]</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="f-text-col">
+                <span class="label-spec">03. Silent Intelligence</span>
+                <h2>Actionable<br>Insights.</h2>
+                <p>単なる数値の羅列ではありません。専用アプリと連動し、「換気が必要です」「集中力が落ちやすい環境です」といった、具体的なアクションへと繋がるインテリジェンスを提供します。</p>
+            </div>
+            <div class="f-img-col">
+                <div class="sticky-visual">
+                    <span style="font-family:'Outfit'; color:var(--text-sub);">[ App Interface ]</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 4. SPECS -->
+    <section class="specs-sec container">
+        <div align="center" style="margin-bottom: 4rem;">
+            <span class="label-spec">Specifications</span>
+            <h2>Technical Data</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <tbody>
+                    <tr>
+                        <th><span class="label-spec">Sensors</span></th>
+                        <td>PM2.5 / PM10 / eCO2 / tVOC / Temperature / Humidity / Ambient Light / Noise Level (dB)</td>
+                    </tr>
+                    <tr>
+                        <th><span class="label-spec">Materials</span></th>
+                        <td>Anodized Aluminum Alloy (Grade 6000), Chemically Strengthened Glass</td>
+                    </tr>
+                    <tr>
+                        <th><span class="label-spec">Connectivity</span></th>
+                        <td>Wi-Fi 802.11 b/g/n (2.4GHz) / Bluetooth Low Energy 5.0 / USB-C PD Input</td>
+                    </tr>
+                    <tr>
+                        <th><span class="label-spec">Dimensions</span></th>
+                        <td>H 124mm × W 68mm × D 68mm / Weight: 420g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 5. TARGET -->
+    <section class="target-sec container">
+        <span class="label-spec">Designed For</span>
+        <h2>Who needs Aeris Pro?</h2>
+
+        <div class="scenario-grid">
+            <div class="s-box">
+                <h3 style="font-family:'Outfit'; font-weight:400; font-size:1.2rem; margin-bottom:1rem;">Professional
+                    Workspaces</h3>
+                <p style="font-size:0.9rem; color:var(--text-sub);">
+                    CO2濃度の上昇は認知能力の低下に直結します。クリエイティビティと集中力が要求されるスタジオやオフィスの環境管理に。</p>
+            </div>
+            <div class="s-box">
+                <h3 style="font-family:'Outfit'; font-weight:400; font-size:1.2rem; margin-bottom:1rem;">Smart Homes
+                </h3>
+                <p style="font-size:0.9rem; color:var(--text-sub);">
+                    IoTアプライアンスと連携し、空気清浄機や空調を自動コントロール。家族の健康を守る見えざる要として機能します。</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-pad"></div>
+
+    <!-- 6. STICKY CTA -->
+    <div class="sticky-cta-bar" id="ctaBar">
+        <div>
+            <div class="price-text">¥ 48,000</div>
+            <div class="label-spec" style="margin-top: 5px;">Includes Free Shipping</div>
+        </div>
+        <a href="#" class="btn">Purchase Now</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const heroText = document.getElementById('heroText');
+            const heroBg = document.getElementById('heroBg');
+            const ctaBar = document.getElementById('ctaBar');
+
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+
+                // 1. Hero scroll effect (text fade, bg scale upfront)
+                // Limits
+                if (scrolled < 1000) {
+                    heroText.style.opacity = 1 - (scrolled / 500); // fades out by 500px scroll
+                    heroText.style.transform = `translateY(${scrolled * 0.2}px)`; // slight move down
+
+                    // Image scales up slowly to "come forward"
+                    const scale = 1 + (scrolled * 0.0005);
+                    heroBg.style.transform = `scale(${Math.min(scale, 1.1)})`;
+                }
+
+                // 2. Sticky CTA Reveal
+                // Only trigger visibility class logic if not on mobile (since mobile is always visible per reqs via CSS)
+                if (window.innerWidth > 768) {
+                    // Show when scrolled past viewport
+                    if (scrolled > window.innerHeight * 0.8) {
+                        ctaBar.classList.add('visible');
+                    } else {
+                        ctaBar.classList.remove('visible');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

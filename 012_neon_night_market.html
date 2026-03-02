@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEAT NIGHT MARKET | ネオン夜市</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Noto+Sans+JP:wght@700;900&family=Zen+Dots&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0D0C0A;
+            /* 深夜の路地 */
+            --bg-alt: #1A1714;
+            /* 屋台の影 */
+            --text-main: #F0EDE5;
+            /* Hot White */
+            --text-sub: #E8D890;
+            /* Fog Yellow */
+            --accent-pink: #E6005C;
+            /* 若干くすませた Neon Pink */
+            --accent-cyan: #00B3A6;
+            /* 若干くすませた Electric Cyan */
+            --border-thin: 1px solid rgba(26, 26, 26, 0.3);
+            --border-neon: 2px solid var(--accent-cyan);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            overflow-x: hidden;
+            font-weight: 700;
+        }
+
+        /* Background Steam/Heat effect */
+        .heat-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(230, 0, 92, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(0, 179, 166, 0.05) 0%, transparent 40%);
+            filter: blur(40px);
+            z-index: -1;
+            pointer-events: none;
+            animation: breathe 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathe {
+            from {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            to {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Typography */
+        .zen-dots {
+            font-family: 'Zen Dots', cursive;
+        }
+
+        .boogaloo {
+            font-family: 'Boogaloo', cursive;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-family: 'Zen Dots', cursive;
+            font-size: clamp(3rem, 10vw, 8rem);
+            letter-spacing: 0.05em;
+            transform: skewX(-6deg);
+            line-height: 0.9;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'Boogaloo', cursive;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .label-num {
+            font-family: 'Zen Dots', cursive;
+            font-size: 1.5rem;
+            color: var(--accent-pink);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent-pink);
+            outline-offset: 4px;
+        }
+
+        /* Glitch Animation */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-pink);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--accent-cyan);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+                transform: translate(0);
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+                transform: translate(2px, -2px);
+            }
+
+            60% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(-1px, 1px);
+            }
+
+            80% {
+                clip-path: inset(10% 0 70% 0);
+                transform: translate(1px, -1px);
+            }
+
+            100% {
+                clip-path: inset(30% 0 50% 0);
+                transform: translate(0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+                transform: translate(0);
+            }
+
+            20% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(2px, -2px);
+            }
+
+            40% {
+                clip-path: inset(30% 0 40% 0);
+                transform: translate(-2px, 2px);
+            }
+
+            60% {
+                clip-path: inset(50% 0 20% 0);
+                transform: translate(1px, -1px);
+            }
+
+            80% {
+                clip-path: inset(5% 0 80% 0);
+                transform: translate(-1px, 1px);
+            }
+
+            100% {
+                clip-path: inset(40% 0 30% 0);
+                transform: translate(0);
+            }
+        }
+
+        /* Flicker Animation */
+        .flicker {
+            animation: neon-flicker 1.5s infinite alternate;
+        }
+
+        @keyframes neon-flicker {
+
+            0%,
+            19%,
+            21%,
+            23%,
+            25%,
+            54%,
+            56%,
+            100% {
+                text-shadow:
+                    0 0 4px var(--text-main),
+                    0 0 10px var(--accent-pink),
+                    0 0 20px var(--accent-pink);
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow: none;
+                opacity: 0.6;
+            }
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        /* Stamp Badge */
+        .stamp {
+            position: absolute;
+            border: 3px solid var(--accent-pink);
+            color: var(--accent-pink);
+            font-family: 'Zen Dots', cursive;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            transform: rotate(-15deg);
+            z-index: 20;
+            mix-blend-mode: screen;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 8rem;
+        }
+
+        .hero-h1-wrap {
+            grid-column: 1 / -1;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-meta {
+            grid-column: 2 / 10;
+            background: rgba(26, 23, 20, 0.8);
+            backdrop-filter: blur(8px);
+            border: var(--border-neon);
+            padding: 1.5rem;
+            margin-top: -2rem;
+            /* Overlap High! */
+            z-index: 5;
+            transform: rotate(2deg);
+        }
+
+        .hero-meta .date-loc {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-pink);
+            color: var(--text-main);
+            font-family: 'Zen Dots', cursive;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            transform: skewX(-10deg);
+            transition: transform 0.2s ease, background 0.2s ease;
+            box-shadow: 4px 4px 0 var(--accent-cyan);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            transform: skewX(-10deg) translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--accent-cyan);
+        }
+
+        .hero-countdown {
+            grid-column: 8 / 13;
+            align-self: end;
+            text-align: right;
+            font-family: 'Zen Dots', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-top: 2rem;
+        }
+
+        /* 2. LINEUP (Tags / Badges) */
+        .lineup {
+            background-color: var(--bg-alt);
+            border-top: 2px dashed var(--text-sub);
+            border-bottom: 2px dashed var(--text-sub);
+            overflow: hidden;
+        }
+
+        .lineup-title {
+            grid-column: 1 / -1;
+            margin-bottom: 2rem;
+        }
+
+        .vendor-tags {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .v-tag {
+            background: var(--bg-color);
+            border: 1px solid var(--text-sub);
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .v-tag:nth-child(odd) {
+            transform: rotate(-2deg);
+            border-color: var(--accent-cyan);
+        }
+
+        .v-tag:nth-child(even) {
+            transform: rotate(3deg);
+            border-color: var(--accent-pink);
+        }
+
+        .v-tag:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        /* 3. HIGHLIGHTS (Balloons) */
+        .highlights .grid {
+            position: relative;
+        }
+
+        .hl-box {
+            background: rgba(26, 23, 20, 0.9);
+            border: 2px solid var(--text-main);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hl-1 {
+            grid-column: 2 / 7;
+            transform: rotate(-1deg);
+        }
+
+        .hl-2 {
+            grid-column: 6 / 12;
+            margin-top: -3rem;
+            transform: rotate(2deg);
+            z-index: 2;
+            border-color: var(--accent-pink);
+        }
+
+        .hl-3 {
+            grid-column: 3 / 9;
+            margin-top: -2rem;
+            transform: rotate(-2deg);
+            z-index: 3;
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+        }
+
+        /* 4. MAP (CSS Grid Graph) */
+        .map-sec {
+            padding: 6rem 0;
+        }
+
+        .map-title {
+            grid-column: 1 / 4;
+        }
+
+        .css-map {
+            grid-column: 5 / 13;
+            border: 2px solid var(--text-sub);
+            height: 300px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 4px;
+            background-image:
+                linear-gradient(rgba(232, 216, 144, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 216, 144, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 10px;
+            position: relative;
+            transform: rotate(1deg);
+        }
+
+        .map-block {
+            background: rgba(0, 179, 166, 0.3);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .mb-1 {
+            grid-area: 2 / 2 / 4 / 3;
+        }
+
+        .mb-2 {
+            grid-area: 1 / 4 / 3 / 5;
+        }
+
+        .mb-3 {
+            grid-area: 3 / 3 / 4 / 5;
+            background: rgba(230, 0, 92, 0.3);
+            border-color: var(--accent-pink);
+        }
+
+        /* Main Stage */
+
+        .map-pin {
+            position: absolute;
+            top: 65%;
+            left: 70%;
+            color: var(--text-main);
+            font-family: 'Zen Dots', cursive;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px var(--bg-color);
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 5. TICKET CTA */
+        .ticket-sec {
+            text-align: center;
+            padding: 6rem 0 10rem 0;
+            background: radial-gradient(circle at center, rgba(230, 0, 92, 0.15) 0%, var(--bg-color) 70%);
+        }
+
+        .ticket-price {
+            font-family: 'Zen Dots', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--text-sub);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-meta {
+                grid-column: 1 / -1;
+                margin-top: 1rem;
+                transform: none;
+            }
+
+            .hl-box {
+                grid-column: 1 / -1 !important;
+                margin-top: 1rem !important;
+                transform: none !important;
+            }
+
+            .css-map {
+                grid-column: 1 / -1;
+                height: 250px;
+                transform: none;
+                margin-top: 2rem;
+            }
+
+            .map-title {
+                grid-column: 1 / -1;
+            }
+
+            .stamp {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="heat-bg"></div>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="grid">
+            <div class="hero-h1-wrap">
+                <div class="stamp">ONE NIGHT ONLY!</div>
+                <h1 class="glitch reveal" data-text="HEAT NIGHT MARKET">HEAT NIGHT <br>MARKET</h1>
+            </div>
+
+            <div class="hero-meta reveal" style="transition-delay: 0.2s;">
+                <div class="date-loc font-bold">
+                    2026.08.15 SAT 18:00 - countdown<br>
+                    @ NEO-KAWASAKI ALLEY, BLOCK 9
+                </div>
+                <a href="#ticket" class="cta-btn">GET TICKETS NOW</a>
+            </div>
+
+            <div class="hero-countdown reveal" style="transition-delay: 0.4s;">
+                T-MINUS: <span id="cd-timer" class="flicker">07:23:45</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. LINEUP -->
+    <section class="lineup">
+        <div class="grid">
+            <h2 class="lineup-title reveal">++ STREET VENDORS ++</h2>
+            <div class="vendor-tags reveal">
+                <div class="v-tag">🌶️ 四川麻婆飯店 SICHUAN</div>
+                <div class="v-tag">Neon Bao Burger</div>
+                <div class="v-tag">電脳点心 CYBER DIMSUM</div>
+                <div class="v-tag">Taipei Noodle Station</div>
+                <div class="v-tag">🔥 猛火チャーハン</div>
+                <div class="v-tag">Craft Beer "TOKYO HAZE"</div>
+                <div class="v-tag">Nightmare Sweets</div>
+                <div class="v-tag">🏮 提灯カクテルバー</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HIGHLIGHTS -->
+    <section class="highlights">
+        <div class="grid">
+            <div class="hl-box hl-1 reveal">
+                <h2>01. SPICY AS HELL</h2>
+                <p>全店舗がこの日のためだけに開発した「裏メニュー」を提供。容赦のないスパイスが夏の夜を焦がす。</p>
+            </div>
+            <div class="hl-box hl-2 reveal">
+                <h2>02. DROPPING BEATS</h2>
+                <p>アンダーグラウンドDJ陣によるシークレットB2Bセッション。排気ガスと重低音が混ざり合う。</p>
+            </div>
+            <div class="hl-box hl-3 reveal">
+                <h2 style="color:var(--bg-color);">03. CASHLESS CHAOS</h2>
+                <p>支払いは仮想通貨か独自トークンのみ。現金は一切通用しない、完全な電脳経済特区。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MAP & ACCESS -->
+    <section class="map-sec">
+        <div class="grid">
+            <div class="map-title reveal">
+                <h2>SECTOR CHART</h2>
+                <p class="boogaloo" style="color:var(--text-sub); margin-top: 1rem;">>>> NAVIGATE THE ALLEY</p>
+            </div>
+            <div class="css-map reveal">
+                <div class="map-block mb-1"></div>
+                <div class="map-block mb-2"></div>
+                <div class="map-block mb-3"></div>
+                <div class="map-pin">HERE X</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. TICKET CTA -->
+    <section class="ticket-sec" id="ticket">
+        <div class="grid" style="display:block;">
+            <h2 class="reveal flicker" style="font-size: 2rem; margin-bottom: 1rem;">++ ENTRY PASS ++</h2>
+            <div class="ticket-price reveal">¥3,500 <span style="font-size: 1rem; color:var(--text-main);">/ included 2
+                    tokens</span></div>
+            <a href="#" class="cta-btn reveal" style="padding: 1.5rem 4rem; font-size: 1.5rem;">BUY NOW OR CRY LATER</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Reveal Observer
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 50);
+
+            // Fake Countdown Logic (hh:mm:ss) fixed format
+            const cdEl = document.getElementById('cd-timer');
+            let totalSeconds = 7 * 3600 + 23 * 60 + 45; // Start at 07:23:45
+
+            setInterval(() => {
+                totalSeconds--;
+                if (totalSeconds < 0) totalSeconds = 0;
+
+                const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (totalSeconds % 60).toString().padStart(2, '0');
+
+                if (cdEl) cdEl.innerText = `${h}:${m}:${s}`;
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

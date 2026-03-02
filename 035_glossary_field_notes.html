@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Aviary Field Notes // Glossary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F4EFE4;
+            /* フィールドカーキ */
+            --bg-alt: #EBE4D4;
+            /* ライトカーキ */
+            --text-main: #1A140A;
+            /* インクダーク */
+            --text-sub: #7A6E5E;
+            /* タン */
+            --border-color: #BEB09A;
+            --accent-color: #A02820;
+            /* エクスプローラーレッド */
+
+            /* Ruled line specs */
+            --line-height: 2.5rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Karla', 'Noto Serif JP', sans-serif;
+            font-size: 1rem;
+            /* Line height MUST match background ruled lines strictly for text alignment */
+            line-height: var(--line-height);
+            letter-spacing: 0.02em;
+        }
+
+        /* Primary layout: Apply ruled background to the main container, not body, to control borders */
+        .notebook-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+            border-left: 2px solid var(--accent-color);
+            /* Red margin line */
+            /* Ruled lines background */
+            background-image: linear-gradient(var(--bg-color) calc(var(--line-height) - 1px), var(--border-color) calc(var(--line-height) - 1px), var(--border-color) var(--line-height));
+            background-size: 100% var(--line-height);
+            position: relative;
+        }
+
+        /* Left Margin column for numbers */
+        .margin-col {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* Content wrapper pushes past margin */
+        .content-wrapper {
+            padding-left: 80px;
+            /* 60px margin + 20px padding */
+            padding-right: 20px;
+            padding-top: calc(var(--line-height) * 3);
+            /* Start text on 4th line */
+            padding-bottom: calc(var(--line-height) * 4);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            line-height: calc(var(--line-height) * 2);
+            /* Occupy exactly 2 ruled lines */
+            margin-bottom: var(--line-height);
+            /* Skip a line */
+            color: var(--text-main);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            line-height: var(--line-height);
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .topic-h {
+            font-family: 'Karla', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--text-sub);
+            line-height: var(--line-height);
+            display: block;
+        }
+
+        .yomi {
+            font-family: 'Karla', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            line-height: var(--line-height);
+            vertical-align: top;
+        }
+
+        .category-label {
+            font-family: 'Karla', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            color: var(--accent-color);
+            display: inline-block;
+            line-height: var(--line-height);
+            margin-bottom: 0;
+            /* Align to lines */
+        }
+
+        /* 2. Top Bar (Search & Filters) */
+        .top-bar {
+            margin-bottom: calc(var(--line-height) * 2);
+        }
+
+        .search-input {
+            width: 100%;
+            /* Style to look like handwriting on the line */
+            background: transparent;
+            border: none;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            outline: none;
+            height: var(--line-height);
+            line-height: var(--line-height);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-sub);
+            opacity: 0.5;
+        }
+
+        .filters {
+            display: flex;
+            gap: 2rem;
+            margin-top: calc(var(--line-height) * 0);
+            /* Wait a line */
+            height: var(--line-height);
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            font-family: 'Karla', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* 3. Entries */
+        .entries-list {
+            position: relative;
+        }
+
+        .entry {
+            position: relative;
+            margin-bottom: calc(var(--line-height) * 2);
+            /* 2 empty lines between entries */
+            /* Entry animation prep */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            border-left: 0px solid var(--accent-color);
+            /* Flash prep */
+        }
+
+        .entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .entry.flash {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+            background-color: rgba(160, 40, 32, 0.03);
+            transition: border-width 0s, background-color 0s;
+        }
+
+        .entry-num {
+            position: absolute;
+            left: -65px;
+            /* Move into margin col */
+            top: 0;
+            font-family: 'Karla', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: var(--line-height);
+            transition: color 0.3s;
+        }
+
+        .entry:hover .entry-num {
+            color: var(--accent-color);
+        }
+
+        .e-desc {
+            /* Text must snap to lines */
+            display: block;
+        }
+
+        .e-related-wrap {
+            display: block;
+            line-height: var(--line-height);
+        }
+
+        .related-link {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--accent-color);
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        /* 4. Footer */
+        footer {
+            margin-top: calc(var(--line-height) * 3);
+            font-family: 'Karla', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            line-height: var(--line-height);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .notebook-page {
+                border-left: none;
+                /* remove red line */
+                background-image: none;
+                /* remove ruled lines for mobile readability */
+                background-color: var(--bg-color);
+                /* plain bg */
+            }
+
+            .margin-col {
+                display: none;
+            }
+
+            .content-wrapper {
+                padding-left: 20px;
+                padding-top: 50px;
+            }
+
+            /* Stop forcing line-height to fix to lines, allow natural wrap */
+            body {
+                line-height: 1.7;
+            }
+
+            h1 {
+                line-height: 1.2;
+                margin-bottom: 2rem;
+            }
+
+            .search-input {
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 1rem;
+            }
+
+            .filters {
+                flex-wrap: wrap;
+                gap: 1rem;
+                height: auto;
+                margin-bottom: 2rem;
+            }
+
+            .entry {
+                margin-bottom: 3rem;
+                border-bottom: 1px dashed var(--border-color);
+                padding-bottom: 2rem;
+            }
+
+            .entry-num {
+                position: static;
+                display: block;
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="notebook-page">
+        <div class="margin-col"></div>
+
+        <div class="content-wrapper">
+
+            <!-- 1. Header -->
+            <header>
+                <span class="topic-h">Expedition Log 04: Ornithology</span>
+                <h1>Avian Terminology</h1>
+                <div style="line-height: var(--line-height); color: var(--text-sub); font-family: 'Karla'; font-style:italic;"
+                    id="count-display">
+                    5 ENTRIES LOGGED
+                </div>
+            </header>
+
+            <!-- 2. Top Bar -->
+            <div class="top-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search field notes...">
+
+                <div class="filters">
+                    <button class="filter-btn active" data-cat="all">All Logs</button>
+                    <button class="filter-btn" data-cat="anatomy">Anatomy (形態)</button>
+                    <button class="filter-btn" data-cat="behavior">Behavior (行動)</button>
+                    <button class="filter-btn" data-cat="ecology">Ecology (生体環境)</button>
+                </div>
+            </div>
+
+            <!-- 3. Entries -->
+            <main class="entries-list" id="entries-container">
+
+                <!-- Entry 1 -->
+                <article class="entry" data-cat="anatomy" id="term-plumage">
+                    <span class="entry-num">01</span>
+                    <div>
+                        <h2 class="e-title">Plumage</h2>
+                        <span class="yomi">[ プルミッジ ]</span>
+                    </div>
+                    <span class="category-label">Anatomy</span>
+                    <p class="e-desc">
+                        鳥類の全身を覆う羽毛群の総称。保温や飛翔といった物理的な機能に加えて、求愛行動におけるディスプレイや、捕食者から身を隠すための保護色としての役割を強く持つ。季節や年齢（幼鳥・成鳥）によって換羽（モルト）が行われ、色彩やパターンが変化する種が多い。
+                    </p>
+                    <div class="e-related-wrap">
+                        Ref: <span class="related-link" data-target="term-molt">Molt</span>
+                    </div>
+                </article>
+
+                <!-- Entry 2 -->
+                <article class="entry" data-cat="behavior" id="term-migration">
+                    <span class="entry-num">02</span>
+                    <div>
+                        <h2 class="e-title">Migration</h2>
+                        <span class="yomi">[ マイグレーション ]</span>
+                    </div>
+                    <span class="category-label">Behavior</span>
+                    <p class="e-desc">
+                        季節変動に伴い、繁殖地と越冬地の間を定期的に長距離移動する行動（渡り）。太陽の傾き、星の配置、地球の地磁気などを感知して正確にナビゲーションを行う。キョクアジサシのように北極圏から南極圏まで地球の半周以上を移動する種も確認されている。
+                    </p>
+                    <div class="e-related-wrap">
+                        Ref: <span class="related-link" data-target="term-navigation">Navigation</span>, <span
+                            class="related-link" data-target="term-flyway">Flyway</span>
+                    </div>
+                </article>
+
+                <!-- Entry 3 -->
+                <article class="entry" data-cat="anatomy" id="term-syrinx">
+                    <span class="entry-num">03</span>
+                    <div>
+                        <h2 class="e-title">Syrinx</h2>
+                        <span class="yomi">[ シリンクス ]</span>
+                    </div>
+                    <span class="category-label">Anatomy</span>
+                    <p class="e-desc">
+                        鳥類特有の発声器官（鳴管）。哺乳類の喉頭（声帯）が気管の上部にあるのに対し、鳴管は気管が左右の気管支に分岐する最も奥深い位置にある。筋肉の複雑な制御により、左右の気管支で別々の音を同時に発することができる種もおり、それゆえに極めて複雑で美しい囀り（さえずり）が可能となる。
+                    </p>
+                    <div class="e-related-wrap">
+                        Ref: <span class="related-link" data-target="term-song">Bird Song</span>
+                    </div>
+                </article>
+
+                <!-- Entry 4 -->
+                <article class="entry" data-cat="ecology" id="term-endemic">
+                    <span class="entry-num">04</span>
+                    <div>
+                        <h2 class="e-title">Endemic</h2>
+                        <span class="yomi">[ エンデミック ]</span>
+                    </div>
+                    <span class="category-label">Ecology</span>
+                    <p class="e-desc">
+                        特定の限られた地域（島や山脈など）にのみ自然分布し、世界の他の地域には見られない固有種を指す。ガラパゴス諸島のフィンチ類など、地理的隔離によって独自の進化を遂げた結果生じることが多い。分布域が狭いため、環境変化や外来種の影響に対して非常に脆弱である。
+                    </p>
+                    <div class="e-related-wrap">
+                        Ref: <span class="related-link" data-target="term-habitat">Habitat Fragmentation</span>
+                    </div>
+                </article>
+
+                <!-- Entry 5 -->
+                <article class="entry" data-cat="behavior" id="term-molt">
+                    <span class="entry-num">05</span>
+                    <div>
+                        <h2 class="e-title">Molt</h2>
+                        <span class="yomi">[ モルト ]</span>
+                    </div>
+                    <span class="category-label">Behavior</span>
+                    <p class="e-desc">
+                        古い傷んだ羽毛が抜け落ち、新しい羽毛に生え替わる「換羽（かんう）」のプロセス。飛翔能力を維持するために少しずつ生え替わる種が多いが、カモ類など一部の水鳥は風切羽を一度に全て失い、一時的に飛べなくなる期間（飛翔不能期）を持つ。
+                    </p>
+                    <div class="e-related-wrap">
+                        Ref: <span class="related-link" data-target="term-plumage">Plumage</span>
+                    </div>
+                </article>
+
+            </main>
+
+            <!-- 4. Footer -->
+            <footer>
+                Dr. H.K. Expedition Archives | Date of Entry: 2026.11.05
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const entries = document.querySelectorAll('.entry');
+            const countDisplay = document.getElementById('count-display');
+            const relatedLinks = document.querySelectorAll('.related-link');
+
+            const filterEntries = () => {
+                const query = searchInput.value.toLowerCase();
+                const activeCat = document.querySelector('.filter-btn.active').getAttribute('data-cat');
+                let visibleCount = 0;
+
+                // Re-number visible entries
+                entries.forEach((entry) => {
+                    const title = entry.querySelector('.e-title').textContent.toLowerCase();
+                    const read = entry.querySelector('.yomi').textContent.toLowerCase();
+                    const desc = entry.querySelector('.e-desc').textContent.toLowerCase();
+                    const cat = entry.getAttribute('data-cat');
+
+                    const matchesSearch = title.includes(query) || read.includes(query) || desc.includes(query);
+                    const matchesCat = activeCat === 'all' || cat === activeCat;
+
+                    if (matchesSearch && matchesCat) {
+                        entry.style.display = 'block';
+                        visibleCount++;
+                        // Update margin number formats to 01, 02...
+                        const numText = visibleCount < 10 ? '0' + visibleCount : visibleCount;
+                        entry.querySelector('.entry-num').textContent = numText;
+                    } else {
+                        entry.style.display = 'none';
+                    }
+                });
+
+                countDisplay.textContent = visibleCount === 1 ? "1 ENTRY LOGGED" : `${visibleCount} ENTRIES LOGGED`;
+            };
+
+            // Search typing
+            searchInput.addEventListener('input', filterEntries);
+
+            // Category click
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterEntries();
+                });
+            });
+
+            // Related Link Cross-reference
+            relatedLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    const targetEl = document.getElementById(targetId);
+
+                    if (targetEl) {
+                        // Reset filters to show the target
+                        document.querySelector('.filter-btn[data-cat="all"]').click();
+                        searchInput.value = '';
+                        filterEntries();
+
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // Flash effect
+                        targetEl.classList.add('flash');
+                        setTimeout(() => {
+                            // Hacky way to reset transition smoothly
+                            targetEl.style.transition = 'border-width 0.8s, background-color 0.8s';
+                            targetEl.classList.remove('flash');
+                            setTimeout(() => {
+                                targetEl.style.transition = ''; // clear inline style
+                            }, 800);
+                        }, 100);
+                    } else {
+                        alert('Entry missing from this field note fragment.');
+                    }
+                });
+            });
+
+            // Initial Load Animation Staggering
+            let delay = 0;
+            entries.forEach((entry, index) => {
+                setTimeout(() => {
+                    entry.classList.add('visible');
+                }, delay);
+                delay += 50; // 0.05s stagger
+            });
+
+        });
+    </script>
+</body>
+
+</html>

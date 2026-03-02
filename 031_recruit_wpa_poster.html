@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECRUIT | IRON WORKS HEAVY INDUSTRIES</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0E1C2E;
+            /* ディープネイビー */
+            --bg-surface: #1E3050;
+            /* サーフェス */
+            --text-main: #F0EBE0;
+            /* クリームホワイト */
+            --text-sub: #B8AE9E;
+            /* ミッドクリーム */
+            --accent-color: #D4900A;
+            /* ゴールデンアンバー */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.85;
+            letter-spacing: 0.03em;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 900;
+            font-size: clamp(4rem, 10vw, 9rem);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            line-height: 0.9;
+            color: var(--text-main);
+            text-align: center;
+            /* Animation prep */
+            transform: translateY(150%);
+            opacity: 0;
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .role-title {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+        }
+
+        .label {
+            font-family: 'Big Shoulders Display', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--text-sub);
+        }
+
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem 4rem;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 2px solid var(--accent-color);
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            /* Navy */
+        }
+
+        /* 1. Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-lines {
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-color);
+            margin: 2rem 0;
+        }
+
+        .hero-co-name {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        /* 2. Mission Band */
+        .mission-band {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            /* Dark invert */
+            padding: 1.5rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee {
+            display: inline-block;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            padding-right: 2rem;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* 3. Culture Tiles */
+        .culture-sec {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .culture-tile {
+            background-color: var(--bg-surface);
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(212, 144, 10, 0.2);
+            /* subtle amber border */
+        }
+
+        .c-num {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 900;
+            font-size: 6rem;
+            color: var(--accent-color);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .c-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* 4. Positions (Accordion) */
+        .pos-list {
+            border-top: 1px solid var(--accent-color);
+        }
+
+        .pos-item {
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .pos-header {
+            padding: 2rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pos-header-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pos-icon {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .pos-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            border-left: 0px solid var(--accent-color);
+        }
+
+        .pos-item.open .pos-content {
+            border-left: 4px solid var(--accent-color);
+            padding: 0 0 2rem 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pos-item.open .pos-icon {
+            transform: rotate(45deg);
+        }
+
+        /* 5. Conditions Grid */
+        .cond-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            /* acts as border width */
+            background-color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .cond-box {
+            background-color: var(--bg-color);
+            /* Navy inner */
+            padding: 3rem;
+        }
+
+        /* 6. Selection Flow */
+        .flow-sec {
+            text-align: center;
+        }
+
+        .flow-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-num {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 900;
+            font-size: 4rem;
+            color: var(--bg-surface);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .step-text {
+            font-weight: 700;
+        }
+
+        .flow-arrow {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin: 0 3rem;
+        }
+
+        /* 7. Footer CTA */
+        .footer-cta {
+            text-align: center;
+            padding: 150px 0;
+            border-top: 1px solid var(--accent-color);
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212, 144, 10, 0.03) 10px, rgba(212, 144, 10, 0.03) 20px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .culture-sec {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .cond-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-track {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+            }
+
+            .flow-step {
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+
+            .step-num {
+                margin-bottom: 0;
+                margin-right: 2rem;
+                font-size: 3rem;
+            }
+
+            .flow-arrow {
+                display: none;
+            }
+
+            /* Hide horizontal arrows on mobile vertical stack */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Hero -->
+    <header class="hero container">
+        <div class="hero-co-name">Iron Works Heavy Industries</div>
+        <div class="hero-lines"></div>
+        <h1>Build<br>the Engine.</h1>
+        <div class="hero-lines"></div>
+        <p style="text-align: center; color: var(--text-sub); max-width: 600px; margin: 2rem 0;">
+            我々が創るのはソフトウェアではない。社会を前進させるインフラストラクチャーとしての「エンジン」だ。強固な意志を持つエンジニアを求む。
+        </p>
+        <a href="#apply" class="btn">Enlist Now</a>
+    </header>
+
+    <!-- 2. Mission Marquee -->
+    <div class="mission-band">
+        <div class="marquee">
+            我々はインフラを強固にする。社会の土台を築き、次世代の産業を支える。 // WE FORGE THE INFRASTRUCTURE. WE BUILD THE FOUNDATION OF SOCIETY. //
+            我々はインフラを強固にする。社会の土台を築き、次世代の産業を支える。 // WE FORGE THE INFRASTRUCTURE. WE BUILD THE FOUNDATION OF SOCIETY. //
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- 3. Culture -->
+        <section>
+            <div class="label" style="text-align: center; margin-bottom: 1rem;">Work Ethic</div>
+            <h2 style="text-align: center; margin-bottom: 4rem;">カルチャー</h2>
+            <div class="culture-sec">
+                <div class="culture-tile">
+                    <div class="c-num">01</div>
+                    <div class="c-text">妥協なき設計と堅牢性</div>
+                    <p style="color:var(--text-sub); font-size:0.9rem; margin-top:1rem;">
+                        10年後も動くコードを書く。一時的なハックではなく、永続的なアーキテクチャを。</p>
+                </div>
+                <div class="culture-tile">
+                    <div class="c-num">02</div>
+                    <div class="c-text">自立したプロフェッショナル</div>
+                    <p style="color:var(--text-sub); font-size:0.9rem; margin-top:1rem;">
+                        マイクロマネジメントは存在しない。己の責任を果たし、結果で語る組織。</p>
+                </div>
+                <div class="culture-tile">
+                    <div class="c-num">03</div>
+                    <div class="c-text">オープンな知識共有</div>
+                    <p style="color:var(--text-sub); font-size:0.9rem; margin-top:1rem;">個人の知見は組織の資産。徹底したドキュメント化とレビュー文化。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Positions -->
+        <section>
+            <div class="label" style="margin-bottom: 1rem;">Open Roles</div>
+            <h2>募集職種</h2>
+
+            <div class="pos-list">
+
+                <div class="pos-item">
+                    <div class="pos-header">
+                        <div class="pos-header-left">
+                            <span class="label">Engineering</span>
+                            <div class="role-title">Platform Engineer</div>
+                        </div>
+                        <div class="pos-icon">+</div>
+                    </div>
+                    <div class="pos-content">
+                        <p style="color:var(--text-sub); margin-bottom:1rem;">
+                            大規模分散システムの基盤設計、構築、運用。Kubernetesクラスタの設計からCI/CDパイプラインの高度化まで、インフラ全体の「エンジン」を鍛え上げる役割です。
+                        </p>
+                        <strong style="color:var(--text-main);">Requirements:</strong>
+                        <ul style="color:var(--text-sub); margin-left:1.5rem; margin-top:0.5rem;">
+                            <li>コンテナオーケストレーションの実働経験3年以上</li>
+                            <li>Go / Rustいずれかでの開発経験</li>
+                            <li>SLA 99.99%が求められるシステムの運用経験</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pos-item">
+                    <div class="pos-header">
+                        <div class="pos-header-left">
+                            <span class="label">Engineering</span>
+                            <div class="role-title">Backend Developer</div>
+                        </div>
+                        <div class="pos-icon">+</div>
+                    </div>
+                    <div class="pos-content">
+                        <p style="color:var(--text-sub); margin-bottom:1rem;">
+                            コア業務ロジックのAPI開発およびマイクロサービスの実装。パフォーマンスと堅牢性を両立させたコード品質が求められます。
+                        </p>
+                        <strong style="color:var(--text-main);">Requirements:</strong>
+                        <ul style="color:var(--text-sub); margin-left:1.5rem; margin-top:0.5rem;">
+                            <li>RDBMSの高度なチューニング経験</li>
+                            <li>ドメイン駆動設計（DDD）への理解と実践経験</li>
+                            <li>堅牢なテストコードを書く習慣</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. Conditions -->
+        <section>
+            <div class="label" style="margin-bottom: 1rem;">Terms of Enlistment</div>
+            <h2>待遇と条件</h2>
+
+            <div class="cond-grid">
+                <div class="cond-box">
+                    <div class="label">Compensation</div>
+                    <div style="font-size:1.5rem; font-weight:700; color:var(--text-main); margin:1rem 0;">年収 7,000k -
+                        12,000k</div>
+                    <p style="color:var(--text-sub); font-size:0.9rem;">能力、実績、および面接での評価を総合して決定。成果に応じたストックオプション付与あり。</p>
+                </div>
+                <div class="cond-box">
+                    <div class="label">Location</div>
+                    <div style="font-size:1.5rem; font-weight:700; color:var(--text-main); margin:1rem 0;">フルリモートベース
+                    </div>
+                    <p style="color:var(--text-sub); font-size:0.9rem;">居住地不問。半期に一度のオフサイトミーティング（全社集会）の交通費・宿泊費は全額支給。</p>
+                </div>
+                <div class="cond-box">
+                    <div class="label">Work Style</div>
+                    <div style="font-size:1.5rem; font-weight:700; color:var(--text-main); margin:1rem 0;">裁量労働制</div>
+                    <p style="color:var(--text-sub); font-size:0.9rem;">みなし労働時間8時間/日。成果にフォーカスし、働く時間は自律的にコントロール可能。</p>
+                </div>
+                <div class="cond-box">
+                    <div class="label">Benefits</div>
+                    <div style="font-size:1.5rem; font-weight:700; color:var(--text-main); margin:1rem 0;">フルスペック環境支給
+                    </div>
+                    <p style="color:var(--text-sub); font-size:0.9rem;">希望のPC（上限なし）、昇降デスク、高機能チェアの購入補助（計30万円まで）。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Flow -->
+        <section class="flow-sec">
+            <div class="label" style="margin-bottom: 1rem;">Enlistment Process</div>
+            <h2>選考フロー</h2>
+
+            <div class="flow-track">
+                <div class="flow-step">
+                    <div class="step-num">01</div>
+                    <div class="step-text">書類・コード審査</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="step-num">02</div>
+                    <div class="step-text">技術面接</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="step-num">03</div>
+                    <div class="step-text">カルチャー面接</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="step-num">04</div>
+                    <div class="step-text">オファー面談</div>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End Container -->
+
+    <!-- 7. Footer CTA -->
+    <footer class="footer-cta" id="apply">
+        <div class="container">
+            <h1
+                style="font-size: clamp(3rem, 6vw, 6rem); margin-bottom: 3rem; transform:none; opacity:1; animation:none;">
+                Build<br>the Engine.</h1>
+            <a href="mailto:recruit@ironworks.example" class="btn">Apply Open Role</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Accordion Logic
+            const posItems = document.querySelectorAll('.pos-item');
+
+            posItems.forEach(item => {
+                const header = item.querySelector('.pos-header');
+                const content = item.querySelector('.pos-content');
+
+                header.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+
+                    // Close all
+                    posItems.forEach(pi => {
+                        pi.classList.remove('open');
+                        pi.querySelector('.pos-content').style.maxHeight = null;
+                    });
+
+                    // Open if it wasn't
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        // Slight delay or direct calculation for inner padding
+                        content.style.maxHeight = content.scrollHeight + 50 + "px"; // + padding buffer
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

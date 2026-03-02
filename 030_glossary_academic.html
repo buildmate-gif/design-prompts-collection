@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEXICON Archives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400&family=Source+Sans+3:wght@400;600&family=Spectral:ital,wght@0,600;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F6F1E7;
+            /* パーチメント */
+            --bg-hover: #EDE7D6;
+            /* ライトバフ */
+            --text-main: #18120A;
+            /* インク */
+            --text-sub: #6E6055;
+            /* セピアグレー */
+            --border-color: #C8BAA2;
+            --accent-color: #2A5C5A;
+            /* ディープトール */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Source Sans 3', 'Noto Serif JP', sans-serif;
+            font-size: 1rem;
+            line-height: 1.95;
+            letter-spacing: 0.02em;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Spectral', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: clamp(2rem, 4.5vw, 3.8rem);
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-label {
+            font-family: 'Source Sans 3', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: var(--text-sub);
+        }
+
+        /* Layout */
+        .header-top {
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 80vh;
+        }
+
+        /* Left Sidebar (30%) */
+        .sidebar {
+            width: 30%;
+            border-right: 1px solid var(--border-color);
+            padding: 3rem 5% 3rem 5%;
+            position: relative;
+        }
+
+        .sticky-box {
+            position: sticky;
+            top: 3rem;
+        }
+
+        /* Search */
+        .search-box {
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-main);
+            padding: 0.5rem 0;
+            font-family: 'Spectral', serif;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-sub);
+            font-style: italic;
+        }
+
+        /* Filters / Nav */
+        .nav-group {
+            margin-bottom: 3rem;
+        }
+
+        .nav-title {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+
+        .filter-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+
+        .index-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0;
+            font-family: 'Spectral', serif;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .index-btn:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Right Content (70%) */
+        .content-area {
+            width: 70%;
+            /* padding handled per entry */
+        }
+
+        .entry {
+            padding: 4rem 10% 4rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 2px solid transparent;
+            /* reserved for hover */
+            transition: background-color 0.3s, border-left-color 0.3s;
+        }
+
+        .entry:hover {
+            background-color: var(--bg-hover);
+            border-left-color: var(--accent-color);
+        }
+
+        .entry.highlight {
+            background-color: #E2E8E8;
+            /* Subtle teal tint for highlight */
+            transition: background-color 0.5s;
+        }
+
+        .e-cat {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+            display: inline-block;
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.6rem;
+        }
+
+        .e-title {
+            font-family: 'Spectral', serif;
+            font-weight: 600;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            margin-bottom: 0.2rem;
+        }
+
+        .e-read {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-sub);
+            margin-bottom: 1.5rem;
+        }
+
+        .e-desc {
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+
+        .e-related {
+            font-family: 'Spectral', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .related-link {
+            color: var(--accent-color);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 1rem;
+            }
+
+            .sticky-box {
+                position: static;
+            }
+
+            .nav-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .nav-title {
+                margin-bottom: 0;
+                margin-right: 1rem;
+            }
+
+            .filter-btn {
+                margin-bottom: 0;
+            }
+
+            .index-grid {
+                display: none;
+                /* Hide index grid on mobile for simplicity or convert to horizontal scroll */
+            }
+
+            .content-area {
+                width: 100%;
+            }
+
+            .entry {
+                padding: 3rem 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Header -->
+    <header class="header-top">
+        <div>
+            <div class="topic-label">GLOSSARY OF TYPOGRAPHIC TERMS</div>
+            <h1>Lexicon</h1>
+            <p style="color:var(--text-sub); font-family:'Spectral'; font-style:italic;">タイポグラフィと書体設計に関する基礎用語アーカイブ</p>
+        </div>
+        <div class="topic-label" id="count-display">5 TERMS</div>
+    </header>
+
+    <!-- 2. Dual Pane -->
+    <div class="main-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sticky-box">
+
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search term...">
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-title">Categories</div>
+                    <button class="filter-btn active" data-cat="all">All Entries</button>
+                    <button class="filter-btn" data-cat="anatomy">Letter Anatomy (文字の構造)</button>
+                    <button class="filter-btn" data-cat="spacing">Spacing (余白と配置)</button>
+                    <button class="filter-btn" data-cat="classification">Classification (分類)</button>
+                </div>
+
+                <div class="nav-group" id="desktop-index">
+                    <div class="nav-title">Index</div>
+                    <div class="index-grid">
+                        <button class="index-btn" data-letter="A">A</button>
+                        <button class="index-btn" data-letter="C">C</button>
+                        <button class="index-btn" data-letter="K">K</button>
+                        <button class="index-btn" data-letter="L">L</button>
+                        <button class="index-btn" data-letter="S">S</button>
+                        <button class="index-btn" data-letter="W">W</button>
+                        <button class="index-btn" data-letter="X">X</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area" id="entries-container">
+
+            <!-- Entry 1 -->
+            <article class="entry" data-cat="anatomy" data-letter="X" id="term-xheight">
+                <div class="e-cat">Letter Anatomy</div>
+                <h2 class="e-title">X-height</h2>
+                <div class="e-read">エックスハイト / 小文字の高さ</div>
+                <p class="e-desc">欧文フォントにおいて、ベースラインから小文字の「x」の上端までの高さを指す。アセンダーやディセンダーを持たない小文字（a, c, e, m, n,
+                    oなど）の基準となる高さ。x-heightが大きいほど小文字が大きく見え、小さなサイズでも可読性が高まる傾向がある。</p>
+                <div class="e-related">
+                    See also: <span class="related-link" data-target="term-baseline">Baseline</span>, <span
+                        class="related-link" data-target="term-capheight">Cap Height</span>
+                </div>
+            </article>
+
+            <!-- Entry 2 -->
+            <article class="entry" data-cat="spacing" data-letter="K" id="term-kerning">
+                <div class="e-cat">Spacing</div>
+                <h2 class="e-title">Kerning</h2>
+                <div class="e-read">カーニング / 文字詰め</div>
+                <p class="e-desc">
+                    特定の文字の組み合わせ（ペア）において、文字間の空きを視覚的に均一に見えるように調整する作業。例えば「A」と「V」や「T」と「o」など、物理的な文字幅のまま配置すると隙間が空きすぎて見えるペアに対して、文字間を詰める物理的・デジタル的処理。
+                </p>
+                <div class="e-related">
+                    See also: <span class="related-link" data-target="term-tracking">Tracking</span>, <span
+                        class="related-link" data-target="term-ligature">Ligature</span>
+                </div>
+            </article>
+
+            <!-- Entry 3 -->
+            <article class="entry" data-cat="spacing" data-letter="L" id="term-leading">
+                <div class="e-cat">Spacing</div>
+                <h2 class="e-title">Leading</h2>
+                <div class="e-read">レディング / 行送り</div>
+                <p class="e-desc">行と行の間隔のこと。もともとは活版印刷において、行間に挿入された鉛（Lead）の薄い板に由来する。ベースラインから次の行のベースラインまでの距離を表し、CSSの
+                    `line-height` の概念に近い。長文の可読性に重大な影響を与える。</p>
+                <div class="e-related">
+                    See also: <span class="related-link" data-target="term-baseline">Baseline</span>
+                </div>
+            </article>
+
+            <!-- Entry 4 -->
+            <article class="entry" data-cat="classification" data-letter="S" id="term-serif">
+                <div class="e-cat">Classification</div>
+                <h2 class="e-title">Serif</h2>
+                <div class="e-read">セリフ / 飾り線</div>
+                <p class="e-desc">
+                    文字のストロークの端にある小さな飾り線や意匠。「サンセリフ（Sans-serif）」は逆にこの飾りがない書体を指す。ローマ時代の石版彫刻の筆跡に由来するとされ、長文の印刷物において視線を誘導し可読性を高める効果があると言われている。
+                </p>
+                <div class="e-related">
+                    See also: <span class="related-link" data-target="term-sansserif">Sans-serif</span>
+                </div>
+            </article>
+
+            <!-- Entry 5 -->
+            <article class="entry" data-cat="anatomy" data-letter="C" id="term-counter">
+                <div class="e-cat">Letter Anatomy</div>
+                <h2 class="e-title">Counter</h2>
+                <div class="e-read">カウンター / ふところ</div>
+                <p class="e-desc">
+                    「o」や「e」、「b」などの文字の内部にある、完全または部分的に閉じられた「空白」の部分。日本語フォントにおける「ふところ」に近い概念。カウンターが広く開いている書体は、小さいサイズで印刷・表示された際にも潰れにくく視認性が高い。
+                </p>
+                <div class="e-related">
+                    See also: <span class="related-link" data-target="term-aperture">Aperture</span>
+                </div>
+            </article>
+
+        </main>
+    </div>
+
+    <footer>
+        Curated by The Typography Archive Project. <br>
+        Contact: info@typography-archive.example / Last modified: Nov 2026.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const entries = document.querySelectorAll('.entry');
+            const countDisplay = document.getElementById('count-display');
+            const indexBtns = document.querySelectorAll('.index-btn');
+            const relatedLinks = document.querySelectorAll('.related-link');
+
+            const filterEntries = () => {
+                const query = searchInput.value.toLowerCase();
+                const activeCat = document.querySelector('.filter-btn.active').getAttribute('data-cat');
+                let visibleCount = 0;
+
+                entries.forEach(entry => {
+                    const title = entry.querySelector('.e-title').textContent.toLowerCase();
+                    const read = entry.querySelector('.e-read').textContent.toLowerCase();
+                    const desc = entry.querySelector('.e-desc').textContent.toLowerCase();
+                    const cat = entry.getAttribute('data-cat');
+
+                    const matchesSearch = title.includes(query) || read.includes(query) || desc.includes(query);
+                    const matchesCat = activeCat === 'all' || cat === activeCat;
+
+                    if (matchesSearch && matchesCat) {
+                        entry.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        entry.style.display = 'none';
+                    }
+                });
+
+                countDisplay.textContent = visibleCount === 1 ? "1 TERM" : `${visibleCount} TERMS`;
+            };
+
+            // Search typing
+            searchInput.addEventListener('input', filterEntries);
+
+            // Category click
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterEntries();
+                });
+            });
+
+            // Index scroll
+            indexBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const letter = btn.getAttribute('data-letter');
+                    // Find first entry matching letter
+                    const target = Array.from(entries).find(e => e.getAttribute('data-letter') === letter && e.style.display !== 'none');
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Related Link Cross-reference
+            relatedLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const targetId = link.getAttribute('data-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        // Ensure it's not hidden by filters
+                        document.querySelector('.filter-btn[data-cat="all"]').click();
+                        searchInput.value = '';
+                        filterEntries();
+
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // Highlight effect
+                        targetEl.classList.add('highlight');
+                        setTimeout(() => {
+                            targetEl.classList.remove('highlight');
+                        }, 800);
+                    } else {
+                        alert('This entry is not included in the current sample view.');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

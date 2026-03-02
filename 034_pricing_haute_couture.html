@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison de l'Investissement - Pricing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Didact+Gothic&family=Noto+Serif+JP:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F3EC;
+            /* シャンパン */
+            --bg-alt: #EDE8DF;
+            /* パールグレー */
+            --text-main: #111008;
+            /* エボニー */
+            --text-sub: #706A60;
+            /* ウォームグレー */
+            --border-color: #C4B89A;
+            --accent-color: #C8A84B;
+            /* シャンパンゴールド */
+            --accent-dark: #A88830;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Didact Gothic', 'Noto Serif JP', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.85;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            letter-spacing: 0.06em;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .price-num {
+            font-family: 'Didact Gothic', sans-serif;
+            font-weight: 400;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            color: var(--text-main);
+            margin: 1rem 0;
+        }
+
+        .label {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-sub);
+        }
+
+        .plan-card.recommended .label {
+            color: rgba(17, 16, 8, 0.7);
+            /* adjusted for gold bg */
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            margin-bottom: 120px;
+        }
+
+        /* 1. Header */
+        .header-sec {
+            text-align: center;
+            padding: 120px 0 60px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-sec p {
+            margin-top: 1.5rem;
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        /* 2. Plan List (Vertical Stack) */
+        .plans-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-card {
+            display: flex;
+            width: 100vw;
+            border-top: 1px solid var(--border-color);
+            padding: 6rem 10vw;
+            margin-left: -4vw;
+            /* Break container bounds for full bleed */
+            transition: border-color 0.4s ease;
+            background-color: var(--bg-color);
+        }
+
+        .plan-card:last-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .plan-card:hover {
+            border-color: var(--accent-color);
+        }
+
+        .plan-card.recommended {
+            background-color: var(--accent-color);
+            color: var(--text-main);
+            border-color: var(--accent-color);
+        }
+
+        .plan-card.recommended:hover {
+            border-color: var(--text-main);
+        }
+
+        .plan-left {
+            width: 40%;
+            padding-right: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .plan-right {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 4rem;
+            border-left: 1px solid var(--border-color);
+            /* Separator inside band */
+        }
+
+        .plan-card.recommended .plan-right {
+            border-left-color: rgba(17, 16, 8, 0.2);
+        }
+
+        .feature-list {
+            list-style: none;
+            columns: 2;
+            /* Split list into 2 columns if enough items */
+            column-gap: 3rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            font-size: 0.7rem;
+            color: var(--accent-color);
+        }
+
+        .plan-card.recommended .feature-list li::before {
+            color: var(--text-main);
+        }
+
+        .btn-plan {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            background: transparent;
+            transition: background-color 0.3s, color 0.3s;
+            align-self: flex-start;
+        }
+
+        .btn-plan:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* 3. Comparison Table */
+        .compare-sec {
+            margin-top: 150px;
+        }
+
+        .compare-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--text-sub);
+        }
+
+        td:first-child,
+        th:first-child {
+            text-align: left;
+            width: 30%;
+        }
+
+        td:first-child {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        /* 4. FAQ */
+        .faq-sec {
+            max-width: 800px;
+            margin: 150px auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-q {
+            padding: 2rem 0;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.45s ease;
+            color: var(--text-sub);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease;
+            color: var(--text-sub);
+        }
+
+        .faq-a-inner {
+            padding-bottom: 2rem;
+        }
+
+        /* 5, 6. Guarantee & CTA */
+        .cta-sec {
+            text-align: center;
+            padding: 120px 0;
+            background-color: var(--bg-alt);
+            margin-bottom: 0;
+        }
+
+        .guarantee {
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            color: var(--text-sub);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 1.2rem 4rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            background-color: var(--accent-color);
+            color: var(--text-main);
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-main:hover {
+            background-color: var(--accent-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .plan-card {
+                flex-direction: column;
+                padding: 4rem 6vw;
+            }
+
+            .plan-left {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 3rem;
+                text-align: center;
+                align-items: center;
+            }
+
+            .plan-right {
+                width: 100%;
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                padding-top: 3rem;
+            }
+
+            .plan-card.recommended .plan-right {
+                border-top-color: rgba(17, 16, 8, 0.2);
+            }
+
+            .feature-list {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. Header -->
+        <header class="header-sec">
+            <div class="label" style="margin-bottom: 1rem;">COLLECTION</div>
+            <h1>The Art of<br>Investment</h1>
+            <p>
+                洗練された知性と、揺るぎない実績。あなたの資産を次の高みへ導くための、特別に用意されたポートフォリオ構築プログラム。価格ではなく、提供される価値の品格で比較してください。
+            </p>
+        </header>
+
+        <!-- 2. Plans -->
+        <section class="plans-container">
+
+            <!-- Premiere (Basic) -->
+            <div class="plan-card">
+                <div class="plan-left">
+                    <span class="label">Premiere Class</span>
+                    <h2>L'Essentiel</h2>
+                    <div class="price-num">¥ 25,000<span style="font-size:1rem; color:var(--text-sub);"> / mo</span>
+                    </div>
+                    <p style="color:var(--text-sub);">個人の自律的な資産形成をサポートする、高品質な市場レポートと分析ツールの基本パッケージ。</p>
+                    <a href="#" class="btn-plan">Select L'Essentiel</a>
+                </div>
+                <div class="plan-right">
+                    <span class="label" style="margin-bottom:1rem; display:block;">Includes</span>
+                    <ul class="feature-list">
+                        <li>週刊・高品質マクロ経済レポート</li>
+                        <li>主要銘柄のアナリスト解説</li>
+                        <li>専用ダッシュボードアクセス</li>
+                        <li>スタンダード・メールサポート</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Signature (Recommended) -->
+            <div class="plan-card recommended">
+                <div class="plan-left">
+                    <span class="label">Signature Class</span>
+                    <h2>Le Prestige</h2>
+                    <div class="price-num">¥ 80,000<span style="font-size:1rem; opacity:0.7;"> / mo</span></div>
+                    <p style="color:rgba(17, 16, 8, 0.8);">専任アドバイザーによるパーソナライズされたインサイト。本格的な資産運用を望む方への推奨プログラム。</p>
+                    <a href="#" class="btn-plan">Select Le Prestige</a>
+                </div>
+                <div class="plan-right">
+                    <span class="label" style="margin-bottom:1rem; display:block;">Includes</span>
+                    <ul class="feature-list">
+                        <li>L'Essentiel の全機能</li>
+                        <li>専任アドバイザーとの月次オンライン面談（45分）</li>
+                        <li>テーラーメイドのポートフォリオリバランス提案</li>
+                        <li>未公開ファンドへの優先案内枠</li>
+                        <li>VIPホットライン対応</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Private (Enterprise) -->
+            <div class="plan-card">
+                <div class="plan-left">
+                    <span class="label">Private Class</span>
+                    <h2>Sur Mesure</h2>
+                    <div class="price-num"
+                        style="font-size: 2.5rem; letter-spacing: 0.1em; font-family: 'Cinzel', serif;">By Invitation
+                    </div>
+                    <p style="color:var(--text-sub);">選ばれた限られたクライアントのみに提供される、当社の総力を結集した完全オーダーメイドのファミリーオフィスサービス。</p>
+                    <a href="#" class="btn-plan">Inquire Now</a>
+                </div>
+                <div class="plan-right">
+                    <span class="label" style="margin-bottom:1rem; display:block;">Includes</span>
+                    <ul class="feature-list">
+                        <li>Le Prestige の全機能（制約なし）</li>
+                        <li>グローバル投資戦略の策定・代行</li>
+                        <li>税務・法務ネットワークの提供</li>
+                        <li>年4回の対面エグゼクティブ・ブリーフィング</li>
+                        <li>専用のコンシェルジュデスク</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 3. Compare Table -->
+        <section class="compare-sec">
+            <div class="compare-header">
+                <span class="label">Overview</span>
+                <h2 style="font-size: 2rem; margin-top: 0.5rem;">Collection Details</h2>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Element</th>
+                            <th>L'Essentiel</th>
+                            <th>Le Prestige</th>
+                            <th>Sur Mesure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>レポート配信頻度</td>
+                            <td>週1回</td>
+                            <td>週3回＋速報</td>
+                            <td>リアルタイム・オンデマンド</td>
+                        </tr>
+                        <tr>
+                            <td>個別アドバイザリー</td>
+                            <td>—</td>
+                            <td>● (月次)</td>
+                            <td>● (常時対応)</td>
+                        </tr>
+                        <tr>
+                            <td>クローズドイベント招待</td>
+                            <td>—</td>
+                            <td>● (年2回招待枠)</td>
+                            <td>● (VIP待遇)</td>
+                        </tr>
+                        <tr>
+                            <td>税務・法務連携支援</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>●</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. FAQ -->
+        <section class="faq-sec">
+            <div class="compare-header">
+                <span class="label">Inquiries</span>
+                <h2 style="font-size: 2rem; margin-top: 0.5rem;">F.A.Q</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    Le Prestigeプランの専任アドバイザーは指名可能ですか？
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        初期の審査とヒアリングを通じて、お客様の投資スタイルや目的に最も合致するアドバイザーを当方でアサインいたします。特別なご要望がある場合は、コンタクトリエゾンまでご相談くださいませ。
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    Sur Mesureプランへの参加条件について教えてください。
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        原則として既存クライアントからのご紹介、または当社の審査委員会にて承認されたお客様のみご招待しております。一般のお申し込み窓口は設けておりませんので、何卒ご了承ください。
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    海外居住者でもサービスを受けられますか？
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        はい、デジタルレポートおよびオンラインでのアドバイザリーは全世界で対応しております。ただし、一部の法制度に基づく直接投資や税務に関する具体的な助言は、国や地域の法令に制限される場合がございます。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End Container -->
+
+    <!-- 5 & 6. Guarantee / CTA -->
+    <section class="cta-sec">
+        <div class="guarantee">
+            "Our commitment to your legacy is unconditional." <br>
+            <span
+                style="font-family:'Noto Serif JP'; font-size:0.9rem; font-style:normal;">全プログラムにおいて、初回30日間のコンサルティング品質保証を提供しております。</span>
+        </div>
+
+        <a href="#" class="btn-main">Begin Your Journey</a>
+
+        <div style="margin-top: 3rem; font-family:'Cinzel'; font-size: 0.8rem; letter-spacing: 0.1em;">
+            <a href="mailto:concierge@maison-invest.example"
+                style="color: var(--text-main); text-decoration: none;">concierge@maison-invest.example</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const q = item.querySelector('.faq-q');
+                const a = item.querySelector('.faq-a');
+
+                q.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-a').style.maxHeight = null;
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        a.style.maxHeight = a.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

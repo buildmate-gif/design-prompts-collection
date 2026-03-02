@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERNETIC_ARCHIVE // OVERVIEW</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Space+Mono:wght@400;700&family=VT323&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F0F0EE;
+            /* グリッドペーパー */
+            --bg-alt: #E8E8E6;
+            /* ライトグリッド */
+            --text-main: #111111;
+            /* ターミナルブラック */
+            --text-sub: #626260;
+            /* フェードグレー */
+            --grid-line: #D0D0CE;
+            /* グリッド線 */
+            --accent-color: #2A7A3A;
+            /* フォスフォグリーン */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Space Mono', 'Noto Sans JP', monospace;
+            font-size: 0.9rem;
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            position: relative;
+        }
+
+        /* Container as main grid wrapper */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-left: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Global Sections */
+        section {
+            border-bottom: 1px solid var(--grid-line);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'VT323', monospace;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .label {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            color: var(--text-sub);
+        }
+
+        .loading-text {
+            font-family: 'VT323', monospace;
+            color: var(--text-sub);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            transition: opacity 0.5s;
+        }
+
+        /* 1. Header (Boot) */
+        .boot-header {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--grid-line);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-sub);
+        }
+
+        /* 2. Mission */
+        .mission-sec {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem;
+        }
+
+        .prompt-prefix {
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.6em;
+            height: 1em;
+            background-color: var(--accent-color);
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+        }
+
+        /* 3. Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--grid-line);
+            border-left: 1px solid var(--grid-line);
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            border-right: 1px solid var(--grid-line);
+            border-bottom: 1px solid var(--grid-line);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-val {
+            font-family: 'VT323', monospace;
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-desc {
+            font-size: 0.8rem;
+        }
+
+        /* 4. Values */
+        .values-sec {}
+
+        .value-code-block {
+            background-color: var(--bg-alt);
+            border-left: 4px solid var(--accent-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .value-code-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .v-key {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .v-string {
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* 5. Members */
+        .members-sec {}
+
+        .member-block {
+            margin-bottom: 2rem;
+            color: var(--text-sub);
+            transition: color 0.3s;
+            cursor: default;
+        }
+
+        .member-block:hover {
+            color: var(--accent-color);
+        }
+
+        .m-line {
+            display: block;
+        }
+
+        /* 6. History */
+        .history-sec {}
+
+        .hist-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hist-row {
+            border-bottom: 1px dashed var(--grid-line);
+        }
+
+        .hist-row:last-child {
+            border-bottom: none;
+        }
+
+        .hist-year {
+            width: 150px;
+            padding: 2rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            vertical-align: top;
+        }
+
+        .hist-desc {
+            padding: 2rem 0;
+        }
+
+        /* 7. Contact */
+        .contact-sec {
+            text-align: center;
+            padding: 8rem 2rem;
+            border-bottom: none;
+        }
+
+        .contact-line {
+            font-family: 'VT323', monospace;
+            font-size: 2rem;
+            color: var(--text-main);
+        }
+
+        .contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hist-year {
+                display: block;
+                width: 100%;
+                padding-bottom: 0;
+            }
+
+            .hist-desc {
+                display: block;
+                padding-top: 0.5rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Reveal util */
+        .reveal-item {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .reveal-item.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. Boot Header -->
+        <header class="boot-header">
+            <span class="label">NEO-SYSTEM INC.</span>
+            <span class="label">EST: 1989</span>
+            <span class="label">SYS_VER: v2024.01</span>
+        </header>
+
+        <!-- 2. Mission -->
+        <section class="mission-sec">
+            <h1 id="mission-text"><span class="prompt-prefix">&gt;</span><span id="type-target"></span><span
+                    class="cursor"></span></h1>
+        </section>
+
+        <!-- 3. Stats -->
+        <section class="stats-sec reveal-item">
+            <div class="loading-text" id="load-stats">> SECTION_STATS_LOADING...</div>
+            <div class="content-wrap" style="opacity:0; transition:opacity 0.5s;">
+                <h2>System_Telemetry</h2>
+                <div style="max-width: 600px;">
+                    当社は1989年の創業以来、一貫して堅牢なバックエンドシステムの構築に従事しています。流行り廃りの激しいフロントエンド技術の陰で、決して停止を許されない基幹インフラを支え続けてきました。
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-val">99.999%</div>
+                        <div class="stat-desc label">Uptime Guarantee</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val">35</div>
+                        <div class="stat-desc label">Years in Operation</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val">10B+</div>
+                        <div class="stat-desc label">Reqs Processed / Day</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Values -->
+        <section class="values-sec reveal-item">
+            <div class="loading-text" id="load-values">> SECTION_VALUES_LOADING...</div>
+            <div class="content-wrap" style="opacity:0; transition:opacity 0.5s;">
+                <h2>Core_Protocols</h2>
+
+                <div class="value-code-block">
+                    <span class="v-key">def protocol_01():</span>
+                    <span class="v-string"> # Simplicity Over Complexity</span>
+                    <span class="v-string" style="color:var(--text-sub); font-size:0.8rem; margin-top:0.2rem;">
+                        """過剰な抽象化を避け、単純で追跡可能なコードを記述する。デバッグしやすさは正義である。"""</span>
+                </div>
+
+                <div class="value-code-block">
+                    <span class="v-key">def protocol_02():</span>
+                    <span class="v-string"> # Zero Trust Architecture</span>
+                    <span class="v-string" style="color:var(--text-sub); font-size:0.8rem; margin-top:0.2rem;">
+                        """いかなる入力も信用しない。境界を厳格に定義し、フェイルセーフな設計をデフォルトとする。"""</span>
+                </div>
+
+                <div class="value-code-block">
+                    <span class="v-key">def protocol_03():</span>
+                    <span class="v-string"> # Long-term Maintenance</span>
+                    <span class="v-string" style="color:var(--text-sub); font-size:0.8rem; margin-top:0.2rem;">
+                        """10年後に入社した他者が読んで理解できるか。コードは書く時間より読まれる時間の方が圧倒的に長い。"""</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Members -->
+        <section class="members-sec reveal-item">
+            <div class="loading-text" id="load-members">> SECTION_MEMBERS_LOADING...</div>
+            <div class="content-wrap" style="opacity:0; transition:opacity 0.5s;">
+                <h2>Active_Nodes</h2>
+
+                <div class="member-block">
+                    <span class="m-line">/*</span>
+                    <span class="m-line"> * name: 真田 健一</span>
+                    <span class="m-line"> * role: SYS_ADMIN / Founder</span>
+                    <span class="m-line"> * note: 「サーバーのファン音で異常がわかる最後の世代。」</span>
+                    <span class="m-line"> */</span>
+                </div>
+
+                <div class="member-block">
+                    <span class="m-line">/*</span>
+                    <span class="m-line"> * name: A. Turing</span>
+                    <span class="m-line"> * role: Lead DB Architect</span>
+                    <span class="m-line"> * note: 「インデックスの張り忘れは万死に値する。」</span>
+                    <span class="m-line"> */</span>
+                </div>
+
+                <div class="member-block">
+                    <span class="m-line">/*</span>
+                    <span class="m-line"> * name: 佐藤 結衣</span>
+                    <span class="m-line"> * role: Security Engineer</span>
+                    <span class="m-line"> * note: 「パスワードの平文保存を見つけ次第、物理的に説教しに行く。」</span>
+                    <span class="m-line"> */</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. History -->
+        <section class="history-sec reveal-item">
+            <div class="loading-text" id="load-history">> SECTION_HISTORY_LOADING...</div>
+            <div class="content-wrap" style="opacity:0; transition:opacity 0.5s;">
+                <h2>Event_Log</h2>
+                <table class="hist-table">
+                    <tbody>
+                        <tr class="hist-row">
+                            <td class="hist-year">1989</td>
+                            <td class="hist-desc">
+                                <strong style="color:var(--text-main);">NEO-SYSTEM 設立</strong><br>
+                                <span
+                                    style="font-size:0.85rem; color:var(--text-sub);">汎用機向けのバッチ処理最適化システムの受託開発からスタート。</span>
+                            </td>
+                        </tr>
+                        <tr class="hist-row">
+                            <td class="hist-year">1998</td>
+                            <td class="hist-desc">
+                                <strong style="color:var(--text-main);">Webアプリケーション事業立ち上げ</strong><br>
+                                <span
+                                    style="font-size:0.85rem; color:var(--text-sub);">金融機関向けの独自CGIシステムを納入。現在でも一部稼働中。</span>
+                            </td>
+                        </tr>
+                        <tr class="hist-row">
+                            <td class="hist-year">2010</td>
+                            <td class="hist-desc">
+                                <strong style="color:var(--text-main);">データセンター最適化事業開始</strong><br>
+                                <span
+                                    style="font-size:0.85rem; color:var(--text-sub);">仮想化技術の波に乗り、オンプレミスのプライベートクラウド構築支援を開始。</span>
+                            </td>
+                        </tr>
+                        <tr class="hist-row">
+                            <td class="hist-year">2023</td>
+                            <td class="hist-desc">
+                                <strong style="color:var(--text-main);">Project "Aegis" リリース</strong><br>
+                                <span
+                                    style="font-size:0.85rem; color:var(--text-sub);">独自のゼロトラスト・アーキテクチャに基づく高可用性マイクロサービス基盤をオープンソース化。</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 7. Contact -->
+        <section class="contact-sec reveal-item">
+            <div class="contact-line">
+                CONTACT: <a href="mailto:root@neo-system.example" class="contact-link">root@neo-system.example</a>
+            </div>
+            <div class="label" style="margin-top: 1rem;">// END OF FILE</div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Typewriter effect for Mission
+            const rawText = "We build the invisible skeleton of the digital world.";
+            const target = document.getElementById('type-target');
+            let i = 0;
+
+            const typeWriter = () => {
+                if (i < rawText.length) {
+                    target.innerHTML += rawText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, Math.random() * 50 + 50); // randomize speed
+                }
+            };
+
+            setTimeout(typeWriter, 800);
+
+            // Scroll Reveal logic simulating terminal loading
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+
+                        // Find loading text and content wrap
+                        const loadTxt = entry.target.querySelector('.loading-text');
+                        const contentWrap = entry.target.querySelector('.content-wrap');
+
+                        if (loadTxt && contentWrap) {
+                            setTimeout(() => {
+                                loadTxt.style.opacity = '0'; // Hide loading text
+                                setTimeout(() => {
+                                    loadTxt.style.display = 'none'; // remove from flow
+                                    contentWrap.style.opacity = '1'; // show content
+                                }, 500);
+                            }, 600); // show "loading..." for 600ms
+                        }
+
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal-item').forEach(el => {
+                observer.observe(el);
+            });
+
+        });
+    </script>
+</body>
+
+</html>

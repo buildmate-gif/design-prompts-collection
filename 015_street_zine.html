@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STATIC FEST | Street Zine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Special+Elite&family=VT323&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #F0EBD8;
+            /* Dirty copy paper */
+            --bg-alt: #D8D0BE;
+            /* Shadow/Dirt */
+            --text-main: #1A1714;
+            /* Ink Black */
+            --text-sub: #5A5550;
+            /* Faded Gray */
+            --accent-red: #C41818;
+            /* Stamp Red */
+            --accent-yellow: #E8C820;
+            /* Highlighter Yellow */
+            --border-rough: 3px solid var(--text-main);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Special Elite', monospace;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            overflow-x: hidden;
+            /* Xerox effect */
+            filter: contrast(1.1) saturate(0.85);
+            position: relative;
+        }
+
+        /* Xerox Degradation (Grain & Noise) */
+        .xerox-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.07;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+            mix-blend-mode: darken;
+        }
+
+        /* Typography */
+        .vt {
+            font-family: 'VT323', monospace;
+        }
+
+        .elite {
+            font-family: 'Special Elite', monospace;
+        }
+
+        .black-han {
+            font-family: 'Black Han Sans', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-family: 'VT323', monospace;
+            font-size: clamp(3rem, 12vw, 10rem);
+            letter-spacing: 0.08em;
+            line-height: 0.8;
+            text-transform: uppercase;
+            /* Cut and paste offset effect */
+            transform: rotate(-3deg);
+            background: var(--bg-main);
+        }
+
+        h1 span {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-base);
+            padding: 0 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            transform: rotate(2deg);
+            display: inline-block;
+            background: var(--bg-alt);
+            padding: 0.2rem 1rem;
+            border: var(--border-rough);
+        }
+
+        *:focus-visible {
+            outline: 4px dashed var(--accent-red);
+            outline-offset: 4px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+            padding: 0 4vw;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            /* Random padding simulation */
+            padding: 4rem 0 6rem 0;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            padding: 3rem 0;
+        }
+
+        /* Stamp Element */
+        .stamp {
+            position: absolute;
+            border: 4px solid var(--accent-red);
+            color: var(--accent-red);
+            font-family: 'VT323', monospace;
+            font-size: 2.5rem;
+            padding: 0.2rem 1rem;
+            border-radius: 40% 60% 55% 45% / 40% 55% 60% 45%;
+            transform: rotate(-15deg);
+            z-index: 20;
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* Highlighter Effect */
+        .highlight {
+            background: linear-gradient(180deg, transparent 50%, var(--accent-yellow) 50%);
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        /* Random shift class applied via JS */
+        .shift-js {
+            transition: transform 0.1s;
+        }
+
+        /* 1. COVER */
+        .cover {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 5rem;
+            overflow: hidden;
+        }
+
+        .cover-title {
+            grid-column: 1 / -1;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cover-info {
+            grid-column: 7 / 12;
+            background-color: var(--bg-base);
+            border: 2px dashed var(--text-main);
+            padding: 1.5rem;
+            transform: rotate(4deg);
+            margin-top: -3rem;
+            /* overlap */
+            z-index: 5;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Semi-transparent image cutout */
+        .cover-img {
+            position: absolute;
+            top: 10%;
+            right: -5%;
+            width: 40vw;
+            height: 60vh;
+            background-color: var(--text-sub);
+            mix-blend-mode: multiply;
+            filter: grayscale(100%) contrast(1.5);
+            z-index: -1;
+            clip-path: polygon(10% 0, 100% 5%, 90% 100%, 0% 90%);
+        }
+
+        /* 2. LINEUP (Typewriter) */
+        .lineup {
+            background-color: var(--bg-alt);
+            border-top: var(--border-rough);
+            border-bottom: var(--border-rough);
+        }
+
+        .lineup-title {
+            grid-column: 2 / -1;
+            margin-bottom: 3rem;
+        }
+
+        .lineup-list {
+            grid-column: 2 / 12;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .band-name {
+            font-family: 'VT323', monospace;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 0.2rem;
+            /* Random styles to simulate different cutouts */
+        }
+
+        .b1 {
+            transform: rotate(-1deg);
+            width: fit-content;
+            background: var(--bg-base);
+        }
+
+        .b2 {
+            transform: rotate(2deg);
+            width: fit-content;
+            font-size: 3rem;
+            margin-left: 2rem;
+        }
+
+        .b3 {
+            transform: rotate(0deg);
+            width: fit-content;
+            color: var(--bg-base);
+            background: var(--text-main);
+        }
+
+        .b4 {
+            transform: rotate(-3deg);
+            width: fit-content;
+            font-size: 2rem;
+            margin-left: 4rem;
+        }
+
+        .b5 {
+            transform: rotate(1deg);
+            width: fit-content;
+            border: 2px solid var(--text-main);
+            padding: 0.5rem;
+        }
+
+        /* 3. MANIFESTO (Typewriter effect container) */
+        .manifesto {
+            padding: 8rem 0;
+        }
+
+        .mnf-title {
+            grid-column: 1 / -1;
+            transform: rotate(-3deg);
+            margin-bottom: 2rem;
+        }
+
+        .mnf-text-box {
+            grid-column: 2 / 10;
+            background: var(--bg-base);
+            border: 3px solid var(--text-main);
+            padding: 3rem;
+            transform: rotate(1deg);
+            font-size: 1.1rem;
+        }
+
+        /* Typing Animation Classes */
+        .typing-text span {
+            opacity: 0;
+        }
+
+        .typing-text span.visible {
+            opacity: 1;
+        }
+
+        /* 4. COLLAGE */
+        .collage {
+            background-color: var(--text-main);
+            color: var(--bg-base);
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .collage h2 {
+            color: var(--text-main);
+            background: var(--accent-yellow);
+            margin-bottom: 4rem;
+            grid-column: 3 / -1;
+        }
+
+        .photo-grid {
+            grid-column: 1 / -1;
+            position: relative;
+            height: 400px;
+        }
+
+        .photo-cut {
+            position: absolute;
+            background-color: var(--text-sub);
+            border: 10px solid var(--bg-base);
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+            filter: grayscale(100%);
+        }
+
+        .p1 {
+            width: 300px;
+            height: 200px;
+            top: 0;
+            left: 10%;
+            transform: rotate(-5deg);
+            z-index: 2;
+        }
+
+        .p2 {
+            width: 250px;
+            height: 250px;
+            top: 100px;
+            left: 40%;
+            transform: rotate(8deg);
+            z-index: 1;
+        }
+
+        .p3 {
+            width: 350px;
+            height: 180px;
+            top: 150px;
+            right: 5%;
+            transform: rotate(-2deg);
+            z-index: 3;
+            border-color: var(--accent-yellow);
+        }
+
+        /* 5. TICKET INFO */
+        .ticket {
+            padding: 8rem 0 10rem 0;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(26, 23, 20, 0.05) 10px, rgba(26, 23, 20, 0.05) 20px);
+        }
+
+        .ticket-box {
+            grid-column: 3 / 11;
+            background: var(--bg-alt);
+            border: 5px solid var(--text-main);
+            padding: 3rem;
+            text-align: center;
+            transform: rotate(-2deg);
+            position: relative;
+        }
+
+        .ticket-price {
+            font-family: 'VT323', monospace;
+            font-size: 5rem;
+            margin: 1rem 0;
+            background: var(--text-main);
+            color: var(--bg-base);
+            display: inline-block;
+            padding: 0 1rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-red);
+            text-decoration: none;
+            border: 4px solid var(--accent-red);
+            padding: 1rem 3rem;
+            transform: rotate(3deg);
+            margin-top: 2rem;
+            transition: all 0.1s;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent-red);
+            color: var(--bg-base);
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .sold-out-stamp {
+            top: -30px;
+            left: -20px;
+            font-size: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .cover-info {
+                grid-column: 2 / -1;
+                margin-top: 0;
+            }
+
+            h1 {
+                font-size: 15vw;
+            }
+
+            .mnf-text-box {
+                grid-column: 1 / -1;
+                padding: 1.5rem;
+            }
+
+            .ticket-box {
+                grid-column: 1 / -1;
+                padding: 2rem;
+            }
+
+            .photo-grid {
+                height: 600px;
+            }
+
+            .p1 {
+                left: 0;
+                width: 80%;
+            }
+
+            .p2 {
+                left: 10%;
+                top: 180px;
+                width: 70%;
+            }
+
+            .p3 {
+                right: 0;
+                top: 380px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="xerox-noise"></div>
+
+    <!-- 1. COVER -->
+    <section class="cover">
+        <div class="cover-img"></div>
+        <div class="grid">
+            <div class="cover-title shift-js">
+                <h1><span>STATIC</span><br><span>FEST</span><br><span>VOL.4</span></h1>
+            </div>
+            <div class="cover-info shift-js">
+                <div>2026.10.31 [SAT]</div>
+                <div>OPEN 23:00 / START 24:00</div>
+                <div>@ UNDERGROUND BUNKER "Z"</div>
+                <div class="highlight" style="display:inline-block; margin-top:1rem;">NO GUEST LIST. NO VIPS.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. LINEUP -->
+    <section class="lineup">
+        <div class="grid">
+            <h2 class="lineup-title black-han shift-js">NOISE MAKERS</h2>
+            <div class="lineup-list">
+                <div class="band-name b1 shift-js">THE DISTORTIONS</div>
+                <div class="band-name b2 shift-js">鉄屑DESTROYER</div>
+                <div class="band-name b3 shift-js">Feedback Loop</div>
+                <div class="band-name b4 shift-js">ANXIOUS YOUTH</div>
+                <div class="band-name b5 shift-js">深夜零時のサイレン</div>
+                <div class="band-name b1 shift-js" style="margin-left: 3rem;">+ SECRET GUEST</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. MANIFESTO -->
+    <section class="manifesto">
+        <div class="grid">
+            <h2 class="mnf-title black-han shift-js">STATEMENT</h2>
+            <div class="mnf-text-box shift-js">
+                <p class="typing-text" id="manifestoText">
+                    洗練などクソくらえだ。綺麗に整えられたプレイリストに、お前の居場所はあるか？<br><br>
+                    俺たちが欲しいのは<span class="highlight">「本物の熱」</span>だけだ。<br>
+                    間違いだらけでいい。ノイズまみれでいい。<br>
+                    アルゴリズムには予測できない衝動を、ここで爆発させろ。<br><br>
+                    来い。聴け。今だ。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COLLAGE -->
+    <section class="collage">
+        <div class="grid">
+            <h2 class="black-han shift-js">ARCHIVE_SCREAMS</h2>
+            <div class="photo-grid">
+                <div class="photo-cut p1 shift-js"></div>
+                <div class="photo-cut p2 shift-js"></div>
+                <div class="photo-cut p3 shift-js"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. TICKET INFO -->
+    <section class="ticket">
+        <div class="grid">
+            <div class="ticket-box shift-js">
+                <div class="stamp sold-out-stamp">ONLY A FEW LEFT!</div>
+                <h2 class="black-han"
+                    style="background:none; border:none; border-bottom:3px solid var(--text-main); transform:none;">DOOR
+                    TICKET</h2>
+                <div class="ticket-price">¥1,500</div>
+                <div class="elite" style="margin-bottom: 1rem;">(+ 1 DRINK / CASH ONLY)</div>
+                <p>前売り券？んなもんねえよ。当日その手で掴みにこい。</p>
+                <a href="#" class="cta-btn">GET IT NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Random Shift JS (Dirty Paste effect)
+            const shiftElements = document.querySelectorAll('.shift-js');
+            shiftElements.forEach(el => {
+                // Apply a tiny random translation and rotation
+                const rX = (Math.random() - 0.5) * 4; // -2 to 2 px
+                const rY = (Math.random() - 0.5) * 4;
+                const rDeg = (Math.random() - 0.5) * 2; // -1 to 1 deg
+
+                // We append to existing transform if any, but simplified here by setting it directly
+                // Read existing rotation if set inline or in css is hard, so we just add a random jiggle
+                const currentTransform = window.getComputedStyle(el).transform;
+                if (currentTransform !== 'none') {
+                    // Basic hack to keep it simple, just add margin instead of overriding transform
+                    el.style.marginLeft = `${rX}px`;
+                    el.style.marginTop = `${rY}px`;
+                } else {
+                    el.style.transform = `translate(${rX}px, ${rY}px) rotate(${rDeg}deg)`;
+                }
+            });
+
+            // 2. Typewriter Effect Logic
+            const manifestoContainer = document.getElementById('manifestoText');
+
+            // Parse HTML to keep tags intact while typing text
+            const htmlContent = manifestoContainer.innerHTML;
+            manifestoContainer.innerHTML = '';
+
+            // Basic implementation: wrap text nodes in spans
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+
+            const spans = [];
+            const processNode = (node, parent) => {
+                if (node.nodeType === 3) { // Text node
+                    const text = node.textContent;
+                    for (let i = 0; i < text.length; i++) {
+                        const span = document.createElement('span');
+                        span.textContent = text[i];
+                        parent.appendChild(span);
+                        spans.push(span);
+                    }
+                } else if (node.nodeType === 1) { // Element node
+                    const el = document.createElement(node.tagName);
+                    // copy attributes
+                    for (let i = 0; i < node.attributes.length; i++) {
+                        el.setAttribute(node.attributes[i].name, node.attributes[i].value);
+                    }
+                    parent.appendChild(el);
+                    Array.from(node.childNodes).forEach(child => processNode(child, el));
+                }
+            };
+
+            Array.from(tempDiv.childNodes).forEach(child => processNode(child, manifestoContainer));
+
+            // Trigger type animation on scroll
+            let typingStarted = false;
+            const tObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !typingStarted) {
+                    typingStarted = true;
+                    let i = 0;
+                    const typeNext = () => {
+                        if (i < spans.length) {
+                            spans[i].classList.add('visible');
+                            i++;
+                            // Random speed to simulate typewriter
+                            setTimeout(typeNext, Math.random() * 30 + 10);
+                        }
+                    };
+                    typeNext();
+                }
+            }, { threshold: 0.5 });
+
+            tObserver.observe(manifestoContainer);
+
+        });
+    </script>
+</body>
+
+</html>

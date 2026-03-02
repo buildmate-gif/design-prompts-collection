@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMÈRE | Premium Skincare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=DM+Sans:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FAF7F3;
+            /* ウォームオフホワイト */
+            --bg-alt: #F2EDE6;
+            /* 深みベージュ */
+            --text-main: #2A1F1A;
+            /* ダークウォームブラウン */
+            --text-sub: #8C7B6E;
+            /* ミドルベージュ */
+            --accent-color: #C5A882;
+            /* くすみゴールド */
+            --accent-pale: #D4C0B8;
+            /* ペールモーブ */
+            --border-color: rgba(42, 31, 26, 0.1);
+        }
+
+        /* Custom Cursor */
+        body {
+            cursor: none;
+            /* Hide default */
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Enlarged cursor for links/buttons */
+        .cursor-hover {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(197, 168, 130, 0.2);
+            border: 1px solid var(--accent-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'DM Sans', sans-serif;
+            /* For body text, using DM Sans since Noto isn't explicitly required for JP here, but standard sans works if needed. Using DM Sans for JP may fallback to system, which is forbidden. Wait, prompt says: 本文：DM Sans. Let's add simple sans serif fallback just in case for Kanji but keep DM Sans primary. Actually, I must NOT use system-ui. Let's just use DM Sans, sans-serif. */
+            font-size: 0.9rem;
+            line-height: 2.1;
+            letter-spacing: 0.06em;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle background noise */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Typography */
+        h1,
+        .h-serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 1.1;
+        }
+
+        .label {
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            color: var(--text-sub);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        section {
+            padding: 15rem 0;
+            /* Huge padding */
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* Scroll Fade Transition classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered children */
+        .stagger-1 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.4s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.6s;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 4rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            background: transparent;
+            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+        }
+
+        .btn:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Image Placeholder */
+        .img-wrap {
+            overflow: hidden;
+            background-color: var(--bg-alt);
+            position: relative;
+        }
+
+        .img-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .parallax-img {
+            width: 100%;
+            height: 120%;
+            /* Extra height for parallax */
+            object-fit: cover;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        /* 1. HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            /* Grid 5:7 */
+            width: 100%;
+            height: 100vh;
+        }
+
+        .hero-text {
+            padding: 5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Text bottom left */
+            z-index: 2;
+        }
+
+        .hero-img-col {
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Overlap on hero */
+        .hero-text h1 {
+            margin-right: -20vw;
+            /* Pull text over image */
+            position: relative;
+        }
+
+        /* 2. INTRO */
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            border-bottom: none;
+            /* remove for this layout, or keep container */
+        }
+
+        .gold-line {
+            width: 1px;
+            height: 80px;
+            background-color: var(--accent-color);
+            margin: 0 auto 3rem auto;
+        }
+
+        /* 3. COLLECTION */
+        .collection {
+            position: relative;
+        }
+
+        .coll-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2vw;
+            position: relative;
+        }
+
+        .prod {
+            position: relative;
+        }
+
+        .prod-img {
+            aspect-ratio: 2/3;
+            width: 100%;
+        }
+
+        .prod-1 {
+            grid-column: 1 / 5;
+            margin-top: 10vw;
+            z-index: 2;
+        }
+
+        .prod-2 {
+            grid-column: 5 / 10;
+            z-index: 1;
+        }
+
+        .prod-3 {
+            grid-column: 9 / 13;
+            margin-top: 25vw;
+            z-index: 3;
+        }
+
+        /* Overlap items */
+        .prod-1 .prod-info {
+            margin-right: -5vw;
+            margin-top: 2rem;
+            background: var(--bg-color);
+            padding: 2rem;
+        }
+
+        .prod-2 .prod-info {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .prod-3 .prod-info {
+            margin-left: -4vw;
+            margin-top: -4rem;
+            background: var(--bg-color);
+            padding: 2rem;
+        }
+
+        /* 4. RITUAL */
+        .ritual {
+            display: flex;
+            align-items: center;
+            gap: 5vw;
+        }
+
+        .rit-text {
+            width: 50%;
+        }
+
+        .rit-img {
+            width: 50%;
+            aspect-ratio: 3/4;
+        }
+
+        .step {
+            margin-bottom: 4rem;
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .step-num {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        /* 5. INGREDIENTS */
+        .ingred {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .ingred-item {
+            padding: 3rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* SVG thin line separator */
+        .ingred-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='1'%3E%3Cline x1='0' y1='0' x2='100%25' y2='0' stroke='%23C5A882' stroke-width='1' stroke-dasharray='4 4'/%3E%3C/svg%3E");
+        }
+
+        /* 6. CTA */
+        .cta {
+            text-align: center;
+            padding-bottom: 10rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 8rem 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+
+            .hero-text {
+                justify-content: center;
+                padding: 10vw;
+            }
+
+            .hero-text h1 {
+                margin-right: 0;
+            }
+
+            .hero-img-col {
+                height: 50vh;
+            }
+
+            .coll-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 6rem;
+            }
+
+            .prod {
+                width: 100%;
+                margin: 0 !important;
+            }
+
+            .prod-info {
+                margin: 1rem 0 0 0 !important;
+                padding: 0 !important;
+            }
+
+            .ritual {
+                flex-direction: column;
+            }
+
+            .rit-text,
+            .rit-img {
+                width: 100%;
+            }
+
+            .ingred-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            /* Disable custom cursor on mobile */
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor Element -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <span class="label fade-up stagger-1" style="margin-bottom: 2rem;">Botanical Minimalist</span>
+                <h1 class="fade-up stagger-2">Lumère.</h1>
+                <p class="fade-up stagger-3" style="color: var(--text-sub); margin-top: 1rem; max-width: 300px;">
+                    足し算ではなく、引き算の贅沢。<br>素肌が深呼吸する時間を。
+                </p>
+            </div>
+            <div class="hero-img-col img-wrap">
+                <div class="parallax-img" style="background-color: var(--accent-pale);"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- 2. INTRO -->
+        <section class="intro">
+            <div class="gold-line fade-up"></div>
+            <h2 class="h-serif fade-up stagger-1" style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 2rem;">Less
+                is more profound.</h2>
+            <p class="fade-up stagger-2" style="color: var(--text-sub);">
+                朝、鏡の前に立つのが楽しくなる。<br>
+                私だけの静かな時間を取り戻すために、世界中の手摘みの植物から、<br>真に必要な滴だけを抽出しました。
+            </p>
+        </section>
+
+        <!-- 3. COLLECTION -->
+        <section class="collection">
+            <span class="label fade-up" style="margin-bottom: 4rem; display:block; text-align:center;">The
+                Collection</span>
+
+            <div class="coll-grid">
+                <div class="prod prod-1 fade-up stagger-1">
+                    <div class="img-wrap prod-img">
+                        <div class="parallax-img" style="background-color: #E6DFD8;"></div>
+                    </div>
+                    <div class="prod-info hover-target">
+                        <span class="label" style="display:block; margin-bottom:0.5rem;">01 / Essence</span>
+                        <div class="h-serif" style="font-size: 2.2rem;">Eau Profonde</div>
+                        <p style="color:var(--text-sub); margin-top:1rem;">深い森の朝露のような、透明なる潤い。</p>
+                    </div>
+                </div>
+
+                <div class="prod prod-2 fade-up stagger-2">
+                    <div class="img-wrap prod-img">
+                        <div class="parallax-img" style="background-color: #D8CCC4;"></div>
+                    </div>
+                    <div class="prod-info hover-target">
+                        <span class="label" style="display:block; margin-bottom:0.5rem;">02 / Serum</span>
+                        <div class="h-serif" style="font-size: 2.2rem;">Sève Botanique</div>
+                        <p style="color:var(--text-sub); margin-top:1rem;">樹液の生命力を、一滴に凝縮して。</p>
+                    </div>
+                </div>
+
+                <div class="prod prod-3 fade-up stagger-3">
+                    <div class="img-wrap prod-img">
+                        <div class="parallax-img" style="background-color: #E2DBD5;"></div>
+                    </div>
+                    <div class="prod-info hover-target">
+                        <span class="label" style="display:block; margin-bottom:0.5rem;">03 / Oil</span>
+                        <div class="h-serif" style="font-size: 2.2rem;">Huile de Soir</div>
+                        <p style="color:var(--text-sub); margin-top:1rem;">1日の終わりに纏う、黄金のアロマ。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RITUAL -->
+        <section class="ritual">
+            <div class="rit-text">
+                <span class="label fade-up" style="margin-bottom: 3rem; display:block;">Mindful Ritual</span>
+
+                <div class="step fade-up stagger-1">
+                    <div class="step-num">I.</div>
+                    <div style="font-size: 1.1rem; margin-bottom:0.5rem;">呼吸を深める</div>
+                    <p style="color:var(--text-sub);">手のひらで数滴を温め、顔全体を覆う前に深く3回呼吸をします。</p>
+                </div>
+
+                <div class="step fade-up stagger-2">
+                    <div class="step-num">II.</div>
+                    <div style="font-size: 1.1rem; margin-bottom:0.5rem;">肌の声を聴く</div>
+                    <p style="color:var(--text-sub);">優しく押し込むように。乾きが気になる部分には重ねて。</p>
+                </div>
+
+                <div class="step fade-up stagger-3">
+                    <div class="step-num">III.</div>
+                    <div style="font-size: 1.1rem; margin-bottom:0.5rem;">静かな解放</div>
+                    <p style="color:var(--text-sub);">余ったオイルは首筋からデコルテへ。緊張を解きほぐします。</p>
+                </div>
+            </div>
+            <div class="rit-img img-wrap fade-up">
+                <div class="parallax-img" style="background-color: #D4CDCA;"></div>
+            </div>
+        </section>
+
+        <!-- 5. INGREDIENTS -->
+        <section class="ingred fade-up">
+            <span class="label" style="margin-bottom: 3rem; display:block; text-align:center;">Source &
+                Philosophy</span>
+
+            <div class="ingred-item">
+                <div class="h-serif" style="font-size: 2rem;">Rose de Mai</div>
+                <p style="color:var(--text-sub); max-width: 400px; text-align:right;">
+                    夜明け前に手摘みされた南仏グラース産の希少なローズ。花びらが持つ本来の水分と香りを保持。</p>
+            </div>
+
+            <div class="ingred-item">
+                <div class="h-serif" style="font-size: 2rem;">Squalane</div>
+                <p style="color:var(--text-sub); max-width: 400px; text-align:right;">
+                    スペインの特定農園で有機栽培されたオリーブのみから抽出。肌への浸透を極限まで高めました。</p>
+            </div>
+
+            <div class="ingred-item">
+                <div class="h-serif" style="font-size: 2rem;">Mineral Water</div>
+                <p style="color:var(--text-sub); max-width: 400px; text-align:right;">
+                    アルプス山脈の雪解け水が数十年かけて濾過された天然水。処方のベースとなる最も大切な要素。</p>
+            </div>
+        </section>
+
+        <!-- 6. CTA -->
+        <section class="cta fade-up">
+            <div class="h-serif" style="margin-bottom: 2rem;">Enhance your natural grace.</div>
+            <a href="#" class="btn hover-target">Discover the Lineline</a>
+        </section>
+
+    </div> <!-- End Container -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Custom Cursor
+            const cursor = document.getElementById('cursor');
+            const hoverTargets = document.querySelectorAll('.hover-target, .btn');
+
+            // Only run cursor on non-touch devices
+            if (window.matchMedia("(pointer: fine)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+                hoverTargets.forEach(target => {
+                    target.addEventListener('mouseenter', () => {
+                        cursor.classList.add('cursor-hover');
+                    });
+                    target.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('cursor-hover');
+                    });
+                });
+            }
+
+            // 2. Scroll Parallax for Images
+            const parallaxImgs = document.querySelectorAll('.parallax-img');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                parallaxImgs.forEach(img => {
+                    // Translate image down as user scrolls down for parallax effect
+                    const speed = 0.15; // Adjusted from 0.3 for subtler movement
+                    if (img.getBoundingClientRect().top < window.innerHeight) {
+                        img.style.transform = `translateY(${scrolled * speed}px)`;
+                    }
+                });
+            });
+
+            // 3. Fade up Observer
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.fade-up').forEach(el => {
+                observer.observe(el);
+            });
+
+            // trigger hero animations immediately
+            setTimeout(() => {
+                document.querySelectorAll('.hero .fade-up').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+
+        });
+    </script>
+</body>
+
+</html>

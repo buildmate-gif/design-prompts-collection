@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SŌMA | Hotel-like Interior Brand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&family=DM+Mono&family=Jost:wght@300&family=Noto+Serif+JP:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F7F4EF;
+            --bg2: #EEEAE3;
+            --bg-dark: #1E1C18;
+            --ink: #2A2620;
+            --mid: #888078;
+            --stone: #B8B0A4;
+            --brass: #B89860;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            letter-spacing: 0.08em;
+            position: relative;
+        }
+
+        /* Subtle SVG Noise */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Typography */
+        h1,
+        .h-bodoni {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            letter-spacing: 0.03em;
+            line-height: 1.1;
+        }
+
+        h2,
+        .h-serif-jp {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+        }
+
+        .label-mono {
+            font-family: 'DM Mono', monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            padding: 10rem 0;
+            position: relative;
+            overflow: hidden;
+            /* For room number background */
+        }
+
+        .room-bg-num {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 20vw;
+            color: var(--ink);
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1;
+            white-space: nowrap;
+            transition: transform 0.1s linear;
+        }
+
+        /* Header Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.6s, backdrop-filter 0.6s, color 0.6s;
+        }
+
+        header.dark-mode {
+            background-color: rgba(30, 28, 24, 0.85);
+            backdrop-filter: blur(8px);
+            color: var(--bg);
+        }
+
+        .nav-btn {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--brass);
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .btn:hover {
+            background-color: var(--brass);
+            color: var(--bg-dark);
+        }
+
+        .btn.dark {
+            color: var(--bg);
+        }
+
+        /* Product Card with Brass Border Anim */
+        .prod-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .p-img-wrap {
+            aspect-ratio: 3/4;
+            background: var(--bg2);
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding: 1px;
+            /* border space */
+        }
+
+        .p-img-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid var(--brass);
+            /* clip-path inset(top right bottom left) */
+            clip-path: inset(0 100% 100% 0);
+            transition: clip-path 0.5s ease;
+            pointer-events: none;
+        }
+
+        .prod-card:hover .p-img-wrap::after {
+            clip-path: inset(0 0 0 0);
+        }
+
+        .p-img-ph {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #D9D2CD, #C5CCC6);
+        }
+
+        /* 1. LOBBY (HERO) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding-top: 6rem;
+        }
+
+        .hero-img-wrap {
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 130%;
+            /* extra height for parallax */
+            background: linear-gradient(135deg, #CCC7C2, #B9B5B0);
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        /* 2. AMENITIES */
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 3vw;
+            position: relative;
+            z-index: 1;
+        }
+
+        .am-1 {
+            grid-column: 1 / 5;
+            margin-top: 5rem;
+        }
+
+        .am-2 {
+            grid-column: 5 / 9;
+        }
+
+        .am-3 {
+            grid-column: 9 / 13;
+            margin-top: 10rem;
+        }
+
+        /* 3. THE ROOM */
+        .room-sec {
+            padding: 12rem 0;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 5vw;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .r-img {
+            aspect-ratio: 3/4;
+            background: linear-gradient(180deg, #D4CDC8, #B0A9A3);
+        }
+
+        /* 4. DETAIL */
+        .detail-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 4rem auto 0 auto;
+            border-collapse: collapse;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-table tr {
+            border-bottom: 1px solid var(--stone);
+        }
+
+        .detail-table tr:first-child {
+            border-top: 1px solid var(--stone);
+        }
+
+        .detail-table td {
+            padding: 2.5rem 1rem;
+            vertical-align: top;
+        }
+
+        td.dt-label {
+            width: 30%;
+            color: var(--stone);
+            font-size: 0.8rem;
+        }
+
+        /* 5. CONCIERGE (DARK) */
+        .concierge {
+            background-color: var(--bg-dark);
+            color: var(--bg);
+            text-align: center;
+            padding: 12rem 0;
+        }
+
+        /* 6. CHECKOUT */
+        .checkout {
+            text-align: center;
+            padding: 10rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            section {
+                padding: 6rem 0;
+            }
+
+            .amenity-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 4rem;
+            }
+
+            .am-1,
+            .am-2,
+            .am-3 {
+                margin-top: 0;
+            }
+
+            .room-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-table td {
+                display: block;
+                padding: 1rem 0;
+            }
+
+            td.dt-label {
+                padding-bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="h-bodoni" style="font-size: 1.5rem;">Sōma</div>
+        <a href="#" class="nav-btn label-mono">Reserve / Shop</a>
+    </header>
+
+    <!-- 1. LOBBY -->
+    <section class="hero padding-top-fix">
+        <div class="container" style="position:relative; z-index:1;">
+            <h1 class="h-bodoni">Check in to your everyday.</h1>
+            <p style="color:var(--mid); margin-top:1rem;">毎日をホテルのように。チェックイン時の静かな高揚感を、あなたの部屋へ。</p>
+        </div>
+        <div class="hero-img-wrap">
+            <div class="hero-img parallax-img"></div>
+        </div>
+    </section>
+
+    <!-- 2. AMENITIES -->
+    <section>
+        <div class="room-bg-num parallax-num">01</div>
+        <div class="container">
+            <h2 class="h-serif-jp" style="text-align:center; font-size:1.8rem; margin-bottom:5rem;">Amenities.</h2>
+
+            <div class="amenity-grid">
+                <div class="prod-card am-1">
+                    <div class="p-img-wrap">
+                        <div class="p-img-ph"></div>
+                    </div>
+                    <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Linen</div>
+                    <h3 class="h-bodoni" style="font-size:1.5rem; margin:0.5rem 0;">Linen Duvet Blanc</h3>
+                    <div class="label-mono">¥28,000</div>
+                </div>
+
+                <div class="prod-card am-2">
+                    <div class="p-img-wrap" style="aspect-ratio:4/5;">
+                        <div class="p-img-ph"></div>
+                    </div>
+                    <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Ceramic</div>
+                    <h3 class="h-bodoni" style="font-size:1.5rem; margin:0.5rem 0;">Stone Carafe Set</h3>
+                    <div class="label-mono">¥14,500</div>
+                </div>
+
+                <div class="prod-card am-3">
+                    <div class="p-img-wrap">
+                        <div class="p-img-ph"></div>
+                    </div>
+                    <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Aroma</div>
+                    <h3 class="h-bodoni" style="font-size:1.5rem; margin:0.5rem 0;">Lobby Scent 01</h3>
+                    <div class="label-mono">¥8,800</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. THE ROOM -->
+    <section class="room-sec" style="background-color: var(--bg2);">
+        <div class="room-bg-num parallax-num" style="color:#FFF;">02</div>
+        <div class="container room-grid">
+            <div class="r-txt">
+                <div class="label-mono" style="color:var(--stone); margin-bottom:1rem;">Suite Experience</div>
+                <h2 class="h-bodoni" style="font-size:3rem; margin-bottom:1.5rem;">The Room.</h2>
+                <p style="color:var(--mid);">
+                    贅沢品としてではなく、毎日肌に触れるものへの投資。<br>
+                    朝の光の反射、夕暮れ時の影の落ち方まで計算された<br>
+                    静かでぬくもりのあるプロダクト群。
+                </p>
+            </div>
+            <div class="r-img" style="position:relative;">
+                <div class="p-img-ph"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. DETAIL -->
+    <section>
+        <div class="room-bg-num parallax-num">03</div>
+        <div class="container">
+            <h2 class="h-serif-jp" style="text-align:center; font-size:1.8rem;">Craftsmanship.</h2>
+
+            <table class="detail-table">
+                <tr>
+                    <td class="dt-label label-mono">Material</td>
+                    <td>
+                        <h3 class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">経年変化を楽しむオーガニックリネン</h3>
+                        <p style="color:var(--mid);">フランス北部の契約農家で育てられた高品質なフラックスのみを使用。洗うたびに繊維がほぐれ、肌に吸い付くような柔らかさに育ちます。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="dt-label label-mono">Origin</td>
+                    <td>
+                        <h3 class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">美濃の土から生まれる静寂</h3>
+                        <p style="color:var(--mid);">セラミック製品はすべて、自然の鉱物をそのまま活かした釉薬を使用。不均一な表情が、空間に「一点物」の心地よさを与えます。</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- 5. CONCIERGE -->
+    <section class="concierge id-dark-trigger">
+        <div class="container">
+            <div class="label-mono" style="color:var(--stone); margin-bottom:1rem;">Concierge Service</div>
+            <h2 class="h-bodoni" style="font-size:3rem; margin-bottom:2rem;">Room Service.</h2>
+            <p style="color:var(--stone); margin-bottom:3rem; max-width:600px; margin-left:auto; margin-right:auto;">
+                あなたのお部屋に合わせたパーソナルなインテリアスタイリングを承ります。<br>
+                コンシェルジュへお気軽にご相談ください。
+            </p>
+            <a href="#" class="btn dark label-mono">Contact Concierge</a>
+        </div>
+    </section>
+
+    <!-- 6. CHECKOUT -->
+    <section class="checkout">
+        <div class="container">
+            <h2 class="h-bodoni" style="font-size:3rem; margin-bottom:1rem;">Checkout.</h2>
+            <p style="color:var(--mid); margin-bottom:3rem;">ニュースレターにご登録いただいた方へ、特別なお知らせをお届けします。</p>
+            <a href="#" class="btn label-mono">Subscribe</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Image Parallax Effect
+            const parallaxImgs = document.querySelectorAll('.parallax-img');
+            const parallaxNums = document.querySelectorAll('.parallax-num');
+            const header = document.getElementById('header');
+            const darkSection = document.querySelector('.id-dark-trigger');
+
+            window.addEventListener('scroll', () => {
+                let scrollY = window.scrollY;
+
+                // Image Parallax (slower)
+                parallaxImgs.forEach(img => {
+                    img.style.transform = `translateY(${scrollY * 0.2}px)`;
+                });
+
+                // Number Parallax
+                parallaxNums.forEach(num => {
+                    // Calculate offset relative to parent section
+                    const parent = num.parentElement;
+                    const parentTop = parent.getBoundingClientRect().top;
+                    // Move opposite to scroll direction slightly
+                    num.style.transform = `translate(-50%, calc(-50% + ${parentTop * -0.15}px))`;
+                });
+
+                // Header Dark Mode switch
+                if (darkSection) {
+                    const darkTop = darkSection.getBoundingClientRect().top;
+                    const darkBottom = darkSection.getBoundingClientRect().bottom;
+                    // If header is over the dark section
+                    if (darkTop <= 60 && darkBottom >= 60) {
+                        header.classList.add('dark-mode');
+                    } else {
+                        header.classList.remove('dark-mode');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

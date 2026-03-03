@@ -218,7 +218,7 @@
             color: var(--text-main);
         }
 
-        .hero-img-wrap {
+        .img-wrap-wrap {
             grid-column: 7 / 12;
             aspect-ratio: 1/1;
             margin-top: -10rem;
@@ -251,7 +251,7 @@
         }
 
         /* 2. STORY */
-        .story-img-wrap {
+        .img-wrap {
             grid-column: 2 / 6;
             aspect-ratio: 3/4;
         }
@@ -373,12 +373,12 @@
                 grid-column: 1 / -1;
             }
 
-            .hero-img-wrap {
+            .img-wrap-wrap {
                 grid-column: 3 / 11;
                 margin-top: 2rem;
             }
 
-            .story-img-wrap,
+            .img-wrap,
             .story-text {
                 grid-column: 1 / -1;
                 transform: rotate(0);
@@ -400,6 +400,42 @@
                 padding: 5rem 0;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -413,8 +449,10 @@
 
     <!-- 1. HERO -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="grid">
             <div class="hero-text reveal tilt-text">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <h1 class="hero-h1">Mossgarden<br>Apothecary</h1>
                 <div class="shippori" style="font-size: 1.5rem; color: var(--accent-terra);">土の匂いがする、スキンケア。</div>
                 <p class="hero-lead klee">
@@ -423,7 +461,7 @@
                 </p>
             </div>
 
-            <div class="hero-img-wrap reveal" style="transition-delay: 0.2s;">
+            <div class="img-wrap-wrap reveal" style="transition-delay: 0.2s;"><div class="img-ph"></div>
                 <div class="blob-img" style="background-color: #D3D0C2;"></div>
                 <div class="stamp-new">Handmade</div>
             </div>
@@ -438,7 +476,7 @@
     <!-- 2. STORY -->
     <section class="story">
         <div class="grid">
-            <div class="story-img-wrap reveal">
+            <div class="img-wrap reveal"><div class="img-ph"></div>
                 <div class="blob-img"
                     style="background-color: #C0C5B1; border-radius: 40% 50% 60% 40% / 50% 40% 50% 60%;"></div>
             </div>
@@ -464,7 +502,7 @@
             </div>
 
             <div class="prod-item prod-1 reveal">
-                <div class="prod-img-wrap">
+                <div class="prod-img-wrap"><div class="img-ph"></div>
                     <div class="blob-img" style="background-color: #D2A88A;"></div>
                 </div>
                 <h3 class="klee prod-title">カモミールと月のバーム</h3>
@@ -472,7 +510,7 @@
             </div>
 
             <div class="prod-item prod-2 reveal" style="transition-delay: 0.1s;">
-                <div class="prod-img-wrap">
+                <div class="prod-img-wrap"><div class="img-ph"></div>
                     <div class="blob-img" style="background-color: #A3B599;"></div>
                     <div class="stamp-new"
                         style="font-size: 1rem; right: -10px; color: var(--text-sub); border-color: var(--text-sub);">
@@ -483,7 +521,7 @@
             </div>
 
             <div class="prod-item prod-3 reveal" style="transition-delay: 0.2s;">
-                <div class="prod-img-wrap">
+                <div class="prod-img-wrap"><div class="img-ph"></div>
                     <div class="blob-img" style="background-color: #E0CFA1;"></div>
                 </div>
                 <h3 class="klee prod-title">陽だまりのハーブティー</h3>

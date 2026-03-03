@@ -210,14 +210,50 @@
                 padding: 4rem 1.5rem;
             }
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
 <body>
 
     <!-- 1. HERO -->
-    <section class="hero reveal">
+    <section class="hero reveal" style="background-image: linear-gradient(rgba(250,247,242,0.8), rgba(250,247,242,0.8)), url('https://images.unsplash.com/photo-1493815972970-126f592d3782?w=800&q=80'); background-size: cover; background-position: center;">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-container">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
             <h1>Deep breath in a quiet forest. Embodying natural purity.</h1>
             <p>深呼吸したくなるような余白と、自然由来の温もり。私たちは、植物本来の力を活かしたオーガニック・スキンケアを通じて、心と肌に不要なものを削ぎ落とす時間を提供します。</p>
         </div>

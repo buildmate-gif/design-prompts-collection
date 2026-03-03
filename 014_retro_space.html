@@ -344,7 +344,7 @@
             grid-column: 9 / 12;
         }
 
-        .crew-img {
+        .img-wrap {
             aspect-ratio: 3/4;
             background-color: var(--bg-color);
             border: 1px solid rgba(237, 232, 220, 0.2);
@@ -353,7 +353,7 @@
         }
 
         /* Crosshair overlay on img */
-        .crew-img::after {
+        .img-wrap::after {
             content: '+';
             position: absolute;
             top: 50%;
@@ -472,6 +472,42 @@
                 padding: 5rem 0;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -486,9 +522,11 @@
 
     <!-- 1. MISSION BRIEF (Hero) -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="grid">
             <h1 class="hero-h1 reveal">MISSION:<br>HORIZON VII</h1>
             <div class="hero-data reveal" style="transition-delay: 0.2s;">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <div class="coord-text">LAUNCH SEQ INITIATED. WAITING FOR COMMAND.</div>
                 <div class="countdown">T-MINUS <span id="main-countdown">00:00:00</span></div>
                 <div class="coord-text">TARGET: DEEP SPACE SECTOR 4G</div>
@@ -559,7 +597,7 @@
             </div>
 
             <div class="crew-member c-1 reveal">
-                <div class="crew-img"></div>
+                <div class="img-wrap"><div class="img-ph"></div></div>
                 <div class="crew-info">
                     <div style="font-family: 'Orbitron', sans-serif; margin-bottom: 2px;">CMDR. J. STERLING</div>
                     <div class="crew-role">Pilot / Commander (USA)</div>
@@ -567,7 +605,7 @@
             </div>
 
             <div class="crew-member c-2 reveal" style="transition-delay: 0.1s;">
-                <div class="crew-img"></div>
+                <div class="img-wrap"><div class="img-ph"></div></div>
                 <div class="crew-info">
                     <div style="font-family: 'Orbitron', sans-serif; margin-bottom: 2px;">SPEC. A. VOLKOV</div>
                     <div class="crew-role">Systems Engineer (RSA)</div>
@@ -575,7 +613,7 @@
             </div>
 
             <div class="crew-member c-3 reveal" style="transition-delay: 0.2s;">
-                <div class="crew-img"></div>
+                <div class="img-wrap"><div class="img-ph"></div></div>
                 <div class="crew-info">
                     <div style="font-family: 'Orbitron', sans-serif; margin-bottom: 2px;">DR. M. SATO</div>
                     <div class="crew-role">Payload Specialist (JPN)</div>

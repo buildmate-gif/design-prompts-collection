@@ -346,6 +346,40 @@
 
             /* Hide horizontal arrows on mobile vertical stack */
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -353,10 +387,14 @@
 
     <!-- 1. Hero -->
     <header class="hero container">
-        <div class="hero-co-name">Iron Works Heavy Industries</div>
-        <div class="hero-lines"></div>
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+        <div class="hero-co-name">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>Iron Works Heavy Industries</div>
+        <div class="hero-lines">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div></div>
         <h1>Build<br>the Engine.</h1>
-        <div class="hero-lines"></div>
+        <div class="hero-lines">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div></div>
         <p style="text-align: center; color: var(--text-sub); max-width: 600px; margin: 2rem 0;">
             我々が創るのはソフトウェアではない。社会を前進させるインフラストラクチャーとしての「エンジン」だ。強固な意志を持つエンジニアを求む。
         </p>

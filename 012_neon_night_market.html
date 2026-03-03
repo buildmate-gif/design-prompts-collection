@@ -524,6 +524,40 @@
                 right: 10px;
             }
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -533,13 +567,16 @@
 
     <!-- 1. HERO -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="grid">
             <div class="hero-h1-wrap">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <div class="stamp">ONE NIGHT ONLY!</div>
                 <h1 class="glitch reveal" data-text="HEAT NIGHT MARKET">HEAT NIGHT <br>MARKET</h1>
             </div>
 
             <div class="hero-meta reveal" style="transition-delay: 0.2s;">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <div class="date-loc font-bold">
                     2026.08.15 SAT 18:00 - countdown<br>
                     @ NEO-KAWASAKI ALLEY, BLOCK 9
@@ -548,6 +585,7 @@
             </div>
 
             <div class="hero-countdown reveal" style="transition-delay: 0.4s;">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 T-MINUS: <span id="cd-timer" class="flicker">07:23:45</span>
             </div>
         </div>

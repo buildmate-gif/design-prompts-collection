@@ -128,7 +128,7 @@
             /* For scroll reaction */
         }
 
-        .hero-img-box {
+        .img-wrap-box {
             grid-column: 5 / 12;
             aspect-ratio: 3/4;
             background-color: var(--text-main);
@@ -137,7 +137,7 @@
             filter: grayscale(100%) contrast(1.2);
         }
 
-        .hero-img-box::after {
+        .img-wrap-box::after {
             content: 'IMG_01';
             position: absolute;
             bottom: -20px;
@@ -284,7 +284,7 @@
                 padding: 0 5vw;
             }
 
-            .hero-img-box {
+            .img-wrap-box {
                 grid-column: 2 / 12;
                 margin-top: 30vh;
             }
@@ -311,6 +311,42 @@
                 top: 15%;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -326,18 +362,21 @@
 
     <!-- 1. HERO -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-h1-wrap" id="react-tilt">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
             <h1>DO NOT<br>BLINK.</h1>
         </div>
         <div class="grid">
             <div class="hero-caption">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <p>WE DISRUPT THE NOISE BY BECOMING THE NOISE.</p>
                 <p>A NEW MANIFESTO FOR DIGITAL PRESENCE.</p>
                 <div style="margin-top: 2rem;">
                     <a href="#">READ THE DOC</a>
                 </div>
             </div>
-            <div class="hero-img-box parallax-img" data-speed="0.1"></div>
+            <div class="img-wrap-box parallax-img" data-speed="0.1"><div class="img-ph"></div></div>
         </div>
     </section>
 

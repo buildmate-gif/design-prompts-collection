@@ -455,6 +455,42 @@
                 padding: 8rem 0;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -464,15 +500,18 @@
 
     <!-- 1. HERO -->
     <header class="hero container">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-title-area">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
             <div class="label" style="margin-bottom: 1rem;">Curated for your space</div>
             <h1 style="margin-bottom: 1rem;">Dahlia Room</h1>
             <p style="color: var(--text-sub);">春の気配を、部屋の片隅から。<br>あなたの日常に寄り添う小さな心地よさ。</p>
         </div>
         <div class="hero-images">
-            <div class="h-img-1 img-wrap hover-lift"></div>
-            <div class="h-img-2 img-wrap hover-lift"></div>
-            <div class="h-img-3 img-wrap hover-lift"></div>
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+            <div class="h-img-1 img-wrap hover-lift"><div class="img-ph"></div></div>
+            <div class="h-img-2 img-wrap hover-lift"><div class="img-ph"></div></div>
+            <div class="h-img-3 img-wrap hover-lift"><div class="img-ph"></div></div>
         </div>
     </header>
 
@@ -485,7 +524,7 @@
 
         <div class="new-grid">
             <div class="item-card n-item1">
-                <div class="img-wrap hover-lift" style="background-color: #E6DFCA;">
+                <div class="img-wrap hover-lift" style="background-color: #E6DFCA;"><div class="img-ph"></div>
                     <div class="badge" style="color: var(--accent-color);">New</div>
                 </div>
                 <div class="item-title">Mellow Glow Toner</div>
@@ -493,13 +532,13 @@
             </div>
 
             <div class="item-card n-item2">
-                <div class="img-wrap hover-lift" style="background-color: #D3CDC6;"></div>
+                <div class="img-wrap hover-lift" style="background-color: #D3CDC6;"><div class="img-ph"></div></div>
                 <div class="item-title">Yua Serum - Morning Rose</div>
                 <div class="item-price">¥ 3,400</div>
             </div>
 
             <div class="item-card n-item3">
-                <div class="img-wrap hover-lift" style="background-color: #E0CFCF;">
+                <div class="img-wrap hover-lift" style="background-color: #E0CFCF;"><div class="img-ph"></div>
                     <div class="badge">Limited</div>
                 </div>
                 <div class="item-title">Ceramic Incense Holder</div>
@@ -507,7 +546,7 @@
             </div>
 
             <div class="item-card n-item4">
-                <div class="img-wrap hover-lift" style="background-color: #D4DAD0;"></div>
+                <div class="img-wrap hover-lift" style="background-color: #D4DAD0;"><div class="img-ph"></div></div>
                 <div class="item-title">Linen Room Spray</div>
                 <div class="item-price">¥ 2,100</div>
             </div>
@@ -523,7 +562,7 @@
                 <h2>やわらかな光で目覚める朝</h2>
                 <p>慌ただしい1日の始まりも、お気に入りの香りをシュッとひと吹きするだけで、塗った後、心まで満たされるような感覚に。自分だけの余白を作る小さなスイッチ。</p>
             </div>
-            <div class="ls-img img-wrap" style="background-color: #D9D2D2;"></div>
+            <div class="ls-img img-wrap" style="background-color: #D9D2D2;"><div class="img-ph"></div></div>
         </div>
 
         <div class="lifestyle-block reverse">
@@ -533,7 +572,7 @@
                 <h2>私をリセットする夜の儀式</h2>
                 <p>メイクと一緒に今日の疲れも落として。肌に触れるたび、丁寧に自分を労わる「〇〇している私が好き」と思える、ご褒美のようなスキンケアタイムを。</p>
             </div>
-            <div class="ls-img img-wrap" style="background-color: #C0C5BF;"></div>
+            <div class="ls-img img-wrap" style="background-color: #C0C5BF;"><div class="img-ph"></div></div>
         </div>
     </section>
 
@@ -548,7 +587,7 @@
             <div class="rank-list">
                 <div class="rank-item">
                     <div class="rank-num">1</div>
-                    <div class="img-wrap hover-lift" style="background-color: #E8DCCB;"></div>
+                    <div class="img-wrap hover-lift" style="background-color: #E8DCCB;"><div class="img-ph"></div></div>
                     <div class="item-info">
                         <div class="item-title">Mellow Glow Toner</div>
                         <div class="item-price">¥ 2,800</div>
@@ -557,7 +596,7 @@
 
                 <div class="rank-item">
                     <div class="rank-num">2</div>
-                    <div class="img-wrap hover-lift" style="background-color: #D1CFCD;"></div>
+                    <div class="img-wrap hover-lift" style="background-color: #D1CFCD;"><div class="img-ph"></div></div>
                     <div class="item-info">
                         <div class="item-title">Vegan Lip Butter</div>
                         <div class="item-price">¥ 1,600</div>
@@ -566,7 +605,7 @@
 
                 <div class="rank-item">
                     <div class="rank-num">3</div>
-                    <div class="img-wrap hover-lift" style="background-color: #DFCECA;"></div>
+                    <div class="img-wrap hover-lift" style="background-color: #DFCECA;"><div class="img-ph"></div></div>
                     <div class="item-info">
                         <div class="item-title">Wooden Hand Mirror</div>
                         <div class="item-price">¥ 3,200</div>
@@ -575,7 +614,7 @@
 
                 <div class="rank-item">
                     <div class="rank-num">4</div>
-                    <div class="img-wrap hover-lift" style="background-color: #D8DFD4;"></div>
+                    <div class="img-wrap hover-lift" style="background-color: #D8DFD4;"><div class="img-ph"></div></div>
                     <div class="item-info">
                         <div class="item-title">Nudy Nail Polish</div>
                         <div class="item-price">¥ 1,400</div>
@@ -591,7 +630,7 @@
 
     <!-- 5. ABOUT -->
     <section class="container about-sec">
-        <div class="about-img-side img-wrap" style="background-color: #D6CCC6;"></div>
+        <div class="about-img-side img-wrap" style="background-color: #D6CCC6;"><div class="img-ph"></div></div>
         <div class="floating-memo">
             "Find beauty in simplicity. Your space, your rules."
         </div>

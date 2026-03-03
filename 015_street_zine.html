@@ -184,7 +184,7 @@
         }
 
         /* Semi-transparent image cutout */
-        .cover-img {
+        .img-wrap {
             position: absolute;
             top: 10%;
             right: -5%;
@@ -303,13 +303,13 @@
             grid-column: 3 / -1;
         }
 
-        .photo-grid {
+        .img-wrap {
             grid-column: 1 / -1;
             position: relative;
             height: 400px;
         }
 
-        .photo-cut {
+        .img-wrap {
             position: absolute;
             background-color: var(--text-sub);
             border: 10px solid var(--bg-base);
@@ -417,7 +417,7 @@
                 padding: 2rem;
             }
 
-            .photo-grid {
+            .img-wrap {
                 height: 600px;
             }
 
@@ -438,6 +438,40 @@
                 width: 90%;
             }
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -447,7 +481,7 @@
 
     <!-- 1. COVER -->
     <section class="cover">
-        <div class="cover-img"></div>
+        <div class="img-wrap"><div class="img-ph"></div></div>
         <div class="grid">
             <div class="cover-title shift-js">
                 <h1><span>STATIC</span><br><span>FEST</span><br><span>VOL.4</span></h1>
@@ -496,10 +530,10 @@
     <section class="collage">
         <div class="grid">
             <h2 class="black-han shift-js">ARCHIVE_SCREAMS</h2>
-            <div class="photo-grid">
-                <div class="photo-cut p1 shift-js"></div>
-                <div class="photo-cut p2 shift-js"></div>
-                <div class="photo-cut p3 shift-js"></div>
+            <div class="img-wrap"><div class="img-ph"></div>
+                <div class="img-wrap p1 shift-js"><div class="img-ph"></div></div>
+                <div class="img-wrap p2 shift-js"><div class="img-ph"></div></div>
+                <div class="img-wrap p3 shift-js"><div class="img-ph"></div></div>
             </div>
         </div>
     </section>

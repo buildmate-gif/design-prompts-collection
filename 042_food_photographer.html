@@ -165,7 +165,7 @@
             margin-bottom: 5rem;
         }
 
-        .hero-img {
+        .img-wrap {
             width: 100%;
             aspect-ratio: 21/9;
             margin-top: 2rem;
@@ -334,6 +334,40 @@
                 width: 100%;
             }
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -341,14 +375,15 @@
 
     <!-- 1. OPENING -->
     <section class="hero container">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-text">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
             <h1 class="h-fraunces">Yuki Hara</h1>
             <div class="label-mono" style="margin: 1.5rem 0 2.5rem 0; color: var(--mid);">Food & Still Life Photographer
             </div>
             <p>料理を撮るのではなく、食卓の空気を切り取る。<br>あなたのブランドにとって何が大切か、一緒に考えます。</p>
         </div>
-        <div class="img-wrap hero-img img-animate">
-            <div class="img-ph"></div>
+        <div class="img-wrap img-wrap img-animate"><div class="img-ph"></div>
         </div>
     </section>
 
@@ -362,8 +397,7 @@
         </div>
 
         <div class="works-grid">
-            <div class="img-wrap w-item img-animate w-1" data-cat="restaurant">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-1" data-cat="restaurant"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">GURA Restaurant</div>
@@ -372,8 +406,7 @@
                 </div>
             </div>
 
-            <div class="img-wrap w-item img-animate w-2" data-cat="editorial">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-2" data-cat="editorial"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">Souen Magazine</div>
@@ -382,8 +415,7 @@
                 </div>
             </div>
 
-            <div class="img-wrap w-item img-animate w-3" data-cat="product">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-3" data-cat="product"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">Miele Japan</div>
@@ -392,8 +424,7 @@
                 </div>
             </div>
 
-            <div class="img-wrap w-item img-animate w-4" data-cat="restaurant">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-4" data-cat="restaurant"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">Natura Cafe</div>
@@ -402,8 +433,7 @@
                 </div>
             </div>
 
-            <div class="img-wrap w-item img-animate w-5" data-cat="product">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-5" data-cat="product"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">Organic Tea Co.</div>
@@ -412,8 +442,7 @@
                 </div>
             </div>
 
-            <div class="img-wrap w-item img-animate w-6" data-cat="editorial">
-                <div class="img-ph"></div>
+            <div class="img-wrap w-item img-animate w-6" data-cat="editorial"><div class="img-ph"></div>
                 <div class="overlay">
                     <div class="overlay-txt">
                         <div class="h-serif-jp" style="font-size:1.2rem; margin-bottom:0.5rem;">Kinfolk Style Table
@@ -467,8 +496,8 @@
             </div>
 
             <div>
-                <div class="img-wrap img-animate about-img">
-                    <div class="img-ph" style="background: linear-gradient(135deg, #d2c8bc, #b3a79d);"></div>
+                <div class="img-wrap img-animate about-img"><div class="img-ph"></div>
+                    <div class="img-ph" style=" background: linear-gradient(135deg, #d2c8bc, #b3a79d);"></div>
                 </div>
                 <div style="margin-top:2rem;">
                     <h2 class="h-serif-jp" style="font-size:1.5rem; margin-bottom:1rem;">原 祐希 / Yuki Hara</h2>

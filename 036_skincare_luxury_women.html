@@ -220,7 +220,7 @@
             z-index: 2;
         }
 
-        .hero-img-col {
+        .img-wrap-col {
             height: 100vh;
             width: 100%;
         }
@@ -390,7 +390,7 @@
                 margin-right: 0;
             }
 
-            .hero-img-col {
+            .img-wrap-col {
                 height: 50vh;
             }
 
@@ -434,6 +434,42 @@
                 display: none;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -444,15 +480,18 @@
 
     <!-- 1. HERO -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-grid">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
             <div class="hero-text">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <span class="label fade-up stagger-1" style="margin-bottom: 2rem;">Botanical Minimalist</span>
                 <h1 class="fade-up stagger-2">Lumère.</h1>
                 <p class="fade-up stagger-3" style="color: var(--text-sub); margin-top: 1rem; max-width: 300px;">
                     足し算ではなく、引き算の贅沢。<br>素肌が深呼吸する時間を。
                 </p>
             </div>
-            <div class="hero-img-col img-wrap">
+            <div class="img-wrap-col img-wrap"><div class="img-ph"></div>
                 <div class="parallax-img" style="background-color: var(--accent-pale);"></div>
             </div>
         </div>
@@ -478,7 +517,7 @@
 
             <div class="coll-grid">
                 <div class="prod prod-1 fade-up stagger-1">
-                    <div class="img-wrap prod-img">
+                    <div class="img-wrap prod-img"><div class="img-ph"></div>
                         <div class="parallax-img" style="background-color: #E6DFD8;"></div>
                     </div>
                     <div class="prod-info hover-target">
@@ -489,7 +528,7 @@
                 </div>
 
                 <div class="prod prod-2 fade-up stagger-2">
-                    <div class="img-wrap prod-img">
+                    <div class="img-wrap prod-img"><div class="img-ph"></div>
                         <div class="parallax-img" style="background-color: #D8CCC4;"></div>
                     </div>
                     <div class="prod-info hover-target">
@@ -500,7 +539,7 @@
                 </div>
 
                 <div class="prod prod-3 fade-up stagger-3">
-                    <div class="img-wrap prod-img">
+                    <div class="img-wrap prod-img"><div class="img-ph"></div>
                         <div class="parallax-img" style="background-color: #E2DBD5;"></div>
                     </div>
                     <div class="prod-info hover-target">
@@ -535,7 +574,7 @@
                     <p style="color:var(--text-sub);">余ったオイルは首筋からデコルテへ。緊張を解きほぐします。</p>
                 </div>
             </div>
-            <div class="rit-img img-wrap fade-up">
+            <div class="rit-img img-wrap fade-up"><div class="img-ph"></div>
                 <div class="parallax-img" style="background-color: #D4CDCA;"></div>
             </div>
         </section>

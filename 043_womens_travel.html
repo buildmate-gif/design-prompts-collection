@@ -139,7 +139,7 @@
             margin-bottom: 2rem;
         }
 
-        .hero-img-wrap {
+        .img-wrap-wrap {
             width: 100%;
             aspect-ratio: 21/9;
             overflow: hidden;
@@ -147,7 +147,7 @@
             position: relative;
         }
 
-        .hero-img {
+        .img-wrap {
             width: 100%;
             height: 130%;
             background: linear-gradient(to bottom, #cfd8dc, #e1ceb8);
@@ -340,7 +340,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .hero-img-wrap {
+            .img-wrap-wrap {
                 aspect-ratio: 16/9;
             }
 
@@ -356,6 +356,42 @@
                 padding-left: 1.5rem;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -368,12 +404,14 @@
 
     <!-- 1. DEPARTURE -->
     <section class="hero container">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <h1 class="hero-h1">Where to tonight?</h1>
         <p style="text-align:center; color:var(--mid);">今夜、どこに行きたいですか。<br>女性ひとりだから出会える、静かで美しい世界の片隅へ。</p>
 
-        <div class="hero-img-wrap" style="position:relative;">
-            <div class="hero-img parallax-img"></div>
-            <div class="hero-gradient"></div>
+        <div class="img-wrap-wrap" style="position:relative;"><div class="img-ph"></div>
+            <div class="img-wrap parallax-img"><div class="img-ph"></div></div>
+            <div class="hero-gradient">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div></div>
         </div>
     </section>
 
@@ -385,7 +423,7 @@
         <div class="dest-grid">
             <div class="d-card d-1">
                 <div class="text-dest" style="margin-bottom:0.8rem;">Lisbon, Portugal</div>
-                <div class="d-img-wrap">
+                <div class="d-img-wrap"><div class="img-ph"></div>
                     <div class="d-img"></div>
                     <div class="d-overlay">黄昏時の石畳と、<br>遠くから聞こえるファドの歌声。</div>
                 </div>
@@ -393,7 +431,7 @@
 
             <div class="d-card d-2">
                 <div class="text-dest" style="margin-bottom:0.8rem;">Tbilisi, Georgia</div>
-                <div class="d-img-wrap">
+                <div class="d-img-wrap"><div class="img-ph"></div>
                     <div class="d-img" style="background: linear-gradient(135deg, #cfc1b8, #a89a91);"></div>
                     <div class="d-overlay">東西が交差する街で、<br>琥珀色のワインを傾ける夜。</div>
                 </div>
@@ -401,7 +439,7 @@
 
             <div class="d-card d-3">
                 <div class="text-dest" style="margin-bottom:0.8rem;">Luang Prabang, Laos</div>
-                <div class="d-img-wrap">
+                <div class="d-img-wrap"><div class="img-ph"></div>
                     <div class="d-img" style="background: linear-gradient(135deg, #b6bea9, #8d9585);"></div>
                     <div class="d-overlay">朝靄の中の托鉢と、<br>ゆったりと流れるメコン川。</div>
                 </div>
@@ -409,7 +447,7 @@
 
             <div class="d-card d-4">
                 <div class="text-dest" style="margin-bottom:0.8rem;">Oaxaca, Mexico</div>
-                <div class="d-img-wrap">
+                <div class="d-img-wrap"><div class="img-ph"></div>
                     <div class="d-img" style="background: linear-gradient(135deg, #d3b499, #b98e6c);"></div>
                     <div class="d-overlay">色彩豊かな民芸品と、<br>スパイシーなカカオの香り。</div>
                 </div>
@@ -422,8 +460,8 @@
         <div class="container why-grid">
             <div>
                 <h2 class="h-libre" style="font-size:3rem; margin-bottom:2rem;">For Women, By Women.</h2>
-                <div class="hero-img-wrap" style="aspect-ratio:3/4; width:80%; margin-top:0;">
-                    <div class="hero-img" style="background: linear-gradient(180deg, #d4cfc6, #9f9b94);"></div>
+                <div class="img-wrap-wrap" style="aspect-ratio:3/4; width:80%; margin-top:0;"><div class="img-ph"></div>
+                    <div class="img-wrap" style="background: linear-gradient(180deg, #d4cfc6, #9f9b94);"><div class="img-ph"></div></div>
                 </div>
             </div>
             <div class="why-text" style="padding-top:4rem;">

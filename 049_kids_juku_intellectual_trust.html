@@ -432,7 +432,41 @@ footer {
   .cta-heading { font-size: clamp(1.3rem, 5vw, 1.7rem); }
   #cta { padding: 5rem 2rem; }
 }
-</style>
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
+    </style>
 </head>
 <body>
 
@@ -465,17 +499,21 @@ footer {
     <!-- HERO -->
     <section id="hero">
       <div class="hero-nums">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="hero-num-item">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
           <span class="num-label">Top University</span>
           <span class="num-value"><span class="count" data-target="312">0</span><span class="num-unit">名</span></span>
           <p class="num-desc">東大・京大・国公立医学部<br>合格累計実績</p>
         </div>
         <div class="hero-num-item">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
           <span class="num-label">Success Rate</span>
           <span class="num-value"><span class="count" data-target="94">0</span><span class="num-unit">%</span></span>
           <p class="num-desc">第一志望校合格率<br>（直近3年間平均）</p>
         </div>
         <div class="hero-num-item">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
           <span class="num-label">Years of Trust</span>
           <span class="num-value"><span class="count" data-target="28">0</span><span class="num-unit">年</span></span>
           <p class="num-desc">創業からの指導実績<br>累計生徒数 4,800名以上</p>

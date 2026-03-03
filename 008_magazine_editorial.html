@@ -98,7 +98,7 @@
             height: 0;
         }
 
-        .img-placeholder {
+        .img-wrap {
             background-color: var(--text-sub);
             filter: url(#grain);
             width: 100%;
@@ -138,7 +138,7 @@
             grid-column: 2 / 11;
         }
 
-        .hero-img-wrapper {
+        .img-wrap-wrapper {
             grid-column: 1 / -1;
             aspect-ratio: 21/9;
             background-color: var(--bg-alt);
@@ -200,7 +200,7 @@
         }
 
         /* Image Overlap Layout */
-        .overlap-img {
+        .img-wrap {
             grid-column: 2 / 9;
             /* Breaks out of main-content grid */
             aspect-ratio: 4/3;
@@ -262,13 +262,13 @@
             /* Asymmetric offset */
         }
 
-        .rel-img {
+        .img-wrap {
             aspect-ratio: 3/4;
             background-color: var(--text-sub);
             margin-bottom: 1.5rem;
         }
 
-        .card-small .rel-img {
+        .card-small .img-wrap {
             aspect-ratio: 1/1;
         }
 
@@ -295,7 +295,7 @@
                 display: none;
             }
 
-            .overlap-img {
+            .img-wrap {
                 grid-column: 1 / -1;
                 left: 0;
                 width: 100%;
@@ -314,7 +314,7 @@
                 margin-top: 2rem;
             }
 
-            .card-small .rel-img {
+            .card-small .img-wrap {
                 aspect-ratio: 16/9;
             }
 
@@ -339,6 +339,42 @@
                 font-size: 2rem;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -355,19 +391,22 @@
 
     <!-- 1. HEADER (Hero) -->
     <section class="hero">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="grid">
             <div class="hero-meta reveal">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <span class="label">Architecture & Design</span>
                 <span class="label">Reading Time: 8 min</span>
             </div>
             <div class="hero-title reveal" style="transition-delay: 0.1s;">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <h1 class="cormorant">The Aesthetics of Subtraction.</h1>
                 <h1>引き算の美学が空間に与える、<br>静かなる雄弁さ。</h1>
                 <div class="label" style="margin-top: 2rem;">Text by A. KAWAKAMI / Photography by E. HIRAOKA /
                     2026.10.12</div>
             </div>
-            <div class="hero-img-wrapper reveal" style="transition-delay: 0.2s;">
-                <div class="img-placeholder" style="background-color: #B0AFA6;"></div>
+            <div class="img-wrap-wrapper reveal" style="transition-delay: 0.2s;"><div class="img-ph"></div>
+                <div class="img-wrap" style="background-image: url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80'); background-size: cover; background-position: center; background-image: url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80'); background-size: cover; background-position: center; background-color: #B0AFA6;"><div class="img-ph"></div></div>
             </div>
         </div>
     </section>
@@ -395,8 +434,8 @@
                 </p>
 
                 <!-- Overlap Image -->
-                <div class="overlap-img reveal">
-                    <div class="img-placeholder" style="background-color: #8C8881;"></div>
+                <div class="img-wrap reveal"><div class="img-ph"></div>
+                    <div class="img-wrap" style="background-image: url('https://images.unsplash.com/photo-1507089947368-14c1da1204a1?w=800&q=80'); background-size: cover; background-position: center; background-image: url('https://images.unsplash.com/photo-1493815972970-126f592d3782?w=800&q=80'); background-size: cover; background-position: center; background-color: #8C8881;"><div class="img-ph"></div></div>
                     <div class="img-caption">Naoshima, 2025. 光と重力のみで構成された回廊。</div>
                 </div>
 
@@ -432,14 +471,14 @@
             <h2 class="related-title serif reveal">Read Next —</h2>
 
             <a href="#" class="card-large reveal" style="text-decoration: none; color: inherit;">
-                <div class="rel-img"></div>
+                <div style="background-image: url('https://images.unsplash.com/photo-1480796927426-f609979314bd?w=800&q=80'); background-size: cover; background-position: center;" class="img-wrap"><div class="img-ph"></div></div>
                 <div class="label">Interview / Sep 12</div>
                 <h3 class="rel-title serif">光を彫刻する。気鋭の照明デザイナーが語る、影の作法。</h3>
             </a>
 
             <a href="#" class="card-small reveal"
                 style="text-decoration: none; color: inherit; transition-delay: 0.2s;">
-                <div class="rel-img" style="background-color: #B0AFA6;"></div>
+                <div class="img-wrap" style="background-image: url('https://images.unsplash.com/photo-1497366216508-3aa5a11956fe?w=800&q=80'); background-size: cover; background-position: center; background-color: #B0AFA6;"><div class="img-ph"></div></div>
                 <div class="label">Object / Aug 04</div>
                 <h3 class="rel-title serif">The Silent Chair.</h3>
             </a>

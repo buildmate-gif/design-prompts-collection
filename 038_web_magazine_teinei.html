@@ -402,6 +402,40 @@
                 gap: 3rem;
             }
         }
+    
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -529,8 +563,7 @@
 
             <div class="col-grid">
                 <div class="col-item">
-                    <div class="col-img-wrap">
-                        <div class="img-ph"></div>
+                    <div class="col-img-wrap"><div class="img-ph"></div>
                     </div>
                     <div>
                         <span class="h-en" style="color:var(--text-sub); font-size:0.8rem;">Vol 12.</span>
@@ -540,8 +573,7 @@
                 </div>
 
                 <div class="col-item">
-                    <div class="col-img-wrap">
-                        <div class="img-ph"></div>
+                    <div class="col-img-wrap"><div class="img-ph"></div>
                     </div>
                     <div>
                         <span class="h-en" style="color:var(--text-sub); font-size:0.8rem;">Vol 08.</span>

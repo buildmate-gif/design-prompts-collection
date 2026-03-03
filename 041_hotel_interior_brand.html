@@ -202,7 +202,7 @@
             padding-top: 6rem;
         }
 
-        .hero-img-wrap {
+        .img-wrap-wrap {
             width: 100%;
             height: 60vh;
             overflow: hidden;
@@ -210,7 +210,7 @@
             position: relative;
         }
 
-        .hero-img {
+        .img-wrap {
             width: 100%;
             height: 130%;
             /* extra height for parallax */
@@ -335,6 +335,42 @@
                 padding-bottom: 0;
             }
         }
+    
+    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
+
+    /* Directional Image Placeholder CSS */
+    .img-wrap {
+        position: relative;
+    }
+    .img-ph {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: transparent;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img-ph::after {
+        content: "[ 写真・イラストが入ります ]";
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 1rem;
+        white-space: pre-wrap;
+    }
+    .global-bg-ph.img-ph {
+        border: none;
+        background-color: transparent;
+    }
+    .global-bg-ph.img-ph::after {
+        opacity: 0.3;
+        font-size: 2rem;
+    }
     </style>
 </head>
 
@@ -347,12 +383,13 @@
 
     <!-- 1. LOBBY -->
     <section class="hero padding-top-fix">
+    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="container" style="position:relative; z-index:1;">
             <h1 class="h-bodoni">Check in to your everyday.</h1>
             <p style="color:var(--mid); margin-top:1rem;">毎日をホテルのように。チェックイン時の静かな高揚感を、あなたの部屋へ。</p>
         </div>
-        <div class="hero-img-wrap">
-            <div class="hero-img parallax-img"></div>
+        <div class="img-wrap-wrap"><div class="img-ph"></div>
+            <div class="img-wrap parallax-img"><div class="img-ph"></div></div>
         </div>
     </section>
 
@@ -364,7 +401,7 @@
 
             <div class="amenity-grid">
                 <div class="prod-card am-1">
-                    <div class="p-img-wrap">
+                    <div class="p-img-wrap"><div class="img-ph"></div>
                         <div class="p-img-ph"></div>
                     </div>
                     <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Linen</div>
@@ -373,7 +410,7 @@
                 </div>
 
                 <div class="prod-card am-2">
-                    <div class="p-img-wrap" style="aspect-ratio:4/5;">
+                    <div class="p-img-wrap" style="aspect-ratio:4/5;"><div class="img-ph"></div>
                         <div class="p-img-ph"></div>
                     </div>
                     <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Ceramic</div>
@@ -382,7 +419,7 @@
                 </div>
 
                 <div class="prod-card am-3">
-                    <div class="p-img-wrap">
+                    <div class="p-img-wrap"><div class="img-ph"></div>
                         <div class="p-img-ph"></div>
                     </div>
                     <div class="label-mono" style="font-size:0.7rem; color:var(--stone);">Aroma</div>

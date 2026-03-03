@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クエスト学習塾 | Adventure Map RPG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2D6A2D;
+    --parchment: #F2E8C8;
+    --orange: #E87820;
+    --brown: #8B6914;
+    --darkbrown: #5C3A0A;
+    --darkgreen: #1A3D1A;
+    --text-light: #F2E8C8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    color: var(--darkbrown);
+    overflow-x: hidden;
+    background: var(--parchment);
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--parchment);
+    border-top: 3px solid var(--brown);
+    border-bottom: 3px solid var(--brown);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    box-shadow: 0 2px 12px rgba(139,105,20,0.2);
+  }
+  .logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.85rem;
+    color: var(--green);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+  nav { display: flex; gap: 0.6rem; }
+  nav a {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--darkbrown); text-decoration: none;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+  }
+  nav a:hover {
+    background: var(--green); color: var(--parchment);
+    border-color: var(--green);
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    background: var(--green);
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(139,105,20,0.06) 40px, rgba(139,105,20,0.06) 41px
+    );
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 背景の樹木・草原的装飾 */
+  .hero-trees {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 120px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .title-board {
+    background: var(--parchment);
+    border: 4px solid var(--brown);
+    border-radius: 8px;
+    padding: 3rem 4rem;
+    max-width: 680px; width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 0 40px rgba(139,105,20,0.08);
+  }
+  /* ボードの四隅ピクセル装飾 */
+  .title-board::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 2px dashed rgba(139,105,20,0.25);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .corner-deco {
+    position: absolute;
+    width: 16px; height: 16px;
+  }
+  .corner-deco.tl { top: -2px; left: -2px; }
+  .corner-deco.tr { top: -2px; right: -2px; transform: scaleX(-1); }
+  .corner-deco.bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
+  .corner-deco.br { bottom: -2px; right: -2px; transform: scale(-1); }
+  .board-tag {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem; color: var(--green);
+    letter-spacing: 0.1em; margin-bottom: 1.2rem;
+    opacity: 0.7;
+  }
+  .hero-h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.6rem;
+    color: var(--orange);
+    line-height: 1.7;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-sub {
+    font-size: 1rem; line-height: 1.9;
+    color: var(--darkbrown);
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--orange); color: var(--parchment);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem; letter-spacing: 0.05em;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    border: 3px solid var(--brown);
+    text-decoration: none;
+    box-shadow: 4px 4px 0px var(--brown);
+    transition: all 0.15s ease;
+  }
+  .hero-cta:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--brown);
+  }
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem; color: var(--parchment);
+    letter-spacing: 0.1em; opacity: 0.7;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .blink-arrow { animation: blink 1s steps(2) infinite; }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ─── ADVENTURE MAP ─── */
+  #map {
+    background: var(--parchment);
+    background-image: repeating-linear-gradient(
+      90deg, transparent, transparent 60px,
+      rgba(139,105,20,0.04) 60px, rgba(139,105,20,0.04) 61px
+    ),
+    repeating-linear-gradient(
+      0deg, transparent, transparent 60px,
+      rgba(139,105,20,0.04) 60px, rgba(139,105,20,0.04) 61px
+    );
+    padding: 6rem 2rem;
+    position: relative;
+  }
+  .map-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem; color: var(--green);
+    text-align: center;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+  }
+  .map-subtitle {
+    text-align: center; color: var(--brown);
+    font-size: 0.9rem; margin-bottom: 4rem;
+  }
+  .map-container {
+    position: relative;
+    max-width: 700px; margin: 0 auto;
+    padding: 0 2rem;
+  }
+  /* 中央の道 */
+  .path-line {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 8px;
+    background: linear-gradient(to bottom, var(--brown) 0%, #C49A40 50%, var(--brown) 100%);
+    transform: translateX(-50%);
+    border-radius: 4px;
+    z-index: 0;
+  }
+  .checkpoint {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .checkpoint.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .checkpoint.left { flex-direction: row; }
+  .checkpoint.right { flex-direction: row-reverse; }
+  .checkpoint-badge {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--orange);
+    border: 4px solid var(--brown);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 3px 3px 0px var(--brown);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.1rem; color: var(--parchment);
+    position: relative; z-index: 2;
+  }
+  .checkpoint-content {
+    background: #FFFEF5;
+    border: 2px solid var(--brown);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    max-width: 260px;
+    box-shadow: 3px 3px 0px rgba(139,105,20,0.3);
+    position: relative;
+  }
+  /* 吹き出し矢印 */
+  .checkpoint.left .checkpoint-content { margin-left: 1.5rem; }
+  .checkpoint.left .checkpoint-content::before {
+    content: '';
+    position: absolute; left: -10px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid var(--brown);
+  }
+  .checkpoint.left .checkpoint-content::after {
+    content: '';
+    position: absolute; left: -7px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-right: 9px solid #FFFEF5;
+  }
+  .checkpoint.right .checkpoint-content { margin-right: 1.5rem; }
+  .checkpoint.right .checkpoint-content::before {
+    content: '';
+    position: absolute; right: -10px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid var(--brown);
+  }
+  .checkpoint.right .checkpoint-content::after {
+    content: '';
+    position: absolute; right: -7px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 9px solid #FFFEF5;
+  }
+  .cp-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.05rem; font-weight: 900;
+    color: var(--green);
+    margin-bottom: 0.4rem;
+  }
+  .cp-text { font-size: 0.88rem; line-height: 1.75; color: var(--darkbrown); }
+
+  /* ─── SUBJECTS ─── */
+  #subjects {
+    background: var(--green);
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(0,0,0,0.04) 40px, rgba(0,0,0,0.04) 41px
+    );
+    padding: 6rem 2rem;
+  }
+  .subjects-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem; color: var(--parchment);
+    text-align: center;
+    letter-spacing: 0.08em; margin-bottom: 0.8rem;
+  }
+  .subjects-sub {
+    text-align: center; color: rgba(242,232,200,0.7);
+    font-size: 0.9rem; margin-bottom: 3rem;
+  }
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
+    max-width: 900px; margin: 0 auto;
+  }
+  .item-card {
+    background: var(--parchment);
+    border: 2px solid var(--brown);
+    border-radius: 6px;
+    padding: 1.8rem 1.2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 3px 3px 0px var(--brown);
+    position: relative;
+  }
+  /* ピクセル角の装飾 */
+  .item-card::before {
+    content: '';
+    position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px;
+    border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  .item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 3px 7px 0px var(--brown);
+  }
+  .item-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem; color: var(--orange);
+    letter-spacing: 0.05em; margin-top: 0.8rem;
+    display: block;
+  }
+  .item-desc {
+    font-size: 0.8rem; line-height: 1.6;
+    color: var(--darkbrown); margin-top: 0.5rem;
+  }
+
+  /* ─── TESTIMONIAL ─── */
+  #voice {
+    background: var(--parchment);
+    background-image: repeating-linear-gradient(
+      90deg, transparent, transparent 60px,
+      rgba(139,105,20,0.04) 60px, rgba(139,105,20,0.04) 61px
+    );
+    padding: 6rem 2rem;
+  }
+  .voice-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem; color: var(--green);
+    text-align: center;
+    letter-spacing: 0.08em; margin-bottom: 0.8rem;
+  }
+  .voice-sub { text-align: center; color: var(--brown); font-size: 0.9rem; margin-bottom: 3rem; }
+  .voices { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
+  .voice-bubble {
+    max-width: 80%;
+    background: #FFFEF5;
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 1.3rem 1.6rem;
+    position: relative;
+    box-shadow: 2px 2px 0px rgba(45,106,45,0.3);
+  }
+  .voice-bubble.right {
+    align-self: flex-end;
+    border-color: var(--orange);
+    background: #FFF8E8;
+    box-shadow: 2px 2px 0px rgba(232,120,32,0.3);
+  }
+  /* 左吹き出し三角 */
+  .voice-bubble.left::after {
+    content: '';
+    position: absolute; bottom: -12px; left: 24px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--green);
+  }
+  /* 右吹き出し三角 */
+  .voice-bubble.right::after {
+    content: '';
+    position: absolute; bottom: -12px; right: 24px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--orange);
+  }
+  .voice-text { font-size: 0.95rem; line-height: 1.8; color: var(--darkbrown); margin-bottom: 0.6rem; }
+  .voice-from { font-size: 0.78rem; font-weight: 700; color: var(--brown); }
+  .voice-label {
+    margin-top: 0.8rem;
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 700;
+  }
+  .voice-bubble.left .voice-label { color: var(--green); }
+  .voice-bubble.right .voice-label { color: var(--orange); justify-content: flex-end; }
+
+  /* ─── CTA ─── */
+  #cta {
+    background: var(--orange);
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(0,0,0,0.05) 40px, rgba(0,0,0,0.05) 41px
+    );
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .cta-frame {
+    background: var(--parchment);
+    border: 4px solid var(--brown);
+    border-radius: 8px;
+    padding: 3.5rem 3rem;
+    max-width: 600px; margin: 0 auto;
+    box-shadow: 6px 6px 0px var(--brown);
+    position: relative;
+  }
+  /* 四隅の剣 */
+  .sword-deco {
+    position: absolute;
+    opacity: 0.6;
+  }
+  .cta-heading {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem; color: var(--green);
+    letter-spacing: 0.06em; line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .cta-sub {
+    font-size: 1rem; line-height: 1.9;
+    color: var(--darkbrown); margin-bottom: 2rem;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--green); color: var(--parchment);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem; letter-spacing: 0.05em;
+    padding: 1.1rem 2.5rem;
+    border-radius: 4px;
+    border: 3px solid var(--parchment);
+    text-decoration: none;
+    box-shadow: 4px 4px 0px rgba(45,106,45,0.4);
+    transition: all 0.15s ease;
+  }
+  .cta-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px rgba(45,106,45,0.4);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--darkgreen);
+    border-top: 3px solid var(--brown);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem; color: var(--parchment);
+    letter-spacing: 0.08em; margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+  .footer-info { color: #A8C8A8; font-size: 0.85rem; line-height: 1.8; }
+  .footer-copy { color: #5A8A5A; font-size: 0.75rem; margin-top: 0.8rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .title-board { padding: 2rem 1.5rem; }
+    .hero-h1 { font-size: clamp(1rem, 4vw, 1.6rem); }
+    .checkpoint.left, .checkpoint.right { flex-direction: column; align-items: center; }
+    .checkpoint-content { margin: 1rem 0 0; max-width: 100%; }
+    .checkpoint.left .checkpoint-content::before,
+    .checkpoint.left .checkpoint-content::after,
+    .checkpoint.right .checkpoint-content::before,
+    .checkpoint.right .checkpoint-content::after { display: none; }
+    .path-line { display: none; }
+    .items-grid { grid-template-columns: repeat(2, 1fr); }
+    .voice-bubble { max-width: 95%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">QUEST<br>JUKU</a>
+  <nav>
+    <a href="#map">まなびマップ</a>
+    <a href="#subjects">どうぐずかん</a>
+    <a href="#voice">ぼうけんしゃの声</a>
+    <a href="#cta">たいけん</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="title-board">
+    <!-- 四隅装飾 -->
+    <svg class="corner-deco tl" viewBox="0 0 16 16" fill="none">
+      <rect width="4" height="16" fill="#8B6914"/>
+      <rect width="16" height="4" fill="#8B6914"/>
+    </svg>
+    <svg class="corner-deco tr" viewBox="0 0 16 16" fill="none">
+      <rect width="4" height="16" fill="#8B6914"/>
+      <rect width="16" height="4" fill="#8B6914"/>
+    </svg>
+    <svg class="corner-deco bl" viewBox="0 0 16 16" fill="none">
+      <rect width="4" height="16" fill="#8B6914"/>
+      <rect width="16" height="4" fill="#8B6914"/>
+    </svg>
+    <svg class="corner-deco br" viewBox="0 0 16 16" fill="none">
+      <rect width="4" height="16" fill="#8B6914"/>
+      <rect width="16" height="4" fill="#8B6914"/>
+    </svg>
+
+    <p class="board-tag">— NEW QUEST AVAILABLE —</p>
+    <h1 class="hero-h1">きみの冒険、<br>ここから<br>始まる。</h1>
+    <p class="hero-sub">勉強はクエストだ。一問解くたびに、きみは強くなる。<br>小学1年生〜中学3年生、全クラス対応。<br>今すぐ無料体験で、最初のクエストをクリアしよう！</p>
+    <a href="#cta" class="hero-cta">▶ 冒険をはじめる（無料体験）</a>
+  </div>
+  <div class="scroll-hint">
+    <span class="blink-arrow">▼</span> SCROLL TO START
+  </div>
+
+  <!-- 背景の木のシルエット -->
+  <svg class="hero-trees" viewBox="0 0 1200 120" preserveAspectRatio="none" fill="none">
+    <polygon points="0,120 60,40 120,120" fill="#F2E8C8"/>
+    <polygon points="80,120 160,20 240,120" fill="#F2E8C8"/>
+    <polygon points="200,120 260,50 320,120" fill="#F2E8C8"/>
+    <polygon points="320,120 400,15 480,120" fill="#F2E8C8"/>
+    <polygon points="440,120 510,45 580,120" fill="#F2E8C8"/>
+    <polygon points="560,120 640,10 720,120" fill="#F2E8C8"/>
+    <polygon points="680,120 750,40 820,120" fill="#F2E8C8"/>
+    <polygon points="780,120 870,20 960,120" fill="#F2E8C8"/>
+    <polygon points="920,120 990,50 1060,120" fill="#F2E8C8"/>
+    <polygon points="1040,120 1120,25 1200,120" fill="#F2E8C8"/>
+  </svg>
+</section>
+
+<!-- ADVENTURE MAP -->
+<section id="map">
+  <h2 class="map-title">まなびの冒険マップ</h2>
+  <p class="map-subtitle">ここが、きみの学びの旅の道のり</p>
+
+  <div class="map-container">
+    <div class="path-line"></div>
+
+    <div class="checkpoint left" data-cp>
+      <div class="checkpoint-badge">01</div>
+      <div class="checkpoint-content">
+        <p class="cp-title">入塾クエスト：無料体験</p>
+        <p class="cp-text">まずは授業を体験！緊張しなくて大丈夫。楽しい雰囲気の中で、今の実力をチェックします。</p>
+      </div>
+    </div>
+
+    <div class="checkpoint right" data-cp>
+      <div class="checkpoint-badge">02</div>
+      <div class="checkpoint-content">
+        <p class="cp-title">個別ルート設定</p>
+        <p class="cp-text">きみだけの学習マップを作成。苦手な「魔王」（難単元）を倒す順番を一緒に計画します。</p>
+      </div>
+    </div>
+
+    <div class="checkpoint left" data-cp>
+      <div class="checkpoint-badge">03</div>
+      <div class="checkpoint-content">
+        <p class="cp-title">毎週のクエスト授業</p>
+        <p class="cp-text">楽しいクイズやゲームを取り入れた授業で、いつのまにか実力がアップ。わからない問題は何度でも解説！</p>
+      </div>
+    </div>
+
+    <div class="checkpoint right" data-cp>
+      <div class="checkpoint-badge">04</div>
+      <div class="checkpoint-content">
+        <p class="cp-title">レベルアップ認定</p>
+        <p class="cp-text">目標を達成したら認定証とバッジをプレゼント。達成感が次のクエストへの意欲になります！</p>
+      </div>
+    </div>
+
+    <div class="checkpoint left" data-cp>
+      <div class="checkpoint-badge">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <polygon points="18,4 22,13 32,13 24,19 27,29 18,23 9,29 12,19 4,13 14,13" fill="#F2E8C8"/>
+        </svg>
+      </div>
+      <div class="checkpoint-content">
+        <p class="cp-title">テスト・受験突破！</p>
+        <p class="cp-text">模試・定期テスト・高校受験——すべてのラスボスをクリアへ。確かな実力と自信を手にしよう！</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS（アイテム図鑑） -->
+<section id="subjects">
+  <h2 class="subjects-title">どうぐずかん</h2>
+  <p class="subjects-sub">学びのアイテムを手に入れよう</p>
+
+  <div class="items-grid">
+    <!-- 国語 -->
+    <div class="item-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="8" y="6" width="32" height="36" rx="4" fill="#8B6914" opacity="0.15"/>
+        <rect x="10" y="8" width="28" height="32" rx="3" fill="#F2E8C8" stroke="#8B6914" stroke-width="1.5"/>
+        <line x1="16" y1="16" x2="32" y2="16" stroke="#2D6A2D" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="22" x2="32" y2="22" stroke="#2D6A2D" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="28" x2="26" y2="28" stroke="#2D6A2D" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="36" cy="36" r="7" fill="#E87820"/>
+        <text x="36" y="40" text-anchor="middle" font-size="8" fill="#F2E8C8" font-weight="bold">国</text>
+      </svg>
+      <span class="item-name">こくご</span>
+      <p class="item-desc">言葉の力を身につけよう。読解から作文まで</p>
+    </div>
+
+    <!-- 算数 -->
+    <div class="item-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="18" fill="#8B6914" opacity="0.1" stroke="#8B6914" stroke-width="1.5"/>
+        <text x="24" y="20" text-anchor="middle" font-size="14" fill="#E87820" font-weight="bold">1</text>
+        <text x="24" y="34" text-anchor="middle" font-size="11" fill="#2D6A2D" font-weight="bold">+2=3</text>
+      </svg>
+      <span class="item-name">さんすう</span>
+      <p class="item-desc">数の魔法を解き明かそう。計算から図形まで</p>
+    </div>
+
+    <!-- 英語 -->
+    <div class="item-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="6" y="14" width="36" height="22" rx="4" fill="#8B6914" opacity="0.1" stroke="#8B6914" stroke-width="1.5"/>
+        <text x="24" y="31" text-anchor="middle" font-size="18" fill="#E87820" font-weight="bold" font-family="serif">A</text>
+        <circle cx="34" cy="12" r="5" fill="#2D6A2D"/>
+        <text x="34" y="16" text-anchor="middle" font-size="7" fill="#F2E8C8" font-weight="bold">EN</text>
+      </svg>
+      <span class="item-name">えいご</span>
+      <p class="item-desc">世界の言葉を覚えて冒険の幅を広げよう</p>
+    </div>
+
+    <!-- 理科 -->
+    <div class="item-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <path d="M20 10 L20 26 L10 40 L38 40 L28 26 L28 10 Z" fill="#8B6914" opacity="0.1" stroke="#8B6914" stroke-width="1.5"/>
+        <path d="M22 28 L14 40 L34 40 L26 28 Z" fill="#2D6A2D" opacity="0.5"/>
+        <circle cx="28" cy="35" r="3" fill="#E87820"/>
+        <circle cx="20" cy="37" r="2" fill="#E87820" opacity="0.6"/>
+        <line x1="20" y1="10" x2="28" y2="10" stroke="#8B6914" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="item-name">りか</span>
+      <p class="item-desc">自然の謎を解き明かす実験的な学び</p>
+    </div>
+
+    <!-- 社会 -->
+    <div class="item-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="16" fill="#8B6914" opacity="0.1" stroke="#8B6914" stroke-width="1.5"/>
+        <ellipse cx="24" cy="24" rx="7" ry="16" stroke="#2D6A2D" stroke-width="1.5" fill="none"/>
+        <line x1="8" y1="24" x2="40" y2="24" stroke="#E87820" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="10" y1="17" x2="38" y2="17" stroke="#2D6A2D" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <line x1="10" y1="31" x2="38" y2="31" stroke="#2D6A2D" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+      <span class="item-name">しゃかい</span>
+      <p class="item-desc">歴史と地理の大地図を広げよう</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <h2 class="voice-title">ぼうけんしゃのこえ</h2>
+  <p class="voice-sub">クエスト学習塾で旅した冒険者たちの声</p>
+
+  <div class="voices">
+    <div class="voice-bubble left">
+      <p class="voice-text">算数がずっと苦手だったけど、ゲームみたいに問題を解いてたら、いつの間にか好きになってた！先生が「すごいね」って言ってくれるから、もっとやりたくなります。</p>
+      <p class="voice-from">小学5年生・さくらさん</p>
+      <div class="voice-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <polygon points="7,1 8.8,5 13,5 9.5,7.7 10.8,12 7,9.3 3.2,12 4.5,7.7 1,5 5.2,5" fill="#2D6A2D"/>
+        </svg>
+        生徒の声
+      </div>
+    </div>
+
+    <div class="voice-bubble right">
+      <p class="voice-text">入塾前は勉強が嫌いで毎日ゲームばかりでしたが、授業をゲームみたいに進めてくれるので、本人から「今日も塾行く！」と言い出すようになりました。</p>
+      <p class="voice-from">保護者（小学6年生 お母様）</p>
+      <div class="voice-label" style="justify-content:flex-end;">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <polygon points="7,1 8.8,5 13,5 9.5,7.7 10.8,12 7,9.3 3.2,12 4.5,7.7 1,5 5.2,5" fill="#E87820"/>
+        </svg>
+        保護者の声
+      </div>
+    </div>
+
+    <div class="voice-bubble left">
+      <p class="voice-text">受験勉強って辛いイメージだったけど、クエストをクリアしていく感じで楽しくできました。志望校に合格できたとき、本当にラスボスを倒した気分でした！</p>
+      <p class="voice-from">中学3年生・けんとくん（高校合格）</p>
+      <div class="voice-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <polygon points="7,1 8.8,5 13,5 9.5,7.7 10.8,12 7,9.3 3.2,12 4.5,7.7 1,5 5.2,5" fill="#2D6A2D"/>
+        </svg>
+        生徒の声
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-frame">
+    <!-- 四隅の剣SVG -->
+    <svg class="sword-deco" style="top:-6px;left:-6px;" width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect x="14" y="2" width="4" height="22" rx="1" fill="#8B6914"/>
+      <rect x="6" y="14" width="20" height="4" rx="1" fill="#8B6914"/>
+      <polygon points="16,24 14,32 18,32" fill="#5C3A0A"/>
+    </svg>
+    <svg class="sword-deco" style="top:-6px;right:-6px;transform:scaleX(-1);" width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect x="14" y="2" width="4" height="22" rx="1" fill="#8B6914"/>
+      <rect x="6" y="14" width="20" height="4" rx="1" fill="#8B6914"/>
+      <polygon points="16,24 14,32 18,32" fill="#5C3A0A"/>
+    </svg>
+    <svg class="sword-deco" style="bottom:-6px;left:-6px;transform:scaleY(-1);" width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect x="14" y="2" width="4" height="22" rx="1" fill="#8B6914"/>
+      <rect x="6" y="14" width="20" height="4" rx="1" fill="#8B6914"/>
+      <polygon points="16,24 14,32 18,32" fill="#5C3A0A"/>
+    </svg>
+    <svg class="sword-deco" style="bottom:-6px;right:-6px;transform:scale(-1);" width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect x="14" y="2" width="4" height="22" rx="1" fill="#8B6914"/>
+      <rect x="6" y="14" width="20" height="4" rx="1" fill="#8B6914"/>
+      <polygon points="16,24 14,32 18,32" fill="#5C3A0A"/>
+    </svg>
+
+    <h2 class="cta-heading">最初のクエストを<br>クリアしよう！</h2>
+    <p class="cta-sub">無料体験授業で、きみの冒険が始まります。<br>まずは一歩、踏み出してみよう！<br>入会のご検討は体験後でも大丈夫です。</p>
+    <a href="#" class="cta-btn">▶ 冒険をはじめる（無料体験）</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">QUEST JUKU<br>クエスト学習塾</p>
+  <p class="footer-info">〒123-4567 東京都○○区○○町1-2-3<br>TEL: 03-XXXX-XXXX　月〜土 14:00〜21:00</p>
+  <p class="footer-copy">&copy; 2025 クエスト学習塾. All rights reserved.</p>
+</footer>
+
+<script>
+  // IntersectionObserver でチェックポイントを順次フェードイン
+  const checkpoints = document.querySelectorAll('[data-cp]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  checkpoints.forEach(cp => observer.observe(cp));
+</script>
+</body>
+</html>

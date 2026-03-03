@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英知学院 | Intellectual Trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #1C2B3A;
+  --oyster:  #F0EDE4;
+  --platinum:#4A7A9B;
+  --deep-oy: #EAE6DC;
+  --anchor:  #2A2018;
+  --mid:     #7A7268;
+  --rule:    #C4B9A8;
+  --footer:  #111820;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Serif JP', serif; background: var(--oyster); color: var(--anchor); overflow-x: hidden; }
+
+/* ════════════════════════
+   MOBILE HEADER (hidden on desktop)
+════════════════════════ */
+.mobile-header {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--navy);
+  height: 56px;
+  align-items: center; justify-content: space-between;
+  padding: 0 1.5rem;
+}
+.mobile-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--oyster); text-decoration: none;
+}
+.mobile-cta {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--oyster); background: var(--platinum);
+  border: none; padding: 0.5rem 1rem; border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.3s;
+}
+.mobile-cta:hover { background: var(--oyster); color: var(--navy); }
+
+/* ════════════════════════
+   GLOBAL LAYOUT
+════════════════════════ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ════════════════════════
+   LEFT SIDEBAR
+════════════════════════ */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  overflow: hidden;
+}
+.sidebar-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--oyster);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.sidebar-rule {
+  border: none;
+  border-top: 1px solid rgba(240,237,228,0.18);
+  margin-bottom: 1.5rem;
+}
+.sidebar-catch {
+  font-size: 0.88rem; line-height: 1.9;
+  color: var(--oyster); opacity: 0.78;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.03em;
+}
+.sidebar-nav {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+.sidebar-nav a {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(240,237,228,0.5);
+  text-decoration: none;
+  padding: 0.6rem 0 0.6rem 1rem;
+  border-left: 2px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+  position: relative;
+}
+.sidebar-nav a:hover { color: var(--oyster); }
+.sidebar-nav a.active {
+  color: var(--oyster);
+  border-left-color: var(--platinum);
+}
+.sidebar-cta {
+  margin-top: 2rem;
+  display: block;
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--oyster);
+  background: var(--platinum);
+  border: 1px solid var(--platinum);
+  border-radius: 2px;
+  padding: 0.9rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+.sidebar-cta:hover { background: var(--oyster); color: var(--navy); border-color: var(--oyster); }
+
+/* ════════════════════════
+   MAIN CONTENT
+════════════════════════ */
+.main {
+  flex: 1;
+  background: var(--oyster);
+  min-width: 0;
+}
+
+/* ── Section base ── */
+section {
+  padding: 5rem 4rem;
+}
+.sec-label {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--platinum);
+  display: block;
+  margin-bottom: 0.7rem;
+}
+.sec-heading {
+  font-size: 1.9rem; font-weight: 600;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════
+   HERO
+════════════════════════ */
+#hero {
+  background: var(--oyster);
+  padding-top: 6rem;
+  border-right: 1px solid var(--rule);
+}
+.hero-nums {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 4rem;
+  border-top: 1px solid var(--rule);
+}
+.hero-num-item {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.hero-num-item:last-child { border-right: none; }
+.num-label {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--platinum);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+.num-value {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 4rem;
+  color: var(--navy);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+.num-unit {
+  font-size: 1.2rem;
+  color: var(--platinum);
+}
+.num-desc {
+  font-size: 0.8rem; color: var(--mid);
+  line-height: 1.6;
+}
+.hero-copy {
+  font-size: 1.05rem; line-height: 2.2;
+  color: var(--anchor);
+  max-width: 600px;
+  border-top: 1px solid var(--rule);
+  padding-top: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* ════════════════════════
+   PHILOSOPHY
+════════════════════════ */
+#philosophy { background: var(--oyster); }
+.philosophy-items { display: flex; flex-direction: column; }
+.philosophy-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  /* clip-path reveal */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.philosophy-item.revealed { clip-path: inset(0 0% 0 0); }
+.philosophy-item:first-child { border-top: 1px solid var(--rule); }
+.phi-num {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 3rem;
+  color: var(--platinum);
+  opacity: 0.28;
+  line-height: 1;
+  padding-top: 0.2rem;
+}
+.phi-content {}
+.phi-title {
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+}
+.phi-text {
+  font-size: 0.93rem; line-height: 2;
+  color: var(--anchor);
+  letter-spacing: 0.04em;
+}
+
+/* ════════════════════════
+   RESULTS (marquee)
+════════════════════════ */
+#results {
+  background: var(--navy);
+  padding: 5rem 0;
+  overflow: hidden;
+}
+#results .inner { padding: 0 4rem; margin-bottom: 3rem; }
+#results .sec-label { color: rgba(240,237,228,0.5); }
+#results .sec-heading { color: var(--oyster); margin-bottom: 0; }
+
+.marquee-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(240,237,228,0.12);
+  border-bottom: 1px solid rgba(240,237,228,0.12);
+}
+.marquee-wrap + .marquee-wrap {
+  border-top: none;
+  margin-top: 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+}
+.marquee-track.forward  { animation: marquee-fwd  22s linear infinite; }
+.marquee-track.backward { animation: marquee-bwd  22s linear infinite; }
+@keyframes marquee-fwd  { from { transform: translateX(0) }    to { transform: translateX(-50%) } }
+@keyframes marquee-bwd  { from { transform: translateX(-50%) } to { transform: translateX(0) }    }
+.marquee-item {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--oyster);
+  padding: 0 2.5rem;
+  opacity: 0.75;
+}
+.marquee-sep {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--platinum);
+  padding: 0 0.5rem;
+  opacity: 0.5;
+}
+
+/* ════════════════════════
+   COURSES
+════════════════════════ */
+#courses { background: var(--oyster); }
+.courses-list { display: flex; flex-direction: column; gap: 1.2rem; }
+.course-card {
+  background: #F8F5EE;
+  border-left: 3px solid var(--platinum);
+  padding: 2rem 2.5rem;
+  border-radius: 2px;
+  transition: border-left-color 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+.course-card:hover {
+  border-left-color: var(--navy);
+  box-shadow: 0 4px 20px rgba(28,43,58,0.08);
+}
+.course-name {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.92rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.course-target {
+  font-size: 0.82rem; color: var(--platinum);
+  margin-bottom: 0.9rem;
+}
+.course-desc {
+  font-size: 0.93rem; line-height: 1.95;
+  color: var(--anchor); letter-spacing: 0.04em;
+}
+
+/* ════════════════════════
+   TEACHER
+════════════════════════ */
+#teacher { background: var(--deep-oy); }
+.teacher-body {
+  border-left: 2px solid var(--platinum);
+  padding-left: 2.5rem;
+  max-width: 640px;
+}
+.teacher-text {
+  font-size: 1rem; line-height: 2.3;
+  color: var(--anchor); letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+}
+.teacher-name {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.3rem; letter-spacing: 0.12em;
+  color: var(--navy);
+}
+.teacher-title {
+  font-size: 0.82rem; color: var(--mid);
+  margin-top: 0.3rem;
+}
+
+/* ════════════════════════
+   CTA
+════════════════════════ */
+#cta {
+  background: var(--navy);
+  text-align: center;
+  padding: 7rem 4rem;
+}
+#cta .sec-label { color: rgba(240,237,228,0.45); display: block; margin-bottom: 1rem; }
+.cta-heading {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--oyster);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.cta-sub {
+  font-size: 0.95rem; line-height: 2;
+  color: var(--oyster); opacity: 0.72;
+  max-width: 480px; margin: 0 auto 3rem;
+  letter-spacing: 0.04em;
+}
+.cta-btn {
+  display: inline-block;
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--oyster);
+  background: transparent;
+  border: 1px solid rgba(240,237,228,0.5);
+  border-radius: 2px;
+  padding: 1.1rem 3.5rem;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.cta-btn:hover {
+  background: var(--oyster);
+  color: var(--navy);
+  border-color: var(--oyster);
+}
+
+/* ════════════════════════
+   FOOTER
+════════════════════════ */
+footer {
+  background: var(--footer);
+  border-top: 1px solid rgba(240,237,228,0.08);
+  padding: 2.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 2rem;
+}
+.footer-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 0.88rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--oyster);
+  margin-bottom: 0.6rem;
+}
+.footer-info {
+  font-size: 0.78rem; line-height: 1.9;
+  color: rgba(240,237,228,0.42);
+}
+.footer-copy {
+  font-size: 0.72rem;
+  color: rgba(240,237,228,0.22);
+  margin-top: 0.4rem;
+}
+
+/* ════════════════════════
+   RESPONSIVE
+════════════════════════ */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .mobile-header { display: flex; }
+  .main { padding-top: 56px; }
+  section { padding: 4rem 2rem; }
+  .hero-nums { grid-template-columns: 1fr; }
+  .hero-num-item { border-right: none; }
+  #results .inner { padding: 0 2rem; }
+  footer { flex-direction: column; padding: 2rem; }
+}
+@media (max-width: 768px) {
+  .num-value { font-size: 3rem; }
+  .cta-heading { font-size: clamp(1.3rem, 5vw, 1.7rem); }
+  #cta { padding: 5rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile Header -->
+<header class="mobile-header">
+  <a href="#hero" class="mobile-logo">英知学院</a>
+  <a href="#cta" class="mobile-cta">無料相談</a>
+</header>
+
+<div class="layout">
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sidebar">
+    <a href="#hero" class="sidebar-logo">英知学院</a>
+    <hr class="sidebar-rule">
+    <p class="sidebar-catch">子どもの未来を、<br>本気で考える。</p>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <a href="#hero"        data-sec="hero">Achievements</a>
+      <a href="#philosophy"  data-sec="philosophy">Philosophy</a>
+      <a href="#results"     data-sec="results">Results</a>
+      <a href="#courses"     data-sec="courses">Courses</a>
+      <a href="#teacher"     data-sec="teacher">Teachers</a>
+    </nav>
+    <a href="#cta" class="sidebar-cta">無料学習相談を予約する</a>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-nums">
+        <div class="hero-num-item">
+          <span class="num-label">Top University</span>
+          <span class="num-value"><span class="count" data-target="312">0</span><span class="num-unit">名</span></span>
+          <p class="num-desc">東大・京大・国公立医学部<br>合格累計実績</p>
+        </div>
+        <div class="hero-num-item">
+          <span class="num-label">Success Rate</span>
+          <span class="num-value"><span class="count" data-target="94">0</span><span class="num-unit">%</span></span>
+          <p class="num-desc">第一志望校合格率<br>（直近3年間平均）</p>
+        </div>
+        <div class="hero-num-item">
+          <span class="num-label">Years of Trust</span>
+          <span class="num-value"><span class="count" data-target="28">0</span><span class="num-unit">年</span></span>
+          <p class="num-desc">創業からの指導実績<br>累計生徒数 4,800名以上</p>
+        </div>
+      </div>
+      <p class="hero-copy">
+        英知学院は、中学受験・高校受験・大学受験を通じて、子どもたちの可能性を最大限に引き出してきました。数値に表れる実績と、数値では測れない人間的な成長。その両方を、私たちは追い続けています。
+      </p>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section id="philosophy">
+      <span class="sec-label">Our Philosophy</span>
+      <h2 class="sec-heading">指導の三つの柱</h2>
+      <div class="philosophy-items">
+        <div class="philosophy-item" data-reveal>
+          <span class="phi-num">01</span>
+          <div class="phi-content">
+            <h3 class="phi-title">個の学力を精緻に診断する</h3>
+            <p class="phi-text">入塾時の徹底した学力診断と継続的なモニタリングにより、各生徒の「できる」と「できない」を正確に把握します。曖昧な指導ではなく、根拠ある個別カリキュラムが英知学院の出発点です。</p>
+          </div>
+        </div>
+        <div class="philosophy-item" data-reveal>
+          <span class="phi-num">02</span>
+          <div class="phi-content">
+            <h3 class="phi-title">問いを立て、思考する力を育てる</h3>
+            <p class="phi-text">暗記と反復だけでは、難関校の本質的な問いには答えられません。「なぜそうなるのか」を問い続ける姿勢を養うことで、初見問題にも動じない真の学力が形成されます。</p>
+          </div>
+        </div>
+        <div class="philosophy-item" data-reveal>
+          <span class="phi-num">03</span>
+          <div class="phi-content">
+            <h3 class="phi-title">保護者と三者一体で歩む</h3>
+            <p class="phi-text">受験は子供だけの挑戦ではありません。ご家庭との定期的な情報共有と連携を通じて、学習環境全体を最適化します。保護者の方の不安や疑問に、私たちは誠実に向き合います。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+      <div class="inner">
+        <span class="sec-label">Track Record</span>
+        <h2 class="sec-heading" style="margin-bottom:2.5rem;">合格実績</h2>
+      </div>
+      <!-- 大学 -->
+      <div class="marquee-wrap">
+        <div class="marquee-track forward">
+          <span class="marquee-item">東京大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">京都大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">一橋大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">東京工業大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">慶應義塾大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">早稲田大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">大阪大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">東北大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">名古屋大学</span><span class="marquee-sep">—</span>
+          <!-- duplicate for seamless -->
+          <span class="marquee-item">東京大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">京都大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">一橋大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">東京工業大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">慶應義塾大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">早稲田大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">大阪大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">東北大学</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">名古屋大学</span><span class="marquee-sep">—</span>
+        </div>
+      </div>
+      <!-- 中高 -->
+      <div class="marquee-wrap">
+        <div class="marquee-track backward">
+          <span class="marquee-item">開成中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">桜蔭中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">麻布中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">駒場東邦中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">海城中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">灘高等学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">筑波大附属駒場</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">女子学院中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">豊島岡女子学園</span><span class="marquee-sep">—</span>
+          <!-- duplicate -->
+          <span class="marquee-item">開成中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">桜蔭中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">麻布中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">駒場東邦中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">海城中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">灘高等学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">筑波大附属駒場</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">女子学院中学校</span><span class="marquee-sep">—</span>
+          <span class="marquee-item">豊島岡女子学園</span><span class="marquee-sep">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES -->
+    <section id="courses">
+      <span class="sec-label">Courses</span>
+      <h2 class="sec-heading">コース一覧</h2>
+      <div class="courses-list">
+        <div class="course-card">
+          <p class="course-name">Junior Preparation Course</p>
+          <p class="course-target">対象：小学4年生〜6年生（中学受験）</p>
+          <p class="course-desc">中学受験に特化した専門カリキュラムで、算数・国語・理科・社会の4科目を体系的に指導します。志望校の出題傾向を徹底分析し、合格に直結する力を最短経路で養成します。</p>
+        </div>
+        <div class="course-card">
+          <p class="course-name">High School Entrance Course</p>
+          <p class="course-target">対象：中学1年生〜3年生（高校受験）</p>
+          <p class="course-desc">5科目の基礎固めから応用・入試演習まで、段階的な指導で確実な実力向上を目指します。定期テスト対策と受験対策を有機的に連携させたカリキュラム設計が特徴です。</p>
+        </div>
+        <div class="course-card">
+          <p class="course-name">University Entrance Course</p>
+          <p class="course-target">対象：高校1年生〜3年生（大学受験）</p>
+          <p class="course-desc">東大・難関国公立・医学部を目指す生徒のための最上位コース。現役合格に特化した年間スケジュールと、プロ講師による徹底個別指導で第一志望合格を実現します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEACHER -->
+    <section id="teacher">
+      <span class="sec-label">Our Teachers</span>
+      <h2 class="sec-heading">講師陣について</h2>
+      <div class="teacher-body">
+        <p class="teacher-text">
+          英知学院の講師は全員、難関大学出身の現役・元教員で構成されています。学力指導の専門性はもちろん、子供の心理的な変化を敏感に察知し、適切な声かけができる人間力を採用の第一条件としています。定期的な研修と授業研究を通じて、指導品質を常に高め続けています。保護者の方からよく「先生が変わっても安心できる」とおっしゃっていただけるのは、学院全体で共有された指導哲学があるからです。
+        </p>
+        <p class="teacher-name">山田 誠一郎</p>
+        <p class="teacher-title">英知学院 代表・塾長　東京大学教育学部卒</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <span class="sec-label">Consultation</span>
+      <h2 class="cta-heading">無料学習相談を<br>予約する</h2>
+      <p class="cta-sub">お子さまの現状と課題を丁寧にヒアリングし、最適な学習プランをご提案いたします。入塾のご検討はその後で構いません。</p>
+      <a href="#" class="cta-btn">予約フォームへ</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <p class="footer-logo">英知学院</p>
+        <p class="footer-info">
+          〒102-0094　東京都千代田区紀尾井町1-1<br>
+          TEL: 03-XXXX-XXXX　月〜土 13:00〜22:00
+        </p>
+        <p class="footer-copy">&copy; 2025 英知学院. All rights reserved.</p>
+      </div>
+      <div style="text-align:right;">
+        <p style="font-family:'Tenor Sans',sans-serif;font-size:0.7rem;letter-spacing:0.15em;color:rgba(240,237,228,0.3);text-transform:uppercase;">Intellectual Trust<br>Since 1997</p>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+/* ── Sidebar active nav ── */
+const sections  = document.querySelectorAll('main section[id]');
+const navLinks  = document.querySelectorAll('.sidebar-nav a');
+const io1 = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => io1.observe(s));
+
+/* ── clip-path reveal ── */
+const revealItems = document.querySelectorAll('[data-reveal]');
+const io2 = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      const delay = Array.from(revealItems).indexOf(e.target) * 0.15;
+      e.target.style.transitionDelay = delay + 's';
+      e.target.classList.add('revealed');
+      io2.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+revealItems.forEach(el => io2.observe(el));
+
+/* ── count-up ── */
+function countUp(el) {
+  const target = +el.dataset.target;
+  const duration = 1400;
+  const start = performance.now();
+  function step(now) {
+    const prog = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - prog, 3);
+    el.textContent = Math.floor(ease * target);
+    if (prog < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+const counters = document.querySelectorAll('.count');
+const io3 = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { countUp(e.target); io3.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => io3.observe(c));
+</script>
+</body>
+</html>

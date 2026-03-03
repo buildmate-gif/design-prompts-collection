@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX RIDGE X7 — TERRANOVA GEAR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --slate-blue: #2B3A4A;
+    --deep-slate: #1E2A36;
+    --snow: #EEF0F0;
+    --mid-grey: #BEC3C8;
+    --grey-text: #5A6472;
+    --light-grey: #AAB2BB;
+    --tan: #C8A96E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', serif;
+    background: var(--deep-slate);
+    color: var(--snow);
+    overflow-x: hidden;
+  }
+
+  /* ========== TYPOGRAPHY ========== */
+  .font-barlow { font-family: 'Barlow Condensed', sans-serif; }
+  .spec-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: var(--tan);
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    min-height: 100vh;
+    background-color: var(--deep-slate);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 6vw, 7rem);
+    padding-right: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .brand-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    color: var(--tan);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .brand-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--tan);
+  }
+
+  .hero-product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(4rem, 9vw, 8rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    color: var(--snow);
+    margin-bottom: 2rem;
+  }
+
+  .hero-product-name span {
+    color: var(--tan);
+    display: block;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  .hero-catch {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    color: var(--light-grey);
+    max-width: 420px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--snow);
+    border: 1px solid var(--tan);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--tan);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+  .hero-cta:hover::before { transform: translateX(0); }
+  .hero-cta:hover { color: var(--deep-slate); }
+  .hero-cta:hover .cta-arrow { transform: translateX(6px); }
+  .hero-cta span { position: relative; z-index: 1; }
+  .cta-arrow {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    font-size: 1.1rem;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+    background: linear-gradient(135deg, #1E2A36 0%, #2B3A4A 100%);
+  }
+
+  .product-visual {
+    width: 75%;
+    max-width: 480px;
+    aspect-ratio: 3/4;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(200,169,110,0.2);
+    position: relative;
+    gap: 1rem;
+  }
+
+  .product-placeholder::before,
+  .product-placeholder::after {
+    content: '';
+    position: absolute;
+    border-color: var(--tan);
+    border-style: solid;
+  }
+  .product-placeholder::before {
+    top: -1px; left: -1px;
+    width: 32px; height: 32px;
+    border-width: 2px 0 0 2px;
+  }
+  .product-placeholder::after {
+    bottom: -1px; right: -1px;
+    width: 32px; height: 32px;
+    border-width: 0 2px 2px 0;
+  }
+
+  .product-silhouette {
+    width: 60%;
+    opacity: 0.15;
+    fill: var(--tan);
+  }
+
+  .product-img-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--tan);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* ========== SPECS TICKER ========== */
+  #specs-ticker {
+    background: var(--tan);
+    overflow: hidden;
+    padding: 0.9rem 0;
+    position: relative;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker-scroll 28s linear infinite;
+    width: max-content;
+  }
+
+  #specs-ticker:hover .ticker-track { animation-play-state: paused; }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 2.5rem;
+    white-space: nowrap;
+  }
+
+  .ticker-key {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--deep-slate);
+    opacity: 0.7;
+  }
+
+  .ticker-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--deep-slate);
+  }
+
+  .ticker-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--deep-slate);
+    opacity: 0.4;
+    border-radius: 50%;
+    margin: 0 1rem;
+  }
+
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ========== SECTION DIVIDERS ========== */
+  .clip-dark-to-light {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+    margin-bottom: -60px;
+    padding-bottom: 120px;
+  }
+  .clip-light-to-dark {
+    clip-path: polygon(0 0, 100% 60px, 100% 100%, 0 100%);
+    margin-top: -60px;
+    padding-top: 120px;
+  }
+
+  /* ========== TECHNOLOGY (LIGHT) ========== */
+  #technology {
+    background: var(--snow);
+    color: var(--slate-blue);
+    padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem);
+  }
+
+  #technology .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.75rem;
+  }
+
+  #technology .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--slate-blue);
+    margin-bottom: 4rem;
+    max-width: 600px;
+  }
+
+  .tech-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 6rem;
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .tech-block.from-left { transform: translateX(-40px); }
+  .tech-block.from-right { transform: translateX(40px); }
+  .tech-block.visible { opacity: 1; transform: translateX(0); }
+
+  .tech-block:nth-child(even) .tech-content { order: 2; }
+  .tech-block:nth-child(even) .tech-visual { order: 1; }
+
+  .tech-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--tan);
+    opacity: 0.18;
+    line-height: 1;
+    margin-bottom: -1.5rem;
+  }
+
+  .tech-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.75rem;
+  }
+
+  .tech-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--slate-blue);
+    margin-bottom: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .tech-desc {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    color: var(--grey-text);
+  }
+
+  .tech-visual {
+    background: var(--slate-blue);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-visual-inner {
+    width: 60%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(200,169,110,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tech-visual-inner svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.4;
+    fill: none;
+    stroke: var(--tan);
+    stroke-width: 1.5;
+  }
+
+  /* ========== SPEC TABLE (DARK) ========== */
+  #spec-table {
+    background: var(--deep-slate);
+    padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem);
+  }
+
+  #spec-table .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.75rem;
+  }
+
+  #spec-table .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--snow);
+    margin-bottom: 3rem;
+  }
+
+  .spec-table-wrap {
+    width: 100%;
+    border-top: 1px solid rgba(238,240,240,0.1);
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border-bottom: 1px solid rgba(238,240,240,0.08);
+    padding: 1.5rem 0;
+    align-items: baseline;
+    gap: 2rem;
+  }
+
+  .spec-row-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+  }
+
+  .spec-row-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--snow);
+    letter-spacing: 0.02em;
+  }
+
+  .spec-row-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    color: var(--light-grey);
+    margin-top: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .odometer-val { display: inline-block; }
+
+  /* ========== FIELD SCENES (LIGHT) ========== */
+  #field-scenes {
+    background: var(--snow);
+    color: var(--slate-blue);
+    padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem);
+  }
+
+  #field-scenes .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.75rem;
+  }
+
+  #field-scenes .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--slate-blue);
+    margin-bottom: 3rem;
+  }
+
+  .field-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .field-card {
+    background: var(--slate-blue);
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+  }
+
+  .field-card-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.08;
+  }
+
+  .field-card-bg svg {
+    width: 60%;
+    height: 60%;
+    fill: var(--snow);
+  }
+
+  .field-card-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .field-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--snow);
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+    line-height: 1.1;
+  }
+
+  .field-card-desc {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--light-grey);
+    position: relative;
+    z-index: 1;
+  }
+
+  .field-card-bar {
+    width: 32px;
+    height: 2px;
+    background: var(--tan);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========== PRICING (DARK) ========== */
+  #pricing {
+    background: var(--deep-slate);
+    padding: clamp(5rem, 8vw, 9rem) clamp(1.5rem, 5vw, 5rem);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #pricing::before {
+    content: 'APEX RIDGE';
+    position: absolute;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20vw;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: rgba(200,169,110,0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .price-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 2rem;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .price-display {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--tan);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .price-note {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    color: var(--light-grey);
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--tan);
+    color: var(--deep-slate);
+    padding: 1.25rem 3rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-btn:hover {
+    background: var(--snow);
+    color: var(--slate-blue);
+  }
+
+  .cta-btn:hover .btn-arrow { transform: translateX(6px); }
+  .btn-arrow { transition: transform 0.3s ease; font-size: 1rem; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--deep-slate);
+    border-top: 1px solid rgba(238,240,240,0.08);
+    padding: 2rem clamp(1.5rem, 5vw, 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--snow);
+  }
+
+  .footer-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light-grey);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    #hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-right {
+      display: none;
+    }
+    .hero-left {
+      padding: 3rem 1.5rem;
+      min-height: 100vh;
+      justify-content: flex-end;
+      padding-bottom: 4rem;
+    }
+    .tech-block {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .tech-block:nth-child(even) .tech-content { order: unset; }
+    .tech-block:nth-child(even) .tech-visual { order: unset; }
+    .field-cards {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .field-card { aspect-ratio: unset; min-height: 280px; }
+    footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1279px) {
+    .field-cards { grid-template-columns: 1fr 1fr; }
+    .field-cards .field-card:last-child { grid-column: 1 / -1; aspect-ratio: 3/1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-grid-overlay"></div>
+
+  <div class="hero-left">
+    <div class="brand-tag">TERRANOVA GEAR</div>
+    <h1 class="hero-product-name">
+      APEX<br>RIDGE
+      <span>X7 SUMMIT PACK</span>
+    </h1>
+    <p class="hero-catch">
+      山岳救助隊の要求仕様を満たすために設計されたアルパイン バックパック。
+      Mil-Spec CORDURA®との融合が、稜線上での確実な行動を可能にする。
+    </p>
+    <a href="#spec-table" class="hero-cta">
+      <span>SPEC を確認する</span>
+      <span class="cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="product-visual" id="productParallax">
+      <div class="product-placeholder">
+        <!-- SVG backpack silhouette -->
+        <svg class="product-silhouette" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="20" width="120" height="180" rx="20" fill="currentColor"/>
+          <rect x="55" y="200" width="90" height="50" rx="8" fill="currentColor"/>
+          <rect x="70" y="10" width="60" height="25" rx="8" fill="currentColor"/>
+          <rect x="30" y="60" width="15" height="100" rx="5" fill="currentColor"/>
+          <rect x="155" y="60" width="15" height="100" rx="5" fill="currentColor"/>
+          <rect x="55" y="80" width="90" height="2" rx="1" fill="currentColor" opacity="0.5"/>
+          <rect x="55" y="120" width="90" height="2" rx="1" fill="currentColor" opacity="0.5"/>
+        </svg>
+        <div class="product-img-label">PRODUCT IMAGE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPECS TICKER ===== -->
+<div id="specs-ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- Items will be duplicated by JS -->
+    <div class="ticker-item">
+      <span class="ticker-key">Weight</span>
+      <span class="ticker-val">1,240g</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Capacity</span>
+      <span class="ticker-val">45L</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Waterproof</span>
+      <span class="ticker-val">IPX6</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Material</span>
+      <span class="ticker-val">500D CORDURA</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Colors</span>
+      <span class="ticker-val">3 Variants</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Frame</span>
+      <span class="ticker-val">Dyneema Composite</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <!-- Duplicate for loop -->
+    <div class="ticker-item">
+      <span class="ticker-key">Weight</span>
+      <span class="ticker-val">1,240g</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Capacity</span>
+      <span class="ticker-val">45L</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Waterproof</span>
+      <span class="ticker-val">IPX6</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Material</span>
+      <span class="ticker-val">500D CORDURA</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Colors</span>
+      <span class="ticker-val">3 Variants</span>
+    </div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item">
+      <span class="ticker-key">Frame</span>
+      <span class="ticker-val">Dyneema Composite</span>
+    </div>
+    <div class="ticker-dot"></div>
+  </div>
+</div>
+
+<!-- ===== TECHNOLOGY ===== -->
+<section id="technology" class="clip-dark-to-light">
+  <p class="section-eyebrow">Equipment Intelligence</p>
+  <h2 class="section-title">Three Core Technologies</h2>
+
+  <!-- Tech 1 -->
+  <div class="tech-block from-left">
+    <div class="tech-content">
+      <div class="tech-number">01</div>
+      <p class="tech-tag">Load Transfer System</p>
+      <h3 class="tech-title">ダイナミック フレーム アーキテクチャ</h3>
+      <p class="tech-desc">
+        Dyneema Composite Fabricを使用した軽量フレームは、重荷の荷重を腰骨へと最適に転送する。
+        標高3,000m超の稜線歩行でも疲労蓄積を最小化し、正確な身体動作を維持する。
+      </p>
+    </div>
+    <div class="tech-visual">
+      <div class="tech-visual-inner">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10 L50 90 M30 30 L50 10 L70 30 M20 60 L50 90 L80 60" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="50" cy="50" r="8" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech 2 -->
+  <div class="tech-block from-right">
+    <div class="tech-content">
+      <div class="tech-number">02</div>
+      <p class="tech-tag">Moisture Management</p>
+      <h3 class="tech-title">HYDROSHIELD PRO レイヤーシステム</h3>
+      <p class="tech-desc">
+        表面に施されたデュラブルウォーターリペレント（DWR）加工と、シームテープ処理により
+        IPX6相当の防水性能を実現。突発的な気象変化にも即応できる耐候設計。
+      </p>
+    </div>
+    <div class="tech-visual">
+      <div class="tech-visual-inner">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 20 Q30 50 30 65 A20 20 0 0 0 70 65 Q70 50 50 20Z" stroke-linecap="round"/>
+          <path d="M40 70 Q45 80 50 82 Q55 80 60 70" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech 3 -->
+  <div class="tech-block from-left">
+    <div class="tech-content">
+      <div class="tech-number">03</div>
+      <p class="tech-tag">Access & Deployment</p>
+      <h3 class="tech-title">マルチアクセス パネルシステム</h3>
+      <p class="tech-desc">
+        ラップトップ・緊急医療用品・ビバークギアへの独立アクセスルートを確保。
+        グローブ装着時でも操作可能な大型ジッパープルとマグネット式バックルを採用。
+      </p>
+    </div>
+    <div class="tech-visual">
+      <div class="tech-visual-inner">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="60" height="60" rx="4"/>
+          <line x1="20" y1="50" x2="80" y2="50"/>
+          <line x1="50" y1="20" x2="50" y2="80"/>
+          <circle cx="50" cy="50" r="5" fill="var(--tan)" stroke="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPEC TABLE ===== -->
+<section id="spec-table" class="clip-light-to-dark">
+  <p class="section-eyebrow">Full Specifications</p>
+  <h2 class="section-title">Technical Datasheet</h2>
+
+  <div class="spec-table-wrap">
+    <div class="spec-row">
+      <div class="spec-row-label">重量</div>
+      <div>
+        <div class="spec-row-value">
+          <span class="odometer-val" data-target="1240" data-suffix="g">0g</span>
+        </div>
+        <div class="spec-row-sub">フレーム・ヒップベルト込み / メイン本体のみ 1,080g</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">容量</div>
+      <div>
+        <div class="spec-row-value">
+          <span class="odometer-val" data-target="45" data-suffix="L">0L</span>
+        </div>
+        <div class="spec-row-sub">メイン 38L + ハイドレーション 3L + フロント 4L</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">素材</div>
+      <div>
+        <div class="spec-row-value">500D CORDURA NYLON</div>
+        <div class="spec-row-sub">ボトム：1000D CORDURA / フレーム：Dyneema Composite</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">防水規格</div>
+      <div>
+        <div class="spec-row-value">
+          <span class="odometer-val" data-target="6" data-prefix="IPX" data-suffix="">0</span>
+        </div>
+        <div class="spec-row-sub">全縫い目シームテープ処理 / DWR フッ素フリーコーティング</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">寸法</div>
+      <div>
+        <div class="spec-row-value">H78 × W32 × D26 cm</div>
+        <div class="spec-row-sub">トルソーフィット：S/M 38-48cm / M/L 44-54cm</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">カラー</div>
+      <div>
+        <div class="spec-row-value">Slate Blue / Raven / Tundra</div>
+        <div class="spec-row-sub">全3色 / 特定カラーは数量限定</div>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-row-label">最大積載重量</div>
+      <div>
+        <div class="spec-row-value">
+          <span class="odometer-val" data-target="22" data-suffix="kg">0kg</span>
+        </div>
+        <div class="spec-row-sub">推奨積載：体重の20〜30%以下</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIELD SCENES ===== -->
+<section id="field-scenes" class="clip-dark-to-light">
+  <p class="section-eyebrow">Field Application</p>
+  <h2 class="section-title">Three Operating Environments</h2>
+
+  <div class="field-cards">
+    <div class="field-card animate-on-scroll">
+      <div class="field-card-bg">
+        <!-- Mountain SVG -->
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="100,20 180,180 20,180"/>
+          <polygon points="60,80 120,180 0,180" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="field-card-num">SCENE 01</div>
+      <div class="field-card-bar"></div>
+      <h3 class="field-card-title">HIGH ALPINE<br>TRAVERSE</h3>
+      <p class="field-card-desc">標高3,000m超の縦走路。積雪期アプローチから岩稜帯の通過まで、確実な荷重保持と機動性を両立。</p>
+    </div>
+
+    <div class="field-card animate-on-scroll">
+      <div class="field-card-bg">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 100 Q60 20 100 100 Q140 180 180 100" fill="none" stroke="currentColor" stroke-width="20"/>
+          <line x1="20" y1="150" x2="180" y2="150" stroke="currentColor" stroke-width="15"/>
+        </svg>
+      </div>
+      <div class="field-card-num">SCENE 02</div>
+      <div class="field-card-bar"></div>
+      <h3 class="field-card-title">EXPEDITION<br>BASE CAMP</h3>
+      <p class="field-card-desc">長期滞在を支えるベースキャンプ往復輸送。整理された収納システムが、反復作業の効率を高める。</p>
+    </div>
+
+    <div class="field-card animate-on-scroll">
+      <div class="field-card-bg">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="15"/>
+          <line x1="100" y1="30" x2="100" y2="170" stroke="currentColor" stroke-width="8"/>
+          <line x1="30" y1="100" x2="170" y2="100" stroke="currentColor" stroke-width="8"/>
+        </svg>
+      </div>
+      <div class="field-card-num">SCENE 03</div>
+      <div class="field-card-bar"></div>
+      <h3 class="field-card-title">TECHNICAL<br>SEARCH & RESCUE</h3>
+      <p class="field-card-desc">山岳救助活動での装備搬送。医療用品・ロープ・ビーコンへの独立アクセスが迅速な初動を可能にする。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="clip-light-to-dark">
+  <span class="price-eyebrow">Available Now</span>
+  <div class="price-display">¥ 98,000</div>
+  <p class="price-note">税込価格 / 送料無料 / 30日間フィールドテスト保証</p>
+  <a href="#" class="cta-btn">
+    <span>購入する</span>
+    <span class="btn-arrow">→</span>
+  </a>
+  <br><br>
+  <a href="#" class="hero-cta" style="margin-top:1.5rem; display:inline-flex;">
+    <span>詳細を見る</span>
+    <span class="cta-arrow">→</span>
+  </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-brand">TERRANOVA GEAR</div>
+  <div class="footer-text">© 2025 TERRANOVA GEAR Inc. All Rights Reserved.</div>
+  <div class="footer-text">terranova-gear.com</div>
+</footer>
+
+<script>
+/* ===== PARALLAX ===== */
+(function() {
+  const el = document.getElementById('productParallax');
+  if (!el) return;
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 12;
+    const y = (e.clientY / window.innerHeight - 0.5) * 12;
+    el.style.transform = `translate(${x}px, ${y}px) rotateX(${-y * 0.3}deg) rotateY(${x * 0.3}deg)`;
+  });
+})();
+
+/* ===== ODOMETER COUNTER ===== */
+(function() {
+  const els = document.querySelectorAll('.odometer-val');
+  const opts = { threshold: 0.3 };
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const duration = 2000;
+      const start = performance.now();
+
+      function animate(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        const formatted = current.toLocaleString('ja-JP');
+        el.textContent = prefix + formatted + suffix;
+        if (progress < 1) requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+      obs.unobserve(el);
+    });
+  }, opts);
+
+  els.forEach(el => obs.observe(el));
+})();
+
+/* ===== SCROLL ANIMATIONS (tech blocks) ===== */
+(function() {
+  const techBlocks = document.querySelectorAll('.tech-block');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  techBlocks.forEach(el => obs.observe(el));
+})();
+
+/* ===== FIELD CARDS FADE ===== */
+(function() {
+  const cards = document.querySelectorAll('.animate-on-scroll');
+  cards.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(el => obs.observe(el));
+})();
+
+/* ===== SMOOTH SCROLL ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>

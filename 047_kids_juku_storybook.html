@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まなびの森学習塾 | Storybook Pop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #5BB8F5;
+    --yellow: #FFD85C;
+    --coral: #FF7E5F;
+    --green: #AADEA7;
+    --purple: #C9A8E2;
+    --offwhite: #FAFAF8;
+    --text: #333333;
+    --sub: #666666;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); overflow-x: hidden; }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--sky);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    box-shadow: 0 2px 12px rgba(91,184,245,0.3);
+  }
+  .logo {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800; font-size: 1.3rem;
+    color: #FFFFFF; text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  nav { display: flex; gap: 0.6rem; }
+  nav a {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    color: #FFFFFF; text-decoration: none;
+    padding: 0.4rem 1.1rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: all 0.2s ease;
+  }
+  nav a:hover { background: #FFFFFF; color: var(--sky); border-color: #FFFFFF; }
+
+  /* ─── HERO ─── */
+  #hero {
+    background: var(--yellow);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 背景の丸い装飾 */
+  #hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: rgba(255,126,95,0.12);
+    border-radius: 50%;
+  }
+  #hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: rgba(91,184,245,0.15);
+    border-radius: 50%;
+  }
+  .book-frame {
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    width: 100%; max-width: 760px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative; z-index: 1;
+    animation: floating 3s ease-in-out infinite;
+  }
+  @keyframes floating {
+    0%, 100% { transform: translateY(-8px); }
+    50% { transform: translateY(8px); }
+  }
+  /* 本の中央の縦線 */
+  .book-frame::after {
+    content: '';
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 3px;
+    background: linear-gradient(to bottom, #FFD85C 0%, #FF7E5F 50%, #5BB8F5 100%);
+    transform: translateX(-50%);
+    opacity: 0.4;
+  }
+  .book-left {
+    background: linear-gradient(135deg, #EEF9FF 0%, #D8F0FF 100%);
+    padding: 3.5rem 2rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.5rem;
+    min-height: 420px;
+  }
+  .book-right {
+    padding: 3.5rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 1.4rem;
+    background: #FFFFFF;
+  }
+  /* SVGイラストエリア */
+  .illust-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .illust-item {
+    width: 80px; height: 80px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.8rem; font-weight: 700;
+    background: var(--sky); color: #FFFFFF;
+    padding: 0.3rem 1rem; border-radius: 20px;
+    display: inline-block;
+  }
+  .hero-h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2.4rem; font-weight: 800;
+    color: var(--coral);
+    line-height: 1.3;
+  }
+  .hero-sub {
+    font-size: 0.95rem; line-height: 1.9;
+    color: var(--sub);
+    letter-spacing: 0.02em;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--coral); color: #FFFFFF;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700; font-size: 1rem;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(255,126,95,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    align-self: flex-start;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255,126,95,0.45);
+  }
+
+  /* ─── FEATURES ─── */
+  #features {
+    background: var(--offwhite);
+    padding: 6rem 2rem;
+  }
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2rem; font-weight: 800;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    text-align: center; color: var(--sub);
+    font-size: 0.95rem; margin-bottom: 4rem;
+  }
+  .feature-item {
+    max-width: 900px; margin: 0 auto 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 3.5rem 0;
+    border-top: 2px dashed #C8E8FF;
+  }
+  .feature-item:first-of-type { border-top: none; padding-top: 0; }
+  .feature-item.reverse { direction: rtl; }
+  .feature-item.reverse > * { direction: ltr; }
+  .feature-illust {
+    width: 200px; height: 200px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+    position: relative;
+  }
+  .feature-illust.blue { background: var(--sky); }
+  .feature-illust.yellow { background: var(--yellow); }
+  .feature-illust.green { background: var(--green); }
+  .feature-num {
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.8rem; font-weight: 700;
+    color: var(--coral);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .feature-h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--coral);
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+  .feature-p { font-size: 0.95rem; line-height: 1.9; color: var(--sub); }
+
+  /* ─── SUBJECTS ─── */
+  #subjects {
+    background: var(--sky);
+    padding: 6rem 2rem;
+  }
+  #subjects .section-title { color: #FFFFFF; }
+  #subjects .section-sub { color: rgba(255,255,255,0.8); }
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px; margin: 0 auto;
+  }
+  .subject-card {
+    border-radius: 20px 20px 20px 20px;
+    padding: 2rem 1.2rem 2.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  /* 吹き出し三角 */
+  .subject-card::after {
+    content: '';
+    position: absolute; bottom: -16px; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+  }
+  .sc-white { background: #FFFFFF; }
+  .sc-white::after { border-top: 16px solid #FFFFFF; }
+  .sc-yellow { background: var(--yellow); }
+  .sc-yellow::after { border-top: 16px solid var(--yellow); }
+  .sc-coral { background: var(--coral); }
+  .sc-coral::after { border-top: 16px solid var(--coral); }
+  .sc-green { background: var(--green); }
+  .sc-green::after { border-top: 16px solid var(--green); }
+  .sc-purple { background: var(--purple); }
+  .sc-purple::after { border-top: 16px solid var(--purple); }
+  .subject-card:hover { transform: translateY(-6px) scale(1.04); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+  .subject-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem; font-weight: 700;
+    color: #333333;
+    margin-top: 0.7rem;
+  }
+  .sc-coral .subject-name { color: #FFFFFF; }
+
+  /* ─── CTA ─── */
+  #cta {
+    background: var(--coral);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .cta-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  /* 四隅の星 */
+  .cta-card::before {
+    content: '';
+    position: absolute;
+  }
+  .star-deco {
+    position: absolute;
+    pointer-events: none;
+  }
+  .cta-heading {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2rem; font-weight: 800;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .cta-sub { color: var(--sub); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--coral); color: #FFFFFF;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700; font-size: 1.1rem;
+    padding: 1.1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 4px 20px rgba(255,126,95,0.4);
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #333333;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  footer::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--sky) 0px, var(--sky) 30px,
+      var(--yellow) 30px, var(--yellow) 60px,
+      var(--coral) 60px, var(--coral) 90px
+    );
+  }
+  .footer-logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem; font-weight: 800;
+    color: #FFFFFF; margin-bottom: 0.5rem;
+  }
+  .footer-info { color: #AAAAAA; font-size: 0.85rem; line-height: 1.8; }
+  .footer-copy { color: #777777; font-size: 0.75rem; margin-top: 1rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .book-frame { grid-template-columns: 1fr; max-width: 380px; }
+    .book-frame::after { display: none; }
+    .book-left { min-height: 220px; padding: 2rem; }
+    .hero-h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+    .feature-item { grid-template-columns: 1fr; gap: 1.5rem; }
+    .feature-item.reverse { direction: ltr; }
+    .feature-illust { width: 140px; height: 140px; }
+    .subjects-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">まなびの森</a>
+  <nav>
+    <a href="#features">とくちょう</a>
+    <a href="#subjects">かもく</a>
+    <a href="#cta">たいけん</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="book-frame">
+    <!-- 左：イラスト -->
+    <div class="book-left">
+      <div class="illust-grid">
+        <!-- 鉛筆 -->
+        <div class="illust-item" style="background:#FFF3DC; border-radius:16px;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect x="20" y="6" width="8" height="30" rx="2" fill="#FFD85C"/>
+            <polygon points="20,36 28,36 24,44" fill="#FF7E5F"/>
+            <rect x="20" y="6" width="8" height="5" rx="1" fill="#FF7E5F"/>
+            <rect x="21" y="11" width="6" height="25" fill="#FFE89A"/>
+            <line x1="24" y1="36" x2="24" y2="42" stroke="#C87040" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <!-- 本 -->
+        <div class="illust-item" style="background:#E0F4FF; border-radius:16px;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect x="8" y="10" width="14" height="28" rx="2" fill="#5BB8F5"/>
+            <rect x="22" y="10" width="14" height="28" rx="2" fill="#3AA3E8"/>
+            <line x1="8" y1="16" x2="22" y2="16" stroke="white" stroke-width="1.5" opacity="0.6"/>
+            <line x1="8" y1="20" x2="22" y2="20" stroke="white" stroke-width="1.5" opacity="0.6"/>
+            <line x1="8" y1="24" x2="22" y2="24" stroke="white" stroke-width="1.5" opacity="0.6"/>
+            <line x1="22" y1="16" x2="36" y2="16" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <line x1="22" y1="20" x2="36" y2="20" stroke="white" stroke-width="1.5" opacity="0.4"/>
+          </svg>
+        </div>
+        <!-- 虫眼鏡 -->
+        <div class="illust-item" style="background:#EAFFF0; border-radius:16px;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="22" cy="20" r="11" stroke="#AADEA7" stroke-width="4" fill="white"/>
+            <circle cx="22" cy="20" r="7" fill="#D4F5D8"/>
+            <line x1="30" y1="28" x2="39" y2="38" stroke="#5CB870" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <!-- 星 -->
+        <div class="illust-item" style="background:#FFF0FA; border-radius:16px;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <polygon points="24,7 28,18 40,18 31,25 34,37 24,30 14,37 17,25 8,18 20,18" fill="#C9A8E2"/>
+            <polygon points="24,11 27,19 36,19 30,24 32,33 24,27 16,33 18,24 12,19 21,19" fill="white" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- 右：テキスト -->
+    <div class="book-right">
+      <span class="hero-tag">小1〜中3対応</span>
+      <h1 class="hero-h1">まなぶって、<br>たのしい！</h1>
+      <p class="hero-sub">まなびの森では、ひとりひとりのペースで楽しく学べます。<br>「わかった！」の笑顔をたくさん増やしましょう。</p>
+      <a href="#cta" class="hero-cta">無料体験に申し込む</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2 class="section-title">まなびの森の3つのとくちょう</h2>
+  <p class="section-sub">子どもたちが「また来たい！」と思える工夫がいっぱい</p>
+
+  <div class="feature-item">
+    <div class="feature-illust blue">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="38" r="18" fill="white" opacity="0.9"/>
+        <path d="M35 62 Q50 72 65 62" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <circle cx="44" cy="36" r="3" fill="#5BB8F5"/>
+        <circle cx="56" cy="36" r="3" fill="#5BB8F5"/>
+        <path d="M44 42 Q50 47 56 42" stroke="#5BB8F5" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <p class="feature-num">POINT 01</p>
+      <h3 class="feature-h3">笑顔あふれる<br>授業スタイル</h3>
+      <p class="feature-p">ゲームやクイズを取り入れた楽しい授業で、いつのまにか勉強が大好きに。子どもたちの笑顔を大切にした、オリジナルの教え方です。</p>
+    </div>
+  </div>
+
+  <div class="feature-item reverse">
+    <div class="feature-illust yellow">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <rect x="30" y="25" width="40" height="50" rx="6" fill="white" opacity="0.9"/>
+        <line x1="38" y1="38" x2="62" y2="38" stroke="#FFD85C" stroke-width="3" stroke-linecap="round"/>
+        <line x1="38" y1="46" x2="62" y2="46" stroke="#FFD85C" stroke-width="3" stroke-linecap="round"/>
+        <line x1="38" y1="54" x2="54" y2="54" stroke="#FFD85C" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="35" cy="38" r="3" fill="#FF7E5F"/>
+        <circle cx="35" cy="46" r="3" fill="#FF7E5F"/>
+        <circle cx="35" cy="54" r="3" fill="#AADEA7"/>
+      </svg>
+    </div>
+    <div>
+      <p class="feature-num">POINT 02</p>
+      <h3 class="feature-h3">ひとりひとりに<br>合わせた指導</h3>
+      <p class="feature-p">一人一人の理解度や学習ペースに合わせた完全個別カリキュラム。苦手な部分をしっかり克服し、得意な部分をどんどん伸ばします。</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-illust green">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="22" fill="white" opacity="0.9"/>
+        <polygon points="50,32 55,45 70,45 58,53 63,67 50,58 37,67 42,53 30,45 45,45" fill="#AADEA7"/>
+        <polygon points="50,36 54,46 65,46 56,52 60,63 50,57 40,63 44,52 35,46 46,46" fill="white" opacity="0.5"/>
+      </svg>
+    </div>
+    <div>
+      <p class="feature-num">POINT 03</p>
+      <h3 class="feature-h3">がんばりを<br>しっかり認める</h3>
+      <p class="feature-p">目標を達成したらスタンプや認定証をプレゼント！小さな成功体験を積み重ねることで、自信と勉強への意欲がぐんぐん育ちます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects">
+  <h2 class="section-title">かいてき かもく</h2>
+  <p class="section-sub" style="color:rgba(255,255,255,0.8); margin-bottom:3rem;">楽しく学べる5つの科目を用意しています</p>
+  <div class="subjects-grid">
+    <!-- 国語 -->
+    <div class="subject-card sc-white">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <rect x="8" y="6" width="28" height="32" rx="4" fill="#FFD85C"/>
+        <line x1="14" y1="14" x2="30" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="14" y1="20" x2="30" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="14" y1="26" x2="24" y2="26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="8" fill="#FF7E5F"/>
+        <text x="32" y="36" text-anchor="middle" fill="white" font-size="8" font-weight="bold">国</text>
+      </svg>
+      <p class="subject-name">国語</p>
+    </div>
+    <!-- 算数 -->
+    <div class="subject-card sc-yellow">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <rect x="8" y="8" width="12" height="12" rx="3" fill="white" opacity="0.8"/>
+        <rect x="24" y="8" width="12" height="12" rx="3" fill="white" opacity="0.8"/>
+        <rect x="8" y="24" width="12" height="12" rx="3" fill="white" opacity="0.8"/>
+        <text x="30" y="38" text-anchor="middle" fill="white" font-size="14" font-weight="bold">+</text>
+        <rect x="24" y="24" width="12" height="12" rx="3" fill="#FF7E5F" opacity="0.7"/>
+      </svg>
+      <p class="subject-name">算数</p>
+    </div>
+    <!-- 英語 -->
+    <div class="subject-card sc-coral">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="14" fill="rgba(255,255,255,0.2)"/>
+        <text x="22" y="28" text-anchor="middle" fill="white" font-size="18" font-weight="bold" font-family="sans-serif">A</text>
+      </svg>
+      <p class="subject-name" style="color:#FFFFFF;">英語</p>
+    </div>
+    <!-- 理科 -->
+    <div class="subject-card sc-green">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <path d="M18 10 L18 26 L10 38 L34 38 L26 26 L26 10 Z" fill="rgba(255,255,255,0.7)"/>
+        <path d="M20 28 L14 38 L30 38 L24 28 Z" fill="#5BB8F5" opacity="0.6"/>
+        <circle cx="26" cy="33" r="3" fill="#FF7E5F" opacity="0.8"/>
+        <line x1="18" y1="10" x2="26" y2="10" stroke="#4A7A50" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <p class="subject-name">理科</p>
+    </div>
+    <!-- 社会 -->
+    <div class="subject-card sc-purple">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="14" stroke="white" stroke-width="2.5" fill="none"/>
+        <ellipse cx="22" cy="22" rx="6" ry="14" stroke="white" stroke-width="2" fill="none"/>
+        <line x1="8" y1="22" x2="36" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="10" y1="16" x2="34" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <line x1="10" y1="28" x2="34" y2="28" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+      <p class="subject-name">社会</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-card">
+    <!-- 四隅の星 -->
+    <svg class="star-deco" style="top:16px;left:16px;" width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <polygon points="14,3 16.5,10 24,10 18,14.5 20.5,22 14,17 7.5,22 10,14.5 4,10 11.5,10" fill="#FFD85C"/>
+    </svg>
+    <svg class="star-deco" style="top:16px;right:16px;" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <polygon points="12,2 14,8 20,8 15,12 17,18 12,14 7,18 9,12 4,8 10,8" fill="#FFD85C" opacity="0.7"/>
+    </svg>
+    <svg class="star-deco" style="bottom:16px;left:16px;" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <polygon points="10,2 12,7 17,7 13,10 15,16 10,12 5,16 7,10 3,7 8,7" fill="#FFD85C" opacity="0.6"/>
+    </svg>
+    <svg class="star-deco" style="bottom:16px;right:16px;" width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <polygon points="14,3 16.5,10 24,10 18,14.5 20.5,22 14,17 7.5,22 10,14.5 4,10 11.5,10" fill="#FFD85C"/>
+    </svg>
+
+    <h2 class="cta-heading">まずは無料体験から！</h2>
+    <p class="cta-sub">授業の雰囲気を実際に体験してみてください。<br>入会のご検討は体験後でも大丈夫です。<br>お子さまの笑顔、お待ちしています！</p>
+    <a href="#" class="cta-btn">無料体験に申し込む</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">まなびの森学習塾</p>
+  <p class="footer-info">〒123-4567 東京都○○区○○町1-2-3<br>TEL: 03-XXXX-XXXX　月〜土 14:00〜21:00</p>
+  <p class="footer-copy">&copy; 2025 まなびの森学習塾. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

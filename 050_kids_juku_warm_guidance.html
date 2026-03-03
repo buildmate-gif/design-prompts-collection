@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>道標塾 | Warm Guidance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --indigo:   #2C3E6B;
+  --amber:    #C8924A;
+  --milk:     #F8F5EF;
+  --warm-g:   #EEE8DC;
+  --anchor:   #2C2018;
+  --mid:      #5A5248;
+  --rule:     #D8D0C0;
+  --footer:   #1E2A3C;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--milk); color: var(--anchor); overflow-x: hidden; }
+
+/* ════════════════════════
+   HEADER
+════════════════════════ */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--milk);
+  border-bottom: 1px solid var(--rule);
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+}
+.h-logo {
+  font-family: 'Marcellus', serif;
+  font-size: 1.15rem; letter-spacing: 0.1em;
+  color: var(--indigo); text-decoration: none;
+}
+nav { display: flex; gap: 0.4rem; align-items: center; }
+nav a {
+  font-size: 0.8rem; font-weight: 500;
+  color: var(--mid); text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 2px;
+  position: relative; overflow: hidden;
+  transition: color 0.3s;
+}
+nav a::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 100%; height: 100%;
+  background: var(--indigo);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: -1;
+}
+nav a:hover { color: var(--indigo); }
+nav a:hover::before { transform: translate(-50%, -50%) scale(3); opacity: 0.07; }
+.h-cta {
+  font-family: 'Marcellus', serif;
+  font-size: 0.78rem; letter-spacing: 0.1em;
+  color: var(--milk);
+  background: var(--indigo);
+  border: 1px solid var(--indigo);
+  border-radius: 2px;
+  padding: 0.55rem 1.4rem;
+  text-decoration: none;
+  position: relative; overflow: hidden;
+  transition: color 0.3s, background 0.3s;
+}
+.h-cta::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 200%; padding-top: 200%;
+  background: var(--amber);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 0;
+}
+.h-cta span { position: relative; z-index: 1; }
+.h-cta:hover::before { transform: translate(-50%, -50%) scale(1); opacity: 0.25; }
+
+/* ════════════════════════
+   HERO
+════════════════════════ */
+#hero {
+  min-height: 100vh;
+  padding-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 4rem 6rem 5rem;
+  border-right: 1px solid var(--rule);
+}
+.hero-label {
+  font-family: 'Marcellus', serif;
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 1.5rem;
+}
+.hero-h1 {
+  font-family: 'Marcellus', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--indigo);
+  line-height: 1.35;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+.hero-sub {
+  font-size: 0.95rem; line-height: 2.1;
+  color: var(--mid);
+  margin-bottom: 3rem;
+  max-width: 380px;
+  letter-spacing: 0.03em;
+}
+.hero-btn {
+  display: inline-block;
+  font-family: 'Marcellus', serif;
+  font-size: 0.82rem; letter-spacing: 0.12em;
+  color: var(--milk);
+  background: var(--indigo);
+  border-radius: 2px;
+  padding: 1rem 2.8rem;
+  text-decoration: none;
+  position: relative; overflow: hidden;
+  transition: color 0.3s;
+  align-self: flex-start;
+}
+.hero-btn::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 200%; padding-top: 200%;
+  background: var(--amber);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.45s ease, opacity 0.45s ease;
+  z-index: 0;
+}
+.hero-btn span { position: relative; z-index: 1; }
+.hero-btn:hover::before { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+
+.hero-right {
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+#constellation { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+/* ════════════════════════
+   SECTION BASE
+════════════════════════ */
+.sec-wrap { padding: 7rem 5rem; }
+.sec-label-sm {
+  font-family: 'Marcellus', serif;
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber);
+  display: block; margin-bottom: 0.6rem;
+}
+.sec-h2 {
+  font-size: 1.75rem; font-weight: 700;
+  color: var(--indigo);
+  line-height: 1.4;
+  margin-bottom: 4rem;
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════
+   JOURNEY (Timeline)
+════════════════════════ */
+#journey { background: var(--milk); }
+.timeline {
+  position: relative;
+  max-width: 860px; margin: 0 auto;
+  padding: 1rem 0 3rem;
+}
+.timeline-axis {
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--rule);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3.5rem;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.tl-item.left  { flex-direction: row; transform: translateX(-30px); }
+.tl-item.right { flex-direction: row-reverse; transform: translateX(30px); }
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+
+.tl-card {
+  background: #FDFAF4;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.8rem 2rem;
+  width: calc(50% - 52px);
+  position: relative;
+}
+/* 水平コネクタライン */
+.tl-item.left  .tl-card { margin-right: 52px; }
+.tl-item.right .tl-card { margin-left:  52px; }
+.tl-item.left  .tl-card::after {
+  content: '';
+  position: absolute; right: -33px; top: 28px;
+  width: 32px; height: 1px;
+  background: var(--rule);
+}
+.tl-item.right .tl-card::after {
+  content: '';
+  position: absolute; left: -33px; top: 28px;
+  width: 32px; height: 1px;
+  background: var(--rule);
+}
+
+/* 中心の接点ドット */
+.tl-dot {
+  position: absolute;
+  left: 50%; top: 24px;
+  width: 12px; height: 12px;
+  background: var(--amber);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 2px solid var(--milk);
+  box-shadow: 0 0 0 1px var(--amber);
+}
+
+.stage-label {
+  font-family: 'Marcellus', serif;
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.3rem;
+}
+.stage-period {
+  font-size: 0.78rem; color: #7A6E62;
+  margin-bottom: 0.8rem;
+}
+.stage-title {
+  font-size: 1rem; font-weight: 700;
+  color: var(--indigo);
+  margin-bottom: 0.6rem;
+}
+.stage-desc {
+  font-size: 0.88rem; line-height: 1.9;
+  color: var(--anchor);
+  letter-spacing: 0.03em;
+}
+
+/* ════════════════════════
+   PARTNERSHIP
+════════════════════════ */
+#partnership { background: var(--indigo); }
+#partnership .sec-h2 { color: var(--milk); }
+.partner-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.partner-card {
+  background: rgba(248,245,239,0.05);
+  border: 1px solid rgba(248,245,239,0.15);
+  border-radius: 4px;
+  padding: 2.5rem 2rem;
+  transition: background 0.3s;
+}
+.partner-card:hover { background: rgba(248,245,239,0.1); }
+.partner-num {
+  font-family: 'Marcellus', serif;
+  font-size: 2.8rem; letter-spacing: 0.05em;
+  color: var(--amber);
+  opacity: 0.45;
+  display: block; margin-bottom: 1.2rem;
+  line-height: 1;
+}
+.partner-title {
+  font-family: 'Marcellus', serif;
+  font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--milk);
+  margin-bottom: 0.9rem;
+}
+.partner-desc {
+  font-size: 0.86rem; line-height: 1.9;
+  color: rgba(248,245,239,0.7);
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════
+   VOICE
+════════════════════════ */
+#voice { background: var(--warm-g); }
+.voices { max-width: 720px; margin: 0 auto; }
+.voice-item {
+  padding: 3rem 0;
+  border-bottom: 1px solid #C8BAA8;
+}
+.voice-item:last-child { border-bottom: none; }
+.voice-quote {
+  font-family: 'Marcellus', serif;
+  font-size: 4.5rem; line-height: 1;
+  color: var(--amber);
+  opacity: 0.25;
+  margin-bottom: -1.5rem;
+  display: block;
+  letter-spacing: -0.02em;
+}
+.voice-text {
+  font-size: 1rem; line-height: 2.2;
+  color: var(--anchor);
+  letter-spacing: 0.03em;
+  margin-bottom: 1.2rem;
+}
+.voice-from {
+  font-family: 'Marcellus', serif;
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #7A6E62;
+}
+
+/* ════════════════════════
+   CTA
+════════════════════════ */
+#cta {
+  background: var(--milk);
+  text-align: center;
+  padding: 9rem 2rem;
+}
+#cta .sec-label-sm { margin-bottom: 1rem; }
+.cta-h2 {
+  font-size: 1.9rem; font-weight: 700;
+  color: var(--indigo);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+.cta-sub {
+  font-size: 0.95rem; line-height: 2.1;
+  color: var(--mid);
+  max-width: 500px; margin: 0 auto 3rem;
+  letter-spacing: 0.03em;
+}
+.cta-main-btn {
+  display: inline-block;
+  font-family: 'Marcellus', serif;
+  font-size: 0.88rem; letter-spacing: 0.14em;
+  color: var(--milk);
+  background: var(--indigo);
+  border-radius: 2px;
+  padding: 1.2rem 4rem;
+  text-decoration: none;
+  position: relative; overflow: hidden;
+  transition: color 0.3s;
+}
+.cta-main-btn::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 200%; padding-top: 200%;
+  background: var(--amber);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.45s ease, opacity 0.45s ease;
+  z-index: 0;
+}
+.cta-main-btn span { position: relative; z-index: 1; }
+.cta-main-btn:hover::before { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+
+/* ════════════════════════
+   FOOTER
+════════════════════════ */
+footer {
+  background: var(--footer);
+  border-top: 1px solid rgba(248,245,239,0.08);
+  padding: 3rem 5rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 2rem;
+}
+.footer-logo {
+  font-family: 'Marcellus', serif;
+  font-size: 1rem; letter-spacing: 0.16em;
+  color: var(--milk);
+  margin-bottom: 0.8rem;
+}
+.footer-info {
+  font-size: 0.78rem; line-height: 1.9;
+  color: rgba(248,245,239,0.38);
+}
+.footer-copy {
+  font-size: 0.72rem;
+  color: rgba(248,245,239,0.22);
+  margin-top: 0.5rem;
+}
+
+/* ════════════════════════
+   RESPONSIVE
+════════════════════════ */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 6rem 2.5rem 3rem; border-right: none; }
+  .hero-right { height: 200px; }
+  .sec-wrap { padding: 5rem 2rem; }
+  .timeline-axis { display: none; }
+  .tl-item.left, .tl-item.right { flex-direction: column; align-items: center; }
+  .tl-item.left  .tl-card,
+  .tl-item.right .tl-card { width: 100%; margin: 0; }
+  .tl-item.left  .tl-card::after,
+  .tl-item.right .tl-card::after { display: none; }
+  .tl-dot { display: none; }
+  .partner-cards { grid-template-columns: 1fr; }
+  footer { flex-direction: column; padding: 2rem; }
+  header { padding: 0 1.5rem; }
+  nav a { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#hero" class="h-logo">道標塾</a>
+  <nav>
+    <a href="#journey">歩み</a>
+    <a href="#partnership">連携</a>
+    <a href="#voice">ご意見</a>
+    <a href="#cta" class="h-cta"><span>無料相談</span></a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <span class="hero-label">Companion for Growth</span>
+    <h1 class="hero-h1">もう一人の先生として、<br>ともに歩む。</h1>
+    <p class="hero-sub">
+      受験は、子供だけの挑戦ではありません。道標塾では、一人ひとりの成長ステージに寄り添い、保護者の方とともに長い学びの旅を伴走します。合格はゴールではなく、通過点です。
+    </p>
+    <a href="#cta" class="hero-btn"><span>お子さまのことを話してみませんか</span></a>
+  </div>
+  <div class="hero-right">
+    <svg id="constellation" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="sec-wrap">
+    <span class="sec-label-sm">Growth Journey</span>
+    <h2 class="sec-h2">お子さまの成長ステージ</h2>
+    <div class="timeline">
+      <div class="timeline-axis"></div>
+
+      <!-- Stage 1 -->
+      <div class="tl-item left" data-tl>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <p class="stage-label">Stage 01</p>
+          <p class="stage-period">小学4〜5年生</p>
+          <p class="stage-title">基礎固め期</p>
+          <p class="stage-desc">学習習慣の確立と、各科目の基礎概念の定着に集中する時期。「なぜ」を問う姿勢を育て、暗記に頼らない本質的な理解を積み上げます。</p>
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="tl-item right" data-tl>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <p class="stage-label">Stage 02</p>
+          <p class="stage-period">小学6年生前半</p>
+          <p class="stage-title">応用展開期</p>
+          <p class="stage-desc">基礎の上に応用力を積み上げる時期。志望校の出題傾向を分析しながら、複合的な問題への対応力を磨きます。保護者との連携を密にし、学習リズムを整えます。</p>
+        </div>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="tl-item left" data-tl>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <p class="stage-label">Stage 03</p>
+          <p class="stage-period">小学6年生後半〜秋</p>
+          <p class="stage-title">実戦演習期</p>
+          <p class="stage-desc">過去問演習を中心に、本番を想定した実戦力を養います。弱点の集中補強と時間配分の感覚を身につけ、試験本番で力を発揮するための準備を整えます。</p>
+        </div>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="tl-item right" data-tl>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <p class="stage-label">Stage 04</p>
+          <p class="stage-period">入試直前期〜冬</p>
+          <p class="stage-title">最終調整期</p>
+          <p class="stage-desc">得点力の最大化と、精神面のサポートが主軸となる時期。これまでの学習の総整理を行いながら、子供が自信を持って本番に臨めるよう、心身両面から支えます。</p>
+        </div>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="tl-item left" data-tl>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <p class="stage-label">Stage 05</p>
+          <p class="stage-period">合格・入学後</p>
+          <p class="stage-title">未来への出発</p>
+          <p class="stage-desc">合格はゴールではなく新たな旅の始まり。入学後の学習継続支援と、中高一貫校・大学受験を見据えた長期的な学力設計まで、道標塾はともに歩み続けます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERSHIP -->
+<section id="partnership">
+  <div class="sec-wrap">
+    <span class="sec-label-sm">Parent Partnership</span>
+    <h2 class="sec-h2">保護者との連携</h2>
+    <div class="partner-cards">
+      <div class="partner-card">
+        <span class="partner-num">01</span>
+        <p class="partner-title">Monthly Conference</p>
+        <p class="partner-desc">毎月の個別面談で、お子さまの学習状況・精神状態・課題を詳細に共有。保護者の方の疑問やご不安に、担当講師が誠実にお答えします。</p>
+      </div>
+      <div class="partner-card">
+        <span class="partner-num">02</span>
+        <p class="partner-title">Weekly Report</p>
+        <p class="partner-desc">毎週の授業後に進捗レポートをお届け。その日の学習内容・定着度・家庭学習のアドバイスを記載し、ご家庭での会話のきっかけを作ります。</p>
+      </div>
+      <div class="partner-card">
+        <span class="partner-num">03</span>
+        <p class="partner-title">Parent Seminar</p>
+        <p class="partner-desc">年4回の保護者向けセミナーを開催。受験スケジュールの見通し、家庭でのサポート方法、進路選択の考え方など、保護者の方が知りたい情報をお届けします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <div class="sec-wrap">
+    <span class="sec-label-sm">Voices</span>
+    <h2 class="sec-h2">保護者・生徒の声</h2>
+    <div class="voices">
+      <div class="voice-item">
+        <span class="voice-quote">"</span>
+        <p class="voice-text">先生が娘の「好き」を見つけてくれたことが一番の収穫でした。算数が嫌いだった娘が、今では数学が得意科目だと言っています。合格よりも、そちらのほうが嬉しかった。</p>
+        <p class="voice-from">保護者様　お子さま：桜蔭中学校 合格</p>
+      </div>
+      <div class="voice-item">
+        <span class="voice-quote">"</span>
+        <p class="voice-text">塾に来るのを嫌がる子が珍しくない中で、うちの息子は毎回楽しみにしていました。先生との信頼関係があってこその結果だと思っています。受験が終わった今も、自分から勉強しています。</p>
+        <p class="voice-from">保護者様　お子さま：開成中学校 合格</p>
+      </div>
+      <div class="voice-item">
+        <span class="voice-quote">"</span>
+        <p class="voice-text">親が不安になりがちな時期に、先生がいつも「大丈夫です」と言ってくださって。根拠のある言葉だから安心できました。子供だけでなく親も伴走してもらった3年間でした。</p>
+        <p class="voice-from">保護者様　お子さま：駒場東邦中学校 合格</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <span class="sec-label-sm">Free Consultation</span>
+  <h2 class="cta-h2">お子さまのことを、<br>話してみませんか。</h2>
+  <p class="cta-sub">現在の学習状況、抱えているお悩み、進路への不安——なんでもお聞かせください。入塾のご検討は、その後で構いません。まず対話から始めましょう。</p>
+  <a href="#" class="cta-main-btn"><span>無料学習相談を予約する</span></a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p class="footer-logo">道標塾</p>
+    <p class="footer-info">
+      〒150-0001　東京都渋谷区神宮前2-2-2<br>
+      TEL: 03-XXXX-XXXX　月〜土 13:00〜22:00
+    </p>
+    <p class="footer-copy">&copy; 2025 道標塾. All rights reserved.</p>
+  </div>
+  <div style="text-align:right; align-self: flex-end;">
+    <p style="font-family:'Marcellus',serif;font-size:0.72rem;letter-spacing:0.15em;color:rgba(248,245,239,0.28);text-transform:uppercase;">Warm Guidance<br>Since 2003</p>
+  </div>
+</footer>
+
+<script>
+/* ── Hero constellation ── */
+(function() {
+  const svg = document.getElementById('constellation');
+  if (!svg) return;
+  const W = svg.parentElement.offsetWidth || 400;
+  const H = svg.parentElement.offsetHeight || 500;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const count = 14;
+  const dots = [];
+  for (let i = 0; i < count; i++) {
+    const cx = 20 + Math.random() * (W - 40);
+    const cy = 20 + Math.random() * (H - 40);
+    const r  = 3 + Math.random() * 7;
+    const op = 0.1 + Math.random() * 0.18;
+    const c  = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', cx); c.setAttribute('cy', cy);
+    c.setAttribute('r', r);   c.setAttribute('fill', '#2C3E6B');
+    c.setAttribute('opacity', op);
+    svg.appendChild(c);
+    dots.push({ cx, cy });
+  }
+  /* subtle connecting lines between nearby dots */
+  for (let i = 0; i < dots.length; i++) {
+    for (let j = i + 1; j < dots.length; j++) {
+      const dx = dots[i].cx - dots[j].cx;
+      const dy = dots[i].cy - dots[j].cy;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < W * 0.28) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', dots[i].cx); line.setAttribute('y1', dots[i].cy);
+        line.setAttribute('x2', dots[j].cx); line.setAttribute('y2', dots[j].cy);
+        line.setAttribute('stroke', '#2C3E6B');
+        line.setAttribute('stroke-width', '0.5');
+        line.setAttribute('opacity', '0.06');
+        svg.insertBefore(line, svg.firstChild);
+      }
+    }
+  }
+})();
+
+/* ── Timeline fadeInSide ── */
+const tlItems = document.querySelectorAll('[data-tl]');
+const ioTl = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      ioTl.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+tlItems.forEach(el => ioTl.observe(el));
+</script>
+</body>
+</html>

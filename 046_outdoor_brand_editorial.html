@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TERRA JOURNAL — Vol.12 / 2025年11月</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+/* ===== RESET & VARS ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --birch: #F0EBD8;
+  --warm-paper: #E6DFC8;
+  --charcoal: #2A2A26;
+  --deep-moss: #1E261A;
+  --forest-moss: #3D4A35;
+  --copper: #B87333;
+  --light-tan: #C4B89A;
+  --ink: #2A2A26;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Serif Text', serif;
+  background: var(--charcoal);
+  color: var(--birch);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--copper);
+  z-index: 1000;
+  transition: width 0.05s linear;
+}
+
+/* ===== MASTHEAD ===== */
+#masthead {
+  background: var(--deep-moss);
+  padding: 1.5rem clamp(1.5rem, 6vw, 5rem);
+  border-bottom: 1px solid rgba(184,115,51,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.topo-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.masthead-inner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--birch);
+}
+
+.brand-name span {
+  color: var(--copper);
+}
+
+.masthead-meta {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.meta-item {
+  font-family: 'Fraunces', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--light-tan);
+}
+
+.copper-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--copper) 0%, transparent 100%);
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== COVER TITLE ===== */
+#cover {
+  background: var(--birch);
+  color: var(--charcoal);
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(42,42,38,0.03) 31px, rgba(42,42,38,0.03) 32px),
+    repeating-linear-gradient(90deg, transparent, transparent 71px, rgba(42,42,38,0.02) 71px, rgba(42,42,38,0.02) 72px);
+  pointer-events: none;
+}
+
+.cover-eyebrow {
+  font-family: 'Fraunces', serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--copper);
+}
+
+.cover-title-wrap {
+  position: relative;
+  margin-left: -5%;
+  margin-right: -5%;
+  z-index: 2;
+}
+
+.cover-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  color: var(--charcoal);
+  line-height: 0.92;
+  padding: 0 5%;
+  margin-bottom: 3rem;
+}
+
+.cover-title em {
+  color: var(--copper);
+  font-style: italic;
+}
+
+.cover-lead {
+  font-family: 'DM Serif Text', serif;
+  font-size: 1.05rem;
+  line-height: 2.0;
+  letter-spacing: 0.015em;
+  color: var(--forest-moss);
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cover-byline {
+  font-family: 'DM Serif Text', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--forest-moss);
+  opacity: 0.7;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.cover-byline::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* ===== FIELD DATA TICKER ===== */
+#field-ticker {
+  background: var(--copper);
+  overflow: hidden;
+  padding: 0.85rem 0;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 30s linear infinite;
+}
+
+#field-ticker:hover .ticker-track { animation-play-state: paused; }
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0 2.5rem;
+  white-space: nowrap;
+}
+
+.ticker-label {
+  font-family: 'Fraunces', serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--deep-moss);
+  opacity: 0.75;
+}
+
+.ticker-val {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--deep-moss);
+}
+
+.ticker-sep {
+  font-family: 'Fraunces', serif;
+  font-size: 0.7rem;
+  color: var(--deep-moss);
+  opacity: 0.4;
+  margin: 0 1.5rem;
+}
+
+/* ===== SECTION CLIP ===== */
+.clip-to-dark {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 70px), 0 100%);
+  padding-bottom: 140px;
+  margin-bottom: -70px;
+}
+
+.clip-from-dark {
+  clip-path: polygon(0 70px, 100% 0, 100% 100%, 0 100%);
+  padding-top: 140px;
+  margin-top: -70px;
+}
+
+/* ===== REPORT SECTIONS ===== */
+.report-section {
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  position: relative;
+}
+
+.report-section.light {
+  background: var(--warm-paper);
+  color: var(--charcoal);
+}
+
+.report-section.dark {
+  background: var(--deep-moss);
+  color: var(--birch);
+}
+
+.report-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.report-eyebrow {
+  font-family: 'Fraunces', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.report-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--copper);
+  display: block;
+}
+
+.report-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.report-section.light .report-heading { color: var(--charcoal); }
+.report-section.dark .report-heading { color: var(--birch); }
+
+.report-body {
+  font-family: 'DM Serif Text', serif;
+  font-size: 1.05rem;
+  line-height: 2.0;
+  letter-spacing: 0.015em;
+}
+
+.report-section.light .report-body { color: var(--forest-moss); }
+.report-section.dark .report-body { color: var(--light-tan); }
+
+.report-body p + p { margin-top: 1.5em; }
+
+/* Pull Quote */
+.pull-quote-wrap {
+  position: relative;
+  margin: 3rem 0;
+}
+
+.pull-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.4;
+  color: var(--copper);
+  padding-left: 2rem;
+  border-left: 2px solid var(--copper);
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.pull-quote.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Sidebar Gear */
+.sidebar-gear {
+  float: right;
+  width: 240px;
+  margin: 0 0 2rem 2.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(184,115,51,0.3);
+  background: rgba(184,115,51,0.06);
+}
+
+.sidebar-gear-label {
+  font-family: 'Fraunces', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1rem;
+}
+
+.gear-item-sidebar {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(184,115,51,0.2);
+}
+.gear-item-sidebar:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.gear-name-sb {
+  font-family: 'Fraunces', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.gear-cat-sb {
+  font-family: 'Fraunces', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.4rem;
+}
+
+.gear-note-sb {
+  font-family: 'DM Serif Text', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--forest-moss);
+}
+
+.report-section.dark .gear-note-sb { color: var(--light-tan); }
+
+/* Caption */
+.photo-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5rem 0 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-placeholder.light-bg {
+  background: rgba(61,74,53,0.12);
+}
+
+.photo-inner-label {
+  font-family: 'Fraunces', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.5;
+}
+
+.photo-caption {
+  font-family: 'DM Serif Text', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--forest-moss);
+  margin-bottom: 2rem;
+}
+
+.report-section.dark .photo-caption { color: var(--light-tan); }
+
+/* ===== GEAR LINEUP ===== */
+#gear-lineup {
+  background: var(--birch);
+  color: var(--charcoal);
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+}
+
+#gear-lineup .section-head {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+
+#gear-lineup .report-eyebrow {
+  margin-bottom: 1rem;
+}
+
+#gear-lineup .report-heading {
+  color: var(--charcoal);
+}
+
+.gear-cards {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.gear-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(42,42,38,0.12);
+  align-items: start;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.gear-card:first-child { border-top: 1px solid rgba(42,42,38,0.12); }
+.gear-card.visible { opacity: 1; transform: translateY(0); }
+
+.gear-num {
+  font-family: 'Fraunces', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--copper);
+  opacity: 0.2;
+  line-height: 1;
+}
+
+.gear-info-tag {
+  font-family: 'Fraunces', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.4rem;
+}
+
+.gear-info-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 0.6rem;
+}
+
+.gear-info-note {
+  font-family: 'DM Serif Text', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--forest-moss);
+}
+
+/* ===== COLOPHON ===== */
+#colophon {
+  background: var(--deep-moss);
+  color: var(--birch);
+  padding: clamp(5rem, 8vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.colophon-topo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.colophon-brand {
+  font-family: 'Fraunces', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.colophon-statement {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--birch);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.colophon-statement strong {
+  font-weight: 700;
+  color: var(--copper);
+}
+
+.colophon-sub {
+  font-family: 'DM Serif Text', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--light-tan);
+  max-width: 480px;
+  margin: 0 auto 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.colophon-link {
+  font-family: 'Fraunces', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  padding-bottom: 2px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s, border-color 0.3s;
+}
+.colophon-link:hover { color: var(--birch); border-color: var(--birch); }
+
+.colophon-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--copper);
+  margin: 3rem auto;
+  position: relative;
+  z-index: 1;
+}
+
+.colophon-footer {
+  font-family: 'Fraunces', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light-tan);
+  opacity: 0.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== STAMP ANIMATION ===== */
+.stamp-label {
+  display: inline-block;
+  animation: stamp-in 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes stamp-in {
+  0% { opacity: 0; letter-spacing: 0.5em; }
+  60% { opacity: 1; }
+  100% { opacity: 1; letter-spacing: 0.22em; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar-gear {
+    float: none;
+    width: 100%;
+    margin: 2rem 0;
+  }
+  .cover-title-wrap {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .pull-quote {
+    font-size: 1.3rem;
+    padding-left: 1.25rem;
+  }
+  .gear-card {
+    grid-template-columns: 60px 1fr;
+    gap: 1rem;
+  }
+  .masthead-meta { gap: 1.25rem; }
+  .topo-canvas { display: none; }
+}
+
+@media (min-width: 1280px) {
+  .pull-quote {
+    margin-left: -3rem;
+    margin-right: -3rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
+<!-- ===== MASTHEAD ===== -->
+<header id="masthead">
+  <!-- Topographic SVG -->
+  <svg class="topo-canvas" viewBox="0 0 1400 120" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="700" cy="60" rx="650" ry="40" fill="none" stroke="#B87333" stroke-width="0.8" class="topo-line"/>
+    <ellipse cx="700" cy="60" rx="540" ry="28" fill="none" stroke="#B87333" stroke-width="0.8" class="topo-line"/>
+    <ellipse cx="700" cy="60" rx="430" ry="18" fill="none" stroke="#B87333" stroke-width="0.8" class="topo-line"/>
+    <ellipse cx="700" cy="60" rx="310" ry="10" fill="none" stroke="#B87333" stroke-width="0.8" class="topo-line"/>
+    <ellipse cx="700" cy="60" rx="190" ry="5" fill="none" stroke="#B87333" stroke-width="1" class="topo-line"/>
+  </svg>
+
+  <div class="masthead-inner">
+    <div class="brand-name">TERRA<span>—</span>JOURNAL</div>
+    <div class="masthead-meta">
+      <span class="meta-item stamp-label" style="animation-delay:0.1s">Vol. 12</span>
+      <span class="meta-item stamp-label" style="animation-delay:0.25s">2025年 11月</span>
+      <span class="meta-item stamp-label" style="animation-delay:0.4s">Expedition Issue</span>
+    </div>
+  </div>
+  <div class="copper-line"></div>
+</header>
+
+<!-- ===== COVER TITLE ===== -->
+<section id="cover" class="clip-to-dark">
+  <div class="paper-texture"></div>
+  <p class="cover-eyebrow">Feature Report</p>
+
+  <div class="cover-title-wrap">
+    <h1 class="cover-title">
+      荒野に<br><em>線を引く。</em>
+    </h1>
+  </div>
+
+  <p class="cover-lead">
+    北アルプスの稜線を、地図の等高線を指でなぞるように歩いた12日間。
+    風が記録を刻み、岩が装備を試し、夜が判断力を問う。
+    ここには、街では問われない問いだけがある。
+  </p>
+  <div class="cover-byline">Photography &amp; Text: Kenji Murayama / Field Correspondent</div>
+</section>
+
+<!-- ===== FIELD DATA TICKER ===== -->
+<div id="field-ticker">
+  <div class="ticker-track">
+    <!-- Set 1 -->
+    <div class="ticker-item">
+      <span class="ticker-label">ELEV</span>
+      <span class="ticker-val">3,190m</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">TEMP</span>
+      <span class="ticker-val">-4°C</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">DAYS</span>
+      <span class="ticker-val">12 Days</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">CUM. ELEV</span>
+      <span class="ticker-val">+14,800m</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">DISTANCE</span>
+      <span class="ticker-val">148km</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">START</span>
+      <span class="ticker-val">Kamikochi</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">END</span>
+      <span class="ticker-val">Tateyama</span>
+    </div><span class="ticker-sep">/</span>
+    <!-- Set 2 duplicate -->
+    <div class="ticker-item">
+      <span class="ticker-label">ELEV</span>
+      <span class="ticker-val">3,190m</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">TEMP</span>
+      <span class="ticker-val">-4°C</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">DAYS</span>
+      <span class="ticker-val">12 Days</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">CUM. ELEV</span>
+      <span class="ticker-val">+14,800m</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">DISTANCE</span>
+      <span class="ticker-val">148km</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">START</span>
+      <span class="ticker-val">Kamikochi</span>
+    </div><span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span class="ticker-label">END</span>
+      <span class="ticker-val">Tateyama</span>
+    </div><span class="ticker-sep">/</span>
+  </div>
+</div>
+
+<!-- ===== REPORT 1 (LIGHT) ===== -->
+<section class="report-section light">
+  <div class="report-inner">
+    <p class="report-eyebrow">Field Report I</p>
+
+    <!-- Sidebar gear floated right -->
+    <div class="sidebar-gear">
+      <div class="sidebar-gear-label">Field Gear</div>
+
+      <div class="gear-item-sidebar">
+        <div class="gear-cat-sb">Backpack</div>
+        <div class="gear-name-sb">APEX RIDGE X7</div>
+        <p class="gear-note-sb">45L。稜線上でのフレームのしなやかさは想像を超えていた。</p>
+      </div>
+
+      <div class="gear-item-sidebar">
+        <div class="gear-cat-sb">Shell Jacket</div>
+        <div class="gear-name-sb">STORMCORE PRO</div>
+        <p class="gear-note-sb">3レイヤーGore-Tex。風速20m超でも縫い目からの侵水ゼロ。</p>
+      </div>
+
+      <div class="gear-item-sidebar">
+        <div class="gear-cat-sb">Navigation</div>
+        <div class="gear-name-sb">TOPO MAP KIT v3</div>
+        <p class="gear-note-sb">1/25,000地形図 × デジタルトラッカー。いつでも紙に戻れる安心感。</p>
+      </div>
+    </div>
+
+    <h2 class="report-heading">上高地から槍沢へ</h2>
+
+    <div class="report-body">
+      <p>
+        夜明け前の上高地バスターミナルは、すでに動き始めていた。
+        ヘッドランプの光が小さな星座を作り、各自の準備が静かに進む。
+        パックの重さは18.4kg。これが12日間の全てだ。
+      </p>
+
+      <p>
+        槍沢ロッジを過ぎると、道は急激な勾配に変わる。
+        足元の岩は昨夜の霜で光り、一歩一歩に集中を要求してくる。
+        ここでは思考の贅沢が許されない。歩くことだけが思考になる。
+      </p>
+    </div>
+
+    <div class="pull-quote-wrap">
+      <blockquote class="pull-quote">
+        「地図の線は、歩いてはじめて<br>意味を持つ。」
+      </blockquote>
+    </div>
+
+    <div class="photo-placeholder light-bg">
+      <span class="photo-inner-label">FIELD PHOTOGRAPH — Slot for Image</span>
+    </div>
+    <p class="photo-caption">槍沢を遡行中、標高2,400m付近。夜明け直後の斜光が岩肌を赤く染めた。— K.M.</p>
+
+    <div class="report-body">
+      <p>
+        槍ヶ岳山頂から見える景色は、何度見ても人間の語彙を超えている。
+        360度の稜線が続き、どこまでが山でどこからが空か、境界が溶けていく。
+        装備の重さも、脚の痛みも、一時的に存在しなくなる瞬間がある。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REPORT 2 (DARK) ===== -->
+<section class="report-section dark clip-from-dark clip-to-dark">
+  <div class="report-inner">
+    <p class="report-eyebrow">Field Report II</p>
+    <h2 class="report-heading">薬師岳、嵐の前後</h2>
+
+    <div class="photo-placeholder">
+      <span class="photo-inner-label">FIELD PHOTOGRAPH — Slot for Image</span>
+    </div>
+    <p class="photo-caption">薬師岳頂上付近。急速に発達した積乱雲が西から迫る。行動中断を決断した瞬間。</p>
+
+    <div class="report-body">
+      <p>
+        太郎平小屋に着いた翌朝、気圧計は急落していた。
+        予報より6時間早い。山の天気はいつも予報の一歩先を行く。
+        テントを張り直し、フライとの隙間をすべてシールする。嵐への備えは儀式に似ている。
+      </p>
+
+      <p>
+        暴風は14時間続いた。テントの内壁が激しく揺れ、
+        外の轟音は会話を不可能にした。
+        そういう時間に人は、持ってきた本を読むか、眠るか、ただ考えるかしかない。
+        私はこの旅を続ける理由について、初めて言語化しようとしていた。
+      </p>
+    </div>
+
+    <div class="pull-quote-wrap">
+      <blockquote class="pull-quote">
+        嵐が教えるのは<br>恐怖ではなく、<em>辛抱の形</em>だ。
+      </blockquote>
+    </div>
+
+    <div class="report-body">
+      <p>
+        翌日、空は洗われたように澄み渡った。
+        薬師岳の山頂から黒部の谷が見え、その向こうに立山連峰が連なっていた。
+        昨夜の嵐が嘘のように、光だけがある。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GEAR LINEUP ===== -->
+<section id="gear-lineup" class="clip-from-dark">
+  <div class="section-head">
+    <p class="report-eyebrow">Equipment Log</p>
+    <h2 class="report-heading">今号のフィールドギア</h2>
+  </div>
+
+  <div class="gear-cards">
+    <div class="gear-card">
+      <div class="gear-num">01</div>
+      <div class="gear-info">
+        <div class="gear-info-tag">Backpack</div>
+        <div class="gear-info-name">APEX RIDGE X7 Summit Pack</div>
+        <p class="gear-info-note">45L / 1,240g。稜線縦走に特化した荷重配分設計。Dyneema Compositeフレームが体幹へ的確に荷重を分散する。積雪期アプローチからハイルートまで対応。</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-num">02</div>
+      <div class="gear-info">
+        <div class="gear-info-tag">Shell Jacket</div>
+        <div class="gear-info-name">STORMCORE PRO Hardshell</div>
+        <p class="gear-info-note">3レイヤーGore-Tex Pro。全縫い目シームテープ処理。フード調整は片手・グローブ装着状態で完結する。嵐の中でも動作の余裕を確保するパターン設計。</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-num">03</div>
+      <div class="gear-info">
+        <div class="gear-info-tag">Sleep System</div>
+        <div class="gear-info-name">RIDGELINE -12°C Down Bag</div>
+        <p class="gear-info-note">800フィルパワー / 940g。独自の「ドラフトカラー」構造が首元の放熱を防ぐ。実用温度域は体感で-15°Cまで。コンプレッションは7L以内に収納可能。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLOPHON ===== -->
+<footer id="colophon">
+  <!-- Topo SVG background -->
+  <svg class="colophon-topo" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="400" cy="200" rx="380" ry="160" fill="none" stroke="#B87333" stroke-width="1"/>
+    <ellipse cx="400" cy="200" rx="300" ry="120" fill="none" stroke="#B87333" stroke-width="1"/>
+    <ellipse cx="400" cy="200" rx="220" ry="85" fill="none" stroke="#B87333" stroke-width="1"/>
+    <ellipse cx="400" cy="200" rx="150" ry="55" fill="none" stroke="#B87333" stroke-width="1"/>
+    <ellipse cx="400" cy="200" rx="90" ry="30" fill="none" stroke="#B87333" stroke-width="1"/>
+    <ellipse cx="400" cy="200" rx="40" ry="12" fill="none" stroke="#B87333" stroke-width="1.5"/>
+  </svg>
+
+  <span class="colophon-brand">TERRA JOURNAL</span>
+
+  <p class="colophon-statement">
+    自然は<strong>問いを持つ人間</strong>にだけ、<br>その答えを見せる。
+  </p>
+
+  <p class="colophon-sub">
+    毎号、実際のフィールドから届くレポートと、
+    装備の正直なレビューをお届けします。
+    広告ではなく、経験から。
+  </p>
+
+  <a href="#" class="colophon-link">購読・問い合わせ — terrajournal.jp</a>
+
+  <div class="colophon-divider"></div>
+
+  <p class="colophon-footer">TERRA JOURNAL — Vol.12 / November 2025 / Published by Fieldline Inc.</p>
+</footer>
+
+<script>
+/* ===== SCROLL PROGRESS ===== */
+window.addEventListener('scroll', () => {
+  const bar = document.getElementById('progress-bar');
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+  bar.style.width = pct + '%';
+});
+
+/* ===== TOPO LINE DRAW (SVG stroke-dasharray) ===== */
+(function() {
+  const lines = document.querySelectorAll('.topo-line');
+  lines.forEach((el, i) => {
+    const len = el.getTotalLength ? el.getTotalLength() : 2000;
+    el.style.strokeDasharray = len;
+    el.style.strokeDashoffset = len;
+    el.style.transition = `stroke-dashoffset ${1.5 + i * 0.4}s ease-out ${0.3 + i * 0.2}s`;
+    requestAnimationFrame(() => {
+      setTimeout(() => { el.style.strokeDashoffset = 0; }, 100);
+    });
+  });
+})();
+
+/* ===== PULL QUOTE SLIDE IN ===== */
+(function() {
+  const quotes = document.querySelectorAll('.pull-quote');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  quotes.forEach(q => obs.observe(q));
+})();
+
+/* ===== GEAR CARD FADE IN ===== */
+(function() {
+  const cards = document.querySelectorAll('.gear-card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  cards.forEach(c => obs.observe(c));
+})();
+
+/* ===== SMOOTH SCROLL ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRODORI — あなたの"ここ"を、一緒に探しに行こう。</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Serif:ital@0;1&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:       '#EEF2EC',
+          bg2:      '#E4EBE0',
+          bgdark:   '#1C3028',
+          ink:      '#1A2420',
+          mid:      '#627A6C',
+          terra:    '#C85A2A',
+          mist:     '#B8C8B4',
+          cream:    '#F4F0E8',
+        },
+        fontFamily: {
+          serif:   ['"DM Serif Display"', 'serif'],
+          label:   ['"Instrument Serif"', 'serif'],
+          body:    ['"Noto Sans JP"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --bg:      #EEF2EC;
+    --bg2:     #E4EBE0;
+    --bgdark:  #1C3028;
+    --ink:     #1A2420;
+    --mid:     #627A6C;
+    --terra:   #C85A2A;
+    --mist:    #B8C8B4;
+    --cream:   #F4F0E8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 2.3;
+    letter-spacing: 0.05em;
+    overflow-x: hidden;
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--bg);
+    clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 10rem 0 14rem;
+  }
+
+  .hero-bg-mask {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 60%, var(--mist) 100%);
+    opacity: 0.6;
+  }
+
+  /* SVG稜線 */
+  .ridgeline {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    opacity: 0.08;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-label {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(0.75rem, 1.2vw, 1rem);
+    letter-spacing: 0.2em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s ease forwards;
+  }
+
+  h1.hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 1s 0.5s ease forwards;
+  }
+
+  .hero-sub {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    color: var(--mid);
+    margin-top: 2rem;
+    max-width: 440px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s ease forwards;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 3rem;
+    background: var(--terra);
+    color: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    padding: 1.1rem 2.8rem;
+    border-radius: 0;
+    text-decoration: none;
+    transition: background 0.4s ease;
+    opacity: 0;
+    animation: fadeUp 1s 1s ease forwards;
+  }
+  .hero-cta:hover { background: var(--bgdark); }
+
+  .hero-img-block {
+    opacity: 0;
+    animation: fadeUp 1.2s 0.7s ease forwards;
+  }
+
+  .img-placeholder {
+    background: linear-gradient(160deg, var(--bgdark) 0%, var(--mid) 60%, var(--mist) 100%);
+    border-radius: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== SECTION BASE ========== */
+  section {
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .section-label {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    letter-spacing: 0.22em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  /* ========== THIS TOWN ========== */
+  #town {
+    padding: 12rem 0 10rem;
+    background: var(--bg);
+  }
+
+  .town-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .town-keywords {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .keyword-item {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--mist);
+    padding-bottom: 0.5rem;
+  }
+
+  .town-img-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 0.8rem;
+  }
+
+  /* ========== LIFE ========== */
+  #life {
+    padding: 10rem 0;
+    background: var(--cream);
+    clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+  }
+
+  .life-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 4rem;
+  }
+
+  .life-card {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 4rem 0;
+    border-top: 1px solid var(--mist);
+  }
+
+  .life-card:nth-child(even) {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  .life-card:nth-child(even) .life-text {
+    order: 2;
+  }
+
+  .life-card:nth-child(even) .life-img {
+    order: 1;
+  }
+
+  .life-scene {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 0.8rem;
+  }
+
+  .life-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ========== DATA ========== */
+  #data {
+    padding: 12rem 0;
+    background: var(--bgdark);
+    color: #fff;
+    clip-path: polygon(0 0, 100% 4%, 100% 96%, 0 100%);
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 5rem;
+    text-align: center;
+  }
+
+  .data-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    color: var(--mist);
+    line-height: 1;
+  }
+
+  .data-unit {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: var(--mist);
+  }
+
+  .data-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.8rem;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    margin-top: 0.5rem;
+  }
+
+  /* ========== VOICE ========== */
+  #voice {
+    padding: 12rem 0;
+    background: var(--bg);
+  }
+
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .voice-card {
+    border-left: 1px solid var(--mist);
+    padding-left: 1.8rem;
+  }
+
+  .voice-quote {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88rem;
+    line-height: 2.3;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+
+  .voice-meta {
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.78rem;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+  }
+
+  /* ========== STEP ========== */
+  #step {
+    padding: 10rem 0;
+    background: var(--bg2);
+    clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .step-timeline {
+    display: flex;
+    gap: 0;
+    margin-top: 4rem;
+    overflow-x: auto;
+  }
+
+  .step-item {
+    flex: 1;
+    min-width: 180px;
+    padding: 2rem 1.5rem;
+    border-left: 1px solid var(--mist);
+    position: relative;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .step-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--mist);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+
+  /* ========== CTA ========== */
+  #cta {
+    padding: 12rem 0;
+    background: var(--bg);
+  }
+
+  .cta-block {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--terra);
+    color: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    padding: 1.3rem 4rem;
+    border-radius: 0;
+    text-decoration: none;
+    transition: background 0.4s ease;
+    margin-top: 1rem;
+  }
+
+  .cta-btn:hover { background: var(--bgdark); }
+
+  .faq-list {
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .faq-item {
+    border-top: 1px solid var(--mist);
+    padding: 1.8rem 0;
+  }
+
+  .faq-q {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.8rem;
+  }
+
+  .faq-a {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 2.2;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--bgdark);
+    color: var(--mist);
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+
+  footer .footer-brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  footer .footer-tagline {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+  }
+
+  /* ========== ANIMATE ON SCROLL ========== */
+  .aos {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .aos.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    #hero { padding: 6rem 0 8rem; clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%); }
+    .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-img-block { display: none; }
+    #town { padding: 5rem 0; }
+    .town-grid { grid-template-columns: 1fr; gap: 2rem; }
+    #life { padding: 6rem 0; clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%); }
+    .life-card { grid-template-columns: 1fr; gap: 1.5rem; }
+    .life-card:nth-child(even) .life-text { order: unset; }
+    .life-card:nth-child(even) .life-img { order: unset; }
+    #data { padding: 8rem 0; clip-path: polygon(0 0, 100% 2%, 100% 98%, 0 100%); }
+    .data-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .voice-grid { grid-template-columns: 1fr; }
+    .step-item { min-width: 240px; }
+    #step { padding: 6rem 0; clip-path: none; }
+    #cta { padding: 6rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(238,242,236,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--mist);transition:all 0.3s;" id="nav">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;height:64px;">
+    <span style="font-family:'Instrument Serif',serif;font-size:1.3rem;letter-spacing:0.2em;color:var(--ink);">IRODORI</span>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="#town" style="font-size:0.8rem;letter-spacing:0.1em;color:var(--mid);text-decoration:none;">この町</a>
+      <a href="#step" style="font-size:0.8rem;letter-spacing:0.1em;color:var(--mid);text-decoration:none;">移住の流れ</a>
+      <a href="#cta" style="font-size:0.8rem;letter-spacing:0.08em;background:var(--terra);color:#fff;padding:0.6rem 1.6rem;text-decoration:none;transition:background 0.3s;">相談する</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-bg-mask"></div>
+
+  <!-- SVG稜線 -->
+  <svg class="ridgeline" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,160 C120,140 200,80 320,90 C440,100 500,130 620,120 C740,110 800,60 940,70 C1080,80 1160,120 1280,105 C1360,95 1420,100 1440,98 L1440,200 L0,200 Z" fill="var(--bgdark)"/>
+    <path d="M0,180 C180,160 280,120 400,130 C520,140 580,170 720,155 C860,140 920,100 1060,110 C1200,120 1320,150 1440,140 L1440,200 L0,200 Z" fill="var(--mid)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div>
+      <p class="hero-label">Migration Concierge / IRODORI</p>
+      <h1 class="hero-title">あなたが探していたのは、<br>もしかして"ここ"かもしれない。</h1>
+      <p class="hero-sub">電車を降りた瞬間、なぜかほっとした。<br>都市では手に入らない豊かさが、もうそこにある。</p>
+      <a href="#cta" class="hero-cta">まず話を聞かせてください</a>
+    </div>
+    <div class="hero-img-block">
+      <div class="img-placeholder" style="aspect-ratio:2/3;width:100%;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THIS TOWN ========== -->
+<section id="town">
+  <div class="section-inner">
+    <div class="aos">
+      <p class="section-label">This Town</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:0.02em;color:var(--ink);">棚田と清流が育てた、<br>もうひとつの暮らし。</h2>
+    </div>
+    <div class="town-grid">
+      <div class="aos">
+        <p style="font-size:0.88rem;color:var(--mid);line-height:2.4;">都市では決して手に入らない時間の流れが、この場所にはあります。朝の光の質が違う。空気の重さが違う。人と人の距離が違う。</p>
+        <div class="town-keywords">
+          <span class="keyword-item">森と水の声</span>
+          <span class="keyword-item">自給する豊かさ</span>
+          <span class="keyword-item">深夜の星の近さ</span>
+        </div>
+      </div>
+      <div class="town-img-grid aos">
+        <div class="img-placeholder" style="aspect-ratio:4/3;"></div>
+        <div class="img-placeholder" style="aspect-ratio:2/3;background:linear-gradient(200deg,var(--mid) 0%,var(--mist) 100%);"></div>
+        <div class="img-placeholder" style="aspect-ratio:16/9;grid-column:span 2;background:linear-gradient(160deg,var(--bg2) 0%,var(--mid) 100%);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LIFE ========== -->
+<section id="life">
+  <div class="section-inner">
+    <div class="aos">
+      <p class="section-label">Life</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:0.02em;color:var(--ink);">朝から夜まで、<br>もっと正直に生きる。</h2>
+    </div>
+    <div class="life-cards">
+
+      <div class="life-card aos">
+        <div class="life-text">
+          <p class="life-scene">農 / Farm</p>
+          <h3 class="life-title">土を触ると、<br>余計なことが消える。</h3>
+          <p style="color:var(--mid);font-size:0.88rem;">自分で育てた野菜を食べる朝。スーパーのレシートが気にならなくなる。それだけのことが、なぜか大きく思える。</p>
+        </div>
+        <div class="life-img">
+          <div class="img-placeholder" style="aspect-ratio:4/3;background:linear-gradient(140deg,var(--bgdark) 0%,var(--mid) 100%);"></div>
+        </div>
+      </div>
+
+      <div class="life-card aos">
+        <div class="life-text">
+          <p class="life-scene">食 / Food</p>
+          <h3 class="life-title">食卓が、<br>その日の全部になる。</h3>
+          <p style="color:var(--mid);font-size:0.88rem;">地元の市場で買った根菜。知り合いの猟師からもらった肉。その土地の食は、その土地の物語でできている。</p>
+        </div>
+        <div class="life-img">
+          <div class="img-placeholder" style="aspect-ratio:4/3;background:linear-gradient(160deg,var(--mid) 0%,var(--mist) 100%);"></div>
+        </div>
+      </div>
+
+      <div class="life-card aos">
+        <div class="life-text">
+          <p class="life-scene">仕事 / Work</p>
+          <h3 class="life-title">リモートでも、<br>根を張って働ける。</h3>
+          <p style="color:var(--mid);font-size:0.88rem;">窓から田んぼが見える仕事部屋。Wi-Fiは完備。通勤時間は0分。会議のあとに畑に出られる、そんな働き方。</p>
+        </div>
+        <div class="life-img">
+          <div class="img-placeholder" style="aspect-ratio:4/3;background:linear-gradient(170deg,var(--bg2) 0%,var(--mid) 100%);"></div>
+        </div>
+      </div>
+
+      <div class="life-card aos">
+        <div class="life-text">
+          <p class="life-scene">子育て / Family</p>
+          <h3 class="life-title">子どもが、<br>のびのびと育つ場所。</h3>
+          <p style="color:var(--mid);font-size:0.88rem;">川で遊んで帰ってきた子どもの顔が、都市にいた頃より生き生きしている。それが全てを語っていた。</p>
+        </div>
+        <div class="life-img">
+          <div class="img-placeholder" style="aspect-ratio:4/3;background:linear-gradient(150deg,var(--mist) 0%,var(--bg2) 100%);"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== DATA ========== -->
+<section id="data">
+  <div class="section-inner">
+    <div class="aos">
+      <p class="section-label" style="color:var(--mist);">Data</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,3rem);letter-spacing:0.02em;color:#fff;">移住を選んだ、<br>人たちの記録。</h2>
+    </div>
+    <div class="data-grid">
+      <div class="aos">
+        <div class="data-num"><span class="counter" data-target="1240">0</span><span class="data-unit">+</span></div>
+        <p class="data-label">累計相談件数</p>
+      </div>
+      <div class="aos">
+        <div class="data-num"><span class="counter" data-target="87">0</span><span class="data-unit">%</span></div>
+        <p class="data-label">移住後の満足度</p>
+      </div>
+      <div class="aos">
+        <div class="data-num"><span class="counter" data-target="43">0</span><span class="data-unit">市町村</span></div>
+        <p class="data-label">対応エリア数</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VOICE ========== -->
+<section id="voice">
+  <div class="section-inner">
+    <div class="aos">
+      <p class="section-label">Voice</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--ink);letter-spacing:0.02em;">移住した人の、<br>その後の話。</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card aos">
+        <p class="voice-quote">「正直、迷っていました。でもIRODORIの担当者に話を聞いてもらってから、不安より楽しみのほうが大きくなって。今は引っ越してよかったと思っています」</p>
+        <p class="voice-meta">東京都出身 → 長野県南部 / 30代 / ご夫婦</p>
+      </div>
+      <div class="voice-card aos">
+        <p class="voice-quote">「子育てのことを一番心配していました。でも地域の人たちがこんなにあたたかいとは思っていなかった。子どもが地元の子どもと全力で遊んでいる姿を見て、来てよかったと確信しました」</p>
+        <p class="voice-meta">大阪府出身 → 島根県西部 / 40代 / ファミリー</p>
+      </div>
+      <div class="voice-card aos">
+        <p class="voice-quote">「移住は諦めじゃなくて、選択だったんだと今はわかります。仕事も続けながら、夕方には畑に出る。こんな生活、以前は想像もしていませんでした」</p>
+        <p class="voice-meta">神奈川県出身 → 岡山県北部 / 30代 / 単身</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STEP ========== -->
+<section id="step">
+  <div class="section-inner">
+    <div class="aos">
+      <p class="section-label">Step</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--ink);letter-spacing:0.02em;">一歩ずつ、<br>確かめながら進む。</h2>
+    </div>
+    <div class="step-timeline">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-title">オンライン相談</div>
+        <p style="font-size:0.83rem;color:var(--mid);">まずは気軽に話してみてください。不安な気持ちも全部聞きます。</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-title">エリア・条件の整理</div>
+        <p style="font-size:0.83rem;color:var(--mid);">理想の暮らし像を言語化。優先順位を一緒に整理します。</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-title">現地訪問・お試し移住</div>
+        <p style="font-size:0.83rem;color:var(--mid);">候補地に実際に行ってみる。住んでみる。感じることが大切です。</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-title">行政手続きサポート</div>
+        <p style="font-size:0.83rem;color:var(--mid);">補助金・住宅・仕事探しまで、専門家ネットワークで支援。</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">05</div>
+        <div class="step-title">引越し・定住後サポート</div>
+        <p style="font-size:0.83rem;color:var(--mid);">新しい場所に馴染むまで、寄り添い続けます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section id="cta">
+  <div class="section-inner">
+    <div class="cta-block aos">
+      <p class="section-label" style="text-align:center;">Consult</p>
+      <h2 class="cta-title">まず、話を<br>聞かせてください。</h2>
+      <p style="color:var(--mid);font-size:0.88rem;margin-bottom:2rem;">慣れた街を離れる怖さ、わかります。<br>だから一緒に考えます。相談は無料です。</p>
+      <a href="#" class="cta-btn">無料相談を申し込む</a>
+    </div>
+
+    <div class="faq-list aos">
+      <h3 style="font-family:'Instrument Serif',serif;font-size:1.2rem;letter-spacing:0.1em;color:var(--ink);margin-bottom:1rem;">よくあるご不安</h3>
+      <div class="faq-item">
+        <p class="faq-q">仕事はどうすればいいですか？</p>
+        <p class="faq-a">リモートワーク継続、地元就職、起業など、さまざまな選択肢があります。ご状況に合わせてご提案します。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">子どもの学校はありますか？</p>
+        <p class="faq-a">地域によりますが、少人数教育の良さを活かした学校が多くあります。現地の情報を詳しくご説明できます。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">移住に費用はかかりますか？</p>
+        <p class="faq-a">当サービスの相談は無料です。また多くの自治体では引越し費用補助や住宅支援制度があります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <p class="footer-brand">IRODORI</p>
+  <p class="footer-tagline">あなたの"ここ"を、一緒に探しに行こう。</p>
+  <p style="margin-top:2rem;font-size:0.75rem;color:#4A6856;letter-spacing:0.06em;">© 2025 IRODORI 移住コンシェルジュサービス</p>
+</footer>
+
+<script>
+// IntersectionObserver for AOS
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.aos').forEach(el => obs.observe(el));
+
+// Step stagger
+const stepObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.step-item').forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 150);
+      });
+    }
+  });
+}, { threshold: 0.2 });
+
+const stepSection = document.querySelector('.step-timeline');
+if (stepSection) stepObs.observe(stepSection);
+
+// Counter animation
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 1500;
+  const start = performance.now();
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(animateCounter);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+const dataSection = document.getElementById('data');
+if (dataSection) counterObs.observe(dataSection);
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>

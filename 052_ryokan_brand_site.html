@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅籠 結（YUKI）— Where time slows down</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@400&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:       '#F6F2EA',
+          bg2:      '#EDE8DC',
+          bgseason: '#E8F0E4',
+          ink:      '#1A1810',
+          mid:      '#7A7268',
+          bamboo:   '#4A6848',
+          sand:     '#D4C4A0',
+          engawa:   '#B8A88C',
+        },
+        fontFamily: {
+          kaisei:   ['"Kaisei Decol"', 'serif'],
+          spectral: ['"Spectral"', 'serif'],
+          notoserif:['"Noto Serif JP"', 'serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --bg:       #F6F2EA;
+    --bg2:      #EDE8DC;
+    --bgseason: #E8F0E4;
+    --ink:      #1A1810;
+    --mid:      #7A7268;
+    --bamboo:   #4A6848;
+    --sand:     #D4C4A0;
+    --engawa:   #B8A88C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.92rem;
+    line-height: 2.4;
+    letter-spacing: 0.07em;
+    overflow-x: hidden;
+  }
+
+  /* ========== NOREN HERO ========== */
+  #noren {
+    position: relative;
+    min-height: 100vh;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .noren-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1A1810 0%, #2a2418 40%, #3a3028 100%);
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .noren-bg.revealed {
+    clip-path: inset(0 0 0% 0);
+  }
+
+  /* 暖簾テクスチャ */
+  .noren-texture {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 38px,
+      rgba(184,168,140,0.06) 38px,
+      rgba(184,168,140,0.06) 40px
+    );
+    pointer-events: none;
+  }
+
+  .noren-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.2s 1.2s ease;
+  }
+
+  .noren-content.visible {
+    opacity: 1;
+  }
+
+  .noren-brand {
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    letter-spacing: 0.3em;
+    color: var(--sand);
+    line-height: 1.2;
+  }
+
+  .noren-brand-en {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: clamp(0.75rem, 1.2vw, 1rem);
+    letter-spacing: 0.2em;
+    color: var(--engawa);
+    margin-bottom: 3rem;
+  }
+
+  .noren-copy {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+    color: rgba(212,196,160,0.7);
+    letter-spacing: 0.12em;
+    line-height: 2;
+  }
+
+  /* 縦書きラベル */
+  .vertical-label {
+    writing-mode: vertical-rl;
+    font-family: 'Kaisei Decol', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--engawa);
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 1s 1.5s ease, transform 1.2s 1.5s ease;
+  }
+
+  .vertical-label.visible {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  .vertical-label-left {
+    writing-mode: vertical-rl;
+    font-family: 'Kaisei Decol', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--engawa);
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 1s 1.8s ease;
+  }
+
+  .vertical-label-left.visible {
+    opacity: 0.5;
+  }
+
+  /* ========== SECTION BASE ========== */
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .section-num {
+    font-family: 'Spectral', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--engawa);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .section-title-en {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-top: 0.4rem;
+  }
+
+  .hairline {
+    border: none;
+    border-top: 1px solid var(--engawa);
+    margin: 3rem 0;
+    opacity: 0.5;
+  }
+
+  /* ========== KOKO ========== */
+  #koko {
+    padding: 14rem 0 12rem;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .koko-year {
+    position: absolute;
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(6rem, 18vw, 16rem);
+    opacity: 0.05;
+    color: var(--ink);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
+  .koko-grid {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: 6rem;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+  }
+
+  .koko-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.92rem;
+    line-height: 2.6;
+    color: var(--ink);
+  }
+
+  .koko-vertical {
+    writing-mode: vertical-rl;
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    letter-spacing: 0.2em;
+    color: var(--bamboo);
+    text-align: left;
+    padding-top: 2rem;
+  }
+
+  /* ========== ROKA (横スクロール) ========== */
+  #roka {
+    padding: 10rem 0;
+    background: var(--bg2);
+    overflow: hidden;
+  }
+
+  .roka-header {
+    padding: 0 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+  }
+
+  .room-scroll {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    gap: 1px;
+    padding: 0 2.5rem 3rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--engawa) transparent;
+  }
+
+  .room-scroll::-webkit-scrollbar {
+    height: 2px;
+  }
+  .room-scroll::-webkit-scrollbar-track { background: transparent; }
+  .room-scroll::-webkit-scrollbar-thumb { background: var(--engawa); }
+
+  .room-card {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: calc(100vw - 8rem);
+    max-width: 560px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: var(--bg);
+    border: 1px solid var(--engawa);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .room-img {
+    aspect-ratio: 4/3;
+    background: linear-gradient(160deg, var(--ink) 0%, #3a3028 60%, var(--mid) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .room-img-2 {
+    background: linear-gradient(140deg, #2a2020 0%, var(--mid) 60%, var(--sand) 100%);
+  }
+
+  .room-img-3 {
+    background: linear-gradient(170deg, var(--ink) 0%, #304030 60%, var(--bamboo) 100%);
+  }
+
+  .room-card:hover .room-img {
+    filter: sepia(0);
+  }
+
+  .room-info {
+    padding: 2rem 1.8rem;
+  }
+
+  .room-name-ja {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .room-name-en {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-bottom: 1rem;
+  }
+
+  .room-desc {
+    font-size: 0.83rem;
+    color: var(--mid);
+    line-height: 2.2;
+  }
+
+  /* ========== SHOKU ========== */
+  #shoku {
+    padding: 14rem 0;
+    background: var(--bg);
+  }
+
+  .shoku-grid {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .shoku-img-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* ========== JIKAN ========== */
+  #jikan {
+    padding: 12rem 0;
+    background: var(--bg2);
+  }
+
+  .timeline {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 700px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px dashed var(--engawa);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-time {
+    font-family: 'Spectral', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--bamboo);
+    padding-top: 0.2rem;
+  }
+
+  .timeline-content-title {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ========== KOE ========== */
+  #koe {
+    padding: 12rem 0;
+    background: var(--bg);
+  }
+
+  .koe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .koe-card {
+    border-top: 1px solid var(--engawa);
+    padding-top: 2rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .koe-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .koe-quote {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.88rem;
+    line-height: 2.5;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+
+  .koe-meta {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+  }
+
+  /* ========== YOYAKU CTA ========== */
+  #yoyaku {
+    padding: 14rem 0;
+    background: var(--bgseason);
+  }
+
+  .yoyaku-inner {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .yoyaku-cta-btn {
+    display: inline-block;
+    margin-top: 3rem;
+    border: 1px solid var(--bamboo);
+    color: var(--bamboo);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    padding: 1.2rem 3.5rem;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.5s ease;
+  }
+
+  .yoyaku-cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bamboo);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+  }
+
+  .yoyaku-cta-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .yoyaku-cta-btn:hover {
+    color: #fff;
+  }
+
+  .yoyaku-cta-btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--ink);
+    color: var(--mid);
+    padding: 5rem 2.5rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--sand);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.8rem;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+  }
+
+  /* ========== AOS ========== */
+  .aos {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .aos.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .koko-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .koko-year { font-size: 30vw; }
+    .shoku-grid { grid-template-columns: 1fr; }
+    .koe-grid { grid-template-columns: 1fr; }
+    .room-card { width: calc(100vw - 3rem); }
+    .vertical-label, .vertical-label-left { display: none; }
+    #koko { padding: 6rem 0; }
+    #roka { padding: 6rem 0; }
+    #shoku { padding: 6rem 0; }
+    #jikan { padding: 6rem 0; }
+    #koe { padding: 6rem 0; }
+    #yoyaku { padding: 8rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,24,16,0.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,168,140,0.2);" id="nav">
+  <div style="max-width:1100px;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;height:64px;">
+    <span style="font-family:'Kaisei Decol',serif;font-size:1.1rem;letter-spacing:0.28em;color:var(--sand);">旅籠 結</span>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="#koko" style="font-family:'Noto Serif JP',serif;font-size:0.8rem;letter-spacing:0.12em;color:var(--mid);text-decoration:none;">此処について</a>
+      <a href="#roka" style="font-family:'Noto Serif JP',serif;font-size:0.8rem;letter-spacing:0.12em;color:var(--mid);text-decoration:none;">客室</a>
+      <a href="#yoyaku" style="font-family:'Noto Serif JP',serif;font-size:0.78rem;letter-spacing:0.1em;border:1px solid var(--engawa);color:var(--sand);padding:0.5rem 1.4rem;text-decoration:none;transition:all 0.3s;">ご予約</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== NOREN HERO ========== -->
+<section id="noren">
+  <div class="noren-bg" id="norenBg"></div>
+  <div class="noren-texture"></div>
+
+  <!-- 縦書きラベル右 -->
+  <div class="vertical-label" id="vLabelRight">秋晴れの候</div>
+
+  <!-- 縦書きラベル左 -->
+  <div class="vertical-label-left" id="vLabelLeft">YUKI / 一九二三年創業</div>
+
+  <div class="noren-content" id="norenContent">
+    <p class="noren-brand-en">Where time slows down</p>
+    <h1 class="noren-brand">旅籠 結</h1>
+    <p style="font-family:'Spectral',serif;font-style:italic;font-size:0.75rem;letter-spacing:0.2em;color:var(--engawa);margin-top:0.2rem;margin-bottom:3rem;">YUKI — Est. 1923</p>
+    <p class="noren-copy">ここに来るたびに、<br>少し正直になれる気がする。</p>
+  </div>
+</section>
+
+<!-- ========== KOKO ========== -->
+<section id="koko">
+  <div class="koko-year" aria-hidden="true">一九二三</div>
+  <div class="section-inner">
+    <div class="koko-grid">
+      <div>
+        <span class="section-num aos">01 — Koko</span>
+        <h2 class="section-title aos">此処について</h2>
+        <p class="section-title-en aos">Est. since 1923</p>
+        <hr class="hairline">
+        <p class="koko-text aos">
+          大正十二年の秋、この場所に小さな旅籠が生まれました。
+          百年という時間が積み重ねてきたものは、豪華さでも、贅沢さでもありません。
+          ただ同じことを、誠実に続けてきただけです。<br><br>
+          旅人を迎えること。温かい食事を用意すること。
+          静かな夜を守ること。<br><br>
+          この宿に来ると、少しだけ自分の速度を取り戻せるような気がする——
+          そう言ってくださるお客様がいます。
+          それがわたしたちの誇りです。
+        </p>
+        <p style="font-family:'Spectral',serif;font-style:italic;font-size:0.85rem;letter-spacing:0.08em;color:var(--mid);margin-top:2rem;" class="aos">
+          "One hundred years of doing the same thing well."
+        </p>
+        <p style="margin-top:2rem;font-size:0.82rem;color:var(--mid);" class="aos">一泊二食 ¥38,000〜</p>
+      </div>
+      <div class="aos">
+        <div class="koko-vertical">山形の時間</div>
+        <div style="margin-top:2rem;">
+          <div style="aspect-ratio:3/4;background:linear-gradient(160deg,var(--ink) 0%,#3a3028 40%,var(--mid) 100%);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ROKA ========== -->
+<section id="roka">
+  <div class="roka-header">
+    <span class="section-num aos">02 — Roka</span>
+    <h2 class="section-title aos">客　室</h2>
+    <p class="section-title-en aos">Walk the corridor. Open each door.</p>
+    <p style="font-size:0.8rem;color:var(--mid);margin-top:0.8rem;font-family:'Spectral',serif;font-style:italic;" class="aos">← scroll to explore</p>
+  </div>
+  <div class="room-scroll">
+    <div class="room-card">
+      <div class="room-img"></div>
+      <div class="room-info">
+        <p class="room-name-ja">竹の間</p>
+        <p class="room-name-en">Bamboo Suite</p>
+        <p class="room-desc">中庭の老竹が窓枠に収まる部屋。風が吹くたびに影が揺れる。静かな朝に向いた部屋です。</p>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img room-img-2"></div>
+      <div class="room-info">
+        <p class="room-name-ja">水の間</p>
+        <p class="room-name-en">Stream Room</p>
+        <p class="room-desc">せせらぎの音が届く川沿いの部屋。夏は涼しく、冬は雪景色に包まれます。</p>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img room-img-3"></div>
+      <div class="room-info">
+        <p class="room-name-ja">月の間</p>
+        <p class="room-name-en">Moon Suite</p>
+        <p class="room-desc">山の端に月が出る夜を、縁側から眺めるための部屋。本館最上階の静けさがここにあります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SHOKU ========== -->
+<section id="shoku">
+  <div class="section-inner">
+    <div class="aos">
+      <span class="section-num">03 — Shoku</span>
+      <h2 class="section-title">食</h2>
+      <p class="section-title-en">Spring Harvest / Autumn Deep</p>
+    </div>
+    <div class="shoku-grid">
+      <div class="shoku-img-stack aos">
+        <div style="aspect-ratio:3/4;background:linear-gradient(170deg,#2a2018 0%,var(--mid) 100%);"></div>
+        <div style="aspect-ratio:1/1;background:linear-gradient(140deg,var(--sand) 0%,var(--engawa) 100%);"></div>
+      </div>
+      <div class="aos" style="padding-top:1rem;">
+        <hr class="hairline">
+        <p class="koko-text" style="margin-bottom:2rem;">
+          山形の食は、山が育てるものです。<br><br>
+          春は山菜と川魚。夏は地野菜と冷たい湧き水。
+          秋は茸と芋煮。冬は根菜と保存食の知恵。<br><br>
+          この地に代々続く農家や猟師、漁師と直接つながり、
+          その日の朝に手に入ったものを、その日の夕餉に並べます。<br><br>
+          器は地元の陶芸家が作ったもの。
+          季節によって変わる器の表情も、食事の一部です。
+        </p>
+        <hr class="hairline">
+        <div style="writing-mode:vertical-rl;font-family:'Kaisei Decol',serif;letter-spacing:0.22em;font-size:0.85rem;color:var(--bamboo);float:right;height:120px;">旬の恵み</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== JIKAN ========== -->
+<section id="jikan">
+  <div class="section-inner">
+    <div class="aos">
+      <span class="section-num">04 — Jikan</span>
+      <h2 class="section-title">一日の時間</h2>
+      <p class="section-title-en">Your day at Yuki</p>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="timeline-item">
+        <span class="timeline-time">06:00</span>
+        <div>
+          <p class="timeline-content-title">朝の静けさ</p>
+          <p style="font-size:0.83rem;color:var(--mid);">宿が動き出す前の時間。廊下を歩くと、厨房から出汁の香りがする。縁側で一人、朝の庭を眺める。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">07:30</span>
+        <div>
+          <p class="timeline-content-title">朝餉</p>
+          <p style="font-size:0.83rem;color:var(--mid);">白いご飯と、この土地の漬け物。味噌汁は毎朝炊き立て。それだけで十分な朝があることを知る。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">11:00</span>
+        <div>
+          <p class="timeline-content-title">散策</p>
+          <p style="font-size:0.83rem;color:var(--mid);">近くの山道か、古い町並みへ。宿のスタッフが好きな場所を教えてくれる。観光地図にない場所へ。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">16:00</span>
+        <div>
+          <p class="timeline-content-title">湯に入る</p>
+          <p style="font-size:0.83rem;color:var(--mid);">誰もいない時間の湯が、一番いい。光の角度が変わる浴室で、一日の疲れがゆっくり溶けていく。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">18:30</span>
+        <div>
+          <p class="timeline-content-title">夕餉</p>
+          <p style="font-size:0.83rem;color:var(--mid);">一の膳、二の膳と続く。急がなくていい。この食事のために、今日という一日があったのかもしれない。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">21:00</span>
+        <div>
+          <p class="timeline-content-title">夜の宿</p>
+          <p style="font-size:0.83rem;color:var(--mid);">廊下の行灯が灯る時間。部屋に戻って本を読んでもいいし、もう一度湯に入ってもいい。静かな夜が続く。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== KOE ========== -->
+<section id="koe">
+  <div class="section-inner">
+    <div class="aos">
+      <span class="section-num">05 — Koe</span>
+      <h2 class="section-title">宿泊された方の声</h2>
+      <p class="section-title-en">Words from our guests</p>
+    </div>
+    <div class="koe-grid">
+      <div class="koe-card">
+        <p class="koe-quote">「夕食が終わってから、何もしない時間がこんなに豊かだとは思っていませんでした。縁側に座って庭を見ていただけなのに、深く眠れました」</p>
+        <p class="koe-meta">東京都 / Spring, 2024</p>
+      </div>
+      <div class="koe-card">
+        <p class="koe-quote">「スタッフの方が教えてくれた山道で、誰とも会いませんでした。山形の山がこんなに静かなのか、と驚きました。帰りたくなかったです」</p>
+        <p class="koe-meta">京都府 / Autumn, 2023</p>
+      </div>
+      <div class="koe-card">
+        <p class="koe-quote">「創業百年というものが、空間に染み込んでいるとはこういうことかと感じました。派手さは何もないのに、なぜか特別な気持ちになれる宿でした」</p>
+        <p class="koe-meta">神奈川県 / Winter, 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== YOYAKU ========== -->
+<section id="yoyaku">
+  <div class="section-inner">
+    <div class="yoyaku-inner aos">
+      <span class="section-num" style="display:block;text-align:center;">06 — Yoyaku</span>
+      <h2 class="section-title" style="text-align:center;">ご予約・<br>お問い合わせ</h2>
+      <p class="section-title-en" style="text-align:center;">Begin here.</p>
+      <hr class="hairline">
+      <p style="font-size:0.87rem;color:var(--mid);line-height:2.4;">もし気が向いたら、のれんをくぐりにきてください。<br>初めての方も、久しぶりの方も、同じように迎えます。</p>
+      <a href="#" class="yoyaku-cta-btn"><span>ご予約・お問い合わせはこちら</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <p class="footer-brand">旅籠 結</p>
+  <p style="font-family:'Spectral',serif;font-style:italic;font-size:0.75rem;letter-spacing:0.15em;color:var(--mid);margin-top:0.3rem;">YUKI — Est. 1923</p>
+  <p style="font-size:0.78rem;color:var(--mid);margin-top:1rem;letter-spacing:0.08em;">山形県某村 〇〇町 ×× / TEL: 0X0-0000-0000</p>
+  <p class="footer-tagline">暖簾をくぐるような気持ちでお電話ください。</p>
+  <p style="margin-top:2.5rem;font-size:0.72rem;color:#4a4438;letter-spacing:0.06em;">© 2025 旅籠 結（YUKI）All rights reserved.</p>
+</footer>
+
+<script>
+// 暖簾マスクリビール
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('norenBg').classList.add('revealed');
+  }, 100);
+  setTimeout(() => {
+    document.getElementById('norenContent').classList.add('visible');
+    document.getElementById('vLabelRight').classList.add('visible');
+    document.getElementById('vLabelLeft').classList.add('visible');
+  }, 300);
+});
+
+// IntersectionObserver
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.aos').forEach(el => obs.observe(el));
+
+// Timeline items stagger
+const timelineObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.timeline-item').forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 180);
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+const tl = document.getElementById('timeline');
+if (tl) timelineObs.observe(tl);
+
+// Koe cards
+const koeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.koe-card').forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), i * 200);
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+const koeGrid = document.querySelector('.koe-grid');
+if (koeGrid) koeObs.observe(koeGrid);
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>

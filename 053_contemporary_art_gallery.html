@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORM Gallery — Contemporary Art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+JP:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAFAFA;--ink:#111111;--mid:#6A6A6A;--rule:#D8D8D8;--ultra:#2B45C8;--ultra-dim:#E8ECF8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);font-weight:300;overflow-x:hidden}
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 10vw;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);background:transparent;transition:background .3s ease}
+header.scrolled{background:rgba(250,250,250,.95);backdrop-filter:blur(8px)}
+.logo{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.2rem;letter-spacing:.04em;color:var(--ink);text-decoration:none}
+nav{display:flex;gap:2rem;align-items:center}
+nav a{font-family:'Barlow',sans-serif;font-weight:300;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--ink)}
+.nav-cta{color:var(--ink)!important;border-bottom:1px solid var(--ink);padding-bottom:1px}
+.side-indicator{position:fixed;right:3vw;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:14px;align-items:center}
+.ind-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.ind-dot{width:5px;height:5px;border-radius:50%;background:var(--rule);transition:background .3s,transform .3s}
+.ind-num{font-family:'Barlow',sans-serif;font-size:.48rem;letter-spacing:.2em;color:var(--rule);transition:color .3s}
+.ind-item.active .ind-dot{background:var(--ultra);transform:scale(1.5)}
+.ind-item.active .ind-num{color:var(--ultra)}
+.entry-section{height:100vh;padding:0 10vw;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:8vh;position:relative}
+.entry-exhibition{position:absolute;top:80px;right:10vw;text-align:right}
+.entry-exhibition .label{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--ultra);display:block;margin-bottom:6px}
+.entry-exhibition .ex-title{font-family:'Instrument Serif',serif;font-style:italic;font-size:.95rem;color:var(--mid);line-height:1.7}
+.gallery-name{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,9vw,9rem);font-weight:400;letter-spacing:.01em;line-height:.9;color:var(--ink)}
+.gallery-sub{font-family:'Barlow',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--mid);margin-top:2rem}
+.scroll-hint{position:absolute;bottom:4vh;left:10vw;font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mid)}
+.section-label{padding:5rem 10vw 1.5rem;display:flex;align-items:center;gap:2rem;border-top:1px solid var(--rule)}
+.label-text{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--mid)}
+.label-line{flex:1;height:1px;background:var(--rule)}
+.artwork-section{height:100vh;padding:60px 10vw 0;display:grid;grid-template-columns:58% 1fr;gap:5vw;align-items:center}
+.artwork-visual{position:relative;height:72vh}
+.artwork-placeholder{width:100%;height:100%;background:#F0F0F0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.artwork-rule{position:absolute;bottom:-1px;left:0;height:1px;background:var(--ultra);width:0;transition:width .8s ease-out}
+.artwork-section.in-view .artwork-rule{width:100%}
+.artwork-info{display:flex;flex-direction:column;gap:1.8rem}
+.artwork-number{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--ultra)}
+.artwork-title{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(1.5rem,2.2vw,2.4rem);line-height:1.25;color:var(--ink)}
+.artwork-artist{font-family:'Barlow',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+.artwork-desc{font-size:.87rem;line-height:2.3;letter-spacing:.06em;color:var(--mid);border-left:1px solid var(--rule);padding-left:1.5rem}
+.upcoming-section{background:var(--ultra);padding:9rem 10vw;position:relative;overflow:hidden}
+.upcoming-section::before{content:'UPCOMING';position:absolute;top:50%;right:-4rem;transform:translateY(-50%) rotate(90deg);font-family:'Barlow',sans-serif;font-size:9rem;font-weight:300;letter-spacing:.3em;color:rgba(255,255,255,.04);white-space:nowrap;pointer-events:none}
+.upcoming-label{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:2rem}
+.upcoming-title{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(2.5rem,5vw,5rem);color:white;line-height:1.1;margin-bottom:1.8rem}
+.upcoming-artist{font-family:'Barlow',sans-serif;font-weight:300;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3rem}
+.upcoming-date{font-family:'Instrument Serif',serif;font-size:1rem;letter-spacing:.15em;color:rgba(255,255,255,.9);border-top:1px solid rgba(255,255,255,.2);padding-top:1.5rem;display:inline-block}
+.artists-section{padding:8rem 10vw;border-top:1px solid var(--rule)}
+.artists-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:3.5rem}
+.artist-name-item{padding:1.4rem 0;border-top:1px solid var(--rule);cursor:pointer;position:relative;overflow:hidden}
+.artist-name{font-family:'Instrument Serif',serif;font-size:clamp(1rem,1.6vw,1.5rem);letter-spacing:.01em;transition:color .2s;display:flex;align-items:center;justify-content:space-between}
+.artist-arrow{font-family:'Barlow',sans-serif;font-size:.75rem;opacity:0;transform:translateX(-6px);transition:opacity .2s,transform .2s;color:var(--ultra)}
+.artist-underline{position:absolute;bottom:0;left:0;height:1px;background:var(--ultra);width:0;transition:width .3s ease-out}
+.artist-name-item:hover .artist-name{color:var(--ultra)}
+.artist-name-item:hover .artist-arrow{opacity:1;transform:translateX(0)}
+.artist-name-item:hover .artist-underline{width:100%}
+.artist-origin{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mid);margin-top:4px}
+.about-section{padding:8rem 10vw;border-top:1px solid var(--rule);display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:start}
+.about-text h2{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(1.8rem,3vw,3.5rem);line-height:1.25;margin-bottom:2rem}
+.about-text p{font-size:.88rem;line-height:2.3;letter-spacing:.07em;color:var(--mid);margin-bottom:1.5rem}
+.press-logos{display:grid;grid-template-columns:1fr 1fr;gap:1px}
+.press-item{padding:1.8rem;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Barlow',sans-serif;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rule);transition:color .3s}
+.press-item:hover{color:var(--mid)}
+footer{padding:4rem 10vw;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:flex-end}
+.footer-info p{font-family:'Barlow',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+.footer-sns{display:flex;gap:2rem}
+.footer-sns a{font-family:'Barlow',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
+.footer-sns a:hover{color:var(--ink)}
+.section-heading{font-family:'Barlow',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.5em;text-transform:uppercase;color:var(--ultra)}
+.fade-in{opacity:0;transition:opacity 1s ease}
+.fade-in.visible{opacity:1}
+@media(max-width:1024px){.side-indicator{display:none}.entry-section,.artwork-section{padding-left:6vw;padding-right:6vw}.section-label,.upcoming-section,.artists-section,.about-section,footer{padding-left:6vw;padding-right:6vw}}
+@media(max-width:768px){.artwork-section{grid-template-columns:1fr;height:auto;min-height:100vh;padding-bottom:4rem}.artwork-visual{height:55vw;min-height:260px}.artists-grid{grid-template-columns:1fr 1fr}.about-section{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <a href="#" class="logo">FORM</a>
+  <nav>
+    <a href="#now-on-view">Exhibitions</a>
+    <a href="#artists">Artists</a>
+    <a href="#about">About</a>
+    <a href="#footer" class="nav-cta">Visit</a>
+  </nav>
+</header>
+<div class="side-indicator" id="side-ind">
+  <div class="ind-item active" data-idx="0"><div class="ind-dot"></div><span class="ind-num">00</span></div>
+  <div class="ind-item" data-idx="1"><div class="ind-dot"></div><span class="ind-num">01</span></div>
+  <div class="ind-item" data-idx="2"><div class="ind-dot"></div><span class="ind-num">02</span></div>
+  <div class="ind-item" data-idx="3"><div class="ind-dot"></div><span class="ind-num">03</span></div>
+  <div class="ind-item" data-idx="4"><div class="ind-dot"></div><span class="ind-num">—</span></div>
+</div>
+<section class="entry-section" id="entry">
+  <div class="entry-exhibition">
+    <span class="label">Now on View</span>
+    <div class="ex-title">Geometries of Silence<br>Elena Marchetti</div>
+  </div>
+  <div>
+    <h1 class="gallery-name fade-in">FORM<br>Gallery</h1>
+    <p class="gallery-sub fade-in">Contemporary Art — Tokyo / Kyoto</p>
+  </div>
+  <span class="scroll-hint">Scroll to explore ↓</span>
+</section>
+<div class="section-label" id="now-on-view">
+  <span class="label-text">Now on View</span><div class="label-line"></div><span class="label-text">2025.03 — 2025.05</span>
+</div>
+<section class="artwork-section" id="work-1">
+  <div class="artwork-visual">
+    <div class="artwork-placeholder">
+      <svg width="55%" height="55%" viewBox="0 0 200 200" fill="none">
+        <rect x="20" y="20" width="160" height="160" stroke="#D8D8D8" stroke-width="1"/>
+        <rect x="50" y="50" width="100" height="100" stroke="#2B45C8" stroke-width=".5" opacity=".4"/>
+        <line x1="20" y1="100" x2="180" y2="100" stroke="#D8D8D8" stroke-width=".5"/>
+        <line x1="100" y1="20" x2="100" y2="180" stroke="#D8D8D8" stroke-width=".5"/>
+        <circle cx="100" cy="100" r="30" stroke="#111111" stroke-width=".5" fill="none"/>
+        <circle cx="100" cy="100" r="8" fill="#2B45C8" opacity=".2"/>
+      </svg>
+    </div>
+    <div class="artwork-rule"></div>
+  </div>
+  <div class="artwork-info fade-in">
+    <span class="artwork-number">Work 01 / 03</span>
+    <h2 class="artwork-title">Void Study No. 7<br><em>in Blue Field</em></h2>
+    <div class="artwork-artist">Elena Marchetti<br>2024 · Oil on linen<br>180 × 240 cm</div>
+    <p class="artwork-desc">余白そのものを主題とした本作では、キャンバスの沈黙が発話する。モノクロームの地平に浮かぶわずかな青の痕跡が、見る者を静謐な対話へと誘う。</p>
+  </div>
+</section>
+<section class="artwork-section" id="work-2">
+  <div class="artwork-visual">
+    <div class="artwork-placeholder">
+      <svg width="60%" height="60%" viewBox="0 0 200 200" fill="none">
+        <polygon points="100,10 190,170 10,170" stroke="#D8D8D8" stroke-width="1" fill="none"/>
+        <polygon points="100,40 170,160 30,160" stroke="#111111" stroke-width=".5" fill="rgba(17,17,17,.03)"/>
+        <polygon points="100,70 148,150 52,150" stroke="#2B45C8" stroke-width=".5" fill="rgba(43,69,200,.06)"/>
+        <circle cx="100" cy="115" r="4" fill="#2B45C8" opacity=".5"/>
+        <line x1="10" y1="170" x2="190" y2="170" stroke="#D8D8D8" stroke-width=".5"/>
+      </svg>
+    </div>
+    <div class="artwork-rule"></div>
+  </div>
+  <div class="artwork-info fade-in">
+    <span class="artwork-number">Work 02 / 03</span>
+    <h2 class="artwork-title">Apex, Repeated<br><em>Variations I–IV</em></h2>
+    <div class="artwork-artist">David Kwan<br>2024 · Pencil on paper, series<br>Each 120 × 120 cm</div>
+    <p class="artwork-desc">繰り返される頂点の形は、記憶の積層を想起させる。紙の繊維に刻まれた鉛筆の軌跡——それ自体が時間の堆積だ。</p>
+  </div>
+</section>
+<section class="artwork-section" id="work-3">
+  <div class="artwork-visual">
+    <div class="artwork-placeholder">
+      <svg width="65%" height="65%" viewBox="0 0 200 200" fill="none">
+        <rect x="10" y="80" width="180" height="40" stroke="#D8D8D8" stroke-width=".5" fill="rgba(240,240,240,.5)"/>
+        <rect x="40" y="55" width="120" height="90" stroke="#111111" stroke-width=".5" fill="none"/>
+        <line x1="10" y1="100" x2="190" y2="100" stroke="#2B45C8" stroke-width="1" opacity=".25"/>
+        <rect x="85" y="85" width="30" height="30" fill="#2B45C8" opacity=".12"/>
+        <rect x="90" y="90" width="20" height="20" stroke="#2B45C8" stroke-width=".5" fill="none"/>
+        <line x1="40" y1="55" x2="160" y2="145" stroke="#D8D8D8" stroke-width=".3"/>
+      </svg>
+    </div>
+    <div class="artwork-rule"></div>
+  </div>
+  <div class="artwork-info fade-in">
+    <span class="artwork-number">Work 03 / 03</span>
+    <h2 class="artwork-title">Threshold<br><em>(Architecture of Elsewhere)</em></h2>
+    <div class="artwork-artist">Yuki Tanaka<br>2025 · Mixed media on board<br>200 × 140 cm</div>
+    <p class="artwork-desc">「どこか別の場所の建築」という逆説的な題名は、この作品の本質を的確に示している。構造そのものへの問いが、作品の核に横たわる。</p>
+  </div>
+</section>
+<section class="upcoming-section" id="upcoming">
+  <div style="max-width:700px">
+    <span class="upcoming-label">Upcoming Exhibition</span>
+    <h2 class="upcoming-title">Landscapes<br>Without Ground</h2>
+    <p class="upcoming-artist">Sorcha MacAllister — Solo Exhibition</p>
+    <div class="upcoming-date">Opening 2025.06.07</div>
+  </div>
+</section>
+<section class="artists-section" id="artists">
+  <span class="section-heading">Artists</span>
+  <div class="artists-grid" style="margin-top:3rem">
+    <div class="artist-name-item"><div class="artist-name">Elena Marchetti<span class="artist-arrow">→</span></div><div class="artist-origin">Italy · Painting</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">David Kwan<span class="artist-arrow">→</span></div><div class="artist-origin">Hong Kong · Works on paper</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Yuki Tanaka<span class="artist-arrow">→</span></div><div class="artist-origin">Japan · Mixed media</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Sorcha MacAllister<span class="artist-arrow">→</span></div><div class="artist-origin">Ireland · Photography</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Omar El-Said<span class="artist-arrow">→</span></div><div class="artist-origin">Egypt · Sculpture</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Nadia Petersen<span class="artist-arrow">→</span></div><div class="artist-origin">Denmark · Installation</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Kenji Mori<span class="artist-arrow">→</span></div><div class="artist-origin">Japan · Video art</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Valentina Cruz<span class="artist-arrow">→</span></div><div class="artist-origin">Brazil · Drawing</div><div class="artist-underline"></div></div>
+    <div class="artist-name-item"><div class="artist-name">Felix Weber<span class="artist-arrow">→</span></div><div class="artist-origin">Germany · Ceramics</div><div class="artist-underline"></div></div>
+  </div>
+</section>
+<section class="about-section" id="about">
+  <div class="about-text fade-in">
+    <span class="section-heading" style="display:block;margin-bottom:2rem">About</span>
+    <h2>A space where<br><em>art breathes.</em></h2>
+    <p>FORM Galleryは2008年に東京・青山に設立された現代アートギャラリーです。国際的なアーティストを紹介し、コレクターとアートの間に深い対話を生み出すことを使命としています。</p>
+    <p>物理的な空間の静けさと、デジタルでの開かれた対話——その両方を通じて、現代アートが社会と交差する場を提供します。</p>
+  </div>
+  <div>
+    <span class="section-heading" style="display:block;margin-bottom:2rem">Press</span>
+    <div class="press-logos">
+      <div class="press-item">Bijutsu Techo</div><div class="press-item">Art Basel</div>
+      <div class="press-item">Frieze</div><div class="press-item">Art Newspaper</div>
+      <div class="press-item">Casa Brutus</div><div class="press-item">Artforum</div>
+    </div>
+  </div>
+</section>
+<footer id="footer">
+  <div class="footer-info">
+    <p>FORM Gallery</p>
+    <p>東京都港区南青山 3-X-XX</p>
+    <p>Open Tue–Sun 11:00–19:00</p>
+    <p style="color:var(--rule);margin-top:1rem">© 2025 FORM Gallery</p>
+  </div>
+  <div class="footer-sns">
+    <a href="#">Instagram</a><a href="#">Press</a><a href="#">Contact</a>
+  </div>
+</footer>
+<script>
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>50));
+const artSecs=document.querySelectorAll('.artwork-section');
+const artObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in-view')})},{threshold:.3});
+artSecs.forEach(s=>artObs.observe(s));
+const fadeEls=document.querySelectorAll('.fade-in');
+const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+fadeEls.forEach(el=>fadeObs.observe(el));
+const secIds=['entry','work-1','work-2','work-3','upcoming'];
+const secEls=secIds.map(id=>document.getElementById(id));
+const inds=document.querySelectorAll('.ind-item');
+const indObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secEls.indexOf(e.target);if(i>=0)inds.forEach((d,j)=>d.classList.toggle('active',i===j))}})},{threshold:.5});
+secEls.forEach(el=>el&&indObs.observe(el));
+inds.forEach((ind,i)=>ind.addEventListener('click',()=>secEls[i]&&secEls[i].scrollIntoView({behavior:'smooth'})));
+</script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA — DAW Plugin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Noto+Sans+JP:wght@400&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05091A;--surface:#0D1428;--panel:#141C38;--ink:#E8EAF0;--mid:#7A82A0;--orange:#FF6820;--orange2:#FF9558;--line:#1E2847}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)}
+nav{display:flex;gap:2rem;align-items:center}
+nav a{font-family:'Azeret Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);transition:color .2s}
+nav a:hover{color:var(--ink)}
+.btn-get{font-family:'Azeret Mono',monospace;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;background:var(--orange);color:var(--bg);padding:.6rem 1.4rem;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);transition:background .2s}
+.btn-get:hover{background:var(--orange2)}
+/* HERO */
+.hero{min-height:100vh;padding:80px 6vw 4rem;display:grid;grid-template-columns:55% 1fr;gap:4vw;align-items:center}
+.hero-left{}
+.hero-tag{font-family:'Azeret Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:1.5rem}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(3rem,7vw,7.5rem);letter-spacing:-.04em;text-transform:uppercase;line-height:.9;margin-bottom:1.5rem}
+.hero h1 span{color:var(--orange)}
+.hero-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;color:var(--mid);line-height:1.8;margin-bottom:2rem;max-width:480px}
+.daw-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+.daw-tag{font-family:'Azeret Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--line);color:var(--mid);padding:.35rem .8rem}
+.hero-ctas{display:flex;gap:1rem}
+.btn-primary{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;background:var(--orange);color:var(--bg);padding:.85rem 2rem;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .2s}
+.btn-primary:hover{background:var(--orange2)}
+.btn-secondary{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);color:var(--mid);padding:.85rem 2rem;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:border-color .2s,color .2s}
+.btn-secondary:hover{border-color:var(--mid);color:var(--ink)}
+/* PLUGIN UI MOCKUP */
+.hero-right{}
+.plugin-ui{background:var(--surface);border:1px solid var(--line);clip-path:polygon(0 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%);padding:1.5rem;aspect-ratio:4/3;position:relative;overflow:hidden}
+.ui-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.ui-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.ui-version{font-family:'Azeret Mono',monospace;font-size:.55rem;color:var(--mid);letter-spacing:.1em}
+.ui-meters{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.2rem}
+.ui-meter{background:var(--panel);padding:.8rem .5rem;text-align:center}
+.ui-meter-val{font-family:'Azeret Mono',monospace;font-size:clamp(.8rem,1.5vw,1.2rem);font-weight:500;color:var(--orange);display:block}
+.ui-meter-label{font-family:'Azeret Mono',monospace;font-size:.45rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);display:block;margin-top:.3rem}
+.ui-waveform{background:var(--panel);height:60px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-around;padding:0 .5rem}
+.mini-bar{width:3px;background:var(--orange);border-radius:0;animation:mini-wave 1s ease-in-out infinite alternate}
+@keyframes mini-wave{0%{height:4px}100%{height:100%}}
+.ui-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:1rem}
+.ui-knob{background:var(--panel);padding:.6rem;text-align:center;border:1px solid var(--line)}
+.ui-knob-label{font-family:'Azeret Mono',monospace;font-size:.45rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.ui-knob-val{font-family:'Azeret Mono',monospace;font-size:.65rem;color:var(--ink);margin-top:.2rem}
+/* WAVEFORM DIVIDER */
+.waveform-divider{height:80px;background:var(--bg);display:flex;align-items:center;justify-content:space-around;padding:0 6vw;overflow:hidden}
+.wave-bar{width:4px;background:var(--line);animation:wave-bar 1s ease-in-out infinite alternate;transform-origin:bottom}
+@keyframes wave-bar{0%{height:6px}50%{height:var(--h,30px)}100%{height:8px}}
+.wave-bar.accent{background:var(--orange)}
+/* FEATURES */
+.features{padding:6rem 6vw;border-top:1px solid var(--line)}
+.section-label{font-family:'Azeret Mono',monospace;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:1.2rem}
+.features h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.6rem,2.5vw,2.5rem);letter-spacing:-.02em;margin-bottom:3rem}
+.features-grid{display:grid;grid-template-columns:7fr 5fr;gap:1.5rem}
+.feat-main{background:var(--surface);clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);padding:2.5rem;border:1px solid var(--line);position:relative}
+.feat-main::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange)}
+.feat-side{display:flex;flex-direction:column;gap:1.5rem}
+.feat-card{background:var(--surface);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);padding:1.8rem;border:1px solid var(--line);flex:1;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--line);transition:background .3s}
+.feat-card:hover::before{background:var(--orange)}
+.feat-num{font-family:'Azeret Mono',monospace;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:.8rem}
+.feat-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.8rem}
+.feat-spec{font-family:'Azeret Mono',monospace;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:500;color:var(--orange);display:block;margin-bottom:.8rem;position:relative}
+.feat-spec-tooltip{position:absolute;left:0;top:calc(100% + 4px);background:var(--panel);border:1px solid var(--line);padding:.5rem .8rem;font-size:.55rem;letter-spacing:.1em;white-space:nowrap;opacity:0;transform:scale(.9);transform-origin:bottom left;transition:opacity .2s,transform .2s;pointer-events:none;z-index:10}
+.feat-spec:hover .feat-spec-tooltip{opacity:1;transform:scale(1)}
+.feat-desc{font-size:.85rem;line-height:1.9;color:var(--mid)}
+/* SPEC TABLE */
+.spec-table-section{padding:5rem 6vw;border-top:1px solid var(--line)}
+.spec-table{width:100%;border-collapse:collapse;margin-top:2rem}
+.spec-table tr{border-top:1px solid var(--line);transition:background .15s}
+.spec-table tr:hover{background:var(--panel)}
+.spec-table td{padding:1rem 0;font-size:.85rem;color:var(--mid)}
+.spec-table td:first-child{font-family:'Azeret Mono',monospace;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);width:35%;padding-right:2rem}
+.spec-table td.spec-val{font-family:'Azeret Mono',monospace;color:var(--orange);font-size:.85rem}
+/* WORKFLOW */
+.workflow{padding:6rem 6vw;border-top:1px solid var(--line)}
+.workflow-items{display:flex;flex-direction:column;gap:0;margin-top:3rem}
+.workflow-item{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;padding:4rem 0;border-top:1px solid var(--line)}
+.workflow-item:nth-child(even){direction:rtl}
+.workflow-item:nth-child(even)>*{direction:ltr}
+.workflow-step{font-family:'Azeret Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:1rem}
+.workflow-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.8rem);margin-bottom:1rem}
+.workflow-desc{font-size:.88rem;line-height:2;color:var(--mid)}
+.workflow-visual{background:var(--surface);clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);overflow:hidden;position:relative}
+.workflow-visual-inner{font-family:'Azeret Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--mid);text-align:center;padding:1.5rem}
+.workflow-visual-inner .wv-num{font-size:2.5rem;font-weight:500;color:var(--orange);display:block;margin-bottom:.5rem}
+/* PRICING */
+.pricing{padding:6rem 6vw;border-top:1px solid var(--line)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.price-card{background:var(--surface);clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);padding:2rem;border:1px solid var(--line);transition:border-color .25s}
+.price-card.featured{border-color:var(--orange)}
+.price-card:hover:not(.featured){border-color:var(--mid)}
+.price-plan{font-family:'Azeret Mono',monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:1.2rem}
+.price-amount{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.5rem;letter-spacing:-.03em;color:var(--ink);margin-bottom:.4rem}
+.price-amount span{font-size:.9rem;font-weight:400;color:var(--mid);letter-spacing:0}
+.price-desc{font-size:.82rem;color:var(--mid);line-height:1.8;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.price-features{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+.price-feature{font-family:'Azeret Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--mid);display:flex;align-items:center;gap:.6rem}
+.price-feature::before{content:'—';color:var(--orange);flex-shrink:0}
+.btn-price{width:100%;font-family:'Azeret Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:.85rem;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);border:1px solid var(--line);background:transparent;color:var(--mid);cursor:pointer;transition:all .2s;display:block;text-align:center}
+.btn-price:hover,.price-card.featured .btn-price{background:var(--orange);color:var(--bg);border-color:var(--orange)}
+/* DAW COMPAT */
+.daw-compat{padding:4rem 6vw;border-top:1px solid var(--line)}
+.daw-logos{display:flex;flex-wrap:wrap;gap:1px;margin-top:2rem}
+.daw-logo{flex:1;min-width:100px;padding:1.5rem;background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Azeret Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--line);filter:grayscale(1);transition:filter .3s,color .3s;border:1px solid var(--line)}
+.daw-logo:hover{filter:grayscale(0);color:var(--mid)}
+/* CTA FULL */
+.cta-full{background:var(--orange);padding:7rem 6vw;text-align:center}
+.cta-full h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,4rem);letter-spacing:-.03em;text-transform:uppercase;color:var(--bg);margin-bottom:1rem}
+.cta-full p{font-family:'Azeret Mono',monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(5,9,26,.5);margin-bottom:2.5rem}
+.btn-cta-dl{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;background:var(--bg);color:var(--orange);padding:1rem 2.5rem;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);display:inline-block;transition:background .2s}
+.btn-cta-dl:hover{background:var(--panel)}
+/* FOOTER */
+footer{background:var(--surface);padding:3rem 6vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end}
+.footer-brand{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.footer-ver{font-family:'Azeret Mono',monospace;font-size:.58rem;letter-spacing:.15em;color:var(--mid);margin-top:.4rem}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-family:'Azeret Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);transition:color .2s}
+.footer-links a:hover{color:var(--ink)}
+.fade-in{opacity:0;transition:opacity .8s ease}
+.fade-in.visible{opacity:1}
+@media(max-width:1024px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:80px;gap:3rem}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr 1fr}.workflow-item{grid-template-columns:1fr;gap:2rem}.workflow-item:nth-child(even){direction:ltr}}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr}.daw-logos{flex-wrap:wrap}.daw-logo{min-width:calc(50% - 1px)}}
+</style>
+</head>
+<body>
+<header>
+  <a href="#" class="logo">Nova</a>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#" class="btn-get">Get Plugin</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-left fade-in">
+    <span class="hero-tag">// AI-Powered Audio Processing</span>
+    <h1>Shape<br>Your <span>Sound</span></h1>
+    <p class="hero-sub">プロフェッショナルな音楽制作のための次世代AIプラグイン。あなたのDAWに、新しい可能性を。</p>
+    <div class="daw-tags">
+      <span class="daw-tag">Ableton Live</span><span class="daw-tag">Logic Pro</span>
+      <span class="daw-tag">Cubase</span><span class="daw-tag">FL Studio</span>
+      <span class="daw-tag">Pro Tools</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Free Trial →</a>
+      <a href="#features" class="btn-secondary">See Features</a>
+    </div>
+  </div>
+  <div class="hero-right fade-in">
+    <div class="plugin-ui">
+      <div class="ui-header">
+        <span class="ui-logo">Nova</span>
+        <span class="ui-version">v2.4.1 — AU / VST3 / AAX</span>
+      </div>
+      <div class="ui-meters">
+        <div class="ui-meter"><span class="ui-meter-val">48<span style="font-size:.6em">kHz</span></span><span class="ui-meter-label">Sample Rate</span></div>
+        <div class="ui-meter"><span class="ui-meter-val">32<span style="font-size:.6em">bit</span></span><span class="ui-meter-label">Float</span></div>
+        <div class="ui-meter"><span class="ui-meter-val" style="color:var(--ink)">-6.2<span style="font-size:.6em">dB</span></span><span class="ui-meter-label">Input</span></div>
+        <div class="ui-meter"><span class="ui-meter-val" style="color:var(--orange2)">0.8<span style="font-size:.6em">ms</span></span><span class="ui-meter-label">Latency</span></div>
+      </div>
+      <div class="ui-waveform" id="hero-waveform"></div>
+      <div class="ui-controls">
+        <div class="ui-knob"><div class="ui-knob-label">DRIVE</div><div class="ui-knob-val">+4.2 dB</div></div>
+        <div class="ui-knob"><div class="ui-knob-label">THRESHOLD</div><div class="ui-knob-val">-18 dB</div></div>
+        <div class="ui-knob"><div class="ui-knob-label">RATIO</div><div class="ui-knob-val">4:1</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVEFORM DIVIDER -->
+<div class="waveform-divider" id="waveform-div"></div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <span class="section-label">// Core Features</span>
+  <h2>Precision-engineered<br>for modern production</h2>
+  <div class="features-grid">
+    <div class="feat-main fade-in">
+      <span class="feat-num">Feature 01</span>
+      <div class="feat-title">AI Spectral Shaping</div>
+      <div class="feat-spec" style="position:relative">
+        48kHz / 32-bit Float
+        <div class="feat-spec-tooltip">最高品質のオーディオフォーマット<br>プロスタジオ標準規格</div>
+      </div>
+      <p class="feat-desc">機械学習によるリアルタイムスペクトル解析。あなたのサウンドの周波数特性を自動的に最適化し、プロフェッショナルな仕上がりを実現します。独自のニューラルネットワークが、ミックスバランスを一瞬で整えます。</p>
+    </div>
+    <div class="feat-side">
+      <div class="feat-card fade-in">
+        <span class="feat-num">Feature 02</span>
+        <div class="feat-title">Zero-Latency Mode</div>
+        <div class="feat-spec" style="position:relative">
+          &lt; 1ms
+          <div class="feat-spec-tooltip">ライブパフォーマンス対応</div>
+        </div>
+        <p class="feat-desc" style="font-size:.8rem;line-height:1.8;color:var(--mid)">演奏中にリアルタイムで処理。遅延ゼロのモニタリングを実現。</p>
+      </div>
+      <div class="feat-card fade-in">
+        <span class="feat-num">Feature 03</span>
+        <div class="feat-title">Stem Separation</div>
+        <div class="feat-spec" style="position:relative">
+          8 Stems
+          <div class="feat-spec-tooltip">ボーカル/ドラム/ベース等を独立分離</div>
+        </div>
+        <p class="feat-desc" style="font-size:.8rem;line-height:1.8;color:var(--mid)">AIが楽器ごとにステムを自動分離。リミックスが劇的に速くなる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC TABLE -->
+<section class="spec-table-section fade-in">
+  <span class="section-label">// Technical Specs</span>
+  <table class="spec-table">
+    <tr><td>Sample Rate</td><td class="spec-val">44.1 / 48 / 88.2 / 96 / 192 kHz</td></tr>
+    <tr><td>Bit Depth</td><td class="spec-val">32-bit Float</td></tr>
+    <tr><td>Latency</td><td class="spec-val">&lt; 1ms (Zero-Latency Mode)</td></tr>
+    <tr><td>Plugin Formats</td><td>AU / VST3 / AAX</td></tr>
+    <tr><td>OS Support</td><td>macOS 12+ / Windows 10+</td></tr>
+    <tr><td>CPU (Recommended)</td><td>Apple M1 or Intel Core i7 (8th gen+)</td></tr>
+    <tr><td>RAM</td><td>8 GB minimum / 16 GB recommended</td></tr>
+    <tr><td>AI Model</td><td class="spec-val">Nova Neural v3.2 (on-device)</td></tr>
+  </table>
+</section>
+
+<!-- WORKFLOW -->
+<section class="workflow" id="workflow">
+  <span class="section-label">// Workflow</span>
+  <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.6rem,2.5vw,2.5rem);letter-spacing:-.02em">From input to master,<br>in your hands</h2>
+  <div class="workflow-items">
+    <div class="workflow-item fade-in">
+      <div>
+        <span class="workflow-step">Step 01</span>
+        <div class="workflow-title">Load & Analyze</div>
+        <p class="workflow-desc">トラックをロードするだけで、AIが瞬時にスペクトルを解析。ジャンルや楽器構成を自動検出し、最適な処理パラメータを提案します。</p>
+      </div>
+      <div class="workflow-visual">
+        <div class="workflow-visual-inner">
+          <span class="wv-num">01</span>
+          <span style="font-size:.6rem;letter-spacing:.2em">LOAD / ANALYZE</span>
+        </div>
+      </div>
+    </div>
+    <div class="workflow-item fade-in">
+      <div>
+        <span class="workflow-step">Step 02</span>
+        <div class="workflow-title">Shape & Process</div>
+        <p class="workflow-desc">直感的なコントロールで音を形作る。AIのサジェストを活用しながら、細部まで手動でチューニング可能。あなたの耳が最終決断者です。</p>
+      </div>
+      <div class="workflow-visual">
+        <div class="workflow-visual-inner">
+          <span class="wv-num">02</span>
+          <span style="font-size:.6rem;letter-spacing:.2em">SHAPE / PROCESS</span>
+        </div>
+      </div>
+    </div>
+    <div class="workflow-item fade-in">
+      <div>
+        <span class="workflow-step">Step 03</span>
+        <div class="workflow-title">Export & Deliver</div>
+        <p class="workflow-desc">処理済みのオーディオをあらゆるフォーマットで出力。ストリーミング最適化設定も1クリックで適用できます。</p>
+      </div>
+      <div class="workflow-visual">
+        <div class="workflow-visual-inner">
+          <span class="wv-num">03</span>
+          <span style="font-size:.6rem;letter-spacing:.2em">EXPORT / DELIVER</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <span class="section-label">// Licensing</span>
+  <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.6rem,2.5vw,2.5rem);letter-spacing:-.02em;margin-bottom:0">Choose your plan</h2>
+  <div class="pricing-grid">
+    <div class="price-card fade-in">
+      <span class="price-plan">Indie</span>
+      <div class="price-amount">¥4,980<span>/yr</span></div>
+      <p class="price-desc">個人制作・趣味DTMに最適なエントリープラン</p>
+      <div class="price-features">
+        <div class="price-feature">全機能アクセス</div>
+        <div class="price-feature">1ライセンス / 2台まで</div>
+        <div class="price-feature">メールサポート</div>
+      </div>
+      <a href="#" class="btn-price">Start Free Trial</a>
+    </div>
+    <div class="price-card featured fade-in">
+      <span class="price-plan" style="color:var(--orange)">Pro ★ Recommended</span>
+      <div class="price-amount" style="color:var(--orange)">¥14,800<span>/yr</span></div>
+      <p class="price-desc">プロデューサー・エンジニアのスタンダード</p>
+      <div class="price-features">
+        <div class="price-feature">全機能 + ベータ機能先行</div>
+        <div class="price-feature">3ライセンス / 6台まで</div>
+        <div class="price-feature">優先チャットサポート</div>
+        <div class="price-feature">Stem Separationフル解放</div>
+      </div>
+      <a href="#" class="btn-price">Get Pro</a>
+    </div>
+    <div class="price-card fade-in">
+      <span class="price-plan">Studio</span>
+      <div class="price-amount">¥39,800<span>/yr</span></div>
+      <p class="price-desc">スタジオ・チームでの共同制作環境に</p>
+      <div class="price-features">
+        <div class="price-feature">無制限ライセンス</div>
+        <div class="price-feature">チーム管理ダッシュボード</div>
+        <div class="price-feature">専任サポート担当</div>
+        <div class="price-feature">API & SDK アクセス</div>
+      </div>
+      <a href="#" class="btn-price">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- DAW COMPAT -->
+<section class="daw-compat fade-in">
+  <span class="section-label">// Compatible DAWs</span>
+  <div class="daw-logos">
+    <div class="daw-logo">Ableton Live</div><div class="daw-logo">Logic Pro</div>
+    <div class="daw-logo">Cubase</div><div class="daw-logo">FL Studio</div>
+    <div class="daw-logo">Pro Tools</div><div class="daw-logo">Studio One</div>
+    <div class="daw-logo">Reaper</div><div class="daw-logo">Bitwig</div>
+  </div>
+</section>
+
+<!-- CTA FULL -->
+<section class="cta-full">
+  <h2>Start Shaping<br>Your Sound Today</h2>
+  <p>30-day free trial · No credit card required</p>
+  <a href="#" class="btn-cta-dl">Download Free Trial</a>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">Nova</div>
+    <div class="footer-ver">v2.4.1 — AU / VST3 / AAX</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Docs</a><a href="#">Support</a><a href="#">Privacy</a>
+  </div>
+</footer>
+
+<script>
+// Hero waveform mini bars
+const hw=document.getElementById('hero-waveform');
+for(let i=0;i<40;i++){const b=document.createElement('div');b.className='mini-bar';b.style.animationDelay=(Math.random()*1)+'s';b.style.height=Math.floor(4+Math.random()*36)+'px';hw.appendChild(b)}
+// Main waveform divider
+const wd=document.getElementById('waveform-div');
+const n=60;
+for(let i=0;i<n;i++){const b=document.createElement('div');b.className='wave-bar'+(Math.abs(i-n/2)<8?' accent':'');const h=Math.floor(6+40*Math.sin((i/n)*Math.PI)*Math.random());b.style.setProperty('--h',h+'px');b.style.animationDelay=(Math.random()*1.2)+'s';b.style.animationDuration=(.6+Math.random()*.8)+'s';wd.appendChild(b)}
+// Fade
+const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>fadeObs.observe(el));
+</script>
+</body>
+</html>

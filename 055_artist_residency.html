@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TERRACE Residency — Room to Make</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Work+Sans:wght@300;400;700&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F0E8;--bg2:#EDE5D8;--ink:#1E1710;--mid:#7A6E60;--green:#3D6B4F;--green-lt:#C8DDD0;--line:#D0C8BE;--tape:#F0D090}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);font-weight:300;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.2rem;letter-spacing:.04em;color:var(--ink)}
+nav{display:flex;gap:2.5rem;align-items:center}
+nav a{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mid);transition:color .2s}
+nav a:hover{color:var(--ink)}
+.btn-apply{font-family:'Work Sans',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;background:var(--green);color:white;padding:.6rem 1.4rem;border-radius:2px;transition:background .2s}
+.btn-apply:hover{background:var(--ink)}
+/* TAPE decoration */
+.tape-strip{height:7px;background:var(--tape);opacity:.72;transform:rotate(-.3deg);margin:0 -2px;border-radius:1px}
+/* HERO */
+.hero{min-height:100vh;padding:80px 6vw 6rem;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:end;position:relative;background:var(--bg)}
+.hero-left{padding-bottom:2rem;position:relative}
+.hero-tape-wrap{margin-bottom:2rem}
+.hero-program{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:1.5rem}
+.hero h1{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(3rem,7vw,7rem);line-height:.92;letter-spacing:.01em;color:var(--ink)}
+.hero-tagline{font-family:'Work Sans',sans-serif;font-weight:300;font-size:1rem;color:var(--mid);line-height:1.9;margin-top:2rem;max-width:420px}
+.scroll-hint{display:block;font-family:'Work Sans',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mid);margin-top:3rem}
+.hero-visual{position:relative;clip-path:polygon(0 0,100% 0,100% 95%,3% 100%)}
+.hero-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-img-placeholder::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--line) 39px,var(--line) 40px)}
+.hero-img-placeholder svg{position:relative;z-index:1}
+/* ABOUT */
+.about{padding:7rem 6vw;background:var(--bg2);clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),0 100%);padding-bottom:calc(7rem + 40px)}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:center}
+.section-label{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.6rem;letter-spacing:.45em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:1.5rem}
+.about h2{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.2;margin-bottom:2rem}
+.about p{font-size:.9rem;line-height:2.3;letter-spacing:.05em;color:var(--mid);margin-bottom:1.5rem}
+.svg-draw-wrap{display:flex;align-items:center;justify-content:center;padding:2rem}
+.svg-studio{overflow:visible}
+/* TIMELINE */
+.timeline-section{padding:8rem 6vw;background:var(--bg)}
+.timeline-section h2{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.8rem,3vw,3rem);margin-bottom:4rem}
+.timeline-wrap{position:relative;max-width:800px;margin:0 auto}
+.tl-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line);transform:translateX(-50%)}
+.tl-progress{position:absolute;left:50%;top:0;width:2px;height:0;background:var(--green);transform:translateX(-50%);transition:height .5s ease}
+.tl-items{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:1fr 20px 1fr;align-items:start;min-height:80px}
+.tl-item:nth-child(odd) .tl-content{grid-column:1;text-align:right;padding-right:2rem}
+.tl-item:nth-child(odd) .tl-dot-col{grid-column:2}
+.tl-item:nth-child(odd) .tl-empty{grid-column:3}
+.tl-item:nth-child(even) .tl-empty{grid-column:1}
+.tl-item:nth-child(even) .tl-dot-col{grid-column:2}
+.tl-item:nth-child(even) .tl-content{grid-column:3;padding-left:2rem}
+.tl-dot-col{display:flex;justify-content:center;padding-top:4px;position:relative;z-index:2}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--line);border:2px solid var(--bg);transition:background .3s}
+.tl-item.active .tl-dot{background:var(--green)}
+.tl-date{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.4rem}
+.tl-event{font-family:'Bodoni Moda',serif;font-size:1rem;color:var(--ink);margin-bottom:.4rem}
+.tl-desc{font-size:.8rem;line-height:1.9;color:var(--mid)}
+/* RESIDENTS */
+.residents{padding:7rem 6vw;background:var(--bg2);clip-path:polygon(0 40px,100% 0,100% 100%,0 100%);padding-top:calc(7rem + 40px)}
+.residents-grid{display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:1.5rem;margin-top:3rem}
+.resident-card{background:var(--bg);border:1px solid var(--line);padding:1.8rem;border-radius:3px;transition:background .3s;cursor:default}
+.resident-card:hover{background:var(--green-lt)}
+.resident-card.tall{grid-row:span 2}
+.resident-name{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.15rem;margin-bottom:.5rem;color:var(--ink)}
+.resident-meta{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);line-height:2}
+.resident-year{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.2em;color:var(--green);margin-top:.8rem;display:block}
+/* STUDIO */
+.studio{padding:7rem 6vw;background:var(--bg)}
+.studio-items{display:flex;flex-direction:column;gap:0;margin-top:3rem}
+.studio-item{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;padding:3.5rem 0;border-top:1px solid var(--line)}
+.studio-item:nth-child(even){direction:rtl}
+.studio-item:nth-child(even)>*{direction:ltr}
+.studio-tape-label{display:inline-block;margin-bottom:1rem}
+.studio-title{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.4rem,2.5vw,2.2rem);margin-bottom:.8rem}
+.studio-desc{font-size:.88rem;line-height:2.2;color:var(--mid)}
+.studio-spec{font-family:'Work Sans',sans-serif;font-weight:700;font-size:2rem;color:var(--green);margin-top:1.2rem}
+.studio-spec-label{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mid)}
+.studio-visual{background:var(--bg2);aspect-ratio:4/3;border-radius:3px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%)}
+.studio-visual-inner{font-family:'Bodoni Moda',serif;font-style:italic;font-size:2.5rem;color:var(--line)}
+/* APPLY */
+.apply{padding:7rem 6vw;background:var(--bg2);clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - 30px))}
+.apply h2{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(2rem,4vw,4rem);margin-bottom:1rem}
+.apply-sub{font-size:.9rem;color:var(--mid);margin-bottom:3rem;line-height:2}
+.apply-conditions{display:flex;flex-direction:column;gap:.8rem;margin-bottom:3rem}
+.apply-cond{font-size:.88rem;color:var(--mid);padding-left:1.2rem;border-left:2px solid var(--green);line-height:1.9}
+.apply-cond strong{color:var(--ink);font-weight:400}
+.btn-apply-main{font-family:'Work Sans',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;background:var(--green);color:white;padding:1rem 2.5rem;border-radius:3px;display:inline-block;transition:background .4s}
+.btn-apply-main:hover{background:var(--ink)}
+.apply-deadline{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);margin-top:1.5rem}
+/* SUPPORTERS */
+.supporters{padding:5rem 6vw;background:var(--bg)}
+.supporters-logos{display:flex;flex-wrap:wrap;gap:1px;margin-top:2rem}
+.supporter-item{flex:1;min-width:120px;padding:1.5rem;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-family:'Work Sans',sans-serif;font-weight:300;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--line);transition:color .3s;border:1px solid var(--line)}
+.supporter-item:hover{color:var(--mid)}
+/* FOOTER */
+footer{padding:4rem 6vw;border-top:2px solid var(--tape);display:flex;justify-content:space-between;align-items:flex-end;background:var(--bg)}
+.footer-brand{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.1rem;color:var(--ink)}
+.footer-info p{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);line-height:2;margin-top:.3rem}
+.footer-sns{display:flex;gap:2rem}
+.footer-sns a{font-family:'Work Sans',sans-serif;font-weight:300;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);transition:color .2s}
+.footer-sns a:hover{color:var(--ink)}
+/* SPLIT TEXT */
+.split-char{display:inline-block;opacity:0;letter-spacing:.3em;transition:opacity .6s ease,letter-spacing .6s ease}
+.split-char.visible{opacity:1;letter-spacing:.01em}
+/* Fade */
+.fade-in{opacity:0;transition:opacity .9s ease}
+.fade-in.visible{opacity:1}
+@media(max-width:1024px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:80px}.about-inner{grid-template-columns:1fr}.residents-grid{grid-template-columns:1fr 1fr}.studio-item{grid-template-columns:1fr;gap:2rem}.studio-item:nth-child(even){direction:ltr}}
+@media(max-width:768px){.tl-item{grid-template-columns:1fr 20px}.tl-item:nth-child(odd) .tl-empty,.tl-item:nth-child(even) .tl-empty{display:none}.tl-item .tl-content{grid-column:3!important;text-align:left!important;padding-left:1rem!important;padding-right:0!important}.tl-item .tl-dot-col{grid-column:2!important}.tl-line,.tl-progress{left:10px;transform:none}.residents-grid{grid-template-columns:1fr}.resident-card.tall{grid-row:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">Terrace</a>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#timeline">Program</a>
+    <a href="#apply" class="btn-apply">Apply Now</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tape-wrap"><div class="tape-strip" style="width:80px"></div></div>
+    <span class="hero-program">Artist Residency Program — 2025</span>
+    <h1 id="hero-h1">Room<br>to Make</h1>
+    <p class="hero-tagline">アーティストが作ることに集中できる場所、時間、コミュニティ。制作の真剣さと、人が交差する豊かさ。</p>
+    <span class="scroll-hint">Scroll to explore ↓</span>
+  </div>
+  <div class="hero-visual fade-in">
+    <div class="hero-img-placeholder">
+      <svg width="60%" height="60%" viewBox="0 0 200 160" fill="none" class="svg-studio">
+        <rect x="10" y="80" width="180" height="70" stroke="var(--line)" stroke-width="1.5" fill="none"/>
+        <rect x="10" y="40" width="60" height="40" stroke="var(--line)" stroke-width="1.5" fill="none"/>
+        <rect x="30" y="55" width="20" height="25" stroke="var(--mid)" stroke-width=".8" fill="rgba(61,107,79,.08)"/>
+        <line x1="10" y1="80" x2="190" y2="80" stroke="var(--ink)" stroke-width=".8"/>
+        <rect x="130" y="100" width="30" height="50" stroke="var(--green)" stroke-width=".8" fill="rgba(61,107,79,.06)"/>
+        <rect x="50" y="110" width="60" height="40" stroke="var(--mid)" stroke-width=".6" fill="none"/>
+        <path d="M10 40 Q20 30 40 35 Q60 20 80 30 Q100 10 120 25" stroke="var(--green)" stroke-width=".6" fill="none" opacity=".4"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about fade-in" id="about">
+  <div class="about-inner">
+    <div>
+      <span class="section-label">About the Program</span>
+      <h2>作ることのための<br><em>すべてがある。</em></h2>
+      <p>TERRACE Residencyは、若手・中堅アーティストが滞在型で制作に集中できるプログラムです。2015年の創設以来、国内外から200名を超えるアーティストを受け入れてきました。</p>
+      <p>スタジオ、宿泊、制作費補助に加え、専任メンターとの定期的な対話を通じて、アーティストの挑戦を多面的に支援します。</p>
+    </div>
+    <div class="svg-draw-wrap">
+      <svg class="svg-studio" width="280" height="280" viewBox="0 0 280 280" fill="none" id="about-svg">
+        <path id="svg-path-1" d="M40 240 L40 60 L200 60 L200 240" stroke="var(--line)" stroke-width="1.2" stroke-dasharray="1000" stroke-dashoffset="1000" fill="none"/>
+        <path id="svg-path-2" d="M40 240 L200 240" stroke="var(--line)" stroke-width="1.2" stroke-dasharray="200" stroke-dashoffset="200" fill="none"/>
+        <path id="svg-path-3" d="M70 60 L70 130 L130 130 L130 60" stroke="var(--mid)" stroke-width=".8" stroke-dasharray="500" stroke-dashoffset="500" fill="none"/>
+        <path id="svg-path-4" d="M155 140 L155 240 L200 240" stroke="var(--green)" stroke-width="1" stroke-dasharray="200" stroke-dashoffset="200" fill="none" opacity=".6"/>
+        <circle id="svg-circle" cx="100" cy="95" r="15" stroke="var(--green)" stroke-width=".8" fill="rgba(61,107,79,.08)" stroke-dasharray="100" stroke-dashoffset="100"/>
+        <path id="svg-path-5" d="M40 160 Q80 140 120 155 Q160 170 200 150" stroke="var(--tape)" stroke-width=".8" stroke-dasharray="200" stroke-dashoffset="200" fill="none" opacity=".5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="timeline">
+  <div class="tape-strip" style="width:60px;margin-bottom:2rem"></div>
+  <span class="section-label">Annual Program</span>
+  <h2>Year-round<br><em>Creative Calendar</em></h2>
+  <div class="timeline-wrap">
+    <div class="tl-line"></div>
+    <div class="tl-progress" id="tl-progress"></div>
+    <div class="tl-items">
+      <div class="tl-item" id="tl-0">
+        <div class="tl-content"><span class="tl-date">January</span><div class="tl-event">Application Opens</div><p class="tl-desc">年度募集開始。応募フォーム受付。</p></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+      <div class="tl-item" id="tl-1">
+        <div class="tl-empty"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content"><span class="tl-date">March</span><div class="tl-event">Selection & Announcement</div><p class="tl-desc">審査委員会による選考・採択通知。</p></div>
+      </div>
+      <div class="tl-item" id="tl-2">
+        <div class="tl-content"><span class="tl-date">April</span><div class="tl-event">Residency Begins</div><p class="tl-desc">入居・スタジオ割り当て・オリエンテーション。</p></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+      <div class="tl-item" id="tl-3">
+        <div class="tl-empty"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content"><span class="tl-date">June</span><div class="tl-event">Open Studio</div><p class="tl-desc">一般公開制作見学会。コレクター・プレス招待。</p></div>
+      </div>
+      <div class="tl-item" id="tl-4">
+        <div class="tl-content"><span class="tl-date">September</span><div class="tl-event">Mid-term Review</div><p class="tl-desc">メンターとの中間レビュー・方向性確認。</p></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+      <div class="tl-item" id="tl-5">
+        <div class="tl-empty"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content"><span class="tl-date">November</span><div class="tl-event">Final Exhibition</div><p class="tl-desc">成果発表展覧会。招待プレス・コレクター向け内覧会。</p></div>
+      </div>
+      <div class="tl-item" id="tl-6">
+        <div class="tl-content"><span class="tl-date">December</span><div class="tl-event">Residency Ends</div><p class="tl-desc">修了式・アルムナイネットワーク加入。</p></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENTS -->
+<section class="residents fade-in" id="residents">
+  <span class="section-label">Past Residents</span>
+  <h2 style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.8rem,3vw,3rem);margin-bottom:0">Alumni Artists</h2>
+  <div class="residents-grid">
+    <div class="resident-card tall">
+      <div class="resident-name">Yuki Morimoto</div>
+      <div class="resident-meta">Japan<br>Painting / Oil</div>
+      <span class="resident-year">2024</span>
+    </div>
+    <div class="resident-card">
+      <div class="resident-name">Ana Lima</div>
+      <div class="resident-meta">Brazil<br>Sculpture</div>
+      <span class="resident-year">2024</span>
+    </div>
+    <div class="resident-card">
+      <div class="resident-name">Kwame Asante</div>
+      <div class="resident-meta">Ghana<br>Installation</div>
+      <span class="resident-year">2023</span>
+    </div>
+    <div class="resident-card">
+      <div class="resident-name">Hana Mizuki</div>
+      <div class="resident-meta">Japan<br>Textile / Weaving</div>
+      <span class="resident-year">2024</span>
+    </div>
+    <div class="resident-card">
+      <div class="resident-name">Luca Ferri</div>
+      <div class="resident-meta">Italy<br>Photography</div>
+      <span class="resident-year">2023</span>
+    </div>
+    <div class="resident-card">
+      <div class="resident-name">Sora Kim</div>
+      <div class="resident-meta">Korea<br>Video / Performance</div>
+      <span class="resident-year">2023</span>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="studio fade-in" id="studio">
+  <span class="section-label">Facilities</span>
+  <h2 style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.8rem,3vw,3rem)">Studio & Space</h2>
+  <div class="studio-items">
+    <div class="studio-item">
+      <div>
+        <div class="studio-tape-label"><div class="tape-strip" style="width:50px"></div></div>
+        <div class="studio-title">Production Studio</div>
+        <p class="studio-desc">天窓付きの自然光スタジオを一人一室完全個室で提供。滞在中は24時間アクセス可能。大型作品の制作にも対応した広さです。</p>
+        <div class="studio-spec">450㎡</div>
+        <div class="studio-spec-label">Total Studio Area</div>
+      </div>
+      <div class="studio-visual"><div class="studio-visual-inner">Studio</div></div>
+    </div>
+    <div class="studio-item">
+      <div>
+        <div class="studio-tape-label"><div class="tape-strip" style="width:40px"></div></div>
+        <div class="studio-title">Accommodation</div>
+        <p class="studio-desc">スタジオ同フロアに個室宿泊スペース。制作から休息まで、同じ空気の中で過ごせる環境を整えています。共用リビング・キッチンでの交流も大切にしています。</p>
+        <div class="studio-spec">12室</div>
+        <div class="studio-spec-label">Private Rooms</div>
+      </div>
+      <div class="studio-visual"><div class="studio-visual-inner">Living</div></div>
+    </div>
+    <div class="studio-item">
+      <div>
+        <div class="studio-tape-label"><div class="tape-strip" style="width:55px"></div></div>
+        <div class="studio-title">Mentorship & Critique</div>
+        <p class="studio-desc">国内外の現代アート専門家、キュレーター、コレクターによるメンタープログラム。月2回の定期クリティークセッションで制作を深めます。</p>
+        <div class="studio-spec">月2回</div>
+        <div class="studio-spec-label">Critique Sessions</div>
+      </div>
+      <div class="studio-visual"><div class="studio-visual-inner">Critique</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="apply" id="apply">
+  <div class="tape-strip" style="width:70px;margin-bottom:2.5rem"></div>
+  <span class="section-label">Application</span>
+  <h2>Apply for<br><em>2025 Program</em></h2>
+  <p class="apply-sub">定員8名。国籍・年齢・ジャンルを問わず、現代アートの文脈で真剣に制作に取り組むアーティストを募集します。</p>
+  <div class="apply-conditions">
+    <div class="apply-cond"><strong>Eligibility</strong> — プロとしての活動歴2年以上、または同等の制作実績を有する方</div>
+    <div class="apply-cond"><strong>Duration</strong> — 3ヶ月間（2025年4月〜6月、または10月〜12月）</div>
+    <div class="apply-cond"><strong>Support</strong> — スタジオ・宿泊提供 + 制作費補助 ¥200,000 / 期</div>
+    <div class="apply-cond"><strong>Portfolio</strong> — 作品10点以内のPDF（最大20MB）+ アーティストステートメント</div>
+    <div class="apply-cond"><strong>Language</strong> — 日本語または英語での申請可</div>
+  </div>
+  <a href="#" class="btn-apply-main">Apply Now →</a>
+  <p class="apply-deadline">Application Deadline: 2025.03.31</p>
+</section>
+
+<!-- SUPPORTERS -->
+<section class="supporters fade-in">
+  <span class="section-label">Supporters & Partners</span>
+  <div class="supporters-logos">
+    <div class="supporter-item">Arts Council</div><div class="supporter-item">Nippon Foundation</div>
+    <div class="supporter-item">Toyota Foundation</div><div class="supporter-item">Saison Foundation</div>
+    <div class="supporter-item">Pola Art Foundation</div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div>
+    <div class="footer-brand">Terrace</div>
+    <div class="footer-info">
+      <p>東京都目黒区駒場 X-XX</p>
+      <p>info@terrace-residency.jp</p>
+    </div>
+  </div>
+  <div class="footer-sns">
+    <a href="#">Instagram</a><a href="#">Press</a>
+  </div>
+</footer>
+
+<script>
+// Hero H1 split text animation
+(function(){
+  const el=document.getElementById('hero-h1');
+  const html=el.innerHTML;
+  const lines=html.split('<br>');
+  el.innerHTML=lines.map(line=>line.split('').map((c,i)=>`<span class="split-char" style="transition-delay:${i*0.04}s">${c==' '?'&nbsp;':c}</span>`).join('')).join('<br>');
+  setTimeout(()=>{document.querySelectorAll('.split-char').forEach(s=>s.classList.add('visible'))},300);
+})();
+
+// About SVG draw animation
+const svgPaths=['svg-path-1','svg-path-2','svg-path-3','svg-path-4','svg-path-5','svg-circle'];
+const svgObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      svgPaths.forEach((id,i)=>{
+        const el=document.getElementById(id);
+        if(!el)return;
+        setTimeout(()=>{el.style.transition='stroke-dashoffset 1s ease-out';el.style.strokeDashoffset='0'},i*200);
+      });
+    }
+  });
+},{threshold:.3});
+const aboutSvg=document.getElementById('about-svg');
+if(aboutSvg)svgObs.observe(aboutSvg);
+
+// Timeline progress animation
+const tlItems=document.querySelectorAll('.tl-item');
+const tlProgress=document.getElementById('tl-progress');
+const tlWrap=document.querySelector('.timeline-wrap');
+if(tlWrap){
+  const tlObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        tlItems.forEach((item,i)=>{
+          setTimeout(()=>{
+            item.classList.add('active');
+            if(tlProgress){
+              const pct=(i+1)/tlItems.length*100;
+              tlProgress.style.height=pct+'%';
+            }
+          },i*200);
+        });
+        tlObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.1});
+  tlObs.observe(tlWrap);
+}
+
+// Fade in
+const fadeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>fadeObs.observe(el));
+</script>
+</body>
+</html>

@@ -6,16 +6,66 @@
   <title>デザインプロンプト集 Index</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f7f9fa; margin: 0; padding: 0; }
-    .container { max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 12px; }
-    h1 { font-size: 1.8rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-    .link-list { list-style: none; padding: 0; display: grid; gap: 12px; }
-    .link-list li { background: #f1f5f9; border-radius: 8px; }
-    .link-list a { display: block; padding: 16px 20px; text-decoration: none; color: #0f172a; font-weight: 500; }
-    .link-list li:hover { background: #e2e8f0; }
-    .link-meta { font-size: 0.8em; color: #64748b; margin-left: 10px; font-weight: 400; }
+    body { font-family: 'Inter', sans-serif; background-color: #fafbfc; margin: 0; padding: 0; color: #1e293b; }
+    .container { max-width: 1040px; margin: 50px auto; padding: 40px; background: #ffffff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); }
+    h1 { font-size: 1.8rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 32px; font-weight: 600; color: #0f172a; }
+    
+    .link-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+    
+    /* ベースとなるカード設計 */
+    .link-list li { 
+      border-radius: 10px; 
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); 
+      border: 1px solid transparent;
+      overflow: hidden;
+    }
+    
+    .link-list a { 
+      display: flex; 
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 24px; 
+      text-decoration: none; 
+      color: #334155; 
+      font-weight: 500; 
+      height: 100%; 
+      box-sizing: border-box; 
+    }
+    
+    .link-meta { 
+      display: block; 
+      font-size: 0.8em; 
+      color: #94a3b8; 
+      margin-top: 6px; 
+      font-weight: 400; 
+      font-family: monospace;
+    }
+
+    /* エクセルのような「ストライプ（互い違い）」の配色パターン（美しいパステル系） */
+    /* パターン1: ほんのりブルーグレー */
+    .link-list li:nth-child(4n+1) { background-color: #f8fafc; border-color: #f1f5f9; }
+    .link-list li:nth-child(4n+1):hover { background-color: #f1f5f9; border-color: #e2e8f0; }
+    
+    /* パターン2: ほんのりウォームサンド */
+    .link-list li:nth-child(4n+2) { background-color: #fffdfa; border-color: #fcf8f2; }
+    .link-list li:nth-child(4n+2):hover { background-color: #fcf8f2; border-color: #f5eedf; }
+    
+    /* パターン3: ほんのりミストグリーン */
+    .link-list li:nth-child(4n+3) { background-color: #f8fbf9; border-color: #f0f7f2; }
+    .link-list li:nth-child(4n+3):hover { background-color: #f0f7f2; border-color: #e2ede5; }
+    
+    /* パターン4: ほんのりラベンダーグレー */
+    .link-list li:nth-child(4n+4) { background-color: #fbfbfc; border-color: #f5f5f9; }
+    .link-list li:nth-child(4n+4):hover { background-color: #f5f5f9; border-color: #ebebf2; }
+
+    /* 共通: ホバー時の美しい浮き出し */
+    .link-list li:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.02); 
+    }
+    .link-list li:hover a { color: #0f172a; }
   </style>
 </head>
 <body>
@@ -69,7 +119,7 @@
       <li><a href="045_outdoor_gear_product.html" target="_blank">045 アウトドアギア製品LP <span class="link-meta">(outdoor_gear_product)</span></a></li>
       <li><a href="046_outdoor_brand_editorial.html" target="_blank">046 アウトドアブランド・エディトリアル <span class="link-meta">(outdoor_brand_editorial)</span></a></li>
       <li><a href="047_kids_juku_storybook.html" target="_blank">047 子供向け学習塾_絵本風 <span class="link-meta">(kids_juku_storybook)</span></a></li>
-      <li><a href="048_kids_juku_adventure_map.html" target="_blank">048 子供向け学習塾_冒険맵風 <span class="link-meta">(kids_juku_adventure_map)</span></a></li>
+      <li><a href="048_kids_juku_adventure_map.html" target="_blank">048 子供向け学習塾_冒険風 <span class="link-meta">(kids_juku_adventure_map)</span></a></li>
       <li><a href="049_kids_juku_intellectual_trust.html" target="_blank">049 子供向け学習塾_知性・信頼感(親向け) <span class="link-meta">(kids_juku_intellectual_trust)</span></a></li>
       <li><a href="050_kids_juku_warm_guidance.html" target="_blank">050 子供向け学習塾_温かみ・寄り添い(親向け) <span class="link-meta">(kids_juku_warm_guidance)</span></a></li>
       <li><a href="051_migration_promotion_lp.html" target="_blank">051 地方移住促進LP <span class="link-meta">(migration_promotion_lp)</span></a></li>

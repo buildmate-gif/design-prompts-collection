@@ -291,23 +291,40 @@
         .metrics-grid {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
             width: 100%;
             padding: 0 5vw;
         }
 
         .metric-box {
-            width: 30%;
+            flex: 1 1 30%;
+            min-width: 250px;
         }
 
         .m-num {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(4rem, 10vw, 8rem);
+            font-size: clamp(3rem, 6vw, 7rem);
+            /* Reduced slightly to prevent overlap */
             font-weight: 800;
             line-height: 1;
             color: var(--text-main);
             border-bottom: var(--border-thin);
             padding-bottom: 1rem;
             margin-bottom: 1rem;
+            display: flex;
+            /* Added flex to align number and symbol baseline nicely */
+            align-items: baseline;
+            white-space: nowrap;
+            /* Prevent numbers from breaking into multiple lines */
+        }
+
+        .m-num span {
+            font-size: 0.4em;
+            /* Slightly smaller */
+            color: var(--accent-color);
+            margin-left: 0.2em;
+            /* Add space between number and symbol */
         }
 
         /* 6. CTA */
@@ -379,42 +396,53 @@
                 grid-column: 1 / 25;
             }
         }
-    
-    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
 
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
+        .img-ph {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Directional Image Placeholder CSS */
+        .img-wrap {
+            position: relative;
+        }
+
+        .img-ph {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-ph::after {
+            content: "[ 写真・イラストが入ります ]";
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-align: center;
+            padding: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .global-bg-ph.img-ph {
+            border: none;
+            background-color: transparent;
+        }
+
+        .global-bg-ph.img-ph::after {
+            opacity: 0.3;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -425,10 +453,14 @@
 
     <!-- 1. HERO -->
     <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+        <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+            <div class="img-ph"></div>
+        </div>
         <div class="grid-24">
             <div class="hero-text">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+                <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                    <div class="img-ph"></div>
+                </div>
                 <div class="label" style="margin-bottom:1rem;">INTRODUCING LUMINA</div>
                 <h1 id="hero-title">
                     Scale <br>Without <br>Friction.
@@ -438,7 +470,9 @@
                 </p>
                 <a href="#trial" class="btn">Start Free Trial</a>
             </div>
-            <div class="img-wrap"><div class="img-ph"></div></div>
+            <div class="img-wrap">
+                <div class="img-ph"></div>
+            </div>
         </div>
     </section>
 
@@ -531,17 +565,17 @@
     <section class="metrics">
         <div class="metrics-grid">
             <div class="metric-box">
-                <div class="m-num">40<span style="font-size:0.5em; color:var(--accent-color);">%</span></div>
+                <div class="m-num">40<span>%</span></div>
                 <div class="label">Time Saved</div>
                 <p style="color:var(--text-muted);">平均的な導入企業における、週あたりの定型業務削減時間。</p>
             </div>
             <div class="metric-box">
-                <div class="m-num">99.9<span style="font-size:0.5em; color:var(--accent-color);">%</span></div>
+                <div class="m-num">99.9<span>%</span></div>
                 <div class="label">Uptime</div>
                 <p style="color:var(--text-muted);">エンタープライズ対応の堅牢なインフラストラクチャによる安定稼働。</p>
             </div>
             <div class="metric-box">
-                <div class="m-num">500<span style="font-size:0.5em; color:var(--accent-color);">+</span></div>
+                <div class="m-num">500<span>+</span></div>
                 <div class="label">Integrations</div>
                 <p style="color:var(--text-muted);">世界中の主要なSaaSツールとのネイティブ連携をサポート。</p>
             </div>

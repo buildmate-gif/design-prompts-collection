@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHITECTURAL FOUNDATIONS | Tailwind Example</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS を CDN 経由で読み込み -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- カスタム設定 (フォントと色をTailwind上で定義) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            syne: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            brutal: {
+              bg: '#E0E0E0',
+              dark: '#1C1C1C',
+              accent: '#FFD700',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* アニメーションだけはCSSで少し定義すると便利（Tailwindの標準にもありますが、今回は既存と同じ挙動にするため） */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    body { overflow-x: hidden; }
+  </style>
+</head>
+
+<body class="bg-brutal-bg text-brutal-dark font-sans font-medium leading-[1.6]">
+
+  <!-- 1. HERO -->
+  <section class="fade-in min-h-screen flex flex-col justify-center p-8 md:p-16 border-4 border-brutal-dark m-8 relative">
+    <h1 class="font-syne uppercase leading-[1.1] text-[clamp(3rem,8vw,7rem)] font-extrabold tracking-tight mb-8">
+      Raw Material<br>Structural<br>Integrity
+    </h1>
+    <p class="self-start md:self-end max-w-[400px] text-[1.1rem] text-left md:text-right mt-8 md:mt-0">
+      装飾を完全に削ぎ落とし、機能と構造をむき出しにする。<br>これはデザインに対するアンチテーゼであり、本質の探求である。
+    </p>
+  </section>
+
+  <!-- 2. FEATURES -->
+  <!-- グリッドレイアウト、境界線、レスポンシブな列変更をすべてクラスで指定 -->
+  <section class="fade-in pt-32 pb-32 px-8 border-t-[3px] border-brutal-dark grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0" style="animation-delay: 0.2s;">
+    
+    <!-- mdサイズ以上で2列分、lgサイズ以上で2つ分の幅を取る -->
+    <div class="col-span-1 md:col-span-2 border-2 border-brutal-dark p-8 md:p-16 flex flex-col transition-transform duration-150 ease-linear hover:-translate-y-1 bg-brutal-bg">
+      <div class="font-syne text-[clamp(4rem,10vw,8rem)] font-extrabold text-brutal-dark mb-8 self-start leading-none">01</div>
+      <h2 class="font-syne uppercase leading-[1.1] text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 border-b-2 border-brutal-dark pb-2">Exposed Logic</h2>
+      <p>裏側に隠されるべき配管や構造材をあえて露出させることで、システムの動作原理を視覚化します。要素の境界線は曖昧にせず、明確な区切りとして機能します。</p>
+    </div>
+
+    <!-- 通常カード -->
+    <div class="border-2 border-brutal-dark p-8 md:p-16 flex flex-col transition-transform duration-150 ease-linear hover:-translate-y-1 bg-brutal-bg">
+      <div class="font-syne text-[clamp(4rem,10vw,8rem)] font-extrabold text-brutal-dark mb-8 self-start leading-none">02</div>
+      <h2 class="font-syne uppercase leading-[1.1] text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 border-b-2 border-brutal-dark pb-2">Anti Design</h2>
+      <p>ユーザーに媚びない無骨なインターフェース。過度な余白やラウンドコーナーを排除。</p>
+    </div>
+
+    <!-- 通常カード -->
+    <div class="border-2 border-brutal-dark p-8 md:p-16 flex flex-col transition-transform duration-150 ease-linear hover:-translate-y-1 bg-brutal-bg">
+      <div class="font-syne text-[clamp(4rem,10vw,8rem)] font-extrabold text-brutal-dark mb-8 self-start leading-none">03</div>
+      <h2 class="font-syne uppercase leading-[1.1] text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 border-b-2 border-brutal-dark pb-2">Function First</h2>
+      <p>すべてのアクションは直接的でなければなりません。機能美の極限を目指した設計。</p>
+    </div>
+  </section>
+
+  <!-- 3. CTA -->
+  <div class="fade-in w-screen ml-[calc(50%-50vw)]" style="animation-delay: 0.3s;">
+    <a href="#" class="block w-full bg-brutal-accent text-brutal-dark text-center py-32 px-8 cursor-pointer border-t-[3px] border-brutal-dark transition-colors duration-200 hover:bg-brutal-dark hover:text-brutal-accent focus-visible:outline-[3px] focus-visible:outline-brutal-accent focus-visible:outline-offset-4">
+      <h2 class="font-syne uppercase leading-[1.1] text-[clamp(2rem,5vw,4rem)] font-extrabold tracking-tight">INITIALIZE SEQUENCE</h2>
+    </a>
+  </div>
+
+  <!-- 4. FOOTER -->
+  <footer class="fade-in border-t-[3px] border-brutal-dark p-8 text-center" style="animation-delay: 0.4s;">
+    <p class="text-[0.8rem] tracking-[0.1em]">&copy; 2026 BRUTALIST ARCHITECTURE. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+</body>
+</html>

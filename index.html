@@ -388,6 +388,94 @@
     }
     .no-results.show { display: block; }
 
+    /* ── 使い方バナー ────────────────────────── */
+    .how-to {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+    }
+
+    .how-to-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .how-to-lead {
+      flex: 0 0 auto;
+    }
+
+    .how-to-lead p {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .how-to-lead h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .how-to-steps {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      min-width: 180px;
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .step-text {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .step-text strong {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.83rem;
+    }
+
+    .step-arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
     /* モバイル */
     @media (max-width: 640px) {
       .page-header { padding: 14px 16px; flex-wrap: wrap; }
@@ -395,6 +483,11 @@
       .container { padding: 20px 16px 40px; }
       .card-grid { grid-template-columns: 1fr; }
       .modal-overlay { padding: 12px; }
+      .how-to { padding: 16px; }
+      .how-to-inner { flex-direction: column; gap: 16px; }
+      .how-to-steps { gap: 6px; }
+      .step { min-width: 0; flex: 1 1 100%; }
+      .step-arrow { display: none; }
     }
   </style>
 </head>
@@ -413,6 +506,41 @@
     <input type="text" id="search-input" placeholder="名前・スタイルで検索…" autocomplete="off">
   </div>
 </header>
+
+<!-- 使い方バナー -->
+<div class="how-to">
+  <div class="how-to-inner">
+    <div class="how-to-lead">
+      <p>USAGE</p>
+      <h2>AIでWebページを作るときの<br>デザイン指示書集</h2>
+    </div>
+    <div class="how-to-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>デザイン確認</strong>
+          気に入ったスタイルを見つける
+        </div>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>プロンプトを見る</strong>
+          内容を確認してコピー
+        </div>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>AIに貼り付ける</strong>
+          Claude・ChatGPTにそのまま使える
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- メイン -->
 <div class="container">

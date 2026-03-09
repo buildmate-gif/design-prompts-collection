@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デザインプロンプト集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --border: #e8eaed;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --accent-hover: #1d4ed8;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.06);
+      --radius: 10px;
+      --radius-lg: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ── ヘッダー ─────────────────────────────── */
+    .page-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .page-header h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .header-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* 検索ボックス */
+    .search-wrap {
+      position: relative;
+      flex: 0 0 260px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    #search-input {
+      width: 100%;
+      padding: 7px 12px 7px 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #search-input::placeholder { color: var(--text-muted); }
+
+    /* ── メインコンテンツ ─────────────────────── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 40px 60px;
+    }
+
+    .grid-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    #count-label { color: var(--accent); }
+
+    /* ── カードグリッド ──────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      border-color: #c7d2fe;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-body {
+      padding: 16px 18px 12px;
+      flex: 1;
+    }
+
+    .card-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .card-slug {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      padding: 10px 18px 14px;
+      border-top: 1px solid var(--border);
+      background: #fafbfc;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-preview {
+      background: var(--accent-light);
+      color: var(--accent);
+      flex: 1;
+    }
+    .btn-preview:hover { background: #dbeafe; }
+
+    .btn-prompt {
+      background: var(--green-light);
+      color: var(--green);
+      flex: 1.4;
+    }
+    .btn-prompt:hover { background: #dcfce7; }
+
+    .btn svg { flex-shrink: 0; }
+
+    /* 検索でヒットしないカードを隠す */
+    .card.hidden { display: none; }
+
+    /* ── モーダル ────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 780px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modal-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title-block {}
+    .modal-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .modal-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .modal-slug {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-copy {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+    }
+    .btn-copy:hover { background: var(--accent-hover); }
+    .btn-copy.copied { background: var(--green); }
+
+    .btn-close {
+      background: var(--bg);
+      color: var(--text-secondary);
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .btn-close:hover { background: var(--border); color: var(--text-primary); }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    /* ローディング */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 40px 0;
+    }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Markdownレンダリング */
+    .md-content h1, .md-content h2, .md-content h3 {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.4;
+    }
+    .md-content h1 { font-size: 1.2rem; margin-top: 0; }
+    .md-content h2 { font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .md-content h3 { font-size: 0.92rem; }
+    .md-content p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75em; line-height: 1.7; }
+    .md-content ul, .md-content ol { font-size: 0.88rem; color: var(--text-secondary); padding-left: 1.4em; margin-bottom: 0.75em; }
+    .md-content li { margin-bottom: 0.3em; line-height: 1.6; }
+    .md-content strong { color: var(--text-primary); font-weight: 600; }
+    .md-content code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8em;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #e11d48;
+    }
+    .md-content pre {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      margin: 1em 0;
+      position: relative;
+    }
+    .md-content pre code {
+      background: none;
+      border: none;
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      padding: 0;
+      line-height: 1.65;
+    }
+    .md-content hr { border: none; border-top: 1px solid var(--border); margin: 1.5em 0; }
+    .md-content blockquote {
+      border-left: 3px solid var(--accent);
+      margin-left: 0;
+      padding: 4px 12px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 1em 0; }
+    .md-content th { background: var(--bg); text-align: left; padding: 8px 12px; border: 1px solid var(--border); font-weight: 600; }
+    .md-content td { padding: 7px 12px; border: 1px solid var(--border); color: var(--text-secondary); }
+
+    /* エラー */
+    .error-msg {
+      font-size: 0.85rem;
+      color: #dc2626;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    /* 「見つかりません」 */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .no-results.show { display: block; }
+
+    /* モバイル */
+    @media (max-width: 640px) {
+      .page-header { padding: 14px 16px; flex-wrap: wrap; }
+      .search-wrap { flex: 1 1 100%; order: 3; }
+      .container { padding: 20px 16px 40px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .modal-overlay { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header class="page-header">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <h1>デザインプロンプト集</h1>
+    <span class="header-meta"><span id="count-label">55</span> prompts</span>
+  </div>
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="名前・スタイルで検索…" autocomplete="off">
+  </div>
+</header>
+
+<!-- メイン -->
+<div class="container">
+  <p class="grid-label">ALL PROMPTS — <span id="visible-count">55</span> 件表示</p>
+
+  <div class="card-grid" id="card-grid">
+
+    <!-- カード生成はJSで行う -->
+
+  </div>
+
+  <div class="no-results" id="no-results">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px; display:block; color:#cbd5e1">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    「<span id="search-query"></span>」に一致するプロンプトが見つかりません
+  </div>
+</div>
+
+<!-- モーダル -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <p class="modal-number" id="modal-number"></p>
+        <p class="modal-title" id="modal-title"></p>
+        <p class="modal-slug" id="modal-slug"></p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-copy" id="copy-btn" onclick="copyPrompt()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          プロンプトをコピー
+        </button>
+        <button class="btn btn-close" onclick="closeModal()" title="閉じる">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// データ定義
+// ─────────────────────────────────────────────
+const REPO_RAW = 'https://raw.githubusercontent.com/buildmate-gif/design-prompts-collection/main/';
+const REPO_PREVIEW = 'https://buildmate-gif.github.io/design-prompts-collection/';
+
+const prompts = [
+  { id: '001', name: 'インダストリアルブルータリズム', slug: 'industrial_brutalism' },
+  { id: '002', name: 'オーガニックミニマル', slug: 'organic_minimal' },
+  { id: '003', name: '70sレトロポップ', slug: '70s_retro_pop' },
+  { id: '004', name: 'スイスグリッド', slug: 'swiss_grid' },
+  { id: '005', name: 'シネマティックノワール', slug: 'cinematic_noir' },
+  { id: '006', name: 'ポートフォリオ_ダークミニマル', slug: 'portfolio_dark_minimal' },
+  { id: '007', name: 'プロダクトローンチ', slug: 'product_launch' },
+  { id: '008', name: 'マガジン記事_エディトリアル紙面', slug: 'magazine_editorial' },
+  { id: '009', name: 'コーポレートフィロソフィー', slug: 'corporate_philosophy' },
+  { id: '010', name: '展覧会告知_カウントダウン', slug: 'exhibition_countdown' },
+  { id: '011', name: 'ダッシュボード_ブルータリスト', slug: 'dashboard_brutalist' },
+  { id: '012', name: 'ネオン夜市', slug: 'neon_night_market' },
+  { id: '013', name: 'オーガニックボタニカル', slug: 'organic_botanical' },
+  { id: '014', name: 'レトロスペース', slug: 'retro_space' },
+  { id: '015', name: 'ストリートジン', slug: 'street_zine' },
+  { id: '016', name: 'インダストリアルクラフト', slug: 'industrial_craft' },
+  { id: '017', name: '禅ミニマル', slug: 'zen_minimal' },
+  { id: '018', name: 'ボールドエディトリアル', slug: 'bold_editorial' },
+  { id: '019', name: 'ダークラグジュアリー', slug: 'dark_luxury' },
+  { id: '020', name: 'データヒューマニスト', slug: 'data_humanist' },
+  { id: '021', name: 'サービスLP', slug: 'service_lp' },
+  { id: '022', name: 'マガジン記事_活版印刷アナログ', slug: 'magazine_letterpress' },
+  { id: '023', name: 'ポートフォリオ_和クラフト', slug: 'portfolio_japanese_craft' },
+  { id: '024', name: 'イベント告知_コンサートポスター', slug: 'event_concert_poster' },
+  { id: '025', name: 'プロフィール', slug: 'profile' },
+  { id: '026', name: '採用_オーガニック温', slug: 'recruit_organic_warm' },
+  { id: '027', name: 'プロダクト_テクノロジー系', slug: 'product_tech' },
+  { id: '028', name: '会社概要_建築コンクリート', slug: 'company_concrete_arch' },
+  { id: '029', name: '料金プラン_フィナンシャル', slug: 'pricing_financial' },
+  { id: '030', name: 'ナレッジ用語集_学術図書館', slug: 'glossary_academic' },
+  { id: '031', name: '採用_WPAポスター風', slug: 'recruit_wpa_poster' },
+  { id: '032', name: 'プロダクト_和工芸系', slug: 'product_japanese_craft' },
+  { id: '033', name: '会社概要_レトロターミナル', slug: 'company_retro_terminal' },
+  { id: '034', name: '料金プラン_オートクチュール', slug: 'pricing_haute_couture' },
+  { id: '035', name: 'ナレッジ用語集_フィールドノート', slug: 'glossary_field_notes' },
+  { id: '036', name: 'スキンケアLP_ラグジュアリー(女性向け)', slug: 'skincare_luxury_women' },
+  { id: '037', name: 'ライフスタイルショップ_韓国系(女性向け)', slug: 'lifestyle_korean_women' },
+  { id: '038', name: 'ウェブマガジン_丁寧な暮らし(女性向け)', slug: 'web_magazine_teinei' },
+  { id: '039', name: 'ウェディングプランナー_プレミアム(女性向け)', slug: 'wedding_premium_women' },
+  { id: '040', name: 'ヴィンテージ古着セレクトショップ(女性向け)', slug: 'vintage_select_shop' },
+  { id: '041', name: 'ホテルライクインテリアブランド(女性向け)', slug: 'hotel_interior_brand' },
+  { id: '042', name: 'フードフォトグラファー(女性向け)', slug: 'food_photographer' },
+  { id: '043', name: 'ひとり旅プランニング(女性向け)', slug: 'womens_travel' },
+  { id: '044', name: 'パーソナルカラー診断(女性向け)', slug: 'personal_color' },
+  { id: '045', name: 'アウトドアギア製品LP', slug: 'outdoor_gear_product' },
+  { id: '046', name: 'アウトドアブランド・エディトリアル', slug: 'outdoor_brand_editorial' },
+  { id: '047', name: '子供向け学習塾_絵本風', slug: 'kids_juku_storybook' },
+  { id: '048', name: '子供向け学習塾_冒険風', slug: 'kids_juku_adventure_map' },
+  { id: '049', name: '子供向け学習塾_知性・信頼感(親向け)', slug: 'kids_juku_intellectual_trust' },
+  { id: '050', name: '子供向け学習塾_温かみ・寄り添い(親向け)', slug: 'kids_juku_warm_guidance' },
+  { id: '051', name: '地方移住促進LP', slug: 'migration_promotion_lp' },
+  { id: '052', name: '老舗旅館ブランドサイト', slug: 'ryokan_brand_site' },
+  { id: '053', name: '現代アートギャラリーHP', slug: 'contemporary_art_gallery' },
+  { id: '054', name: 'DAWプラグイン・音楽ツールLP', slug: 'daw_plugin_music_tools' },
+  { id: '055', name: 'アーティストレジデンスHP', slug: 'artist_residency' },
+];
+
+// ─────────────────────────────────────────────
+// カード生成
+// ─────────────────────────────────────────────
+const grid = document.getElementById('card-grid');
+
+prompts.forEach(p => {
+  const filename = `${p.id}_${p.slug}`;
+  const previewUrl = `${filename}.html`;
+  const mdUrl = `${REPO_RAW}${filename}.md`;
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.name = p.name;
+  card.dataset.slug = p.slug;
+  card.dataset.id = p.id;
+
+  card.innerHTML = `
+    <div class="card-body">
+      <p class="card-number">${p.id}</p>
+      <p class="card-title">${p.name}</p>
+      <p class="card-slug">${p.slug}</p>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-preview" href="${previewUrl}" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        デザイン確認
+      </a>
+      <button class="btn btn-prompt" onclick="openModal('${p.id}', '${p.name}', '${p.slug}', '${mdUrl}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        プロンプトを見る
+      </button>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
+
+// ─────────────────────────────────────────────
+// 検索
+// ─────────────────────────────────────────────
+const searchInput = document.getElementById('search-input');
+const visibleCount = document.getElementById('visible-count');
+const noResults = document.getElementById('no-results');
+const searchQuery = document.getElementById('search-query');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  const cards = grid.querySelectorAll('.card');
+  let count = 0;
+
+  cards.forEach(card => {
+    const match = !q
+      || card.dataset.name.toLowerCase().includes(q)
+      || card.dataset.slug.toLowerCase().includes(q)
+      || card.dataset.id.includes(q);
+
+    card.classList.toggle('hidden', !match);
+    if (match) count++;
+  });
+
+  visibleCount.textContent = count;
+  noResults.classList.toggle('show', count === 0);
+  searchQuery.textContent = q;
+});
+
+// ─────────────────────────────────────────────
+// モーダル
+// ─────────────────────────────────────────────
+let currentRawText = '';
+
+async function openModal(id, name, slug, mdUrl) {
+  document.getElementById('modal-number').textContent = id;
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-slug').textContent = slug;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <span>プロンプトを読み込み中…</span>
+    </div>`;
+
+  resetCopyBtn();
+  currentRawText = '';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const res = await fetch(mdUrl);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    currentRawText = text;
+    document.getElementById('modal-content').innerHTML = `<div class="md-content">${renderMarkdown(text)}</div>`;
+  } catch (e) {
+    document.getElementById('modal-content').innerHTML = `
+      <div class="error-msg">
+        プロンプトの読み込みに失敗しました。<br>
+        <small>GitHub Raw が公開されているか確認してください (${e.message})</small>
+      </div>`;
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ESCキーで閉じる
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// オーバーレイクリックで閉じる
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+
+// ─────────────────────────────────────────────
+// コピー
+// ─────────────────────────────────────────────
+function copyPrompt() {
+  if (!currentRawText) return;
+  navigator.clipboard.writeText(currentRawText).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.classList.add('copied');
+    btn.innerHTML = `
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      コピーしました！`;
+    setTimeout(resetCopyBtn, 2500);
+  });
+}
+
+function resetCopyBtn() {
+  const btn = document.getElementById('copy-btn');
+  btn.classList.remove('copied');
+  btn.innerHTML = `
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </svg>
+    プロンプトをコピー`;
+}
+
+// ─────────────────────────────────────────────
+// シンプルなMarkdownパーサー
+// ─────────────────────────────────────────────
+function renderMarkdown(md) {
+  let html = md
+    // コードブロック
+    .replace(/```[\w]*\n?([\s\S]*?)```/g, (_, code) =>
+      `<pre><code>${escHtml(code.trim())}</code></pre>`)
+    // インラインコード
+    .replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`)
+    // 水平線
+    .replace(/^---+$/gm, '<hr>')
+    // 見出し
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // 太字
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // 引用
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    // リスト
+    .replace(/^[\-\*] (.+)$/gm, '<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+    // 空行→段落
+    .replace(/\n\n/g, '</p><p>')
+    // リストをulで囲む
+    .replace(/((<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+
+  return `<p>${html}</p>`;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+
+</body>
+</html>

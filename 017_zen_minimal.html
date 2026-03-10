@@ -1,64 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zen Minimal | 禅ミニマル</title>
+    <title>間 / Ma — 余白のコンサルティング</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Noto+Serif+JP:wght@300;400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400;1,600&family=Noto+Serif+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* ─── TOKENS ─── */
         :root {
-            --bg-color: #F2EFE8;
-            /* 和紙白 */
-            --bg-alt: #E5E0D8;
-            /* 霞グレー */
-            --text-main: #1E1C18;
-            /* 墨色 */
-            --text-sub: #7A7570;
-            /* 薄墨 */
-            --accent-color: #8B3A3A;
-            /* 辰砂(しんしゃ) - 暗い赤 */
-            /* Transition parameters set as requirement */
-            --ease-zen: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --bg:        #F2EFE8;   /* 和紙白 */
+            --bg-alt:    #E8E3D9;   /* 霞グレー */
+            --bg-deep:   #DDD7CB;   /* 鈍色 */
+            --ink:       #1E1C18;   /* 墨色 */
+            --ink-mid:   #4A4740;   /* 薄墨・中 */
+            --ink-sub:   #7A7570;   /* 薄墨・淡 */
+            --ink-ghost: rgba(30,28,24,0.06);
+            --red:       #8B3A3A;   /* 辰砂 */
+            --red-light: #A04A4A;
+            --border:    rgba(30,28,24,0.10);
+            --ease-zen:  cubic-bezier(0.25,0.46,0.45,0.94);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            /* All transitions use zen easing */
-            transition: all 0.8s var(--ease-zen);
-        }
+        /* ─── RESET ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--ink);
             font-family: 'Noto Serif JP', serif;
             font-size: 1rem;
             line-height: 2.2;
             letter-spacing: 0.05em;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='6' cy='6' r='3' fill='%238B3A3A' opacity='0.5'/%3E%3C/svg%3E") 6 6, auto;
         }
 
-        /* Washi Paper Grain */
+        /* ─── WASHI GRAIN (継承) ─── */
         .washi-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
             pointer-events: none;
             z-index: 9999;
             opacity: 0.03;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23noise)"/></svg>');
         }
 
-        /* Giant Kanji Backgrounds */
+        /* ─── GIANT KANJI BG (継承・拡張) ─── */
         .bg-kanji {
             position: absolute;
             font-size: clamp(8rem, 20vw, 16rem);
@@ -67,65 +57,94 @@
             pointer-events: none;
             font-family: 'Noto Serif JP', serif;
             user-select: none;
+            font-weight: 400;
         }
+        .k1 { top: 20%;  right: 10%; }
+        .k2 { top: 60%;  left: 5%;  }
+        .k3 { top: 140%; right: 8%; }
+        .k4 { top: 220%; left: 6%;  }
+        .k5 { top: 310%; right: 12%; }
+        .k6 { top: 400%; left: 4%;  }
 
-        .k1 {
-            top: 20%;
-            right: 10%;
+        /* ─── FADE-IN (継承) ─── */
+        .fade-in {
+            animation: fadeInZen 1.4s var(--ease-zen) forwards;
+            opacity: 0;
         }
+        @keyframes fadeInZen { to { opacity: 1; } }
+        .d-1  { animation-delay: 0.2s; }
+        .d-2  { animation-delay: 0.4s; }
+        .d-3  { animation-delay: 0.6s; }
+        .d-4  { animation-delay: 0.8s; }
+        .d-5  { animation-delay: 1.0s; }
+        .d-6  { animation-delay: 1.2s; }
+        .d-7  { animation-delay: 1.4s; }
 
-        .k2 {
-            top: 60%;
-            left: 5%;
+        /* スクロール到達後フェード（JS使用） */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s var(--ease-zen), transform 1.2s var(--ease-zen);
         }
+        .scroll-fade.visible { opacity: 1; transform: translateY(0); }
+        .scroll-fade.delay-1 { transition-delay: 0.15s; }
+        .scroll-fade.delay-2 { transition-delay: 0.30s; }
+        .scroll-fade.delay-3 { transition-delay: 0.45s; }
+        .scroll-fade.delay-4 { transition-delay: 0.60s; }
 
-        /* Typography */
+        /* ─── TYPOGRAPHY ─── */
         h1 {
             font-family: 'Noto Serif JP', serif;
-            font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 300;
+            font-size: clamp(2rem, 5vw, 4rem);
             letter-spacing: 0.15em;
-            line-height: 1.4;
+            line-height: 1.5;
             text-align: center;
         }
-
         h2 {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: clamp(1.2rem, 2.5vw, 2rem);
             letter-spacing: 0.08em;
-            color: var(--text-sub);
+            color: var(--ink-sub);
             text-align: center;
             margin-bottom: 3rem;
         }
-
+        h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+        }
         .vertical-text {
             writing-mode: vertical-rl;
             text-orientation: upright;
             letter-spacing: 0.3em;
-            color: var(--text-sub);
+            color: var(--ink-sub);
+        }
+        .en-italic {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
         }
 
-        /* Layout */
+        /* ─── LAYOUT ─── */
         .container {
-            max-width: 680px;
-            /* Small width */
+            max-width: 720px;
             margin: 0 auto;
             padding: 0 5vw;
             position: relative;
         }
-
         section {
-            padding: 12rem 0;
-            /* Massive vertical padding */
+            padding: 10rem 0;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            /* Default left align */
         }
+        section.center { align-items: center; text-align: center; }
 
-        /* Fixed Left Vertical Nav/Subtitle */
+        /* ─── FIXED LEFT NAV (継承) ─── */
         .fixed-vert {
             position: fixed;
             left: 5%;
@@ -136,219 +155,955 @@
             align-items: center;
             z-index: 10;
         }
-
         .fixed-line {
             width: 1px;
             height: 100%;
-            background-color: rgba(30, 28, 24, 0.08);
-            /* #1E1C1815 approx */
+            background: rgba(30,28,24,0.08);
             margin-right: 2rem;
         }
 
-        /* Staggered Fade In Animation Logic (CSS only on page load) */
-        .fade-in {
-            animation: fadeIn 1.2s var(--ease-zen) forwards;
-            opacity: 0;
+        /* ─── PROGRESS LINE ─── */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--red);
+            z-index: 1000;
+            transition: width 0.1s linear;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Delay assignment for text flow */
-        .d-1 {
-            animation-delay: 0.2s;
-        }
-
-        .d-2 {
-            animation-delay: 0.4s;
-        }
-
-        .d-3 {
-            animation-delay: 0.6s;
-        }
-
-        .d-4 {
-            animation-delay: 0.8s;
-        }
-
-        .d-5 {
-            animation-delay: 1.0s;
-        }
-
-        .d-6 {
-            animation-delay: 1.2s;
-        }
-
-        .d-7 {
-            animation-delay: 1.4s;
-        }
-
-        /* Minimalist Elements */
+        /* ─── CIRCLE ACCENT (継承) ─── */
         .circle-accent {
             width: 8px;
             height: 8px;
-            background-color: var(--accent-color);
+            background: var(--red);
             border-radius: 50%;
             margin: 2rem auto;
         }
+        .circle-accent.left { margin: 2rem 0; }
 
+        /* ─── THIN RULE ─── */
+        .rule {
+            width: 100%;
+            height: 1px;
+            background: var(--border);
+            margin: 0;
+        }
+        .rule-short {
+            width: 3rem;
+            height: 1px;
+            background: var(--red);
+            margin: 2rem 0;
+        }
+
+        /* ─── LINKS ─── */
         a {
-            color: var(--text-main);
+            color: var(--ink);
             text-decoration: none;
-            border-bottom: 0.5px solid rgba(30, 28, 24, 0.15);
+            border-bottom: 0.5px solid rgba(30,28,24,0.15);
             padding-bottom: 2px;
+            transition: border-color 0.6s var(--ease-zen), color 0.6s var(--ease-zen);
         }
+        a:hover { border-color: var(--red); color: var(--red); }
 
-        /* B&W Image Filter */
-        img {
-            max-width: 100%;
-            filter: grayscale(100%);
-            opacity: 0.9;
-        }
+        p { margin-bottom: 2rem; }
 
-        p {
-            /* Keep line lengths short per requirement */
-            margin-bottom: 2rem;
-            max-width: 100%;
-        }
-
-        /* Hero Center Align Override */
+        /* ─── HERO ─── */
         .hero {
-            align-items: center;
             min-height: 100vh;
             justify-content: center;
             padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        .hero-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: var(--ink-sub);
+            margin-bottom: 1rem;
+        }
+        .hero-ja-large {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 200;
+            font-size: clamp(4rem, 12vw, 9rem);
+            letter-spacing: 0.2em;
+            line-height: 1;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .hero-sub {
+            font-size: 0.9rem;
+            color: var(--ink-sub);
+            line-height: 2.4;
+            text-align: center;
+            max-width: 28ch;
+        }
+        .scroll-hint {
+            margin-top: 6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+        }
+        .scroll-hint::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 3rem;
+            background: linear-gradient(to bottom, var(--ink-sub), transparent);
+            animation: scrollPulse 2.5s var(--ease-zen) infinite;
+        }
+        @keyframes scrollPulse {
+            0%,100% { opacity:0.3; transform:scaleY(0.8); }
+            50% { opacity:0.8; transform:scaleY(1); }
         }
 
-        /* Responsive */
+        /* ─── SECTION HEADERS ─── */
+        .sec-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            color: var(--red);
+            margin-bottom: 1rem;
+        }
+        .sec-title-ja {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            font-size: clamp(1.6rem, 4vw, 3rem);
+            letter-spacing: 0.18em;
+            line-height: 1.4;
+            margin-bottom: 3rem;
+        }
+
+        /* ─── PHILOSOPHY ─── */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem 5rem;
+            margin-top: 3rem;
+            width: 100%;
+        }
+        .philosophy-item {}
+        .philosophy-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: rgba(139,58,58,0.15);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .philosophy-title {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.8rem;
+        }
+        .philosophy-body {
+            font-size: 0.85rem;
+            line-height: 2.4;
+            color: var(--ink-sub);
+            margin-bottom: 0;
+        }
+
+        /* ─── IMAGE BLOCK ─── */
+        .img-block {
+            width: 100%;
+            background: var(--bg-alt);
+            position: relative;
+            overflow: hidden;
+        }
+        .img-block-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-caption {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+            margin-top: 1rem;
+        }
+
+        /* ─── TWO-COL TEXT ─── */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .two-col p { margin-bottom: 0; }
+
+        /* ─── SERVICE LIST ─── */
+        .service-list {
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .service-item {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+            transition: background 0.6s var(--ease-zen);
+        }
+        .service-item:last-child { border-bottom: 1px solid var(--border); }
+        .service-item:hover { background: rgba(30,28,24,0.02); margin: 0 -1rem; padding: 2.5rem 1rem; }
+        .service-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--red);
+            padding-top: 0.2rem;
+        }
+        .service-content {}
+        .service-name {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        .service-desc {
+            font-size: 0.85rem;
+            line-height: 2.4;
+            color: var(--ink-sub);
+            margin-bottom: 0;
+        }
+        .service-tag {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+            border: 0.5px solid var(--border);
+            padding: 0.2rem 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        /* ─── PROCESS STEPS ─── */
+        .process-steps {
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .process-step {
+            display: grid;
+            grid-template-columns: 1px 1fr;
+            gap: 0 2.5rem;
+            position: relative;
+            padding-bottom: 4rem;
+        }
+        .process-step:last-child { padding-bottom: 0; }
+        .step-line-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            flex-shrink: 0;
+            margin-top: 0.4rem;
+        }
+        .step-connector {
+            flex: 1;
+            width: 1px;
+            background: var(--border);
+            margin-top: 0.5rem;
+        }
+        .process-step:last-child .step-connector { display: none; }
+        .step-body {}
+        .step-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--red);
+            margin-bottom: 0.4rem;
+        }
+        .step-title {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.8rem;
+        }
+        .step-desc {
+            font-size: 0.85rem;
+            line-height: 2.4;
+            color: var(--ink-sub);
+            margin-bottom: 0;
+        }
+
+        /* ─── CASE STUDIES ─── */
+        .case-list { width: 100%; }
+        .case-item {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: end;
+            transition: opacity 0.6s var(--ease-zen);
+        }
+        .case-item:last-child { border-bottom: 1px solid var(--border); }
+        .case-item:hover { opacity: 0.7; }
+        .case-meta {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--ink-sub);
+            margin-bottom: 0.6rem;
+        }
+        .case-title {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        .case-desc {
+            font-size: 0.82rem;
+            line-height: 2.2;
+            color: var(--ink-sub);
+            max-width: 36ch;
+            margin-bottom: 0;
+        }
+        .case-arrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--ink-sub);
+            transition: transform 0.6s var(--ease-zen), color 0.6s var(--ease-zen);
+            border: none;
+            padding: 0;
+        }
+        .case-item:hover .case-arrow { transform: translateX(6px); color: var(--red); }
+
+        /* ─── QUOTE ─── */
+        .quote-wrap {
+            width: 100%;
+            background: var(--bg-alt);
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-wrap::before {
+            content: '「';
+            position: absolute;
+            top: -1.5rem;
+            left: 1.5rem;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 10rem;
+            color: rgba(139,58,58,0.06);
+            line-height: 1;
+        }
+        .quote-text {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            line-height: 2.2;
+            letter-spacing: 0.12em;
+            color: var(--ink);
+            margin-bottom: 2rem;
+        }
+        .quote-source {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+        }
+
+        /* ─── TESTIMONIALS ─── */
+        .testi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .testi-card {
+            padding: 2.5rem;
+            border: 0.5px solid var(--border);
+            background: rgba(255,255,255,0.3);
+            position: relative;
+        }
+        .testi-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            color: rgba(139,58,58,0.12);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .testi-text {
+            font-size: 0.85rem;
+            line-height: 2.6;
+            color: var(--ink-mid);
+            margin-bottom: 1.5rem;
+        }
+        .testi-author {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            color: var(--ink);
+        }
+        .testi-role {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-sub);
+            margin-top: 0.2rem;
+        }
+
+        /* ─── NUMBERS ─── */
+        .numbers-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .number-cell {
+            padding: 3rem 2rem;
+            border-right: 1px solid var(--border);
+            text-align: center;
+        }
+        .number-cell:last-child { border-right: none; }
+        .number-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+        .number-label {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+        }
+
+        /* ─── CTA ─── */
+        .cta-wrap {
+            width: 100%;
+            text-align: center;
+            padding: 5rem 0;
+        }
+        .cta-main-text {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 200;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            letter-spacing: 0.2em;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: var(--ink);
+        }
+        .cta-sub {
+            font-size: 0.85rem;
+            color: var(--ink-sub);
+            line-height: 2.4;
+            margin-bottom: 3rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            color: var(--ink);
+            border: 0.5px solid rgba(30,28,24,0.3);
+            padding: 1.2rem 3.5rem;
+            text-decoration: none;
+            transition: background 0.8s var(--ease-zen), color 0.8s var(--ease-zen), border-color 0.8s var(--ease-zen);
+        }
+        .cta-btn:hover {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+        }
+        .cta-btn-ghost {
+            margin-left: 1.5rem;
+            border-color: transparent;
+            color: var(--ink-sub);
+        }
+
+        /* ─── FOOTER ─── */
+        .footer-divider {
+            width: 100%;
+            height: 1px;
+            background: var(--border);
+        }
+        .footer-inner {
+            padding: 4rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .footer-brand {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 0.25em;
+        }
+        .footer-brand-en {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--ink-sub);
+            margin-top: 0.3rem;
+        }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .footer-links a {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            color: var(--ink-sub);
+            border-bottom: none;
+        }
+        .footer-copy {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--ink-sub);
+            text-align: right;
+            align-self: end;
+        }
+
+        /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
-            .fixed-vert {
-                display: none;
-            }
-
-            section {
-                padding: 8rem 0;
-            }
+            .fixed-vert { display: none; }
+            section { padding: 7rem 0; }
+            .philosophy-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .two-col { grid-template-columns: 1fr; }
+            .testi-grid { grid-template-columns: 1fr; }
+            .numbers-row { grid-template-columns: 1fr; }
+            .number-cell { border-right: none; border-bottom: 1px solid var(--border); }
+            .number-cell:last-child { border-bottom: none; }
+            .footer-inner { grid-template-columns: 1fr; }
+            .footer-copy { text-align: left; }
+            .cta-btn-ghost { margin-left: 0; margin-top: 1rem; }
         }
-    
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
+
+        /* ─── REDUCED MOTION ─── */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .scroll-fade { animation: none; opacity: 1; transition: none; }
+            .scroll-hint::after { animation: none; }
+        }
+
+        /* ─── FOCUS ─── */
+        *:focus-visible { outline: 1px solid var(--red); outline-offset: 4px; }
     </style>
 </head>
-
 <body>
 
-    <div class="washi-bg"></div>
+    <!-- 読み込み進捗バー -->
+    <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Giant Kanji Backgrounds -->
-    <div class="bg-kanji k1">間</div>
-    <div class="bg-kanji k2">空</div>
+    <!-- 和紙テクスチャ -->
+    <div class="washi-bg" aria-hidden="true"></div>
 
-    <!-- Fixed Left Nav Element -->
-    <div class="fixed-vert fade-in d-1">
+    <!-- 背景漢字（継承・拡張） -->
+    <div class="bg-kanji k1" aria-hidden="true">間</div>
+    <div class="bg-kanji k2" aria-hidden="true">空</div>
+    <div class="bg-kanji k3" aria-hidden="true">無</div>
+    <div class="bg-kanji k4" aria-hidden="true">余</div>
+    <div class="bg-kanji k5" aria-hidden="true">静</div>
+    <div class="bg-kanji k6" aria-hidden="true">道</div>
+
+    <!-- 固定縦書きナビ（継承） -->
+    <div class="fixed-vert fade-in d-1" aria-hidden="true">
         <div class="fixed-line"></div>
-        <div class="vertical-text" style="font-size: 0.85rem;">何も置かないという、選択。</div>
+        <div class="vertical-text" style="font-size:0.85rem;">何も置かないという、選択。</div>
     </div>
 
     <div class="container">
 
-        <!-- HERO SECTION -->
-        <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-            <h2 class="fade-in d-2">Emptiness is form</h2>
-            <h1 class="fade-in d-3" style="margin-bottom: 2rem;">
-                余白のなかに<br>
-                本質は在る。
+        <!-- ── 01. HERO ── -->
+        <section class="hero center" aria-label="ヒーロー">
+            <p class="hero-label fade-in d-2">Emptiness is form — 色即是空</p>
+            <span class="hero-ja-large fade-in d-3">間</span>
+            <h1 class="fade-in d-4" style="font-weight:200; margin-bottom:2rem;">
+                余白のなかに<br>本質は在る。
             </h1>
-            <div class="circle-accent fade-in d-4"></div>
-
-            <p class="fade-in d-5" style="text-align: center; color: var(--text-sub);">
+            <div class="circle-accent fade-in d-5"></div>
+            <p class="hero-sub fade-in d-6">
                 何かを付け足すのではなく、<br>
-                削ぎ落とすことで見えてくるものがあります。
+                削ぎ落とすことで見えてくるものがある。
             </p>
+            <div class="scroll-hint fade-in d-7" aria-hidden="true">scroll</div>
         </section>
 
-        <!-- PHILOSOPHY SECTION -->
-        <section>
-            <div class="vertical-text fade-in"
-                style="font-size: 1.5rem; margin-bottom: 3rem; color: var(--accent-color);">理念</div>
+        <div class="rule"></div>
 
-            <p class="fade-in" style="animation-delay: 0.2s;">
+        <!-- ── 02. PHILOSOPHY ── -->
+        <section aria-label="理念">
+            <div class="scroll-fade">
+                <p class="sec-label">Philosophy</p>
+                <div class="vertical-text" style="font-size:1.5rem; color:var(--red); margin-bottom:2rem;">理念</div>
+            </div>
+            <p class="sec-title-ja scroll-fade delay-1">削ぎ落とした先に<br>残るもの。</p>
+
+            <p class="scroll-fade delay-2">
                 過剰な情報が溢れる現代において、一番の贅沢は「何もない空間」なのかもしれません。私たちは、機能と意味を極小まで絞り込み、受け手自身の想像力が入り込む「間（ま）」を設計します。
             </p>
-
-            <p class="fade-in" style="animation-delay: 0.4s;">
+            <p class="scroll-fade delay-3">
                 雄弁に語ることをやめ、沈黙の力に身を委ねる。<br>
-                それが私たちの提供する、無のコンサルティングです。
+                それが私たちの提供する、<span class="en-italic">無</span>のコンサルティングです。
             </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-item scroll-fade">
+                    <div class="philosophy-num">一</div>
+                    <div class="philosophy-title">間（ま）の設計</div>
+                    <p class="philosophy-body">日本の美意識の核心にある「間」。そこに存在する余白こそが、受け手の内側に物語を生む。沈黙は弱さではなく、最も強い語り口だ。</p>
+                </div>
+                <div class="philosophy-item scroll-fade delay-1">
+                    <div class="philosophy-num">二</div>
+                    <div class="philosophy-title">引き算の思考</div>
+                    <p class="philosophy-body">何を加えるかではなく、何を取り除くか。余分を削るたびに、本質が浮かび上がる。完成とは、これ以上引けなくなった状態だ。</p>
+                </div>
+                <div class="philosophy-item scroll-fade delay-2">
+                    <div class="philosophy-num">三</div>
+                    <div class="philosophy-title">不完全の美</div>
+                    <p class="philosophy-body">侘び寂びが教えるように、欠けていることそのものに価値がある。完璧な均整よりも、揺らぎと余地のある形に人は惹きつけられる。</p>
+                </div>
+                <div class="philosophy-item scroll-fade delay-3">
+                    <div class="philosophy-num">四</div>
+                    <div class="philosophy-title">時間の流れ</div>
+                    <p class="philosophy-body">変化しないものに美しさはない。素材が年を経て深みを増すように、意味もまた時間とともに熟成される。急がない設計が、長く愛されるものをつくる。</p>
+                </div>
+            </div>
         </section>
 
-        <!-- APPROACH SECTION (with Image) -->
-        <section>
-            <h2 class="fade-in" style="text-align: left; margin-bottom: 1rem;">Approach</h2>
+        <div class="rule"></div>
 
-            <!-- Minimalist gray placeholder image using div -->
-            <div class="fade-in"
-                style="width: 100%; height: 250px; background-color: var(--bg-alt); margin-bottom: 3rem; animation-delay: 0.2s;">
+        <!-- ── 03. APPROACH / IMAGE ── -->
+        <section aria-label="アプローチ">
+            <p class="sec-label scroll-fade">Approach</p>
+            <p class="sec-title-ja scroll-fade delay-1">水面下にある、<br>見えない重さ。</p>
+
+            <!-- Image placeholder -->
+            <div class="img-block scroll-fade delay-1" style="height:300px; margin-bottom:1rem;">
+                <div class="img-block-inner">
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:1.2rem;">
+                        <div style="width:2px; height:4rem; background:var(--border);"></div>
+                        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.75rem; letter-spacing:0.2em; color:var(--ink-sub);">image / 写真</span>
+                        <div style="width:2px; height:4rem; background:var(--border);"></div>
+                    </div>
+                </div>
             </div>
+            <p class="img-caption scroll-fade" style="margin-bottom:3rem;">― 枯山水、龍安寺 ―</p>
 
-            <p class="fade-in" style="animation-delay: 0.4s;">
-                目に見えるデザインは、全体のほんの一部に過ぎません。<br>
-                水面下にある見えない思考の重みが、目に見えるわずかな線を支えているのです。
-            </p>
-
-            <div class="fade-in" style="margin-top: 2rem; animation-delay: 0.6s;">
+            <div class="two-col">
+                <p class="scroll-fade">
+                    目に見えるデザインは、全体のほんの一部に過ぎません。水面下にある見えない思考の重みが、目に見えるわずかな線を支えているのです。
+                </p>
+                <p class="scroll-fade delay-1">
+                    私たちのアプローチは、まず沈黙することから始まります。聞くこと、観察すること、理解すること。そして初めて、必要最小限の形を見出していく。
+                </p>
+            </div>
+            <div class="scroll-fade delay-2" style="margin-top:1rem;">
                 <a href="#">詳細を読み解く</a>
             </div>
         </section>
 
-        <!-- FOOTER SECTION (Zen Koan) -->
-        <section style="padding-bottom: 4rem; align-items: center; text-align: center;">
-            <div class="fade-in" style="color: var(--text-sub); font-size: 0.9rem;">
-                —— 余白について ——
-                <br><br>
-                器は、空っぽであるからこそ、<br>
-                何かを入れる役に立つのです。
+        <div class="rule"></div>
+
+        <!-- ── 04. SERVICES ── -->
+        <section aria-label="サービス">
+            <p class="sec-label scroll-fade">Services</p>
+            <p class="sec-title-ja scroll-fade delay-1">提供するもの。</p>
+            <p class="scroll-fade delay-2" style="color:var(--ink-sub); font-size:0.9rem; margin-bottom:0;">
+                すべてのサービスは、余計なものを取り除くための営みです。
+            </p>
+
+            <div class="service-list">
+                <div class="service-item scroll-fade">
+                    <span class="service-num">i.</span>
+                    <div class="service-content">
+                        <div class="service-name">空間設計 / Space Design</div>
+                        <p class="service-desc">物理的な空間における「間」の設計。置かないことへの勇気と、余白が生む豊かさを軸に、滞在者の内なる静けさを引き出す場をつくります。</p>
+                        <span class="service-tag">Interior · Architecture</span>
+                    </div>
+                </div>
+                <div class="service-item scroll-fade delay-1">
+                    <span class="service-num">ii.</span>
+                    <div class="service-content">
+                        <div class="service-name">ブランド整理 / Brand Distillation</div>
+                        <p class="service-desc">言葉と視覚の両面から、ブランドの核心を一行に集約します。余分なメッセージをすべて削り、残るべき一文を見つけ出す作業です。</p>
+                        <span class="service-tag">Identity · Copywriting</span>
+                    </div>
+                </div>
+                <div class="service-item scroll-fade delay-2">
+                    <span class="service-num">iii.</span>
+                    <div class="service-content">
+                        <div class="service-name">編集設計 / Editorial Direction</div>
+                        <p class="service-desc">書籍・Webメディア・冊子における「読まれるための静けさ」を設計します。レイアウトの余白、フォントの息遣い、行間の意味まで。</p>
+                        <span class="service-tag">Publishing · Web</span>
+                    </div>
+                </div>
+                <div class="service-item scroll-fade delay-3">
+                    <span class="service-num">iv.</span>
+                    <div class="service-content">
+                        <div class="service-name">思考の整理 / Thinking Workshop</div>
+                        <p class="service-desc">個人・組織が抱える複雑な課題を、問いの力で単純化するワークショップ。答えを出すのではなく、正しい問いを見つけることを目的とします。</p>
+                        <span class="service-tag">Workshop · Consulting</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-    </div>
+        <div class="rule"></div>
 
-    <!-- Note: JavaScript is intentionally omitted as per requirement "JavaScript：一切使用しない（CSS Animationのみで完結させること）" -->
+        <!-- ── 05. NUMBERS ── -->
+        <section class="center" aria-label="実績数値">
+            <p class="sec-label scroll-fade">In Numbers</p>
+            <div class="numbers-row scroll-fade delay-1">
+                <div class="number-cell">
+                    <span class="number-val">214</span>
+                    <div class="number-label">プロジェクト数</div>
+                </div>
+                <div class="number-cell">
+                    <span class="number-val">13</span>
+                    <div class="number-label">活動年数</div>
+                </div>
+                <div class="number-cell">
+                    <span class="number-val">8</span>
+                    <div class="number-label">国と地域</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="rule"></div>
+
+        <!-- ── 06. PROCESS ── -->
+        <section aria-label="プロセス">
+            <p class="sec-label scroll-fade">Process</p>
+            <p class="sec-title-ja scroll-fade delay-1">静かな手順。</p>
+
+            <div class="process-steps">
+                <div class="process-step scroll-fade">
+                    <div class="step-line-col"><div class="step-dot"></div><div class="step-connector"></div></div>
+                    <div class="step-body">
+                        <div class="step-label">Step 01 — Listen</div>
+                        <div class="step-title">まず、聴く。</div>
+                        <p class="step-desc">何も判断せずに聴くことから始めます。依頼内容ではなく、その奥にある本質的な問いを探す時間。ここを省略することは絶対にありません。</p>
+                    </div>
+                </div>
+                <div class="process-step scroll-fade delay-1">
+                    <div class="step-line-col"><div class="step-dot"></div><div class="step-connector"></div></div>
+                    <div class="step-body">
+                        <div class="step-label">Step 02 — Reduce</div>
+                        <div class="step-title">削ぎ落とす。</div>
+                        <p class="step-desc">集まった情報を、核心だけが残るまで削ります。何を加えるかでなく、何が不要かを見極める。この過程に最も多くの時間と思考を費やします。</p>
+                    </div>
+                </div>
+                <div class="process-step scroll-fade delay-2">
+                    <div class="step-line-col"><div class="step-dot"></div><div class="step-connector"></div></div>
+                    <div class="step-body">
+                        <div class="step-label">Step 03 — Form</div>
+                        <div class="step-title">形にする。</div>
+                        <p class="step-desc">必要最小限の形を与えます。素材、言葉、空間、余白のすべてに意図があります。装飾のない美しさが、使う人の記憶に静かに刻まれていく。</p>
+                    </div>
+                </div>
+                <div class="process-step scroll-fade delay-3">
+                    <div class="step-line-col"><div class="step-dot"></div></div>
+                    <div class="step-body">
+                        <div class="step-label">Step 04 — Release</div>
+                        <div class="step-title">手放す。</div>
+                        <p class="step-desc">完成したものを、あなたの手に返します。私たちの仕事の痕跡は、見えないところにあります。残るのは、使う人の体験だけ。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="rule"></div>
+
+        <!-- ── 07. QUOTE ── -->
+        <section class="center" aria-label="引用">
+            <div class="quote-wrap scroll-fade" style="width:100%;">
+                <p class="quote-text">
+                    器は、空っぽであるからこそ、<br>
+                    何かを入れる役に立つのです。
+                </p>
+                <p class="quote-text" style="font-size:0.9em; color:var(--ink-sub); margin-bottom:2rem;">
+                    三十輻、一轂を共にす。<br>
+                    その無に当たって、車の用あり。
+                </p>
+                <div class="quote-source">― 老子 第十一章</div>
+            </div>
+        </section>
+
+        <div class="rule"></div>
+
+        <!-- ── 08. CASES ── -->
+        <section aria-label="事例">
+            <p class="sec-label scroll-fade">Selected Work</p>
+            <p class="sec-title-ja scroll-fade delay-1">いくつかの仕事。</p>
+
+            <div class="case-list">
+                <div class="case-item scroll-fade">
+                    <div>
+                        <div class="case-meta">2024 — Space Design</div>
+                        <div class="case-title">静寂の宿、山中湖</div>
+                        <p class="case-desc">全室を無音設計した旅館の空間整備。置かれていた装飾を撤去し、窓の外の風景だけを残した。</p>
+                    </div>
+                    <a href="#" class="case-arrow">→</a>
+                </div>
+                <div class="case-item scroll-fade delay-1">
+                    <div>
+                        <div class="case-meta">2023 — Brand Distillation</div>
+                        <div class="case-title">老舗陶器店、再生</div>
+                        <p class="case-desc">200年の歴史を持つ窯元のブランドを、一文に凝縮。余分な説明を全て手放した結果、海外バイヤーとの契約が倍増した。</p>
+                    </div>
+                    <a href="#" class="case-arrow">→</a>
+                </div>
+                <div class="case-item scroll-fade delay-2">
+                    <div>
+                        <div class="case-meta">2023 — Editorial Direction</div>
+                        <div class="case-title">余白のある雑誌づくり</div>
+                        <p class="case-desc">出版社のリブランディング。広告を半減させ、白地を増やした結果、定期購読者が1.5倍になった異例のケース。</p>
+                    </div>
+                    <a href="#" class="case-arrow">→</a>
+                </div>
+                <div class="case-item scroll-fade delay-3">
+                    <div>
+                        <div class="case-meta">2022 — Workshop</div>
+                        <div class="case-title">問いを削る、経営合宿</div>
+                        <p class="case-desc">中堅企業の経営陣を対象に、ビジョンを一文に絞り込む二日間のセッション。策定後、新規事業の承認速度が3倍になった。</p>
+                    </div>
+                    <a href="#" class="case-arrow">→</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="rule"></div>
+
+        <!-- ── 09. TESTIMONIALS ── -->
+        <section aria-label="クライアントの声">
+            <p class="sec-label scroll-fade">Voices</p>
+            <p class="sec-title-ja scroll-fade delay-1">仕事の余韻。</p>
+
+            <div class="testi-grid">
+                <div class="testi-card scroll-fade">
+                    <div class="testi-mark">"</div>
+                    <p class="testi-text">「取り除く」という発想が最初は怖かった。でも、削ぎ落とされた後の空間に初めて足を踏み入れたとき、涙が出ました。本当に必要なものだけが残っていた。</p>
+                    <div class="testi-author">山田 芳恵</div>
+                    <div class="testi-role">Ryokan Owner, Yamanashi</div>
+                </div>
+                <div class="testi-card scroll-fade delay-1">
+                    <div class="testi-mark">"</div>
+                    <p class="testi-text">何十年も「もっと伝えなければ」と思って動いてきた。一文に絞ると聞いた時は半信半疑でしたが、今では全てのコミュニケーションがその一文から始まっています。</p>
+                    <div class="testi-author">藤本 誠一</div>
+                    <div class="testi-role">CEO, Ceramic Studio</div>
+                </div>
+                <div class="testi-card scroll-fade delay-2">
+                    <div class="testi-mark">"</div>
+                    <p class="testi-text">ワークショップの二日間、ほとんど答えが出なかった。でも帰りの電車の中で、突然すべてが明確になった。あの「問い」の質が違う。</p>
+                    <div class="testi-author">西村 明日香</div>
+                    <div class="testi-role">Strategy Director, Tokyo</div>
+                </div>
+                <div class="testi-card scroll-fade delay-3">
+                    <div class="testi-mark">"</div>
+                    <p class="testi-text">雑誌の白地が増えて、読者から「読みやすくなった」という声が届くようになった。余白とは、読者への敬意だったと今は思っています。</p>
+                    <div class="testi-author">中川 宏樹</div>
+                    <div class="testi-role">Editor in Chief, Publisher</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="rule"></div>
+
+        <!-- ── 10. CTA ── -->
+        <section class="center" aria-label="お問い合わせ">
+            <div class="cta-wrap scroll-fade">
+                <div class="circle-accent" style="margin:0 auto 3rem;"></div>
+                <p class="cta-main-text">
+                    削ぎ落とす<br>勇気は、ありますか。
+                </p>
+                <p class="cta-sub">
+                    まず、あなたの話を聴かせてください。<br>
+                    答えより先に、正しい問いを見つけることから始めましょう。
+                </p>
+                <div>
+                    <a href="#" class="cta-btn">お問い合わせ</a>
+                    <a href="#" class="cta-btn cta-btn-ghost">事例を見る</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FOOTER ── -->
+        <div class="footer-divider"></div>
+        <footer aria-label="フッター">
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-brand">間 / Ma</div>
+                    <div class="footer-brand-en">Consultancy for Emptiness</div>
+                </div>
+                <nav>
+                    <ul class="footer-links">
+                        <li><a href="#">Philosophy</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Selected Work</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <p class="footer-copy">
+                    &copy; 2026 — 間 / Ma<br>
+                    All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+    </div><!-- /container -->
+
+    <script>
+        // スクロール進捗バー
+        const bar = document.getElementById('progressBar');
+        function updateBar() {
+            const s = document.documentElement.scrollTop;
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (s / h * 100) + '%';
+        }
+        window.addEventListener('scroll', updateBar, { passive: true });
+
+        // スクロール フェードイン
+        const fades = document.querySelectorAll('.scroll-fade');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12 });
+        fades.forEach(el => io.observe(el));
+    </script>
 </body>
-
 </html>

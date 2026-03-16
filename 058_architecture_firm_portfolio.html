@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORMA ARCHITECTS — 建築設計事務所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#F0EDE8; --bg2:#E6E2DC; --ink:#2E2E2E; --mid:#7A7268;
+      --rust:#C4622D; --blueprint:#3A5A8C; --graf:#2E2E2E; --white:#FAFAF8;
+    }
+    .img-ph { background:var(--bg2); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .img-ph::after { content:'[ 写真・イラストが入ります ]'; color:var(--mid); font-size:.75rem; font-family:'Noto Sans JP',sans-serif; letter-spacing:.1em; opacity:.5; position:absolute; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--ink); font-family:'Noto Sans JP',sans-serif; font-weight:300; line-height:1.9; }
+
+    /* HEADER */
+    header { position:fixed; top:0; left:0; right:0; z-index:100; padding:2rem 4rem; display:flex; justify-content:space-between; align-items:center; mix-blend-mode:multiply; }
+    .logo { font-family:'Archivo Narrow',sans-serif; font-size:1rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); text-decoration:none; }
+    nav { display:flex; gap:3rem; }
+    nav a { font-family:'Archivo Narrow',sans-serif; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color .2s; }
+    nav a:hover { color:var(--ink); }
+
+    /* HERO */
+    .hero { height:100vh; position:relative; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; }
+    .hero-left { position:relative; display:flex; flex-direction:column; justify-content:flex-end; padding:8rem 4rem; z-index:2; }
+    .hero-label { font-family:'Archivo Narrow',sans-serif; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--mid); margin-bottom:2rem; }
+    .hero-title { font-family:'Cormorant',serif; font-size:clamp(3rem,6vw,6rem); font-weight:300; color:var(--ink); line-height:1.1; letter-spacing:-.01em; margin-bottom:2rem; }
+    .hero-title em { font-style:italic; color:var(--rust); }
+    .hero-sub { font-family:'Archivo Narrow',sans-serif; font-size:.82rem; color:var(--mid); letter-spacing:.05em; line-height:1.8; max-width:360px; }
+    .hero-right { position:relative; }
+    .hero-right .img-ph { width:100%; height:100%; }
+    .hero-num { position:absolute; bottom:4rem; left:4rem; font-family:'Archivo Narrow',sans-serif; font-size:.65rem; letter-spacing:.2em; color:var(--mid); z-index:3; }
+
+    /* SECTION BASE */
+    section { padding:8rem 4rem; }
+    .tag { font-family:'Archivo Narrow',sans-serif; font-size:.62rem; letter-spacing:.35em; text-transform:uppercase; color:var(--rust); margin-bottom:1.5rem; }
+    .h2 { font-family:'Cormorant',serif; font-size:clamp(2rem,4vw,3.8rem); font-weight:300; color:var(--ink); line-height:1.2; margin-bottom:2rem; }
+    .h2 em { font-style:italic; }
+    .rule { width:40px; height:1px; background:var(--rust); margin:2rem 0; }
+
+    /* WORKS */
+    .works { background:var(--white); }
+    .works-inner { max-width:1200px; margin:0 auto; }
+    .works-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4rem; }
+    .works-link { font-family:'Archivo Narrow',sans-serif; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rust); text-decoration:none; border-bottom:1px solid var(--rust); padding-bottom:.2rem; }
+
+    /* GRID レイアウト（間取り図的） */
+    .works-grid { display:grid; grid-template-columns:5fr 3fr 4fr; grid-template-rows:auto auto; gap:8px; }
+    .work-item { position:relative; overflow:hidden; cursor:pointer; }
+    .work-item:nth-child(1) { grid-row:span 2; }
+    .work-img { width:100%; height:100%; min-height:300px; }
+    .work-img.tall { min-height:500px; }
+    .work-overlay { position:absolute; inset:0; background:rgba(46,46,46,0); transition:background .4s; display:flex; flex-direction:column; justify-content:flex-end; padding:2rem; }
+    .work-item:hover .work-overlay { background:rgba(46,46,46,.75); }
+    .work-info { opacity:0; transform:translateY(10px); transition:all .4s; }
+    .work-item:hover .work-info { opacity:1; transform:translateY(0); }
+    .work-cat { font-family:'Archivo Narrow',sans-serif; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:.4rem; }
+    .work-name { font-family:'Cormorant',serif; font-size:1.3rem; color:#fff; font-weight:300; }
+    .work-year { font-family:'Archivo Narrow',sans-serif; font-size:.65rem; color:rgba(255,255,255,.5); margin-top:.3rem; }
+
+    /* PHILOSOPHY */
+    .philosophy { background:var(--bg); }
+    .philosophy-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:8rem; align-items:center; }
+    .philosophy-text p { font-size:.86rem; color:var(--mid); line-height:2.3; margin-bottom:1.5rem; }
+    .philosophy-img-wrap { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .ph-img-a { aspect-ratio:3/4; grid-column:1; grid-row:1; }
+    .ph-img-b { aspect-ratio:1/1; grid-column:2; grid-row:1; align-self:end; }
+
+    /* SERVICES */
+    .services { background:var(--graf); }
+    .services-inner { max-width:1100px; margin:0 auto; }
+    .services-list { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,.08); margin-top:4rem; }
+    .svc-item { background:var(--graf); padding:3rem 2rem; border-top:2px solid transparent; transition:border-color .3s; }
+    .svc-item:hover { border-top-color:var(--rust); }
+    .svc-num { font-family:'Archivo Narrow',sans-serif; font-size:.65rem; letter-spacing:.2em; color:rgba(255,255,255,.25); margin-bottom:1.5rem; }
+    .svc-name { font-family:'Cormorant',serif; font-size:1.2rem; font-weight:300; color:#F0EDE8; margin-bottom:1.2rem; }
+    .svc-desc { font-size:.78rem; color:rgba(255,255,255,.4); line-height:2; }
+
+    /* PROCESS */
+    .process { background:var(--bg2); }
+    .process-inner { max-width:1000px; margin:0 auto; }
+    .process-flow { display:flex; flex-direction:column; gap:0; margin-top:4rem; }
+    .pf-item { display:grid; grid-template-columns:80px 1fr; gap:2rem; padding:2.5rem 0; border-bottom:1px solid rgba(122,114,104,.2); }
+    .pf-num { font-family:'Archivo Narrow',sans-serif; font-size:2.5rem; font-weight:700; color:rgba(196,98,45,.2); line-height:1; }
+    .pf-title { font-family:'Cormorant',serif; font-size:1.1rem; color:var(--ink); margin-bottom:.6rem; }
+    .pf-text { font-size:.82rem; color:var(--mid); line-height:2; }
+
+    /* ABOUT */
+    .about { background:var(--white); }
+    .about-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:3fr 4fr; gap:6rem; align-items:center; }
+    .about-img { width:100%; aspect-ratio:4/5; }
+    .about-text .lead { font-family:'Cormorant',serif; font-size:1.3rem; font-style:italic; font-weight:300; color:var(--ink); line-height:1.7; margin-bottom:2rem; }
+    .about-text p { font-size:.84rem; color:var(--mid); line-height:2.2; margin-bottom:1.5rem; }
+    .profile-row { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2.5rem; }
+    .profile-item { border-left:1px solid var(--rust); padding-left:1.2rem; }
+    .profile-label { font-family:'Archivo Narrow',sans-serif; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rust); margin-bottom:.4rem; }
+    .profile-val { font-size:.82rem; color:var(--ink); }
+
+    /* CTA */
+    .cta-sec { background:var(--blueprint); padding:7rem 4rem; text-align:center; }
+    .cta-sec h2 { font-family:'Cormorant',serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:300; color:#F0EDE8; margin-bottom:2rem; }
+    .cta-sec p { font-size:.86rem; color:rgba(240,237,232,.6); max-width:480px; margin:0 auto 3rem; line-height:2; }
+    .cta-btn { display:inline-block; font-family:'Archivo Narrow',sans-serif; font-size:.72rem; letter-spacing:.25em; text-transform:uppercase; border:1px solid rgba(240,237,232,.5); color:#F0EDE8; padding:1.1rem 3.5rem; text-decoration:none; transition:all .3s; }
+    .cta-btn:hover { background:rgba(240,237,232,.1); }
+
+    /* FOOTER */
+    footer { background:var(--ink); padding:4rem; }
+    .footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; }
+    .f-logo { font-family:'Archivo Narrow',sans-serif; font-size:1rem; font-weight:700; letter-spacing:.2em; color:#F0EDE8; margin-bottom:.6rem; }
+    .f-logo span { font-family:'Cormorant',serif; font-size:.85rem; font-weight:300; font-style:italic; color:rgba(196,98,45,.8); display:block; margin-top:.2rem; letter-spacing:.05em; }
+    .f-desc { font-size:.75rem; color:rgba(255,255,255,.3); line-height:2; }
+    .f-head { font-family:'Archivo Narrow',sans-serif; font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--rust); margin-bottom:1.2rem; }
+    .f-links { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .f-links a { font-size:.75rem; color:rgba(255,255,255,.35); text-decoration:none; transition:color .2s; }
+    .f-links a:hover { color:rgba(255,255,255,.7); }
+    .f-copy { max-width:1100px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid rgba(255,255,255,.07); font-size:.65rem; color:rgba(255,255,255,.2); letter-spacing:.1em; }
+
+    .fade-up { opacity:0; transform:translateY(24px); transition:opacity .8s ease,transform .8s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+    @media(max-width:768px){
+      section{padding:5rem 1.5rem;}
+      .hero{grid-template-columns:1fr;height:auto;}
+      .hero-right{height:300px;}
+      .philosophy-inner,.about-inner{grid-template-columns:1fr;}
+      .works-grid{grid-template-columns:1fr;}
+      .works-item:nth-child(1){grid-row:auto;}
+      .services-list{grid-template-columns:1fr 1fr;}
+      .footer-inner{grid-template-columns:1fr;gap:2rem;}
+      header{padding:1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">FORMA</a>
+    <nav>
+      <a href="#">Works</a><a href="#">Process</a><a href="#">Studio</a><a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-label">建築設計事務所 — OSAKA / TOKYO</p>
+      <h1 class="hero-title">空間が語る、<br><em>設計の意志。</em></h1>
+      <p class="hero-sub">住宅・集合住宅・商業施設・リノベーション。素材と光と余白が交差する場所を、一軒ずつ設計します。</p>
+    </div>
+    <div class="hero-right">
+      <div class="img-ph" style="width:100%;height:100%;min-height:100vh;"></div>
+    </div>
+    <div class="hero-num">01 / SELECTED WORKS</div>
+  </section>
+
+  <section class="works">
+    <div class="works-inner">
+      <div class="works-header fade-up">
+        <div><p class="tag">SELECTED WORKS</p><h2 class="h2">設計実績</h2></div>
+        <a href="#" class="works-link">ALL WORKS →</a>
+      </div>
+      <div class="works-grid">
+        <div class="work-item fade-up"><div class="img-ph work-img tall"></div><div class="work-overlay"><div class="work-info"><p class="work-cat">戸建て住宅</p><h3 class="work-name">光庭の家</h3><p class="work-year">2023 / 大阪府箕面市</p></div></div></div>
+        <div class="work-item fade-up"><div class="img-ph work-img" style="min-height:240px;"></div><div class="work-overlay"><div class="work-info"><p class="work-cat">集合住宅</p><h3 class="work-name">SLAB COURT</h3><p class="work-year">2022 / 東京都目黒区</p></div></div></div>
+        <div class="work-item fade-up"><div class="img-ph work-img" style="min-height:240px;"></div><div class="work-overlay"><div class="work-info"><p class="work-cat">商業施設</p><h3 class="work-name">BLANK GALLERY</h3><p class="work-year">2023 / 京都市中京区</p></div></div></div>
+        <div class="work-item fade-up"><div class="img-ph work-img" style="min-height:240px;"></div><div class="work-overlay"><div class="work-info"><p class="work-cat">リノベーション</p><h3 class="work-name">古民家 × STEEL</h3><p class="work-year">2024 / 兵庫県丹波市</p></div></div></div>
+        <div class="work-item fade-up"><div class="img-ph work-img" style="min-height:240px;"></div><div class="work-overlay"><div class="work-info"><p class="work-cat">オフィス</p><h3 class="work-name">THE VOID OFFICE</h3><p class="work-year">2024 / 大阪市北区</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <div class="philosophy-text fade-up">
+        <p class="tag">PHILOSOPHY</p>
+        <h2 class="h2">余白が語る、<br><em>設計の哲学。</em></h2>
+        <div class="rule"></div>
+        <p>私たちは「建てること」より「何を建てないか」を先に考えます。引き算の設計。必要なものだけが残ったとき、空間は初めて語り始めます。</p>
+        <p>住む人、使う人の日常を丁寧に聞く。その言葉の奥にある「本当に欲しいもの」を探す作業が、私たちの設計の出発点です。</p>
+        <p>素材は正直に使います。コンクリートはコンクリートとして。木は木として。偽らない素材が積み重なった空間には、時間が経つほど深みが増していきます。</p>
+      </div>
+      <div class="philosophy-img-wrap fade-up">
+        <div class="img-ph ph-img-a"></div>
+        <div class="img-ph ph-img-b"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="services-inner">
+      <div class="fade-up"><p class="tag" style="color:rgba(196,98,45,.8);">SERVICES</p><h2 class="h2" style="color:#F0EDE8;">設計のご依頼</h2></div>
+      <div class="services-list">
+        <div class="svc-item fade-up"><div class="svc-num">01</div><div class="svc-name">住宅設計</div><p class="svc-desc">新築・建て替えの戸建て住宅設計。敷地の形状、周辺環境、家族構成から、「その土地にしかない家」を設計します。</p></div>
+        <div class="svc-item fade-up"><div class="svc-num">02</div><div class="svc-name">集合住宅・マンション</div><p class="svc-desc">賃貸・分譲を問わず、個々の居住者が誇りを持てる集合住宅を設計します。共用部のデザインへの注力が私たちの特徴。</p></div>
+        <div class="svc-item fade-up"><div class="svc-num">03</div><div class="svc-name">商業・店舗設計</div><p class="svc-desc">カフェ・ギャラリー・オフィス・クリニック。ブランドの思想を空間で表現し、訪れた人の記憶に残る場所をつくります。</p></div>
+        <div class="svc-item fade-up"><div class="svc-num">04</div><div class="svc-name">リノベーション</div><p class="svc-desc">古い建物の価値を発見し、現代の暮らしと接続する。解体前に、その建物の歴史と対話することから始めます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="process-inner">
+      <div class="fade-up"><p class="tag">PROCESS</p><h2 class="h2">設計の進め方</h2></div>
+      <div class="process-flow">
+        <div class="pf-item fade-up"><div class="pf-num">01</div><div><div class="pf-title">ヒアリング・敷地確認</div><p class="pf-text">まず、あなたの話を聞かせてください。何が好きで、どんな時間を大切にしているか。敷地を一緒に歩き、土地の声を聞きます。</p></div></div>
+        <div class="pf-item fade-up"><div class="pf-num">02</div><div><div class="pf-title">コンセプト提案</div><p class="pf-text">聞いた言葉をもとに、設計のコンセプトを言語化します。図面より先に「この建物が語ること」を一枚の文章にまとめます。</p></div></div>
+        <div class="pf-item fade-up"><div class="pf-num">03</div><div><div class="pf-title">基本設計</div><p class="pf-text">平面図・断面図・立面図を描きながら、空間の全体像をかたちにしていきます。模型を使いながら、光の入り方・視線の流れを確認します。</p></div></div>
+        <div class="pf-item fade-up"><div class="pf-num">04</div><div><div class="pf-title">実施設計・確認申請</div><p class="pf-text">施工者が建てられる精度の図面を作成します。素材・ディテール・寸法すべてを決定し、行政への確認申請を進めます。</p></div></div>
+        <div class="pf-item fade-up"><div class="pf-num">05</div><div><div class="pf-title">工事監理</div><p class="pf-text">現場に足を運び、設計の意図が正確に実現されているかを確認します。施工者との対話が、設計の品質を守ります。</p></div></div>
+        <div class="pf-item fade-up"><div class="pf-num">06</div><div><div class="pf-title">竣工・引き渡し</div><p class="pf-text">建物が完成してから、関係が終わるわけではありません。住まい手が空間に馴染み、自分のものにしていく過程を見守ります。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="about-inner">
+      <div class="img-wrap fade-up"><div class="img-ph about-img"></div></div>
+      <div class="about-text fade-up">
+        <p class="tag">ABOUT</p>
+        <h2 class="h2">事務所について</h2>
+        <div class="rule"></div>
+        <p class="lead">「この場所で暮らす人が、<br>毎朝、光を楽しめるように。」</p>
+        <p>FORMA ARCHITECTSは、2015年に大阪で設立した設計事務所です。住宅から商業施設まで、規模を問わず一軒ごとに全力で取り組みます。</p>
+        <p>代表の村田 誠は、隈研吾建築都市設計事務所を経て独立。「引き算の設計」と「素材の正直さ」をモットーに、年間10件前後の設計に絞り込んで携わっています。</p>
+        <div class="profile-row">
+          <div class="profile-item"><div class="profile-label">ESTABLISHED</div><div class="profile-val">2015年 大阪設立</div></div>
+          <div class="profile-item"><div class="profile-label">WORKS</div><div class="profile-val">竣工実績 80件以上</div></div>
+          <div class="profile-item"><div class="profile-label">LOCATION</div><div class="profile-val">大阪 / 東京</div></div>
+          <div class="profile-item"><div class="profile-label">AWARD</div><div class="profile-val">グッドデザイン賞 2022</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-sec">
+    <p class="tag" style="justify-content:center;color:rgba(240,237,232,.5);">NEW PROJECT</p>
+    <h2>新しいプロジェクトの<br>相談を受け付けています。</h2>
+    <p>まずは、あなたの「こんな場所に住みたい」「こんな店をつくりたい」という言葉を聞かせてください。</p>
+    <a href="#" class="cta-btn">お問い合わせ / 初回相談</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="f-logo">FORMA ARCHITECTS<span>建築設計事務所</span></div><p class="f-desc">大阪・東京を拠点に、住宅・商業・リノベーションを手がける設計事務所。2015年設立。</p></div>
+      <div><p class="f-head">WORKS</p><ul class="f-links"><li><a href="#">住宅設計</a></li><li><a href="#">集合住宅</a></li><li><a href="#">商業・店舗</a></li><li><a href="#">リノベーション</a></li></ul></div>
+      <div><p class="f-head">CONTACT</p><ul class="f-links"><li><a href="#">大阪市北区XXXXXX</a></li><li><a href="#">info@forma-arch.jp</a></li><li><a href="#">06-XXXX-XXXX</a></li></ul></div>
+    </div>
+    <p class="f-copy">© 2024 FORMA ARCHITECTS. ALL RIGHTS RESERVED.</p>
+  </footer>
+  <script>
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); }); },{threshold:.1});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>

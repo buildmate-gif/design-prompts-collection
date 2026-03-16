@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRON KETTLE BREWING — クラフトビール醸造所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#1A1208; --bg2:#241A0E; --surface:#2E2215;
+      --ink:#F4EDD8; --mid:#A08860; --amber:#C8860A;
+      --brass:#B8960E; --copper:#A0540A; --foam:#F0E8C8;
+    }
+    .img-ph { background:var(--surface); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .img-ph::after { content:'[ 写真・イラストが入ります ]'; color:var(--mid); font-size:.75rem; font-family:'Noto Sans JP',sans-serif; letter-spacing:.1em; opacity:.5; position:absolute; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--ink); font-family:'Noto Sans JP',sans-serif; font-weight:300; line-height:1.9; }
+
+    .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; z-index:0; }
+    .hero-bg .img-ph { width:100%; height:100%; }
+    .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(120deg,rgba(26,18,8,.92) 50%,rgba(26,18,8,.5) 100%); z-index:1; }
+    .hero-content { position:relative; z-index:2; padding:8rem 5rem 6rem; display:flex; flex-direction:column; justify-content:flex-end; grid-column:1; }
+    .hero-label { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--amber); margin-bottom:2rem; }
+    .hero-title { font-family:'Oswald',sans-serif; font-size:clamp(3.5rem,7vw,7rem); font-weight:700; line-height:.95; letter-spacing:-.02em; text-transform:uppercase; color:var(--foam); margin-bottom:1rem; }
+    .hero-title span { display:block; color:var(--amber); }
+    .hero-sub { font-family:'Libre Baskerville',serif; font-size:1.05rem; font-style:italic; color:var(--mid); margin-bottom:3rem; max-width:400px; line-height:1.7; }
+    .hero-cta { display:inline-flex; align-items:center; gap:1rem; font-family:'Oswald',sans-serif; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:var(--bg); background:var(--amber); padding:1rem 2.5rem; text-decoration:none; transition:background .3s; width:fit-content; }
+    .hero-cta:hover { background:var(--brass); }
+    .hero-stats { position:relative; z-index:2; grid-column:2; display:flex; flex-direction:column; justify-content:flex-end; padding:8rem 5rem 6rem; gap:3rem; }
+    .stat-item { border-left:2px solid var(--amber); padding-left:1.5rem; }
+    .stat-num { font-family:'Oswald',sans-serif; font-size:clamp(2.5rem,4vw,3.5rem); font-weight:600; color:var(--foam); line-height:1; }
+    .stat-label { font-size:.75rem; letter-spacing:.15em; color:var(--mid); margin-top:.4rem; }
+
+    section { padding:8rem 5rem; }
+    .section-tag { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--amber); margin-bottom:1.5rem; }
+    .section-title { font-family:'Oswald',sans-serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:600; text-transform:uppercase; letter-spacing:-.01em; line-height:1.05; color:var(--foam); margin-bottom:2rem; }
+    .divider { width:60px; height:2px; background:var(--amber); margin:2rem 0; }
+
+    .philosophy { background:var(--bg2); }
+    .philosophy-inner { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; max-width:1100px; margin:0 auto; }
+    .philosophy-img { width:100%; aspect-ratio:4/5; }
+    .philosophy-text .lead { font-family:'Libre Baskerville',serif; font-size:1.2rem; font-style:italic; color:var(--foam); line-height:1.8; margin-bottom:2rem; }
+    .philosophy-text p { font-size:.9rem; color:var(--mid); line-height:2; margin-bottom:1.5rem; }
+
+    .beers { background:var(--bg); }
+    .beers-inner { max-width:1200px; margin:0 auto; }
+    .beers-header { margin-bottom:4rem; }
+    .beer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    .beer-card { background:var(--surface); position:relative; overflow:hidden; transition:transform .4s cubic-bezier(.16,1,.3,1); }
+    .beer-card:hover { transform:translateY(-6px); }
+    .beer-img { width:100%; aspect-ratio:3/4; }
+    .beer-info { padding:1.8rem; }
+    .beer-style { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--amber); margin-bottom:.5rem; }
+    .beer-name { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:600; text-transform:uppercase; color:var(--foam); margin-bottom:.8rem; }
+    .beer-desc { font-size:.82rem; color:var(--mid); line-height:1.8; margin-bottom:1.2rem; }
+    .beer-abv { font-family:'Oswald',sans-serif; font-size:.75rem; letter-spacing:.15em; color:var(--amber); border-top:1px solid var(--surface); padding-top:1rem; }
+
+    .process { background:var(--bg2); }
+    .process-inner { max-width:1100px; margin:0 auto; }
+    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:4rem; position:relative; }
+    .process-steps::before { content:''; position:absolute; top:2.5rem; left:10%; right:10%; height:1px; background:var(--amber); opacity:.4; }
+    .process-step { padding:0 2rem; text-align:center; }
+    .step-num { width:5rem; height:5rem; border:2px solid var(--amber); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 2rem; font-family:'Oswald',sans-serif; font-size:1.2rem; font-weight:600; color:var(--amber); background:var(--bg2); position:relative; z-index:1; }
+    .step-title { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:500; text-transform:uppercase; letter-spacing:.1em; color:var(--foam); margin-bottom:1rem; }
+    .step-text { font-size:.8rem; color:var(--mid); line-height:1.8; }
+
+    .taproom { background:var(--bg); }
+    .taproom-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:5fr 4fr; gap:6rem; align-items:center; }
+    .taproom-imgs { display:grid; grid-template-columns:3fr 2fr; grid-template-rows:1fr 1fr; gap:8px; }
+    .taproom-img-main { grid-row:span 2; aspect-ratio:3/4; }
+    .taproom-img-sub { aspect-ratio:4/3; }
+    .hours-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+    .hours-table tr { border-bottom:1px solid rgba(160,136,96,.2); }
+    .hours-table td { padding:.8rem 0; font-size:.82rem; color:var(--mid); }
+    .hours-table td:first-child { font-family:'Oswald',sans-serif; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--foam); width:40%; }
+
+    .events { background:var(--surface); }
+    .events-inner { max-width:1100px; margin:0 auto; }
+    .event-list { display:flex; flex-direction:column; gap:0; margin-top:3rem; }
+    .event-item { display:grid; grid-template-columns:120px 1fr auto; align-items:center; gap:3rem; padding:2rem 0; border-bottom:1px solid rgba(160,136,96,.2); transition:all .3s; }
+    .event-item:hover { background:rgba(200,134,10,.05); padding-left:1rem; padding-right:1rem; }
+    .event-date { text-align:center; }
+    .event-date .month { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--amber); }
+    .event-date .day { font-family:'Oswald',sans-serif; font-size:3rem; font-weight:600; color:var(--foam); line-height:1; }
+    .event-title { font-family:'Oswald',sans-serif; font-size:1.1rem; font-weight:500; text-transform:uppercase; color:var(--foam); margin-bottom:.4rem; }
+    .event-desc { font-size:.8rem; color:var(--mid); }
+    .event-tag { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; border:1px solid var(--amber); color:var(--amber); padding:.4rem 1rem; white-space:nowrap; }
+
+    .cta-banner { background:var(--amber); padding:6rem 5rem; text-align:center; }
+    .cta-btn-dark { display:inline-block; font-family:'Oswald',sans-serif; font-size:.8rem; letter-spacing:.25em; text-transform:uppercase; background:var(--bg); color:var(--foam); padding:1rem 3rem; text-decoration:none; }
+    .cta-btn-dark:hover { background:var(--bg2); }
+
+    footer { background:var(--bg); border-top:1px solid rgba(160,136,96,.15); padding:4rem 5rem; }
+    .footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; }
+    .footer-brand { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; text-transform:uppercase; color:var(--foam); letter-spacing:.05em; margin-bottom:1rem; }
+    .footer-brand span { color:var(--amber); }
+    .footer-desc { font-size:.8rem; color:var(--mid); line-height:1.9; }
+    .footer-heading { font-family:'Oswald',sans-serif; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--amber); margin-bottom:1.2rem; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .footer-links a { font-size:.8rem; color:var(--mid); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--foam); }
+    .footer-copy { max-width:1100px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid rgba(160,136,96,.1); font-size:.72rem; color:rgba(160,136,96,.5); letter-spacing:.08em; }
+
+    .fade-up { opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-bg"><div class="img-wrap"><div class="img-ph" style="width:100%;height:100%;min-height:100vh;"></div></div></div>
+    <div class="hero-content">
+      <p class="hero-label">ESTABLISHED 2018 — OSAKA, JAPAN</p>
+      <h1 class="hero-title">IRON<br>KETTLE<span>BREWING</span></h1>
+      <p class="hero-sub">発酵の時間が、味になる。<br>職人の哲学が、一杯に宿る。</p>
+      <a href="#beers" class="hero-cta">OUR BEERS を見る</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">18+</div><div class="stat-label">YEAR-ROUND TAPS</div></div>
+      <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">ANNUAL VARIETIES</div></div>
+      <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">BREWING AWARDS</div></div>
+    </div>
+  </section>
+
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <div class="img-wrap fade-up"><div class="img-ph philosophy-img"></div></div>
+      <div class="philosophy-text fade-up">
+        <p class="section-tag">OUR PHILOSOPHY</p>
+        <h2 class="section-title">醸造家の<br>哲学</h2>
+        <div class="divider"></div>
+        <p class="lead">「麦芽・ホップ・水・酵母。<br>それ以外は要らない。」</p>
+        <p>私たちは2018年、大阪の廃工場跡地に醸造所を開きました。化学添加物を一切使わず、素材本来の力だけでビールを造る。それが私たちの唯一のルールです。</p>
+        <p>職人が毎朝タンクに語りかけるように、発酵の声を聞きながらビールを仕上げます。レシピ通りではなく、その日の麦芽の状態を見て、ホップの量を調整する。それが「手造り」の意味です。</p>
+        <p>BrewDogでもなく、Mikkellerでもなく。大阪の、私たちのビール。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="beers" id="beers">
+    <div class="beers-inner">
+      <div class="beers-header fade-up">
+        <p class="section-tag">ON TAP NOW</p>
+        <h2 class="section-title">今月のラインナップ</h2>
+      </div>
+      <div class="beer-grid">
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">AMERICAN IPA</p><h3 class="beer-name">IRON ROAD IPA</h3><p class="beer-desc">シトラスとトロピカルフルーツが弾ける、力強くも飲みやすいウェストコーストIPA。鉄路の男たちが喉を鳴らした一杯。</p><p class="beer-abv">IBU 62 / ABV 6.8%</p></div></div>
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">IMPERIAL STOUT</p><h3 class="beer-name">MIDNIGHT FORGE</h3><p class="beer-desc">チョコレート麦芽とロースト麦芽が織りなす、深い夜のような漆黒のスタウト。バーボン樽で6ヶ月熟成。</p><p class="beer-abv">IBU 45 / ABV 10.2%</p></div></div>
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">SAISON</p><h3 class="beer-name">GOLDEN FIELD</h3><p class="beer-desc">ベルギー酵母由来のスパイシーさと、柔らかな麦の甘み。農夫が収穫を祝った伝統のセゾン、現代版。</p><p class="beer-abv">IBU 28 / ABV 5.4%</p></div></div>
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">HAZY IPA</p><h3 class="beer-name">CLOUD CHASER</h3><p class="beer-desc">ジュースのような果実感と、穏やかな苦み。ニューイングランドスタイルのヘイジーIPAを大阪仕様で。</p><p class="beer-abv">IBU 35 / ABV 6.2%</p></div></div>
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">WHEAT BEER</p><h3 class="beer-name">MORNING MIST</h3><p class="beer-desc">バナナとクローブの香り、滑らかな飲み口のヘフェヴァイツェン。朝市の空気を感じさせる一杯。</p><p class="beer-abv">IBU 15 / ABV 4.8%</p></div></div>
+        <div class="beer-card fade-up"><div class="img-wrap"><div class="img-ph beer-img"></div></div><div class="beer-info"><p class="beer-style">SEASONAL SPECIAL</p><h3 class="beer-name">EMBER HARVEST</h3><p class="beer-desc">秋限定。地元農家から仕入れたかぼちゃとシナモン、クローブを使った季節限定醸造。今年だけの一杯。</p><p class="beer-abv">IBU 22 / ABV 7.1%</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="process-inner">
+      <div class="fade-up"><p class="section-tag">THE CRAFT</p><h2 class="section-title">醸造の工程</h2></div>
+      <div class="process-steps">
+        <div class="process-step fade-up"><div class="step-num">01</div><h3 class="step-title">麦芽選定</h3><p class="step-text">国内外の契約農家から、その季節の最良の麦芽を仕入れる。原材料の品質がすべての基盤。</p></div>
+        <div class="process-step fade-up"><div class="step-num">02</div><h3 class="step-title">糖化・麦汁製造</h3><p class="step-text">仕込み釜で麦芽を温水に溶かし、糖分豊富な麦汁を抽出。温度管理が風味を決定づける。</p></div>
+        <div class="process-step fade-up"><div class="step-num">03</div><h3 class="step-title">ホップ添加</h3><p class="step-text">煮沸中と発酵後、複数タイミングでホップを投入。苦みと香りのバランスは職人の感覚が頼り。</p></div>
+        <div class="process-step fade-up"><div class="step-num">04</div><h3 class="step-title">発酵・熟成</h3><p class="step-text">酵母が糖をアルコールに変える。2週間から数ヶ月。時間こそが最高の原材料。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="taproom">
+    <div class="taproom-inner">
+      <div class="taproom-imgs fade-up">
+        <div class="img-wrap taproom-img-main"><div class="img-ph" style="width:100%;height:100%;min-height:400px;"></div></div>
+        <div class="img-wrap taproom-img-sub"><div class="img-ph" style="width:100%;height:100%;"></div></div>
+        <div class="img-wrap taproom-img-sub"><div class="img-ph" style="width:100%;height:100%;"></div></div>
+      </div>
+      <div class="fade-up">
+        <p class="section-tag">TAPROOM</p>
+        <h2 class="section-title">醸造所に<br>来てください</h2>
+        <div class="divider"></div>
+        <p style="font-size:.88rem;color:var(--mid);line-height:2;margin-bottom:1.5rem;">醸造タンクを眺めながら、できたてのビールを飲む。その体験は、缶や瓶では絶対に再現できないものです。</p>
+        <p style="font-size:.88rem;color:var(--mid);line-height:2;margin-bottom:2.5rem;">大阪・福島の醸造所1階にあるタップルームでは、常時18種類以上のビールを提供しています。醸造家が直接サーブすることも。</p>
+        <p class="footer-heading" style="margin-bottom:.5rem;">営業時間</p>
+        <table class="hours-table">
+          <tr><td>月曜日</td><td>定休日</td></tr>
+          <tr><td>火〜木曜日</td><td>17:00 – 23:00</td></tr>
+          <tr><td>金曜日</td><td>16:00 – 24:00</td></tr>
+          <tr><td>土曜日</td><td>13:00 – 24:00</td></tr>
+          <tr><td>日曜日</td><td>13:00 – 21:00</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="events">
+    <div class="events-inner">
+      <div class="fade-up"><p class="section-tag">UPCOMING EVENTS</p><h2 class="section-title">今後のイベント</h2></div>
+      <div class="event-list">
+        <div class="event-item fade-up"><div class="event-date"><div class="month">NOV</div><div class="day">08</div></div><div><div class="event-title">BARREL NIGHT — ウイスキー樽熟成 特別解禁</div><div class="event-desc">2年間バーボン樽で熟成させたインペリアルスタウト「DARK MATTER 2022」の特別解禁イベント。限定100名。</div></div><div class="event-tag">EXCLUSIVE</div></div>
+        <div class="event-item fade-up"><div class="event-date"><div class="month">NOV</div><div class="day">15</div></div><div><div class="event-title">BREWING TOUR — 醸造所見学ツアー</div><div class="event-desc">醸造家が工程を解説しながら案内する90分のプレミアムツアー。テイスティング5種付き。毎月第3土曜。</div></div><div class="event-tag">TOUR</div></div>
+        <div class="event-item fade-up"><div class="event-date"><div class="month">DEC</div><div class="day">06</div></div><div><div class="event-title">WINTER FEST 2024 — 冬の収穫祭</div><div class="event-desc">地元レストラン10店舗と組んだフードペアリングイベント。冬の季節限定ビール15種が集結。</div></div><div class="event-tag">FESTIVAL</div></div>
+        <div class="event-item fade-up"><div class="event-date"><div class="month">DEC</div><div class="day">20</div></div><div><div class="event-title">HOMEBREW WORKSHOP — ホームブルー入門講座</div><div class="event-desc">自宅でビールを醸造したい方向けの初心者ワークショップ。器材の選び方から基本レシピまで。定員12名。</div></div><div class="event-tag">WORKSHOP</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <p class="section-tag" style="color:var(--bg);">GET IN TOUCH</p>
+    <h2 class="section-title" style="color:var(--bg);font-size:clamp(2rem,4vw,3.5rem);">一緒に飲みに来ませんか。</h2>
+    <p style="font-size:.9rem;color:var(--bg2);max-width:500px;margin:0 auto 3rem;">醸造所見学、樽販売、イベント出店のご依頼はお気軽にどうぞ。</p>
+    <a href="#" class="cta-btn-dark">お問い合わせ</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-brand">IRON KETTLE <span>BREWING</span></div><p class="footer-desc">大阪・福島の廃工場跡地に生まれた小さな醸造所。化学添加物を使わず、職人の手と時間だけでビールを造る。2018年創業。</p></div>
+      <div><p class="footer-heading">NAVIGATE</p><ul class="footer-links"><li><a href="#">Our Beers</a></li><li><a href="#">Taproom</a></li><li><a href="#">Events</a></li><li><a href="#">Brewing Tour</a></li><li><a href="#">Online Shop</a></li></ul></div>
+      <div><p class="footer-heading">ACCESS</p><ul class="footer-links"><li><a href="#">大阪市福島区鷺洲2-X-X</a></li><li><a href="#">JR福島駅 徒歩5分</a></li><li><a href="#">info@iron-kettle.jp</a></li><li><a href="#">06-XXXX-XXXX</a></li></ul></div>
+    </div>
+    <p class="footer-copy">© 2024 IRON KETTLE BREWING. ALL RIGHTS RESERVED.</p>
+  </footer>
+  <script>
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); }); },{threshold:.12});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MORI CLINIC — 内科・生活習慣病クリニック</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#F5F0E8; --bg2:#EDE8DF; --bg-green:#EFF4EF;
+      --ink:#2A2420; --mid:#7A7870; --terra:#C47A5A;
+      --moss:#4A6B5A; --warm-gray:#8A8078; --white:#FAFAF6;
+    }
+    .img-ph { background:var(--bg2); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .img-ph::after { content:'[ 写真・イラストが入ります ]'; color:var(--mid); font-size:.75rem; font-family:'Noto Sans JP',sans-serif; letter-spacing:.1em; opacity:.5; position:absolute; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--ink); font-family:'Noto Sans JP',sans-serif; font-weight:300; line-height:2; }
+
+    /* HEADER */
+    header { background:var(--white); border-bottom:1px solid rgba(74,107,90,.1); padding:1.5rem 4rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+    .logo { display:flex; align-items:baseline; gap:1rem; }
+    .logo-main { font-family:'Lora',serif; font-size:1.1rem; font-weight:500; color:var(--moss); }
+    .logo-sub { font-size:.7rem; color:var(--mid); letter-spacing:.05em; }
+    nav { display:flex; gap:2.5rem; align-items:center; }
+    nav a { font-size:.78rem; color:var(--mid); text-decoration:none; transition:color .2s; letter-spacing:.03em; }
+    nav a:hover { color:var(--moss); }
+    .nav-tel { font-family:'Plus Jakarta Sans',sans-serif; font-size:.82rem; font-weight:600; color:var(--moss); }
+
+    /* HERO */
+    .hero { background:var(--white); min-height:88vh; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; }
+    .hero-left { padding:6rem 4rem 5rem; display:flex; flex-direction:column; justify-content:center; }
+    .hero-notice { display:inline-flex; align-items:center; gap:.8rem; background:var(--bg-green); color:var(--moss); font-size:.72rem; padding:.5rem 1.2rem; border-radius:2rem; margin-bottom:3rem; }
+    .hero-notice::before { content:'●'; font-size:.5rem; }
+    .hero-title { font-family:'Lora',serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:400; color:var(--ink); line-height:1.5; margin-bottom:1.5rem; }
+    .hero-title em { font-style:italic; color:var(--moss); }
+    .hero-sub { font-size:.88rem; color:var(--mid); line-height:2.3; max-width:440px; margin-bottom:3rem; }
+    .hero-btns { display:flex; gap:1.2rem; flex-wrap:wrap; }
+    .btn-primary { font-family:'Plus Jakarta Sans',sans-serif; font-size:.78rem; font-weight:600; background:var(--moss); color:#fff; padding:.9rem 2.2rem; text-decoration:none; border-radius:2px; transition:background .3s; }
+    .btn-primary:hover { background:#3a5a4a; }
+    .btn-outline { font-family:'Plus Jakarta Sans',sans-serif; font-size:.78rem; font-weight:500; border:1.5px solid var(--moss); color:var(--moss); padding:.85rem 2rem; text-decoration:none; border-radius:2px; transition:all .3s; }
+    .btn-outline:hover { background:var(--bg-green); }
+    .hero-right { position:relative; background:var(--bg-green); }
+    .hero-right .img-ph { width:100%; height:100%; min-height:500px; }
+    .hero-badge { position:absolute; bottom:3rem; left:-2rem; background:var(--white); padding:1.2rem 1.8rem; box-shadow:0 8px 30px rgba(0,0,0,.08); }
+    .badge-num { font-family:'Lora',serif; font-size:1.8rem; color:var(--moss); line-height:1; }
+    .badge-txt { font-size:.68rem; color:var(--mid); margin-top:.2rem; }
+
+    /* SECTION BASE */
+    section { padding:7rem 4rem; }
+    .stag { font-family:'Plus Jakarta Sans',sans-serif; font-size:.65rem; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--terra); margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; }
+    .stag::before { content:''; display:inline-block; width:24px; height:2px; background:var(--terra); }
+    .sh2 { font-family:'Lora',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:400; color:var(--ink); line-height:1.4; margin-bottom:2rem; }
+    .sh2 em { font-style:italic; color:var(--moss); }
+
+    /* INFO STRIP */
+    .info-strip { background:var(--moss); padding:1.8rem 4rem; }
+    .strip-inner { max-width:1100px; margin:0 auto; display:flex; gap:0; }
+    .strip-item { flex:1; border-right:1px solid rgba(255,255,255,.2); padding:0 3rem; }
+    .strip-item:first-child { padding-left:0; }
+    .strip-item:last-child { border-right:none; }
+    .strip-label { font-size:.65rem; color:rgba(255,255,255,.6); letter-spacing:.15em; margin-bottom:.4rem; }
+    .strip-val { font-family:'Plus Jakarta Sans',sans-serif; font-size:.9rem; font-weight:600; color:#fff; }
+
+    /* CONCEPT */
+    .concept { background:var(--white); }
+    .concept-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center; }
+    .concept-img { width:100%; aspect-ratio:4/5; border-radius:2px; }
+    .concept-text .lead { font-family:'Lora',serif; font-size:1.1rem; font-style:italic; color:var(--moss); line-height:1.9; border-left:3px solid var(--terra); padding-left:1.5rem; margin-bottom:2rem; }
+    .concept-text p { font-size:.85rem; color:var(--mid); line-height:2.4; margin-bottom:1.5rem; }
+
+    /* DEPT */
+    .dept { background:var(--bg2); }
+    .dept-inner { max-width:1100px; margin:0 auto; }
+    .dept-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(122,120,112,.15); margin-top:3.5rem; }
+    .dept-card { background:var(--bg2); padding:2.8rem 2.5rem; transition:background .3s; }
+    .dept-card:hover { background:var(--white); }
+    .dept-icon { font-size:1.8rem; margin-bottom:1.2rem; }
+    .dept-name { font-family:'Lora',serif; font-size:1.05rem; color:var(--ink); margin-bottom:.8rem; }
+    .dept-desc { font-size:.8rem; color:var(--mid); line-height:2.1; }
+    .dept-tag { display:inline-block; font-size:.65rem; background:var(--bg-green); color:var(--moss); padding:.25rem .8rem; border-radius:1rem; margin-top:1rem; }
+
+    /* FLOW */
+    .flow { background:var(--white); }
+    .flow-inner { max-width:900px; margin:0 auto; }
+    .flow-row { display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; margin-top:3.5rem; }
+    .flow-step { text-align:center; position:relative; }
+    .flow-step::after { content:'→'; position:absolute; right:-1.2rem; top:1.2rem; color:var(--terra); opacity:.5; font-size:.9rem; }
+    .flow-step:last-child::after { display:none; }
+    .flow-circle { width:3.5rem; height:3.5rem; border-radius:50%; background:var(--bg-green); display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:.85rem; color:var(--moss); }
+    .flow-title { font-family:'Lora',serif; font-size:.88rem; color:var(--ink); margin-bottom:.6rem; }
+    .flow-text { font-size:.75rem; color:var(--mid); line-height:1.9; }
+
+    /* DOCTOR */
+    .doctor { background:var(--bg); }
+    .doctor-inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:300px 1fr; gap:5rem; align-items:start; }
+    .doctor-img { width:100%; aspect-ratio:3/4; }
+    .doctor-name { font-family:'Lora',serif; font-size:1.5rem; font-weight:500; color:var(--ink); margin-bottom:.4rem; }
+    .doctor-role { font-size:.75rem; color:var(--terra); letter-spacing:.1em; margin-bottom:2rem; }
+    .doctor-text p { font-size:.83rem; color:var(--mid); line-height:2.3; margin-bottom:1.3rem; }
+    .career-list { list-style:none; margin-top:2rem; display:flex; flex-direction:column; gap:.8rem; }
+    .career-list li { font-size:.78rem; color:var(--mid); display:flex; gap:1rem; align-items:flex-start; }
+    .career-list li::before { content:'—'; color:var(--terra); flex-shrink:0; }
+
+    /* HOURS */
+    .hours-sec { background:var(--bg-green); }
+    .hours-inner { max-width:900px; margin:0 auto; }
+    .hours-table { width:100%; border-collapse:collapse; margin-top:2.5rem; }
+    .hours-table th { font-family:'Plus Jakarta Sans',sans-serif; font-size:.7rem; font-weight:600; letter-spacing:.1em; color:var(--moss); padding:.6rem 1rem; text-align:center; background:rgba(74,107,90,.08); }
+    .hours-table td { font-size:.82rem; color:var(--mid); padding:.9rem 1rem; text-align:center; border-bottom:1px solid rgba(74,107,90,.1); }
+    .hours-table td:first-child { color:var(--ink); font-weight:500; text-align:left; }
+    .circle-mark { color:var(--moss); font-size:1rem; }
+    .triangle-mark { color:var(--terra); font-size:.9rem; }
+    .hours-note { font-size:.75rem; color:var(--mid); margin-top:1.5rem; line-height:2; }
+
+    /* CTA */
+    .cta-sec { background:var(--terra); padding:6rem 4rem; text-align:center; }
+    .cta-sec h2 { font-family:'Lora',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:400; color:#fff; margin-bottom:1.5rem; }
+    .cta-sec p { font-size:.85rem; color:rgba(255,255,255,.75); max-width:480px; margin:0 auto 3rem; line-height:2.1; }
+    .cta-white { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:.78rem; font-weight:600; background:#fff; color:var(--terra); padding:.9rem 2.8rem; text-decoration:none; transition:opacity .3s; }
+    .cta-white:hover { opacity:.9; }
+
+    /* FOOTER */
+    footer { background:var(--ink); padding:4rem; }
+    .footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; }
+    .f-logo { font-family:'Lora',serif; font-size:1.1rem; color:var(--bg); margin-bottom:.5rem; }
+    .f-sub { font-size:.7rem; color:rgba(245,240,232,.4); margin-bottom:1rem; }
+    .f-desc { font-size:.75rem; color:rgba(245,240,232,.3); line-height:2; }
+    .f-head { font-family:'Plus Jakarta Sans',sans-serif; font-size:.6rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); margin-bottom:1rem; }
+    .f-links { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .f-links a { font-size:.75rem; color:rgba(245,240,232,.35); text-decoration:none; transition:color .2s; }
+    .f-links a:hover { color:rgba(245,240,232,.7); }
+    .f-copy { max-width:1100px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid rgba(255,255,255,.06); font-size:.65rem; color:rgba(255,255,255,.2); }
+
+    .fade-up { opacity:0; transform:translateY(22px); transition:opacity .8s ease,transform .8s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+    @media(max-width:768px){
+      section{padding:5rem 1.5rem;}
+      .hero{grid-template-columns:1fr;}
+      .concept-inner,.doctor-inner{grid-template-columns:1fr;}
+      .dept-grid{grid-template-columns:1fr;}
+      .flow-row{grid-template-columns:1fr 1fr;}
+      .footer-inner{grid-template-columns:1fr;gap:2rem;}
+      .strip-inner{flex-direction:column;gap:1rem;}
+      header{padding:1rem 1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-main">MORI CLINIC</span>
+      <span class="logo-sub">内科・生活習慣病・健診</span>
+    </div>
+    <nav>
+      <a href="#">診療内容</a><a href="#">医師紹介</a><a href="#">アクセス</a><a href="#">健診・予防</a>
+      <span class="nav-tel">06-XXXX-XXXX</span>
+    </nav>
+  </header>
+
+  <section class="hero" style="padding:0;">
+    <div class="hero-left">
+      <div class="hero-notice">2024年10月 新規開院</div>
+      <h1 class="hero-title">あなたを診る、<br><em>眼差しがある場所。</em></h1>
+      <p class="hero-sub">白衣の清潔さより、あなたの話を聞く時間を大切にするクリニックです。「なんとなく不調」から生活習慣病の管理まで、一緒に考えます。</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Web予約はこちら</a>
+        <a href="#" class="btn-outline">診療のご案内</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="img-ph" style="width:100%;height:100%;min-height:500px;"></div>
+      <div class="hero-badge">
+        <div class="badge-num">2,400+</div>
+        <div class="badge-txt">延べ受診患者数</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="info-strip">
+    <div class="strip-inner">
+      <div class="strip-item"><div class="strip-label">LOCATION</div><div class="strip-val">大阪市北区 / 阪急梅田駅 徒歩5分</div></div>
+      <div class="strip-item"><div class="strip-label">HOURS</div><div class="strip-val">月〜土 9:00 – 19:00</div></div>
+      <div class="strip-item"><div class="strip-label">ONLINE 予約</div><div class="strip-val">24時間受付中</div></div>
+      <div class="strip-item"><div class="strip-label">TEL</div><div class="strip-val">06-XXXX-XXXX</div></div>
+    </div>
+  </div>
+
+  <section class="concept">
+    <div class="concept-inner">
+      <div class="img-wrap fade-up"><div class="img-ph concept-img"></div></div>
+      <div class="concept-text fade-up">
+        <p class="stag">CONCEPT</p>
+        <h2 class="sh2">「病院に行くのが<br><em>少し楽しみ</em>」な場所へ。</h2>
+        <p class="lead">「また来たいと思える医療」を目指しています。</p>
+        <p>多くのクリニックでは、待ち時間が長く、診察は3分で終わる。それが「病院は行きたくない場所」という感覚を生んでいます。</p>
+        <p>MORI CLINICでは、一人あたりの診察時間を十分に確保しています。「実は前から気になっていた」「なんとなく疲れが続く」そういった言葉も、丁寧に受け止めます。</p>
+        <p>医療は「治すこと」だけではありません。あなたが自分の体を知り、日常をより豊かにするための対話です。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="dept">
+    <div class="dept-inner">
+      <div class="fade-up"><p class="stag">DEPARTMENTS</p><h2 class="sh2">診療内容</h2></div>
+      <div class="dept-grid">
+        <div class="dept-card fade-up"><div class="dept-icon">🫁</div><h3 class="dept-name">内科・一般外来</h3><p class="dept-desc">発熱・咳・倦怠感・腹痛などの日常的な体の不調に対応します。症状が軽くても「なんとなく気になる」段階でお越しください。</p><span class="dept-tag">当日予約可</span></div>
+        <div class="dept-card fade-up"><div class="dept-icon">🩺</div><h3 class="dept-name">生活習慣病</h3><p class="dept-desc">高血圧・糖尿病・脂質異常症・高尿酸血症の管理・治療。数値の改善だけでなく、生活習慣の見直しを一緒に考えます。</p><span class="dept-tag">継続治療</span></div>
+        <div class="dept-card fade-up"><div class="dept-icon">🧬</div><h3 class="dept-name">健康診断・人間ドック</h3><p class="dept-desc">法定健診・雇用時健診・自費健診まで対応。オプション検査も充実。結果の説明に時間をかけ、次のアクションを明確にします。</p><span class="dept-tag">要予約</span></div>
+        <div class="dept-card fade-up"><div class="dept-icon">💉</div><h3 class="dept-name">予防接種</h3><p class="dept-desc">インフルエンザ・肺炎球菌・帯状疱疹・新型コロナウイルスワクチンに対応。職場や学校の集団接種のご相談も承ります。</p><span class="dept-tag">Web予約</span></div>
+        <div class="dept-card fade-up"><div class="dept-icon">🌿</div><h3 class="dept-name">禁煙外来</h3><p class="dept-desc">禁煙補助薬を用いた保険適用の禁煙治療。「何度も失敗した」方こそ、医師と一緒に取り組むと成功率が大きく変わります。</p><span class="dept-tag">保険適用</span></div>
+        <div class="dept-card fade-up"><div class="dept-icon">🧠</div><h3 class="dept-name">睡眠・疲労外来</h3><p class="dept-desc">眠れない・疲れが取れない・集中できない。現代人に多いこれらの不調を、原因から丁寧に調べます。隠れた疾患を早期発見。</p><span class="dept-tag">新設</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow">
+    <div class="flow-inner">
+      <div class="fade-up"><p class="stag">VISIT FLOW</p><h2 class="sh2">初めての方へ — 受診の流れ</h2></div>
+      <div class="flow-row">
+        <div class="flow-step fade-up"><div class="flow-circle">1</div><div class="flow-title">ご予約</div><p class="flow-text">Web・お電話・当日受付いずれも可能です。Web予約が待ち時間短縮に繋がります。</p></div>
+        <div class="flow-step fade-up"><div class="flow-circle">2</div><div class="flow-title">受付・問診票</div><p class="flow-text">受付スタッフが案内します。問診票は事前にWeb入力が可能です（任意）。</p></div>
+        <div class="flow-step fade-up"><div class="flow-circle">3</div><div class="flow-title">診察</div><p class="flow-text">医師が丁寧にお話を伺います。気になっていたことを遠慮なく話してください。</p></div>
+        <div class="flow-step fade-up"><div class="flow-circle">4</div><div class="flow-title">お会計・処方</div><p class="flow-text">クレジットカード・交通系ICカード対応。院内処方・院外処方どちらも選択可。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doctor">
+    <div class="doctor-inner">
+      <div class="img-wrap fade-up"><div class="img-ph doctor-img"></div></div>
+      <div class="fade-up">
+        <p class="stag">DOCTOR</p>
+        <h2 class="doctor-name">森 健太郎</h2>
+        <p class="doctor-role">院長 / 内科専門医 / 総合内科専門医</p>
+        <div class="doctor-text">
+          <p>「患者さんが話しやすいクリニックをつくりたい」という思いで開院しました。大学病院での専門医療も経験しましたが、「もっと早い段階で相談できていたら」という場面を何度も目にしてきました。</p>
+          <p>専門は内科・生活習慣病ですが、体のことなら何でも相談してください。必要に応じて適切な専門医へのご紹介も行います。</p>
+        </div>
+        <ul class="career-list">
+          <li>大阪大学医学部 卒業</li>
+          <li>大阪大学附属病院 内科 勤務</li>
+          <li>市立医療センター 内科 副部長</li>
+          <li>日本内科学会 認定内科専門医</li>
+          <li>日本総合内科学会 認定医</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hours-sec">
+    <div class="hours-inner">
+      <div class="fade-up"><p class="stag">HOURS & ACCESS</p><h2 class="sh2">診療時間・アクセス</h2></div>
+      <table class="hours-table fade-up">
+        <thead><tr><th>診療時間</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日・祝</th></tr></thead>
+        <tbody>
+          <tr><td>9:00 – 13:00</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td>—</td></tr>
+          <tr><td>14:30 – 19:00</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td>—</td><td class="circle-mark">○</td><td class="circle-mark">○</td><td class="triangle-mark">△</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p class="hours-note fade-up">△：土曜午後は14:30–17:00まで / 水曜午後・日曜・祝日は休診<br>※年末年始・夏季休診等はSNS・Webサイトにてお知らせします。</p>
+    </div>
+  </section>
+
+  <section class="cta-sec">
+    <p class="stag" style="justify-content:center;color:rgba(255,255,255,.6);">WEB RESERVATION</p>
+    <h2>今日、予約できます。</h2>
+    <p>「忙しくて行けない」から「予約しておけばすぐ行ける」へ。Web予約は24時間いつでも受け付けています。</p>
+    <a href="#" class="cta-white">Web予約はこちら（無料）</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="f-logo">MORI CLINIC</div><div class="f-sub">内科・生活習慣病・健診</div><p class="f-desc">大阪市北区。2024年10月開院。一人ひとりの話を丁寧に聞くクリニックです。</p></div>
+      <div><p class="f-head">MENU</p><ul class="f-links"><li><a href="#">診療内容</a></li><li><a href="#">健康診断</a></li><li><a href="#">禁煙外来</a></li><li><a href="#">アクセス</a></li><li><a href="#">Web予約</a></li></ul></div>
+      <div><p class="f-head">CONTACT</p><ul class="f-links"><li><a href="#">大阪市北区XXXXXX</a></li><li><a href="#">06-XXXX-XXXX</a></li><li><a href="#">阪急梅田駅 徒歩5分</a></li></ul></div>
+    </div>
+    <p class="f-copy">© 2024 MORI CLINIC. ALL RIGHTS RESERVED.</p>
+  </footer>
+  <script>
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); }); },{threshold:.1});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>

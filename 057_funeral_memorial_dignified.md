@@ -1,5 +1,4 @@
-# プロンプト057｜Funeral & Memorial Service LP — "Requiem"
-
+# プロンプト057｜Funeral & Memorial Service — "Requiem"
 ## 葬儀社・終活サービス LP
 
 ---
@@ -8,106 +7,103 @@
 
 | 項目 | 本作の選択 | 非重複の根拠 |
 |---|---|---|
-| **テーマ** | 葬儀社・終活コンサルタントのLP | 全55本中完全に未開拓のジャンル。最近接は052旅館（日本的静寂）だが、死と向き合う文脈は完全別物 |
-| **カラー** | スレートグレー #4A4E52 × ウォームリネン #F8F5F0 × ディープネイビー #1A2340 × ゴールドリーフ #B8A878 | 葬儀的な「静粛な白」ではなくリネン系を採用。ディープネイビー + ゴールドリーフの組み合わせは全55本で未使用 |
-| **フォント** | Cinzel × EB Garamond × Noto Serif JP | Cinzel（碑文的ローマン）・EB Garamondは全55本で未使用。和文にもセリフ系を採用 |
-| **レイアウト** | 「光が差し込む」ダーク背景ヒーロー + 左ゴールドラインの引用ブロック + フロー縦リスト | ダーク背景×ゴールドラインの引用ブロックは55本中未使用 |
-| **アニメーション** | 極めて遅いフェードイン（0.9s）+ stagger 100ms | 葬儀の「静けさ」に合わせ、アニメーション速度を意図的に遅くする |
-| **CSS装飾** | セクションタグに ::before で横線 + 大きなローマ数字（サービスナンバリング）| ローマ数字による大型装飾ナンバリングは55本中未使用 |
+| **テーマ** | 葬儀社・終活コンサルタントのLP | 全55本中完全に未開拓のジャンル |
+| **カラー** | ウォームリネン #F8F5F0 × ディープネイビー #1A2340 × ゴールドリーフ #B8A878 | ディープネイビー + ゴールドリーフの組み合わせは全55本未使用 |
+| **フォント** | Cinzel × EB Garamond × Noto Serif JP | Cinzel・EB Garamondは全55本未使用 |
+| **目玉CSS技術①** | `setTimeout`による一文字ずつ出現タイプライターアニメーション | 文字単位の逐次出現アニメは55本中未使用 |
+| **目玉CSS技術②** | `scaleY(0)→scaleY(1)` による縦ライン伸長アニメーション（FLOW縦ライン） | transform scaleYによる縦線成長は55本中未使用 |
+| **目玉CSS技術③** | 光の筋（light-ray）の呼吸するopacityアニメーション | ヒーロー背景の光筋演出は55本中未使用 |
+| **アニメーション速度** | 意図的に遅い transition: 1.0s / stagger 120ms | 「静けさ」表現のための意図的低速アニメは55本中未使用 |
+| **レイアウト** | 左ゴールドボーダー引用ブロック + ローマ数字大型装飾ナンバリング | ローマ数字の大型装飾ナンバリングは55本中未使用 |
 
 ---
 
 ## 目的
 
 葬儀社または終活コンサルタントのLP。
-「AIが作ると青×白の典型医療サイト風になる」という最難関ジャンルに、
-「静寂・尊厳・余白」のデザインで挑む。
-
-北欧の福祉デザイン的な清潔感 × 日本の「おもてなし」の誠実さ。
-不安を商売にせず、「この人たちに任せたい」という信頼感を醸成する。
+「静寂・尊厳・余白」のデザインで、「不安を商売にしない誠実さ」を体現する。
 
 ---
 
 ## フォント
 
 ```
-- ブランド名・H1：Cinzel / weight 400 / size clamp(2.5rem, 5vw, 5rem)
-  letter-spacing: 0.08em（碑文のような威厳）
-- 引用・リード文：EB Garamond / Italic / weight 400 / size 1.1–1.2rem / line-height 1.9
-- 本文（日本語）：Noto Serif JP / weight 300 / size 0.85–0.9rem / line-height 2.2
-- セクションラベル：Cinzel / weight 400 / size 0.60rem / letter-spacing 0.40em / uppercase
-- サービス番号：Cinzel / weight 400 / size 3rem / opacity: 0.2（装飾的大型数字）
+- ブランド名・H1：Cinzel / weight 400 / letter-spacing 0.08em（碑文のような威厳）
+- 引用・リード文：EB Garamond / Italic / size 1.1–1.2rem / line-height 1.9
+- 本文：Noto Serif JP / weight 300 / size 0.85–0.9rem / line-height 2.2
+- サービス番号：Cinzel / size 4rem / opacity: 0.18（装飾大型ローマ数字）
 ```
-
-**禁止：Inter / Roboto / Noto Sans（サンセリフ全般） / 丸ゴシック / ポップ系フォント**
 
 ---
 
 ## カラーパレット
 
 ```css
---bg:      #F8F5F0   /* ウォームリネン：障子越しの白 */
---bg2:     #EDE8DF   /* ベージュ：和紙の温もり */
---bg-dark: #1A2340   /* ディープネイビー：夜の静けさ */
---ink:     #2E2E2E   /* ほぼブラック：最も濃いテキスト */
---mid:     #7A7268   /* ウォームグレー：サブテキスト */
---gold:    #B8A878   /* ゴールドリーフ：品格のアクセント */
---slate:   #4A4E52   /* スレートグレー：中間色 */
---deep:    #0E1628   /* 最も深い夜：フッター */
+--bg:    #F8F5F0  /* ウォームリネン */
+--bg2:   #EDE8DF  /* ベージュ */
+--dark:  #1A2340  /* ディープネイビー */
+--deep:  #0E1628  /* フッター */
+--ink:   #2E2E2E  /* ほぼブラック */
+--mid:   #7A7268  /* ウォームグレー */
+--gold:  #B8A878  /* ゴールドリーフ */
 ```
 
-蛍光色・高彩度色・明るい青・ポップな赤 すべて禁止。
-「光の差す静かな空間・白木の棺・菊の白・黄金の仏具」を想起させるトーン。
+---
+
+## セクション構成 & 固有技術
+
+1. **HERO** — 光の筋3本（呼吸アニメ）/ タイプライター見出し / 縦スクロールライン
+2. **PROMISE** — 2カラム / 左ゴールドボーダー引用ブロック
+3. **SERVICES** — 3×2グリッド / ローマ数字大型装飾ナンバリング / ホバー背景変化
+4. **FLOW** — 縦ライン伸長（`scaleY`アニメ）/ 丸バッジ + ホバーで金色塗りつぶし
+5. **STAFF** — 3カラム / grayscale→カラー ホバー
+6. **VOICE** — 縦リスト / 左ゴールドボーダー / 左からスライドイン
+7. **CONTACT** — ダーク背景 / 電話番号大型表示
+8. **FOOTER** — 3カラム
 
 ---
 
-## レイアウト
+## アニメーション仕様（固有）
 
-- ヒーロー：フルブリード暗背景 + グラデーションオーバーレイ + 左下コンテンツ配置
-- フィロソフィー：2カラム（画像 + テキスト）/ 左ボーダーの引用ブロック
-- サービス：3×2グリッド / ローマ数字ナンバリング + ホバー背景変化
-- フロー：縦リスト + 左縦ライン（::before）+ 丸バッジナンバー
-- スタッフ：3カラムグリッド（写真 + 役職 + 氏名 + bio）
-- お客様の声：縦リスト / 左ゴールドボーダー
-
----
-
-## セクション構成
-
-1. **HERO** — ダーク背景 / 大見出し / eyebrow付き
-2. **PROMISE** — 「小さく、丁寧に」の哲学（2カラム）
-3. **SERVICES** — 6種のサービス一覧（家族葬・一日葬・直葬・自宅葬・終活・グリーフ）
-4. **PROCESS** — ご依頼から引き渡しまでの6ステップフロー
-5. **STAFF** — 担当スタッフ紹介（ディレクター・カウンセラー・プランナー）
-6. **VOICE** — ご家族からの声（3件）
-7. **CONTACT** — ダーク背景 / 電話番号大型表示 / 24時間対応
-8. **FOOTER** — ロゴ + サービス + 連絡先
-
----
-
-## アニメーション仕様
-
-```css
-/* 意図的に遅いフェードイン（葬儀の静けさ） */
-.fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+```javascript
+// タイプライター見出し
+const text = '最期のひとつを、
+丁寧に。';
+let i = 0;
+function type(){
+  if(i >= text.length) return;
+  const ch = text[i];
+  if(ch === '\n') el.appendChild(document.createElement('br'));
+  else {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.textContent = ch;
+    el.appendChild(span);
+  }
+  i++;
+  setTimeout(type, i < 9 ? 80 : 60);
 }
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
+setTimeout(type, 1600);
+
+// 縦ライン伸長
+const lineObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('grown'); });
+},{threshold:.1});
+
+// CSS
+.flow-line {
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 1.5s cubic-bezier(.16,1,.3,1);
 }
+.flow-line.grown { transform: scaleY(1); }
 ```
-
-stagger は `setTimeout(i * 100ms)` — 他のページより遅くすることで静謐感を演出。
 
 ---
 
 ## 禁止事項
 
 - 明るいポップな色（赤・黄・青の高彩度色）禁止
-- 「葬儀っぽい黒×白×菊」の典型的デザイン禁止（その上をいく品格を目指す）
 - アニメーション多用禁止（静けさが最優先）
 - 過度な装飾・影・光エフェクト禁止
-- 価格の強調バナー・「今だけ」系のセールス文句 禁止
+- 「今だけ」系のセールス文句 禁止

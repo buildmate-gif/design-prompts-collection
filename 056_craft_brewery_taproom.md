@@ -1,5 +1,4 @@
-# プロンプト056｜Craft Brewery & Taproom LP — "Iron Kettle"
-
+# プロンプト056｜Craft Brewery & Taproom — "Iron Kettle"
 ## クラフトビール醸造所・タップルーム LP
 
 ---
@@ -8,102 +7,94 @@
 
 | 項目 | 本作の選択 | 非重複の根拠 |
 |---|---|---|
-| **テーマ** | クラフトビール醸造所・タップルームのブランドサイト | 飲食系は012（夜市イベント）・042（フードフォトグラファー）のみ。醸造所のブランドストーリー系は55本中ゼロ |
-| **カラー** | バーントアンバー #8B4513 × ブラスゴールド #C8860A × スモークチャコール #1A1208 × クリームフォーム #F0E8C8 | ダークブラウン系統は全55本で未使用。アンバー×チャコールの工業的な暖色系パレットは完全未使用 |
-| **フォント** | Oswald × Libre Baskerville × Noto Sans JP | この3本の組み合わせは55本中未使用。Oswald（コンデンスゴシック）は全本未使用 |
-| **レイアウト** | 統計数値を縦積みした右サイドバー付きヒーロー + ビール商品グリッド（3列） | 商品カード×3列グリッドは既存と類似するが、醸造情報（IBU/ABV）を付記する仕様は未使用 |
-| **アニメーション** | IntersectionObserver による stagger fade-up | 既存多数使用済みだが他要素との組み合わせが新規 |
-| **CSS装飾** | ビール工程の円形ステップ + 中央横断ライン（::before）| 円形ステップ + 接続ラインの組み合わせは55本中未使用 |
+| **テーマ** | クラフトビール醸造所・タップルームのブランドサイト | 飲食系は012・042のみ。醸造所のブランドストーリー系は55本中ゼロ |
+| **カラー** | スモークチャコール #1A1208 × アンバー #C8860A × クリームフォーム #F0E8C8 | ダークブラウン系 + アンバーの組み合わせは全55本未使用 |
+| **フォント** | Oswald × Libre Baskerville × Noto Sans JP | Oswald（コンデンスゴシック）は全55本未使用 |
+| **目玉CSS技術①** | SVGキャンバスによるバブルアニメーション（`requestAnimationFrame` + 発泡感）| Canvas APIを使ったビジュアル演出は55本中未使用 |
+| **目玉CSS技術②** | `scroll-snap-type: x mandatory` による横スクロールビールリスト | 横スナップスクロールのコンテンツリストは55本中未使用 |
+| **目玉CSS技術③** | `clip-path: polygon()` による斜め帯区切り（PROCESSセクション） | 斜め帯セクション区切りは55本中未使用 |
+| **レイアウト** | スティッキー画像 × スクロールコンテンツの左右対比（TAPROOM） | Sticky画像 + 右側スクロールコンテンツの組み合わせは未使用 |
+| **インタラクション** | ビールカード傾きホバー（`rotate(-.5deg)` + `translateY`） | 傾きを伴うカードホバーは55本中未使用 |
 
 ---
 
 ## 目的
 
 クラフトビール醸造所（兼タップルーム）のブランドサイト。
-「職人の哲学と発酵の時間」を伝える、BrewDog / Mikkeller 的な「反骨と誠実」の世界観。
-大手ビールメーカーとの差別化を、素材・製法・こだわりの言語化で実現する。
+BrewDog / Mikkeller的な「反骨と誠実」の世界観。
+化学添加物を使わない職人ビールの哲学と、発酵の時間の重みを伝える。
 
 ---
 
 ## フォント
 
 ```
-- ブランド名・H1：Oswald / weight 700 / size clamp(3.5rem, 7vw, 7rem)
-  letter-spacing: -0.02em / text-transform: uppercase
-- 本文キャッチ・引用：Libre Baskerville / Italic / weight 400 / size 1.0–1.2rem
-- 本文（日本語）：Noto Sans JP / weight 300 / size 0.85–0.9rem / line-height 2.0
-- セクションラベル・タグ：Oswald / weight 400 / size 0.65rem / letter-spacing 0.35em / uppercase
+- ブランド名・H1：Oswald / weight 700 / uppercase / letter-spacing -0.02em
+- 引用・キャッチ：Libre Baskerville / Italic / weight 400
+- 本文：Noto Sans JP / weight 300 / line-height 2.0
+- ラベル：Oswald / weight 400 / size 0.62rem / letter-spacing 0.38em
 ```
 
-**禁止：Inter / Roboto / Noto Sans（サンセリフ一般） / Arial / system-ui**
+**禁止：Inter / Roboto / 青・紫系フォントカラー / 丸みデザイン**
 
 ---
 
 ## カラーパレット
 
 ```css
---bg:      #1A1208   /* スモークチャコール：醸造所の薄暗がり */
---bg2:     #241A0E   /* ダークモルト：奥の暗さ */
---surface: #2E2215   /* タンク金属：パネル背景 */
---ink:     #F4EDD8   /* クリームフォーム：メインテキスト */
---mid:     #A08860   /* 麦芽色：サブテキスト・ボーダー */
---amber:   #C8860A   /* アンバー：メインアクセント・CTA */
---brass:   #B8960E   /* 真鍮：ホバー色 */
---foam:    #F0E8C8   /* 泡白：大見出し */
+--bg:    #1A1208  /* スモークチャコール */
+--bg2:   #241A0E  /* ダークモルト */
+--surf:  #2E2215  /* タンク金属 */
+--ink:   #F4EDD8  /* クリームフォーム */
+--mid:   #A08860  /* 麦芽色 */
+--amber: #C8860A  /* アンバー：CTA・アクセント */
+--foam:  #F0E8C8  /* 泡白：大見出し */
 ```
 
-純白・純黒・蛍光色・青系グラデーション 禁止。
-「銅タンク・麦芽・暗がりの工場・木樽」を想起させるアースブラウン体系。
+---
+
+## セクション構成 & 固有技術
+
+1. **HERO** — 2カラム / SVGバブルCanvas + 統計サイドバー
+2. **PHILOSOPHY** — 2カラム / 六角形バッジ装飾 / parallax-wrap
+3. **ON TAP NOW** — `scroll-snap-type: x mandatory` 横スクロール / ドラッグ対応 / 傾きカード
+4. **THE CRAFT** — `clip-path polygon` 斜め帯区切り / 4ステップアイコングリッド
+5. **TAPROOM** — `position: sticky` 左固定画像 × 右スクロールコンテンツ / 営業時間テーブル
+6. **EVENTS** — 縦リスト + ホバーでpadding-left拡張
+7. **CTA** — フルブリード画像 + アンバーオーバーレイ
+8. **FOOTER** — 3カラム
 
 ---
 
-## レイアウト
+## アニメーション仕様（固有）
 
-- ヒーロー：2カラムグリッド（左：コンテンツ、右：統計）/ 背景フルブリード画像
-- ビールラインナップ：3列グリッド / カード形式（画像 + 商品情報 + IBU/ABV）
-- 醸造工程：4ステップ横並び + 中央接続ライン（::before）
-- タップルーム：2カラム（左：複合画像グリッド、右：テキスト + 営業時間テーブル）
-- イベント：縦リスト + 日付・タイトル・タグの3カラムグリッド
-- section padding: 8rem（PC）/ 5rem（mobile）
-
----
-
-## セクション構成
-
-1. **HERO** — ブランド名 + キャッチ + 統計数値（タップ数・年間種類・受賞数）
-2. **PHILOSOPHY** — 醸造哲学・創業ストーリー（2カラム：画像 + テキスト）
-3. **ON TAP NOW** — 今月のビールラインナップ（6商品グリッド）
-4. **THE CRAFT** — 醸造工程4ステップ（麦芽選定→糖化→ホップ→発酵）
-5. **TAPROOM** — 空間紹介 + 営業時間テーブル
-6. **EVENTS** — 今後のイベント一覧（バレルナイト・醸造ツアー等）
-7. **CTA** — アンバー背景のフルバナー
-8. **FOOTER** — ブランド説明 + ナビ + アクセス
-
----
-
-## アニメーション仕様
-
-```css
-/* スクロール連動 fade-up */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+```javascript
+// SVGバブル（Canvasアニメーション）
+function animate(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  bubbles.forEach((b,i) => {
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(200,134,10,${b.opacity})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    b.y -= b.speed;
+    b.x += b.drift;
+    if(b.y + b.r < 0) bubbles[i] = createBubble();
+  });
+  requestAnimationFrame(animate);
 }
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+
+// ドラッグスクロール（横スクロールリスト）
+el.addEventListener('mousedown', e=>{ isDown=true; startX=e.pageX-el.offsetLeft; scrollLeft=el.scrollLeft; });
+el.addEventListener('mousemove', e=>{ if(!isDown)return; el.scrollLeft=scrollLeft-(e.pageX-el.offsetLeft-startX); });
 ```
-
-IntersectionObserver で各要素を監視。stagger は `setTimeout(i * 80ms)` で実装。
 
 ---
 
 ## 禁止事項
 
-- 明るい背景（白・ライトグレー）禁止。全体的にダークトーンで統一
+- 明るい背景（白・ライトグレー）禁止
 - 青・紫系カラー禁止
 - 丸みのある「かわいい」デザイン要素禁止
 - 均等割りカードのAIっぽいレイアウト禁止
-- テキストの情報密度を下げすぎない（職人の「分量」感を保つ）

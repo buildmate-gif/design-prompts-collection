@@ -1,5 +1,4 @@
 # プロンプト059｜Medical Clinic LP — "Mori Clinic"
-
 ## クリニック・内科・生活習慣病 LP
 
 ---
@@ -8,21 +7,20 @@
 
 | 項目 | 本作の選択 | 非重複の根拠 |
 |---|---|---|
-| **テーマ** | 個人クリニック・内科・生活習慣病のLP | 全55本中医療系テーマは皆無。「青×白のAIっぽい医療サイト」を否定するデザインとして最適な題材 |
-| **カラー** | テラコッタスモーク #C47A5A × リネンホワイト #F5F0E8 × モスグリーン #4A6B5A × ウォームグレー | テラコッタ系は多数使用済みだが、医療×温かみコンセプトでの使用は新規。モスグリーン×テラコッタ×リネンの3色組み合わせは未使用 |
-| **フォント** | Lora × Plus Jakarta Sans × Noto Sans JP | Loraはセリフ系として複数使用済みだが、Plus Jakarta Sansは全55本未使用。この2本の組み合わせは新規 |
-| **レイアウト** | ヒーロー：2カラム（左：コンテンツ、右：グリーン背景の画像）+ 下部バッジ | 患者数バッジを画像上に重ねる構成は55本中未使用 |
-| **インフォ** | スティッキーヘッダー + 情報ストリップ（4項目横並び）| 情報ストリップ（緑背景の横断帯）は55本中未使用 |
-| **アニメーション** | 標準的な fade-up / 速度は通常（0.8s）| 医療の「安心感」に合わせ過度な演出を避ける |
+| **テーマ** | 個人クリニック・内科・生活習慣病のLP | 全55本中医療系テーマは皆無 |
+| **カラー** | リネンホワイト #F5F0E8 × モスグリーン #4A6B5A × テラコッタスモーク #C47A5A | 医療×温かみコンセプトでのテラコッタ使用は新規 |
+| **フォント** | Lora × Plus Jakarta Sans × Noto Sans JP | Plus Jakarta Sansは全55本未使用 |
+| **目玉CSS技術①** | `rotateY(180deg)`による診療科目カード3Dフリップ（6枚） | 3Dカードフリップは55本中未使用 |
+| **目玉CSS技術②** | スクロール量に応じたナビゲーションリンクのアクティブ切り替え（IntersectionObserver） | セクション連動ナビアクティブは55本中未使用 |
+| **目玉CSS技術③** | ヘッダーの`scrolled`クラス切り替え（スクロール後にshadow付与） | スクロール追従ヘッダーの動的class切り替えは未使用 |
+| **アニメーション** | `badgePop`（scale .8→1）+ `pulse`（dot点滅）| バッジ出現 + ドット点滅の組み合わせは55本中未使用 |
+| **レイアウト** | hero-float-card の`floatCard`浮遊アニメーション | 患者数バッジの浮遊アニメは55本中未使用 |
 
 ---
 
 ## 目的
 
-個人クリニック（内科・生活習慣病専門）のLP。
-「AIが作ると必ず青×白×Sans-serifの典型的医療サイトになる」という呪いを破る。
-
-「病院に行くのが少し楽しみ」な場所としての親しみやすさ × 専門医への信頼感。
+個人クリニックのLP。「AIが必ず作る青×白の典型的医療サイト」を否定する。
 北欧の小さな診療所のような温もりと清潔感を両立させる。
 
 ---
@@ -30,67 +28,71 @@
 ## フォント
 
 ```
-- クリニック名・H1：Lora / weight 400–500 / size clamp(1.8rem, 3vw, 2.8rem)
-  「読みやすく知的なセリフ」で医療の信頼感を表現
-  em { font-style: italic; color: var(--moss); }
-- ナビ・ラベル・数値：Plus Jakarta Sans / weight 500–600
-  親しみやすいモダンサンセリフ
-- 本文（日本語）：Noto Sans JP / weight 300 / size 0.83–0.88rem / line-height 2.3
-- セクションタグ：Plus Jakarta Sans / weight 600 / size 0.65rem / letter-spacing 0.25em
+- クリニック名・H1：Lora / weight 400–500 / em{color:var(--moss)}
+- ナビ・ラベル・ボタン：Plus Jakarta Sans / weight 500–700
+- 本文：Noto Sans JP / weight 300 / line-height 2.3
 ```
 
-**禁止：典型的医療青（#0077FF系）/ Roboto / Inter / Arial / system-ui**
-※医療サイト「らしすぎる」フォント・色使いをすべて禁止
+**禁止：典型的医療青（#0077FF系）/ Roboto / Inter / 冷たい純白**
 
 ---
 
 ## カラーパレット
 
 ```css
---bg:       #F5F0E8   /* リネンホワイト：温かい白 */
---bg2:      #EDE8DF   /* ウォームベージュ：サブ背景 */
---bg-green: #EFF4EF   /* ペールグリーン：安心感の薄緑 */
---ink:      #2A2420   /* ウォームブラック */
---mid:      #7A7870   /* グレーブラウン：サブテキスト */
---terra:    #C47A5A   /* テラコッタスモーク：CTAアクセント */
---moss:     #4A6B5A   /* モスグリーン：信頼・安心のアクセント */
---white:    #FAFAF6   /* クリーン白：カード・ヘッダー */
+--bg:    #F5F0E8  /* リネンホワイト */
+--bg2:   #EDE8DF  /* ウォームベージュ */
+--green: #EFF4EF  /* ペールグリーン */
+--ink:   #2A2420  /* ウォームブラック */
+--mid:   #7A7870  /* グレーブラウン */
+--terra: #C47A5A  /* テラコッタスモーク：CTA */
+--moss:  #4A6B5A  /* モスグリーン：信頼 */
 ```
 
-「病院の冷たい白」禁止。すべての白に温かみのある黄味またはグリーンを加える。
-典型的な医療サイトブルー（#0077FF / #2196F3等）完全禁止。
+---
+
+## セクション構成 & 固有技術
+
+1. **HEADER** — スクロール追従 + セクション連動ナビアクティブ（IntersectionObserver）
+2. **HERO** — 2カラム / `badgePop`バッジアニメ + `floatCard`浮遊カード
+3. **INFO STRIP** — モスグリーン横断帯 × 4項目
+4. **CONCEPT** — 2カラム / 左テラコッタボーダー引用ブロック
+5. **DEPT** — 3×2 フリップカード（`rotateY(180deg)` 3D flip）
+6. **VISIT FLOW** — 4ステップ / hover時circle色変化 + scale(1.1)
+7. **DOCTOR** — 2カラム / sticky写真 / 経歴リスト
+8. **HOURS** — インタラクティブ診療時間テーブル（行ホバーハイライト）
 
 ---
 
-## レイアウト
+## アニメーション仕様（固有）
 
-- スティッキーヘッダー（白背景 + 下ボーダー緑）
-- ヒーロー：2カラム（左：コンテンツ、右：ペールグリーン背景の画像 + 患者数バッジ）
-- 情報ストリップ：モスグリーン背景 × 4項目（場所・診療時間・予約・電話）
-- コンセプト：2カラム / 左ゴールドボーダー引用ブロック
-- 診療内容：3×2グリッド / アイコン + 名称 + 説明 + カラータグ
-- 受診フロー：4ステップ横並び（→矢印付き）
-- 医師紹介：2カラム（顔写真 + プロフィール + 経歴リスト）
-- 診療時間表：HTMLテーブル / ○△—記号
+```css
+/* 3Dカードフリップ */
+.flip-card { perspective: 1000px; }
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.16,1,.3,1);
+}
+.flip-card:hover .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back { backface-visibility: hidden; }
+.flip-back { transform: rotateY(180deg); }
 
----
-
-## セクション構成
-
-1. **HERO** — 「あなたを診る、眼差しがある場所。」/ 2カラム
-2. **INFO STRIP** — 場所・時間・予約・電話の横断帯
-3. **CONCEPT** — 「病院に行くのが少し楽しみな場所へ」
-4. **DEPARTMENTS** — 6診療科目（内科・生活習慣病・健診・予防接種・禁煙・睡眠）
-5. **VISIT FLOW** — 初診の4ステップフロー
-6. **DOCTOR** — 院長プロフィール + 経歴
-7. **HOURS & ACCESS** — 診療時間表 + アクセス情報
-8. **CTA** — テラコッタ背景 / Web予約訴求
+/* スクロール連動ナビ */
+const sectionObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const active = document.querySelector(`nav a[data-section="${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:.4});
+```
 
 ---
 
 ## 禁止事項
 
-- 医療系の典型的ブルー（#0000FF〜#4FC3F7系）すべて禁止
-- 冷たい白（純白 #FFFFFF）禁止 → 必ず温かみのある白を使用
-- 威圧的・権威的な表現禁止（「最新設備」「最高水準」等）
-- 過度な実績数値の羅列禁止
+- 医療系ブルー（#0000FF〜#4FC3F7系）すべて禁止
+- 冷たい純白（#FFFFFF）禁止
+- 「最新設備」「最高水準」等の威圧的表現禁止

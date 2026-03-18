@@ -1,404 +1,1498 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFORMATION SYSTEM | Swiss Grid</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&family=Space+Grotesk:wght@600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --color-white: #FDFDFD;
-            --color-black: #050505;
-            --color-gray: #888888;
-            --color-red: #DA291C;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--color-white);
-            color: var(--color-black);
-            font-family: 'M PLUS 1p', sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            font-weight: 400;
-            overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        .label,
-        .nav-logo {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        *:focus-visible {
-            outline: 2px solid var(--color-red);
-            outline-offset: 4px;
-        }
-
-        /* Grid System */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 0;
-        }
-
-        /* Header */
-        .header {
-            height: 60px;
-            border-bottom: 1px solid var(--color-black);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(253, 253, 253, 0.95);
-            backdrop-filter: blur(4px);
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-cta {
-            color: var(--color-red);
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Hero */
-        .hero {
-            grid-column: 1 / -1;
-            min-height: 85vh;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            padding: 4rem 2rem;
-        }
-
-        .hero-side {
-            position: relative;
-        }
-
-        .hero-label {
-            transform: rotate(-90deg);
-            transform-origin: left top;
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            color: var(--color-gray);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .hero-main {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.95;
-            margin-bottom: 2rem;
-            /* Animation */
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideIn 0.5s ease forwards;
-        }
-
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .hero-divider {
-            width: 100%;
-            height: 1px;
-            background-color: var(--color-gray);
-            margin: 1.5rem 0;
-            opacity: 0.5;
-        }
-
-        .hero p {
-            max-width: 55ch;
-            font-size: 1.1rem;
-        }
-
-        /* Features */
-        .features {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 2fr 4fr 2fr;
-        }
-
-        .feature-row {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 2fr 4fr 2fr;
-            border-top: 1px solid var(--color-black);
-            padding: 3rem 2rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .feature-row:hover {
-            background-color: rgba(218, 41, 28, 0.04);
-        }
-
-        .feature-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .feature-meta .label {
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            color: var(--color-gray);
-        }
-
-        .feature-meta h2 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-red);
-        }
-
-        .feature-text {
-            padding-right: 2rem;
-        }
-
-        .feature-empty {
-            /* Intentionally left blank */
-        }
-
-        /* CTA */
-        .cta {
-            grid-column: 1 / -1;
-            background-color: var(--color-red);
-            border-top: 2px solid var(--color-red);
-            border-bottom: 2px solid var(--color-red);
-            padding: 6rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2.5rem;
-        }
-
-        .cta h2 {
-            color: var(--color-white);
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            letter-spacing: -0.02em;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            border: 2px solid var(--color-white);
-            color: var(--color-white);
-            text-decoration: none;
-            padding: 1rem 3rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
-
-        .cta-btn:hover {
-            background-color: var(--color-white);
-            color: var(--color-red);
-        }
-
-        /* Footer */
-        .footer {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            border-top: 2px solid var(--color-black);
-            padding: 2rem;
-            color: var(--color-gray);
-            font-size: 0.75rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 2rem;
-            }
-
-            .hero-side {
-                display: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .feature-row {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 2rem 1.5rem;
-            }
-
-            .feature-empty {
-                display: none;
-            }
-
-            .hero,
-            .cta,
-            .footer {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
-            }
-
-            .footer {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-        }
-    
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFORMATION SYSTEM | Swiss Grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=Space+Grotesk:wght@400;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white:  #FDFDFD;
+      --black:  #050505;
+      --gray:   #888888;
+      --lgray:  #E8E8E8;
+      --red:    #DA291C;
     }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'M PLUS 1p', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-weight: 400;
+      overflow-x: hidden;
     }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
+
+    h1, h2, h3, .nav-logo { font-family: 'Space Grotesk', sans-serif; }
+    .mono { font-family: 'DM Mono', monospace; }
+
+    *:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
+    .reveal.active { opacity: 1; transform: translateX(0); }
+
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
+    .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .header {
+      height: 60px;
+      border-bottom: 1px solid var(--black);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253,253,253,0.96);
+      backdrop-filter: blur(6px);
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      align-items: center;
+      gap: 2rem;
     }
-    </style>
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 0;
+    }
+
+    .nav-center a {
+      display: block;
+      height: 60px;
+      line-height: 60px;
+      padding: 0 1.5rem;
+      text-decoration: none;
+      color: var(--gray);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      border-right: 1px solid var(--lgray);
+      transition: color 0.2s, border-right-color 0.2s;
+    }
+
+    .nav-center a:last-child { border-right: none; }
+    .nav-center a:hover { color: var(--black); }
+
+    .nav-cta {
+      color: var(--red);
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      border: 1px solid var(--red);
+      padding: 0.4rem 1rem;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-cta:hover { background: var(--red); color: var(--white); }
+
+    /* ============================================================
+       PROGRESS BAR
+    ============================================================ */
+    .progress-bar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--red);
+      z-index: 99;
+      transition: width 0.1s linear;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .hero-side {
+      border-right: 1px solid var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-label {
+      transform: rotate(-90deg);
+      transform-origin: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gray);
+      text-transform: uppercase;
+      white-space: nowrap;
+      width: 160px;
+      margin: 0 auto;
+    }
+
+    .hero-index {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+    }
+
+    .hero-main {
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Grid lines decoration */
+    .hero-main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--lgray);
+    }
+
+    .hero-pretitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-pretitle::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 9vw, 8rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-24px);
+      animation: slideIn 0.5s ease 0.1s forwards;
+    }
+
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--lgray);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 55ch;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--lgray);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+    }
+
+    .metric-label { color: var(--gray); letter-spacing: 0.08em; }
+    .metric-value { color: var(--black); font-weight: 500; }
+    .metric-value.red { color: var(--red); }
+
+    /* ============================================================
+       MANIFESTO
+    ============================================================ */
+    .manifesto {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .manifesto-side {
+      border-right: 1px solid var(--black);
+      padding: 4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .manifesto-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gray);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .manifesto-content {
+      padding: 5rem 3rem;
+    }
+
+    .manifesto-content h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    .manifesto-content h2 .red { color: var(--red); }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .manifesto-block p {
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    .manifesto-block .block-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    .features {
+      border-bottom: 1px solid var(--black);
+    }
+
+    .features-header {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .features-header-side {
+      border-right: 1px solid var(--black);
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .features-header-side span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+    }
+
+    .features-header-main {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .features-header-main h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .features-header-main .count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 200px 3fr 2fr;
+      border-top: 1px solid var(--black);
+      transition: background 0.2s;
+    }
+
+    .feature-row:hover { background: rgba(218, 41, 28, 0.03); }
+
+    .feature-index {
+      border-right: 1px solid var(--black);
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .feature-index .idx {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--gray);
+    }
+
+    .feature-index h3 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .feature-text {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--black);
+    }
+
+    .feature-text p { color: var(--gray); line-height: 1.8; }
+
+    .feature-visual {
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Mini bar chart */
+    .mini-chart {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chart-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      width: 70px;
+      flex-shrink: 0;
+    }
+
+    .chart-bar-wrap {
+      flex: 1;
+      height: 4px;
+      background: var(--lgray);
+    }
+
+    .chart-bar {
+      height: 100%;
+      background: var(--black);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.8s ease;
+    }
+
+    .chart-bar.red-bar { background: var(--red); }
+
+    .feature-row.active .chart-bar { transform: scaleX(1); }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    .stats {
+      display: grid;
+      grid-template-columns: 200px repeat(4, 1fr);
+      border-bottom: 1px solid var(--black);
+    }
+
+    .stats-label-col {
+      border-right: 1px solid var(--black);
+      background: var(--red);
+      padding: 4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stats-label-col span {
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .stat-block {
+      border-right: 1px solid var(--black);
+      padding: 3rem 2rem;
+      transition: background 0.2s;
+    }
+
+    .stat-block:last-child { border-right: none; }
+    .stat-block:hover { background: rgba(218,41,28,0.04); }
+
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      display: block;
+      margin-bottom: 0.5rem;
+      counter-reset: none;
+    }
+
+    .stat-unit {
+      color: var(--red);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--gray);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .stat-bar {
+      width: 100%;
+      height: 2px;
+      background: var(--lgray);
+      position: relative;
+    }
+
+    .stat-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--red);
+      animation: growBar 1.5s ease forwards;
+    }
+
+    @keyframes growBar { from { width: 0; } }
+
+    .stat-block:nth-child(2) .stat-bar::after { width: 85%; animation-delay: 0.1s; }
+    .stat-block:nth-child(3) .stat-bar::after { width: 72%; animation-delay: 0.2s; }
+    .stat-block:nth-child(4) .stat-bar::after { width: 94%; animation-delay: 0.3s; }
+    .stat-block:nth-child(5) .stat-bar::after { width: 60%; animation-delay: 0.4s; }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials {
+      border-bottom: 1px solid var(--black);
+    }
+
+    .testimonials-header {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .testimonials-header-side {
+      border-right: 1px solid var(--black);
+      padding: 2rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+    }
+
+    .testimonials-header-main {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .testimonials-header-main h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonial-card {
+      border-right: 1px solid var(--black);
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .testimonial-card:last-child { border-right: none; }
+    .testimonial-card:hover { background: rgba(218,41,28,0.03); }
+
+    .testimonial-rating {
+      display: flex;
+      gap: 2px;
+    }
+
+    .rating-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+    }
+
+    .rating-dot.empty { background: var(--lgray); }
+
+    .testimonial-text {
+      color: var(--black);
+      line-height: 1.7;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    .testimonial-meta {
+      border-top: 1px solid var(--lgray);
+      padding-top: 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .meta-index {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--lgray);
+      line-height: 1;
+    }
+
+    .meta-info .name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--black);
+      display: block;
+    }
+
+    .meta-info .role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    .gallery {
+      border-bottom: 1px solid var(--black);
+    }
+
+    .gallery-header {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .gallery-header-side {
+      border-right: 1px solid var(--black);
+      padding: 2rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+    }
+
+    .gallery-header-main {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-header-main h2 { font-size: 1.2rem; font-weight: 700; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+    }
+
+    .gallery-left {
+      border-right: 1px solid var(--black);
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .gallery-left p {
+      color: var(--gray);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .gallery-item {
+      border-left: 1px solid var(--black);
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item-fill {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover .gallery-item-fill { transform: scale(1.04); }
+
+    .gallery-item:nth-child(1) .gallery-item-fill { background: var(--lgray); }
+    .gallery-item:nth-child(2) .gallery-item-fill { background: #D0D0D0; }
+    .gallery-item:nth-child(3) .gallery-item-fill { background: #C0C0C0; }
+
+    .gallery-item-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--black);
+      padding: 1rem 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-item-caption { transform: translateY(0); }
+
+    .gallery-caption-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-caption-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .gallery-item-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--black) 1px, transparent 1px),
+        linear-gradient(90deg, var(--black) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.05;
+    }
+
+    .gallery-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 5rem;
+      color: var(--black);
+      opacity: 0.1;
+    }
+
+    /* ============================================================
+       CTA
+    ============================================================ */
+    .cta {
+      display: grid;
+      grid-template-columns: 200px 2fr 1fr;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .cta-side {
+      background: var(--red);
+      border-right: 1px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .cta-side span {
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .cta-main {
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .cta-main h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--black);
+    }
+
+    .cta-main h2 .red { color: var(--red); }
+
+    .cta-btn {
+      display: inline-block;
+      border: 1px solid var(--black);
+      color: var(--black);
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.15s, color 0.15s;
+      width: fit-content;
+    }
+
+    .cta-btn:hover { background: var(--black); color: var(--white); }
+
+    .cta-form {
+      padding: 5rem 3rem;
+    }
+
+    .cta-form h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--black);
+      background: transparent;
+      padding: 0.5rem 0;
+      font-family: 'M PLUS 1p', sans-serif;
+      font-size: 0.85rem;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus { border-color: var(--red); }
+    .form-input::placeholder { color: var(--lgray); }
+
+    .form-submit {
+      margin-top: 2rem;
+      width: 100%;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 0.9rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .form-submit:hover { background: var(--black); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      display: grid;
+      grid-template-columns: 200px repeat(4, 1fr);
+      border-bottom: 2px solid var(--black);
+    }
+
+    .footer-brand-col {
+      border-right: 1px solid var(--black);
+      padding: 4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.01em;
+    }
+
+    .footer-brand-col p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .footer-col {
+      border-right: 1px solid var(--black);
+      padding: 4rem 2rem;
+    }
+
+    .footer-col:last-child { border-right: none; }
+
+    .footer-col-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--lgray);
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a {
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.8rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-col ul li a::before {
+      content: '';
+      width: 12px;
+      height: 1px;
+      background: var(--lgray);
+      transition: background 0.2s, width 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--black); }
+    .footer-col ul li a:hover::before { background: var(--red); width: 18px; }
+
+    .footer-bottom {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 2rem;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--lgray);
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+    }
+
+    .footer-bottom .location {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      text-align: right;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1200px) {
+      .stats { grid-template-columns: 200px repeat(2, 1fr); }
+      .stats .stat-block:nth-child(4) { border-bottom: 1px solid var(--black); }
+      .stats .stat-block:nth-child(5) { border-bottom: 1px solid var(--black); }
+      .gallery-grid { grid-template-columns: 200px repeat(2, 1fr); }
+      .footer { grid-template-columns: 200px 1fr 1fr; }
+      .footer-col:nth-child(4), .footer-col:nth-child(5) { border-top: 1px solid var(--black); }
+    }
+
+    @media (max-width: 1024px) {
+      .header { grid-template-columns: 1fr auto; }
+      .nav-center { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-side { display: none; }
+      .hero-main { padding: 4rem 2rem; }
+      .manifesto { grid-template-columns: 1fr; }
+      .manifesto-side { display: none; }
+      .manifesto-content { padding: 4rem 2rem; }
+      .features-header { grid-template-columns: 1fr; }
+      .features-header-side { display: none; }
+      .feature-row { grid-template-columns: 100px 1fr; }
+      .feature-visual { display: none; }
+      .cta { grid-template-columns: 1fr; }
+      .cta-side { display: none; }
+      .cta-main { border-right: none; border-bottom: 1px solid var(--black); }
+      .gallery-header { grid-template-columns: 1fr; }
+      .gallery-header-side { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .gallery-left { display: none; }
+      .testimonials-header { grid-template-columns: 1fr; }
+      .testimonials-header-side { display: none; }
+      .footer { grid-template-columns: 1fr 1fr; }
+      .footer-brand-col { border-right: none; grid-column: span 2; border-bottom: 1px solid var(--black); }
+      .footer-bottom { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 4rem; }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .manifesto-grid { grid-template-columns: 1fr; }
+      .feature-row { grid-template-columns: 1fr; }
+      .feature-index { border-right: none; border-bottom: 1px solid var(--lgray); padding: 2rem; }
+      .feature-text { border-right: none; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stats-label-col { display: none; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card { border-right: none; border-bottom: 1px solid var(--black); }
+      .testimonial-card:last-child { border-bottom: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(2) { border-left: none; }
+      .gallery-item:nth-child(3) { grid-column: span 2; border-left: none; }
+      .footer { grid-template-columns: 1fr; }
+      .footer-brand-col { grid-column: span 1; }
+      .footer-col { border-right: none; border-top: 1px solid var(--lgray); }
+      .footer-bottom { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <nav class="header" aria-label="メインナビゲーション">
-        <div class="nav-logo">NEUE FORMAT</div>
-        <a href="#" class="nav-cta">GET STARTED</a>
-    </nav>
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progress-bar"></div>
 
-    <main class="grid-container">
+  <!-- HEADER -->
+  <nav class="header" aria-label="メインナビゲーション">
+    <a href="#" class="nav-logo">NEUE FORMAT</a>
+    <div class="nav-center">
+      <a href="#manifesto">MANIFESTO</a>
+      <a href="#principles">PRINCIPLES</a>
+      <a href="#work">WORK</a>
+      <a href="#voices">VOICES</a>
+    </div>
+    <a href="#contact" class="nav-cta">GET STARTED</a>
+  </nav>
 
-        <!-- 2. HERO -->
-        <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-            <div class="hero-side">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-                <div class="hero-label">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>INTERNATIONAL STYLE.1950</div>
-            </div>
-            <div class="hero-main">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-                <h1>STRICT GRID<br>HIGH CONTRAST</h1>
-                <div class="hero-divider">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div></div>
-                <p>数学的なグリッドシステムと極端なフォントサイズの対比により構成される、スイス・スタイルのタイポグラフィの美学。情報は装飾ではなく、構造として提示されます。</p>
-            </div>
-        </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-side">
+      <div class="hero-label">INTERNATIONAL STYLE. 1950–PRESENT</div>
+      <div class="hero-index">
+        <div class="mono" style="font-size:0.6rem; letter-spacing:0.1em; color:var(--gray);">001 / 006</div>
+      </div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-pretitle reveal">INFORMATION DESIGN SYSTEM</div>
+      <h1>STRICT<br>GRID<br>HIGH<br>CONTRAST</h1>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom reveal-up">
+        <p class="hero-desc">
+          数学的なグリッドシステムと極端なフォントサイズの対比により構成される、
+          スイス・スタイルのタイポグラフィの美学。情報は装飾ではなく、構造として提示されます。
+          余白は空きではなく、意図的な構成要素です。
+        </p>
+        <div class="hero-metrics">
+          <div class="metric-row">
+            <span class="metric-label">STYLE</span>
+            <span class="metric-value">SWISS INTL.</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">GRID</span>
+            <span class="metric-value">12-COL</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">TYPEFACE</span>
+            <span class="metric-value">GROTESQUE</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">ACCENT</span>
+            <span class="metric-value red">DA291C</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- 3. FEATURES -->
-        <section class="features">
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="manifesto">
+    <div class="manifesto-side">
+      <div class="manifesto-label">/ MANIFESTO</div>
+    </div>
+    <div class="manifesto-content reveal">
+      <h2>Design is not<br>decoration.<br>Design is <span class="red">communication.</span></h2>
+      <div class="manifesto-grid">
+        <div class="manifesto-block">
+          <div class="block-title">01. Objectivity</div>
+          <p>主観的な感情表現を排除し、情報を客観的かつ正確に伝達することが最優先課題です。美しさは機能性の副産物であり、目的ではありません。</p>
+        </div>
+        <div class="manifesto-block">
+          <div class="block-title">02. Hierarchy</div>
+          <p>情報の階層は、色彩ではなくサイズとウェイトのコントラストのみで表現されます。読者の視線は制御され、設計された経路を辿ります。</p>
+        </div>
+        <div class="manifesto-block">
+          <div class="block-title">03. Grid</div>
+          <p>すべての要素は数学的なグリッドシステムに従い配置されます。グリッドは見えないが、その存在はページ全体に秩序と緊張をもたらします。</p>
+        </div>
+        <div class="manifesto-block">
+          <div class="block-title">04. Restraint</div>
+          <p>少ない要素で多くを語ること。一つの色、一つのフォントファミリー、限られたサイズ変化のみを使い、表現の幅を最大化します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="feature-row">
-                <div class="feature-meta">
-                    <span class="label">01. PRINCIPLE</span>
-                    <h2>Objective Clarity</h2>
-                </div>
-                <div class="feature-text">
-                    <p>主観的な感情を排除し、情報を客観的かつ明確に伝達することを目的としています。過度な装飾は情報のノイズとみなされ、徹底的に削ぎ落とされます。</p>
-                </div>
-                <div class="feature-empty"></div>
-            </div>
+  <!-- FEATURES -->
+  <section class="features" id="principles">
+    <div class="features-header">
+      <div class="features-header-side"><span>/ PRINCIPLES</span></div>
+      <div class="features-header-main">
+        <h2>Core Design Principles</h2>
+        <div class="count mono">03 ENTRIES</div>
+      </div>
+    </div>
 
-            <div class="feature-row">
-                <div class="feature-meta">
-                    <span class="label">02. PRINCIPLE</span>
-                    <h2>Asymmetric Balance</h2>
-                </div>
-                <div class="feature-text">
-                    <p>均等割りや中央揃えを避け、アシンメトリー（非対称）な配置によって紙面・画面に緊張感と動的なリズムを生み出します。余白は空きスペースではなく、構成要素の一部です。</p>
-                </div>
-                <div class="feature-empty"></div>
-            </div>
+    <div class="feature-row reveal">
+      <div class="feature-index">
+        <span class="idx">01. PRINCIPLE</span>
+        <h3>Objective Clarity</h3>
+      </div>
+      <div class="feature-text">
+        <p>主観的な感情を排除し、情報を客観的かつ明確に伝達することを目的としています。過度な装飾は情報のノイズとみなされ、徹底的に削ぎ落とされます。視覚的な混乱は認知コストを増加させる。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="mini-chart">
+          <div class="chart-row">
+            <div class="chart-label">Clarity</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.1s" data-width="0.92"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Noise</div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="transition-delay:0.2s" data-width="0.08"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Function</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.3s" data-width="1.0"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div class="feature-row">
-                <div class="feature-meta">
-                    <span class="label">03. PRINCIPLE</span>
-                    <h2>Sans-serif Only</h2>
-                </div>
-                <div class="feature-text">
-                    <p>装飾のないサンセリフ体を使用し、フォントファミリーを極限まで制限します。情報の階層は、色ではなくサイズとウェイト（太さ）のコントラストのみで表現します。</p>
-                </div>
-                <div class="feature-empty"></div>
-            </div>
+    <div class="feature-row reveal">
+      <div class="feature-index">
+        <span class="idx">02. PRINCIPLE</span>
+        <h3>Asymmetric Balance</h3>
+      </div>
+      <div class="feature-text">
+        <p>均等割りや中央揃えを避け、アシンメトリーな配置によって画面に緊張感と動的なリズムを生み出します。余白は空きスペースではなく、構成要素の一部です。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="mini-chart">
+          <div class="chart-row">
+            <div class="chart-label">Tension</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.1s"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Rhythm</div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="transition-delay:0.2s"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Space</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.3s"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        </section>
+    <div class="feature-row reveal">
+      <div class="feature-index">
+        <span class="idx">03. PRINCIPLE</span>
+        <h3>Sans-serif Only</h3>
+      </div>
+      <div class="feature-text">
+        <p>装飾のないサンセリフ体を使用し、フォントファミリーを極限まで制限します。情報の階層は、色ではなくサイズとウェイトのコントラストのみで表現します。フォントは声であり、声は一つで十分です。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="mini-chart">
+          <div class="chart-row">
+            <div class="chart-label">Readability</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.1s"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Typefaces</div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="transition-delay:0.2s;width:8%"></div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Contrast</div>
+            <div class="chart-bar-wrap"><div class="chart-bar red-bar" style="transition-delay:0.3s"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- 4. CTA -->
-        <section class="cta">
-            <h2>REQUEST DOCUMENTATION</h2>
-            <a href="#" class="cta-btn" role="button" aria-label="ドキュメントを請求する">VIEW GUIDELINES</a>
-        </section>
+  <!-- STATS -->
+  <section class="stats reveal-up">
+    <div class="stats-label-col">
+      <span>/ METRICS</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">1950<span class="stat-unit">.</span></span>
+      <span class="stat-label">Origin Year</span>
+      <div class="stat-bar"></div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">12<span class="stat-unit">col</span></span>
+      <span class="stat-label">Grid System</span>
+      <div class="stat-bar"></div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">01<span class="stat-unit">px</span></span>
+      <span class="stat-label">Border Weight</span>
+      <div class="stat-bar"></div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">∞<span class="stat-unit">.</span></span>
+      <span class="stat-label">Principles</span>
+      <div class="stat-bar"></div>
+    </div>
+  </section>
 
-        <!-- 5. FOOTER -->
-        <footer class="footer">
-            <div>&copy; 2026 INTERNATIONAL TYPOGRAPHIC STYLE.</div>
-            <div>ZÜRICH, CH</div>
-        </footer>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="voices">
+    <div class="testimonials-header">
+      <div class="testimonials-header-side">/ CLIENT FEEDBACK</div>
+      <div class="testimonials-header-main">
+        <h2>From Our Clients</h2>
+        <div class="mono" style="font-size:0.65rem;color:var(--gray);">03 ENTRIES</div>
+      </div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-rating">
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+        </div>
+        <p class="testimonial-text">
+          「余白の使い方に最初は戸惑いました。しかし、読者の視線が自然に誘導されていることに気づき、
+          これほど計算されたデザインシステムがあるとは思っていませんでした。」
+        </p>
+        <div class="testimonial-meta">
+          <div class="meta-index">01</div>
+          <div class="meta-info">
+            <span class="name">Kobayashi T.</span>
+            <span class="role">EDITORIAL DESIGNER</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-rating">
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot empty"></div>
+        </div>
+        <p class="testimonial-text">
+          「グリッドシステムを導入してから、チーム全員のデザインの質が均一化されました。
+          一つのルールに従うことで、かえって創造性が解放された感があります。」
+        </p>
+        <div class="testimonial-meta">
+          <div class="meta-index">02</div>
+          <div class="meta-info">
+            <span class="name">Tanaka M.</span>
+            <span class="role">ART DIRECTOR</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-rating">
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+          <div class="rating-dot"></div>
+        </div>
+        <p class="testimonial-text">
+          「スイス・スタイルは時代を超えます。1950年代のポスターが今見ても古くないのと同様、
+          このシステムで作ったものは10年後も機能しているはずです。」
+        </p>
+        <div class="testimonial-meta">
+          <div class="meta-index">03</div>
+          <div class="meta-info">
+            <span class="name">Yamada R.</span>
+            <span class="role">BRAND STRATEGIST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <!-- GALLERY -->
+  <section class="gallery" id="work">
+    <div class="gallery-header">
+      <div class="gallery-header-side">/ SELECTED WORK</div>
+      <div class="gallery-header-main">
+        <h2>Recent Projects</h2>
+        <div class="mono" style="font-size:0.65rem;color:var(--gray);">03 FEATURED</div>
+      </div>
+    </div>
+    <div class="gallery-grid reveal-up">
+      <div class="gallery-left">
+        <p>厳格なグリッドシステムと高いコントラストによって構成されたビジュアル作品。構造そのものが語る、情報デザインの実践例。</p>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-fill"></div>
+        <div class="gallery-item-grid-bg"></div>
+        <div class="gallery-center-text">A</div>
+        <div class="gallery-item-caption">
+          <span class="gallery-caption-label">01. TYPOGRAPHY</span>
+          <div class="gallery-caption-title">Annual Report 2025</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-fill"></div>
+        <div class="gallery-item-grid-bg"></div>
+        <div class="gallery-center-text">B</div>
+        <div class="gallery-item-caption">
+          <span class="gallery-caption-label">02. IDENTITY</span>
+          <div class="gallery-caption-title">Corporate Identity System</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-fill"></div>
+        <div class="gallery-item-grid-bg"></div>
+        <div class="gallery-center-text">C</div>
+        <div class="gallery-item-caption">
+          <span class="gallery-caption-label">03. PUBLICATION</span>
+          <div class="gallery-caption-title">Design Journal Issue 12</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + FORM -->
+  <section class="cta" id="contact">
+    <div class="cta-side">
+      <span>/ REQUEST</span>
+    </div>
+    <div class="cta-main reveal">
+      <h2>Request<br><span class="red">Documentation.</span></h2>
+      <div>
+        <p style="color:var(--gray); margin-bottom:2rem; max-width:45ch;">
+          スイス・スタイルのデザインシステム資料をご希望の方は、こちらからリクエストください。
+          グリッドシステム、タイポグラフィルール、カラーシステムを含む完全なガイドラインをお送りします。
+        </p>
+        <a href="#" class="cta-btn">VIEW GUIDELINES →</a>
+      </div>
+    </div>
+    <div class="cta-form reveal-up">
+      <h3>/ SEND INQUIRY</h3>
+      <div class="form-group">
+        <label class="form-label">FULL NAME</label>
+        <input class="form-input" type="text" placeholder="Yamada Taro">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ORGANIZATION</label>
+        <input class="form-input" type="text" placeholder="Company Name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">EMAIL</label>
+        <input class="form-input" type="email" placeholder="name@company.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">MESSAGE</label>
+        <input class="form-input" type="text" placeholder="Your inquiry">
+      </div>
+      <button class="form-submit">SUBMIT INQUIRY →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer">
+      <div class="footer-brand-col">
+        <div class="footer-logo">NEUE FORMAT</div>
+        <p>国際的なタイポグラフィスタイルに基づく情報デザインシステム。すべての要素に意図があり、すべての余白に意味があります。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="#">Identity Design</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Guidelines</a></li>
+          <li><a href="#">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Work</div>
+        <ul>
+          <li><a href="#">Selected Projects</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">Process</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Studio</div>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Manifesto</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Imprint</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="mono" style="font-size:0.6rem;color:var(--gray);">&copy; 2026 INTERNATIONAL TYPOGRAPHIC STYLE.</div>
+      <div class="mono" style="font-size:0.6rem;color:var(--lgray);">SYSTEM VERSION 3.2.1</div>
+      <div class="location">ZÜRICH, CH — TOKYO, JP</div>
+    </div>
+  </footer>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Trigger chart bars if feature row
+          if (entry.target.classList.contains('feature-row')) {
+            entry.target.querySelectorAll('.chart-bar').forEach(bar => {
+              bar.style.transform = 'scaleX(1)';
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger feature rows
+    document.querySelectorAll('.feature-row').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.12}s`;
+    });
+
+    // Stagger testimonials
+    document.querySelectorAll('.testimonial-card').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
 </body>
-
 </html>

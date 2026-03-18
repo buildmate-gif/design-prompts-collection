@@ -6,26 +6,19 @@
   <title>ARCHITECTURAL FOUNDATIONS | Industrial Brutalism</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Syne:wght@700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base Variables */
     :root {
       --color-bg: #E0E0E0;
       --color-dark: #1C1C1C;
       --color-accent: #FFD700;
-      --border-width-thin: 2px;
-      --border-width-mid: 3px;
-      --border-width-thick: 4px;
-      --space-sm: 2rem;
-      --space-md: 4rem;
-      --space-lg: 8rem;
+      --color-mid: #A0A0A0;
+      --border-thin: 2px solid var(--color-dark);
+      --border-mid: 3px solid var(--color-dark);
+      --border-thick: 4px solid var(--color-dark);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--color-bg);
@@ -34,244 +27,1240 @@
       font-weight: 500;
       line-height: 1.6;
       overflow-x: hidden;
+      cursor: crosshair;
     }
 
-    h1, h2, .number-label {
+    h1, h2, h3, .number-label, .mono {
       font-family: 'Syne', sans-serif;
       text-transform: uppercase;
       line-height: 1.1;
     }
 
-    /* Accessibility Focus */
-    *:focus-visible {
-      outline: 3px solid var(--color-accent);
-      outline-offset: 4px;
+    .mono-text { font-family: 'Share Tech Mono', monospace; }
+
+    *:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+
+    /* ============================================================
+       NOISE TEXTURE OVERLAY
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* ============================================================
+       HEADER / NAV
+    ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-bg);
+      border-bottom: var(--border-thick);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 2rem;
+      height: 60px;
     }
 
-    .fade-in {
-      animation: fadeInUp 0.8s ease forwards;
-      opacity: 0;
-    }
-
-    /* 1. HERO Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: var(--space-md);
-      border: var(--border-width-thick) solid var(--color-dark);
-      margin: var(--space-sm);
-    }
-    
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 7rem);
+    .header-logo {
+      font-family: 'Syne', sans-serif;
       font-weight: 800;
-      letter-spacing: -0.05em;
-      margin-bottom: var(--space-sm);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
     }
 
-    .hero p {
-      align-self: flex-end;
-      max-width: 400px;
-      font-size: 1.1rem;
+    .header-nav {
+      display: flex;
+      gap: 0;
+      border-left: var(--border-thin);
+      border-right: var(--border-thin);
+    }
+
+    .header-nav a {
+      display: block;
+      padding: 0 1.5rem;
+      height: 60px;
+      line-height: 60px;
+      text-decoration: none;
+      color: var(--color-dark);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      border-right: var(--border-thin);
+      transition: background 0.1s;
+    }
+
+    .header-nav a:last-child { border-right: none; }
+    .header-nav a:hover { background: var(--color-accent); }
+
+    .header-cta {
       text-align: right;
     }
 
-    /* 2. FEATURES Section */
-    .features {
-      padding: var(--space-lg) var(--space-sm);
-      border-top: var(--border-width-mid) solid var(--color-dark);
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 0; /* borders will overlap visually */
-    }
-
-    .feature-card {
-      border: var(--border-width-thin) solid var(--color-dark);
-      padding: var(--space-md) var(--space-sm);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s ease;
-      background-color: var(--color-bg);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .feature-card .number-label {
-      font-size: clamp(4rem, 10vw, 8rem);
-      font-weight: 800;
-      color: var(--color-dark);
-      margin-bottom: var(--space-sm);
-      align-self: flex-start;
-    }
-
-    .feature-card h2 {
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--color-dark);
-      padding-bottom: 0.5rem;
-    }
-
-    /* 3. CTA Section */
-    .cta-container {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-    }
-
-    .cta-block {
-      display: block;
-      width: 100%;
-      background-color: var(--color-accent);
+    .header-cta a {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
       color: var(--color-dark);
       text-decoration: none;
-      text-align: center;
-      padding: var(--space-lg) var(--space-sm);
-      cursor: pointer;
-      border-top: var(--border-width-mid) solid var(--color-dark);
-      transition: background-color 0.2s ease, color 0.2s ease;
+      border: var(--border-thin);
+      padding: 0.4rem 1rem;
+      transition: background 0.1s, color 0.1s;
     }
+    .header-cta a:hover { background: var(--color-dark); color: var(--color-accent); }
 
-    .cta-block:hover {
-      background-color: var(--color-dark);
+    /* ============================================================
+       TICKER TAPE
+    ============================================================ */
+    .ticker {
+      background: var(--color-dark);
       color: var(--color-accent);
+      overflow: hidden;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      border-bottom: var(--border-thick);
+      white-space: nowrap;
     }
 
-    .cta-block h2 {
-      font-size: clamp(2rem, 5vw, 4rem);
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 30s linear infinite;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .ticker-track span {
+      padding: 0 3rem;
+    }
+
+    .ticker-track span::before {
+      content: '▶ ';
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 4rem 2rem 2rem;
+      border: var(--border-thick);
+      margin: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--color-dark) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-dark) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.06;
+    }
+
+    .hero-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--color-mid);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 .accent-word {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 3px var(--color-dark);
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: var(--border-thin);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-desc {
+      padding: 2rem 2rem 0 0;
+      border-right: var(--border-thin);
+      font-size: 1rem;
+    }
+
+    .hero-meta {
+      padding: 2rem 0 0 2rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(28,28,28,0.2);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-meta-item .val { color: var(--color-mid); }
+
+    /* Animated accent bar */
+    .accent-bar {
+      height: 6px;
+      background: var(--color-accent);
+      width: 0;
+      animation: growBar 1.2s ease 0.5s forwards;
+      margin-bottom: 2rem;
+    }
+
+    @keyframes growBar {
+      to { width: 100%; }
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-top: var(--border-thick);
+      margin: 0 2rem;
+    }
+
+    .about-label-col {
+      border-right: var(--border-thin);
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .section-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      color: var(--color-mid);
+    }
+
+    .about-big-num {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-dark);
+      letter-spacing: -0.05em;
+    }
+
+    .about-content {
+      padding: 4rem 3rem;
+    }
+
+    .about-content h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      border-bottom: var(--border-thin);
+      padding-bottom: 1rem;
+    }
+
+    .about-content p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      max-width: 60ch;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 3rem;
+      border: var(--border-thin);
+    }
+
+    .about-stat {
+      padding: 2rem;
+      border-right: var(--border-thin);
+      border-bottom: var(--border-thin);
+    }
+
+    .about-stat:nth-child(2n) { border-right: none; }
+    .about-stat:nth-child(3), .about-stat:nth-child(4) { border-bottom: none; }
+
+    .about-stat .big-val {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .about-stat .big-val.outlined {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-dark);
+    }
+
+    .about-stat .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--color-mid);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    .features {
+      border-top: var(--border-thick);
+      margin: 0 2rem;
+    }
+
+    .features-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 2rem 2rem 0;
+      border-bottom: var(--border-thin);
+    }
+
+    .features-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       font-weight: 800;
       letter-spacing: -0.02em;
     }
 
-    /* 4. FOOTER */
-    .footer {
-      border-top: var(--border-width-mid) solid var(--color-dark);
-      padding: var(--space-sm);
-      text-align: center;
+    .features-header .count {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--color-mid);
     }
 
-    .footer p {
-      font-size: 0.8rem;
+    .features-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    .feature-card {
+      border-right: var(--border-thin);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.15s;
+    }
+
+    .feature-card:last-child { border-right: none; }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover { background: rgba(255,215,0,0.06); }
+    .feature-card:hover::after { transform: scaleX(1); }
+
+    .feature-card .number-label {
+      font-size: clamp(5rem, 10vw, 8rem);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-dark);
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .feature-card h3 {
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-bottom: var(--border-thin);
+      padding-bottom: 0.5rem;
+    }
+
+    /* ============================================================
+       PROCESS SECTION
+    ============================================================ */
+    .process {
+      border-top: var(--border-thick);
+      margin: 0 2rem;
+      padding: 4rem 2rem;
+    }
+
+    .process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      border-bottom: var(--border-thin);
+      padding-bottom: 2rem;
+    }
+
+    .process-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: var(--border-thin);
+    }
+
+    .process-step {
+      padding: 2.5rem 2rem;
+      border-right: var(--border-thin);
+      position: relative;
+      transition: background 0.15s;
+    }
+
+    .process-step:last-child { border-right: none; }
+    .process-step:hover { background: var(--color-dark); color: var(--color-bg); }
+    .process-step:hover .step-num { color: var(--color-accent); -webkit-text-stroke-color: var(--color-accent); }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-dark);
+      display: block;
+      margin-bottom: 1rem;
+      transition: color 0.15s, -webkit-text-stroke-color 0.15s;
+    }
+
+    .step-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
     }
 
-    /* Responsive */
+    .step-arrow {
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: var(--color-bg);
+      border: var(--border-thin);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      z-index: 1;
+    }
+
+    .process-step:last-child .step-arrow { display: none; }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials {
+      border-top: var(--border-thick);
+      background: var(--color-dark);
+      color: var(--color-bg);
+      margin: 0 2rem;
+      padding: 4rem 2rem;
+    }
+
+    .testimonials-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid rgba(224,224,224,0.2);
+      padding-bottom: 1.5rem;
+    }
+
+    .testimonials-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .testimonials-header .label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(224,224,224,0.5);
+      letter-spacing: 0.15em;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .testimonial-card {
+      border: 1px solid rgba(224,224,224,0.15);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .testimonial-card:hover { border-color: var(--color-accent); }
+
+    .quote-mark {
+      font-family: 'Syne', sans-serif;
+      font-size: 5rem;
+      line-height: 0.8;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: rgba(224,224,224,0.85);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(224,224,224,0.15);
+      padding-top: 1.5rem;
+    }
+
+    .author-icon {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: rgba(224,224,224,0.7);
+    }
+
+    /* ============================================================
+       GALLERY / WORKS
+    ============================================================ */
+    .gallery {
+      border-top: var(--border-thick);
+      margin: 0 2rem;
+    }
+
+    .gallery-header {
+      padding: 2rem;
+      border-bottom: var(--border-thin);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .gallery-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+    }
+
+    .gallery-item {
+      border-right: var(--border-thin);
+      border-bottom: var(--border-thin);
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(3n) { border-right: none; }
+
+    .gallery-item-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(28,28,28,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .gallery-item:hover .gallery-item-inner { opacity: 1; }
+
+    .gallery-item-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG pattern placeholders */
+    .gallery-item:nth-child(1) .gallery-item-bg { background: #C8C0B0; }
+    .gallery-item:nth-child(2) .gallery-item-bg { background: #B0B8C0; }
+    .gallery-item:nth-child(3) .gallery-item-bg { background: #C0B8B0; }
+    .gallery-item:nth-child(4) .gallery-item-bg { background: #B8C0B0; }
+    .gallery-item:nth-child(5) .gallery-item-bg { background: #C0B0B8; }
+    .gallery-item:nth-child(6) .gallery-item-bg { background: #B8B0C0; }
+
+    .gallery-item-bg svg {
+      width: 40%;
+      height: 40%;
+      opacity: 0.3;
+    }
+
+    .gallery-item-label {
+      color: white;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       CTA
+    ============================================================ */
+    .cta-section {
+      border-top: var(--border-thick);
+      margin: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cta-left {
+      background: var(--color-accent);
+      padding: 5rem 3rem;
+      border-right: var(--border-thick);
+    }
+
+    .cta-left h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--color-dark);
+      color: var(--color-accent);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      padding: 1rem 2rem;
+      border: 3px solid var(--color-dark);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .cta-btn:hover {
+      background: transparent;
+      color: var(--color-dark);
+    }
+
+    .cta-right {
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cta-right h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-field {
+      border: var(--border-thin);
+      background: transparent;
+      padding: 0.75rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--color-dark);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .form-field::placeholder { color: var(--color-mid); }
+    .form-field:focus { border-color: var(--color-accent); background: rgba(255,215,0,0.05); }
+
+    .form-submit {
+      background: var(--color-dark);
+      color: var(--color-bg);
+      border: var(--border-thin);
+      padding: 0.75rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      cursor: crosshair;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .form-submit:hover {
+      background: var(--color-accent);
+      color: var(--color-dark);
+      border-color: var(--color-accent);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      border-top: var(--border-thick);
+      margin: 0 2rem 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    .footer-brand {
+      padding: 3rem 3rem 3rem 2rem;
+      border-right: var(--border-thin);
+    }
+
+    .footer-brand .logo-big {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--color-mid);
+      max-width: 30ch;
+    }
+
+    .footer-col {
+      padding: 3rem 2rem;
+      border-right: var(--border-thin);
+    }
+
+    .footer-col:last-child { border-right: none; }
+
+    .footer-col-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--color-mid);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: var(--color-dark);
+      font-size: 0.85rem;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-col ul li a::before {
+      content: '→';
+      font-size: 0.75rem;
+      color: var(--color-mid);
+    }
+
+    .footer-col ul li a:hover { color: var(--color-mid); }
+
+    .footer-bottom {
+      margin: 0 2rem;
+      border-top: var(--border-thin);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--color-mid);
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .feature-card:nth-child(1) { grid-column: span 2; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .cta-section { grid-template-columns: 1fr; }
+      .cta-left { border-right: none; border-bottom: var(--border-thick); }
+      .footer { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; border-right: none; border-bottom: var(--border-thin); }
+    }
+
     @media (max-width: 768px) {
-      .features {
-        grid-template-columns: 1fr 1fr;
-      }
-      .feature-card:first-child {
-        grid-column: span 2;
-      }
-      .hero {
-        margin: 1rem;
-        padding: var(--space-sm);
-      }
-      .hero p {
-        text-align: left;
-        align-self: flex-start;
-        margin-top: var(--space-sm);
-      }
+      .site-header { grid-template-columns: 1fr 1fr; }
+      .header-nav { display: none; }
+      .about { grid-template-columns: 1fr; }
+      .about-label-col { border-right: none; border-bottom: var(--border-thin); padding: 2rem; flex-direction: row; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(2n) { border-right: none; }
+      .gallery-item:nth-child(3n) { border-right: var(--border-thin); }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .hero-desc { border-right: none; padding-right: 0; border-bottom: var(--border-thin); }
+      .hero-meta { padding-left: 0; }
     }
 
     @media (max-width: 480px) {
-      .features {
-        grid-template-columns: 1fr;
-      }
-      .feature-card:first-child {
-        grid-column: span 1;
-      }
+      .hero { margin: 1rem; padding: 2rem 1.5rem; }
+      .about, .features, .testimonials, .gallery, .cta-section, .footer { margin-left: 1rem; margin-right: 1rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card:nth-child(1) { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-stat:nth-child(2n) { border-right: var(--border-thin); }
+      .about-stat:nth-child(odd) { border-right: none; }
+      .process-steps { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { border-right: none !important; }
+      .footer { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+      .footer-col { border-right: none; }
     }
-  
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
-    </style>
+  </style>
 </head>
 <body>
 
-  <!-- 1. HERO -->
-  <section class="hero fade-in">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-    <h1>Raw Material<br>Structural<br>Integrity</h1>
-    <p>装飾を完全に削ぎ落とし、機能と構造をむき出しにする。<br>これはデザインに対するアンチテーゼであり、本質の探求である。</p>
-  </section>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-logo">A·FNDNS</div>
+    <nav class="header-nav">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#process">Process</a>
+      <a href="#works">Works</a>
+    </nav>
+    <div class="header-cta"><a href="#contact">→ CONTACT</a></div>
+  </header>
 
-  <!-- 2. FEATURES -->
-  <section class="features fade-in" style="animation-delay: 0.2s;">
-    <div class="feature-card">
-      <div class="number-label">01</div>
-      <h2>Exposed Logic</h2>
-      <p>裏側に隠されるべき配管や構造材をあえて露出させることで、システムの動作原理を視覚化します。要素の境界線は曖昧にせず、明確な区切りとして機能します。</p>
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>BRUTALIST DESIGN SYSTEM</span>
+      <span>EXPOSED STRUCTURE</span>
+      <span>FUNCTION OVER FORM</span>
+      <span>ANTI-DECORATIVE PHILOSOPHY</span>
+      <span>RAW MATERIAL INTEGRITY</span>
+      <span>BRUTALIST DESIGN SYSTEM</span>
+      <span>EXPOSED STRUCTURE</span>
+      <span>FUNCTION OVER FORM</span>
+      <span>ANTI-DECORATIVE PHILOSOPHY</span>
+      <span>RAW MATERIAL INTEGRITY</span>
     </div>
-    <div class="feature-card">
-      <div class="number-label">02</div>
-      <h2>Anti Design</h2>
-      <p>ユーザーに媚びない無骨なインターフェース。過度な余白やラウンドコーナーを排除。</p>
-    </div>
-    <div class="feature-card">
-      <div class="number-label">03</div>
-      <h2>Function First</h2>
-      <p>すべてのアクションは直接的でなければなりません。機能美の極限を目指した設計。</p>
-    </div>
-  </section>
-
-  <!-- 3. CTA -->
-  <div class="cta-container fade-in" style="animation-delay: 0.3s;">
-    <a href="#" class="cta-block" role="link" tabindex="0">
-      <h2>INITIALIZE SEQUENCE</h2>
-    </a>
   </div>
 
-  <!-- 4. FOOTER -->
-  <footer class="footer fade-in" style="animation-delay: 0.4s;">
-    <p>&copy; 2026 BRUTALIST ARCHITECTURE. ALL RIGHTS RESERVED.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid" aria-hidden="true"></div>
+    <div>
+      <div class="hero-tag">// SECTION_001 : HERO FRAME — INITIALIZED</div>
+      <div class="accent-bar"></div>
+      <h1>
+        Raw<br>
+        <span class="accent-word">Material</span><br>
+        Integrity
+      </h1>
+    </div>
+    <div class="hero-bottom reveal">
+      <div class="hero-desc">
+        装飾を完全に削ぎ落とし、機能と構造をむき出しにする。<br>
+        これはデザインに対するアンチテーゼであり、本質の探求である。<br>
+        コンクリートは化粧されない。配管は隠されない。
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><span>STATUS</span><span class="val">OPERATIONAL</span></div>
+        <div class="hero-meta-item"><span>VERSION</span><span class="val">v2.4.1</span></div>
+        <div class="hero-meta-item"><span>LAST BUILD</span><span class="val">2026-03-18</span></div>
+        <div class="hero-meta-item"><span>STYLE</span><span class="val">BRUTALISM</span></div>
+        <div class="hero-meta-item"><span>FRAMEWORK</span><span class="val">RAW CSS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about reveal" id="about">
+    <div class="about-label-col">
+      <div class="about-big-num">AB</div>
+      <div class="section-tag">// ABOUT THE SYSTEM</div>
+    </div>
+    <div class="about-content">
+      <h2>Structural<br>Philosophy</h2>
+      <p>
+        ブルータリズムは1950年代の建築運動に端を発し、装飾的な要素を排除し、
+        素材そのものの質感と構造的な誠実さを前面に押し出す思想である。
+        コンクリート、鉄骨、レンガ——これらは隠されるのではなく、むしろ誇示される。
+      </p>
+      <p>
+        Webデザインにおいても同様のアプローチが可能だ。
+        グリッドシステムは地図のように可視化され、ボーダーは壁として機能し、
+        システムの骨格は利用者の目に直接さらされる。
+      </p>
+      <div class="about-grid">
+        <div class="about-stat">
+          <span class="big-val">01</span>
+          <span class="stat-label">Foundation Year</span>
+        </div>
+        <div class="about-stat">
+          <span class="big-val outlined">950s</span>
+          <span class="stat-label">Movement Origin</span>
+        </div>
+        <div class="about-stat">
+          <span class="big-val">03</span>
+          <span class="stat-label">Core Principles</span>
+        </div>
+        <div class="about-stat">
+          <span class="big-val outlined">∞</span>
+          <span class="stat-label">Structural Integrity</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features reveal" id="features">
+    <div class="features-header">
+      <h2>Core Functions</h2>
+      <div class="count mono-text">// 03 PRINCIPLES DEFINED</div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="number-label">01</div>
+        <h3>Exposed Logic</h3>
+        <p>
+          裏側に隠されるべき配管や構造材をあえて露出させることで、
+          システムの動作原理を視覚化します。要素の境界線は曖昧にせず、
+          明確な区切りとして機能します。コードもデザインも、
+          内部構造を隠すことは誠実さの欠如とみなされます。
+        </p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="number-label">02</div>
+        <h3>Anti Design</h3>
+        <p>
+          ユーザーに媚びない無骨なインターフェース。
+          過度な余白やラウンドコーナーを排除。
+          見た目の美しさより、機能の明快さを優先する。
+        </p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="number-label">03</div>
+        <h3>Function First</h3>
+        <p>
+          すべてのアクションは直接的でなければなりません。
+          機能美の極限を目指した設計思想。
+          ボタンはボタンに見え、リンクはリンクに見える。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process reveal" id="process">
+    <div class="process-header">
+      <h2>Build Sequence</h2>
+      <div class="mono-text" style="font-size:0.75rem; color:var(--color-mid); letter-spacing:0.15em;">// INITIALIZE → COMPILE → DEPLOY</div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <span class="step-num">01</span>
+        <div class="step-title">Deconstruct</div>
+        <p style="font-size:0.85rem;">既存の構造を分解し、本質的な要素のみを抽出する。装飾と機能を分離するフェーズ。</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02</span>
+        <div class="step-title">Expose</div>
+        <p style="font-size:0.85rem;">隠されていた骨格を可視化する。グリッド、構造、動作原理をすべてオープンにする。</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03</span>
+        <div class="step-title">Fortify</div>
+        <p style="font-size:0.85rem;">むき出しの構造を強化する。耐荷重に耐える設計、機能的完全性を確保する。</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">04</span>
+        <div class="step-title">Deploy</div>
+        <p style="font-size:0.85rem;">完成したシステムを稼働させる。装飾なき完全性が、最も雄弁に語る。</p>
+        <div class="step-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal" id="testimonials">
+    <div class="testimonials-header">
+      <h2>Client Records</h2>
+      <div class="label">// TESTIMONIALS_LOG v1.0</div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">
+          ブルータリズムの美学は最初は戸惑いましたが、一度その哲学を理解すると、
+          装飾で覆われたデザインには戻れなくなります。構造そのものが語りかけてくる。
+        </p>
+        <div class="testimonial-author">
+          <div class="author-icon">KT</div>
+          <div class="author-name">KIMURA T. / ARCHITECTURAL FIRM</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">
+          システムのロジックがそのまま視覚に変換されている。
+          開発者として、この正直さには心地よさを感じます。
+          すべての境界線が意味を持つ。
+        </p>
+        <div class="testimonial-author">
+          <div class="author-icon">AS</div>
+          <div class="author-name">ARAI S. / SYSTEMS ENGINEER</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">
+          過剰な装飾に疲弊した市場において、この潔さは圧倒的な差別化になります。
+          クライアントに「なぜこんなデザインなのか」を説明する時が一番楽しい。
+        </p>
+        <div class="testimonial-author">
+          <div class="author-icon">MN</div>
+          <div class="author-name">MATSUDA N. / CREATIVE DIRECTOR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery reveal" id="works">
+    <div class="gallery-header">
+      <h2>Work Archive</h2>
+      <div class="mono-text" style="font-size:0.75rem; color:var(--color-mid);">// 006 FILES LOGGED</div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="#1C1C1C" stroke-width="2"/><line x1="10" y1="10" x2="90" y2="90" stroke="#1C1C1C" stroke-width="1"/><line x1="90" y1="10" x2="10" y2="90" stroke="#1C1C1C" stroke-width="1"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_001 / EXPOSED GRID</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#1C1C1C" stroke-width="2"/><circle cx="50" cy="50" r="25" fill="none" stroke="#1C1C1C" stroke-width="1"/><circle cx="50" cy="50" r="10" fill="#1C1C1C"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_002 / CORE SYSTEM</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="#1C1C1C" stroke-width="2"/><polygon points="50,30 75,75 25,75" fill="none" stroke="#1C1C1C" stroke-width="1"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_003 / STRUCTURE</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><rect x="20" y="20" width="25" height="25" fill="#1C1C1C"/><rect x="55" y="20" width="25" height="25" fill="none" stroke="#1C1C1C" stroke-width="2"/><rect x="20" y="55" width="25" height="25" fill="none" stroke="#1C1C1C" stroke-width="2"/><rect x="55" y="55" width="25" height="25" fill="#1C1C1C"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_004 / BLOCK LOGIC</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><line x1="10" y1="50" x2="90" y2="50" stroke="#1C1C1C" stroke-width="3"/><line x1="50" y1="10" x2="50" y2="90" stroke="#1C1C1C" stroke-width="3"/><rect x="30" y="30" width="40" height="40" fill="none" stroke="#FFD700" stroke-width="2"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_005 / AXIS POINT</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">
+          <svg viewBox="0 0 100 100"><rect x="10" y="10" width="35" height="80" fill="none" stroke="#1C1C1C" stroke-width="2"/><rect x="55" y="30" width="35" height="60" fill="#1C1C1C" opacity="0.4"/></svg>
+        </div>
+        <div class="gallery-item-inner"><div class="gallery-item-label">PROJECT_006 / RAW FORM</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + CONTACT -->
+  <section class="cta-section reveal" id="contact">
+    <div class="cta-left">
+      <h2>Initialize<br>Sequence</h2>
+      <p style="margin-bottom:2rem; font-size:0.95rem;">
+        プロジェクトの骨格から共に構築します。<br>装飾は後回しに。まず構造を確立する。
+      </p>
+      <a href="#" class="cta-btn">→ BEGIN PROTOCOL</a>
+    </div>
+    <div class="cta-right">
+      <div>
+        <h3>// SEND MESSAGE</h3>
+        <div class="contact-form">
+          <input class="form-field" type="text" placeholder="NAME // 名前を入力">
+          <input class="form-field" type="email" placeholder="EMAIL // メールアドレス">
+          <input class="form-field" type="text" placeholder="SUBJECT // 件名">
+          <textarea class="form-field" rows="4" placeholder="MESSAGE // メッセージ本文"></textarea>
+          <button class="form-submit">TRANSMIT →</button>
+        </div>
+      </div>
+      <div class="mono-text" style="font-size:0.7rem; color:var(--color-mid); margin-top:2rem; letter-spacing:0.1em;">
+        // ALL FIELDS WILL BE PROCESSED RAW. NO ENCRYPTION.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer reveal">
+      <div class="footer-brand">
+        <span class="logo-big">A·FNDNS</span>
+        <p>構造と機能の純粋な表現。装飾を排除し、骨格そのものをデザインとする建築哲学を、デジタル空間に実装します。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#works">Works</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">System</div>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Style Guide</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 BRUTALIST ARCHITECTURE. ALL RIGHTS RESERVED.</p>
+      <p class="mono-text">BUILD #2026.03.18-001</p>
+    </div>
   </footer>
 
+  <script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Stagger child reveals
+    document.querySelectorAll('.features-grid .feature-card, .process-steps .process-step').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.12}s`;
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
 </body>
 </html>

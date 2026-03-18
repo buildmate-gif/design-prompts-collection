@@ -1,330 +1,1137 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breathable Space | Organic Minimal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Zen+Old+Mincho:wght@400&display=swap"
-        rel="stylesheet">
-    <style>
-        /* Reset & Base Variables */
-        :root {
-            --color-bg: #FAF7F2;
-            --color-text-main: #4A3B32;
-            --color-text-sub: #8A9A86;
-            --color-border: #D4CDC4;
-            --color-accent: #C87965;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--color-bg);
-            color: var(--color-text-main);
-            font-family: 'Zen Old Mincho', serif;
-            font-weight: 400;
-            line-height: 2.2;
-            letter-spacing: 0.08em;
-            overflow-x: hidden;
-        }
-
-        /* Accessibility Focus */
-        *:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 4px;
-        }
-
-        /* Layout Wrapper */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Scroll Animation Class */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 1. HERO Section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 12rem 2rem 8rem 2rem;
-        }
-
-        .hero-container {
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-style: italic;
-            font-weight: 400;
-            line-height: 1.2;
-            width: 60%;
-            margin-bottom: 2rem;
-        }
-
-        .hero p {
-            margin-left: clamp(2rem, 30%, 20rem);
-            max-width: 60ch;
-            color: var(--color-text-sub);
-        }
-
-        /* 2. FEATURES Section */
-        .features {
-            padding: 8rem 0;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-
-        .feature-item {
-            padding: 3rem 0;
-            border-bottom: 1px solid var(--color-border);
-            transition: color 0.3s ease;
-        }
-
-        .feature-item:hover {
-            color: var(--color-accent);
-        }
-
-        .feature-item:hover h2 {
-            color: var(--color-accent);
-        }
-
-        .feature-item h2 {
-            font-family: 'Zen Old Mincho', serif;
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-text-sub);
-            margin-bottom: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .feature-item p {
-            max-width: 60ch;
-        }
-
-        /* 3. CTA Section */
-        .cta {
-            background-color: var(--color-accent);
-            color: var(--color-bg);
-            text-align: center;
-            padding: 6rem 2rem;
-            width: 100%;
-        }
-
-        .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-        }
-
-        .cta-link {
-            color: var(--color-bg);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-style: italic;
-            text-decoration: underline;
-            text-underline-offset: 6px;
-            transition: color 0.3s ease;
-            display: inline-block;
-        }
-
-        .cta-link:hover {
-            color: var(--color-text-main);
-        }
-
-        /* 4. FOOTER */
-        .footer {
-            border-top: 1px solid var(--color-border);
-            color: var(--color-text-sub);
-            padding: 4rem 2rem;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .footer p {
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 8rem 2rem 6rem 2rem;
-            }
-
-            .hero h1 {
-                width: 100%;
-            }
-
-            .hero p {
-                margin-left: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 6rem 1.5rem;
-            }
-
-            .container {
-                padding: 0 1.5rem;
-            }
-
-            .features {
-                padding: 6rem 0;
-            }
-
-            .cta {
-                padding: 4rem 1.5rem;
-            }
-        }
-    
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breathable Space | Organic Minimal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Zen+Old+Mincho:wght@400;700&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #FAF7F2;
+      --text:       #4A3B32;
+      --sub:        #8A9A86;
+      --border:     #D4CDC4;
+      --accent:     #C87965;
+      --accent-lt:  #E8B5A7;
+      --green:      #6B8C6E;
+      --cream-dk:   #EDE8E0;
     }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 400;
+      line-height: 2.2;
+      letter-spacing: 0.08em;
+      overflow-x: hidden;
     }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
+
+    em, i { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .mono { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; }
+
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    .reveal-fade {
+      opacity: 0;
+      transition: opacity 1.2s ease;
     }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
+    .reveal-fade.active { opacity: 1; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      transition: background 0.5s ease, backdrop-filter 0.5s ease;
     }
-    </style>
+
+    .site-header.scrolled {
+      background: rgba(250, 247, 242, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .header-nav a {
+      text-decoration: none;
+      color: var(--sub);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      transition: color 0.3s;
+    }
+    .header-nav a:hover { color: var(--text); }
+
+    .header-cta a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      transition: color 0.3s;
+    }
+    .header-cta a:hover { color: var(--text); }
+
+    /* ============================================================
+       ORGANIC SVG BG BLOBS
+    ============================================================ */
+    .blob-bg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 14rem 3rem 8rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--sub);
+      text-transform: lowercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.15;
+      width: 65%;
+      margin-bottom: 3rem;
+    }
+
+    .hero-accent-line {
+      width: 80px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    .hero-desc {
+      margin-left: clamp(2rem, 25%, 18rem);
+      max-width: 55ch;
+      color: var(--sub);
+      font-size: 1rem;
+    }
+
+    /* Floating leaf shape */
+    .hero-leaf {
+      position: absolute;
+      right: 5%;
+      top: 25%;
+      width: 220px;
+      height: 280px;
+      opacity: 0.12;
+      animation: floatLeaf 8s ease-in-out infinite;
+    }
+
+    @keyframes floatLeaf {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(3deg); }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--sub);
+    }
+
+    .scroll-indicator .line {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-indicator .line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0% { left: -100%; }
+      50% { left: 0%; }
+      100% { left: 100%; }
+    }
+
+    .scroll-indicator span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+    }
+
+    /* ============================================================
+       PHILOSOPHY SECTION
+    ============================================================ */
+    .philosophy {
+      background: var(--cream-dk);
+      padding: 8rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .philosophy-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--sub);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      align-self: center;
+    }
+
+    .philosophy-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+    }
+
+    .philosophy-text p {
+      color: var(--sub);
+      max-width: 55ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .philosophy-quote {
+      border-left: 2px solid var(--accent);
+      padding: 1rem 0 1rem 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .philosophy-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .philosophy-quote cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--sub);
+      font-style: normal;
+    }
+
+    /* Background circles */
+    .philosophy::before {
+      content: '';
+      position: absolute;
+      right: -8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .philosophy::after {
+      content: '';
+      position: absolute;
+      right: -5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    .features {
+      padding: 10rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--sub);
+      margin-bottom: 4rem;
+    }
+
+    .feature-item {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      transition: color 0.4s ease;
+    }
+
+    .feature-item:first-of-type { border-top: 1px solid var(--border); }
+
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-style: italic;
+      color: var(--border);
+      line-height: 1;
+      transition: color 0.4s ease;
+    }
+
+    .feature-item:hover .feature-num { color: var(--accent-lt); }
+
+    .feature-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      color: var(--sub);
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .feature-body {
+      color: var(--sub);
+      line-height: 2;
+      font-size: 0.95rem;
+    }
+
+    /* ============================================================
+       INGREDIENTS HIGHLIGHT
+    ============================================================ */
+    .ingredients {
+      background: var(--green);
+      color: var(--bg);
+      padding: 8rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ingredients-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .ingredients h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 4rem;
+    }
+
+    .ingredients-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .ingredient-card {
+      padding: 2.5rem 2rem;
+      border-left: 1px solid rgba(250,247,242,0.2);
+      transition: background 0.3s;
+    }
+
+    .ingredient-card:first-child { border-left: none; }
+    .ingredient-card:hover { background: rgba(250,247,242,0.05); }
+
+    .ingredient-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+
+    .ingredient-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .ingredient-desc {
+      font-size: 0.85rem;
+      color: rgba(250,247,242,0.65);
+      line-height: 1.8;
+    }
+
+    /* Organic shapes in bg */
+    .ingredients-blob {
+      position: absolute;
+      bottom: -5rem;
+      right: -5rem;
+      width: 400px;
+      height: 400px;
+      background: rgba(250,247,242,0.04);
+      border-radius: 60% 40% 70% 30% / 40% 60% 40% 60%;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials {
+      padding: 10rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonials-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 5rem;
+    }
+
+    .testimonials-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .testimonial {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .author-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--cream-dk);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .author-circle svg { width: 20px; height: 20px; }
+
+    .author-info .name {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .author-info .role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--sub);
+    }
+
+    /* Featured testimonial */
+    .testimonial-featured {
+      grid-column: span 2;
+      padding: 4rem;
+      background: var(--cream-dk);
+      position: relative;
+    }
+
+    .testimonial-featured::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12rem;
+      color: var(--border);
+      position: absolute;
+      top: -2rem;
+      left: 2rem;
+      line-height: 1;
+    }
+
+    .testimonial-featured .testimonial-quote {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      max-width: 70ch;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    .gallery {
+      padding: 0 3rem 10rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gallery-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: repeat(2, 200px);
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover .gallery-item-bg { transform: scale(1.04); }
+
+    .gallery-item:nth-child(1) .gallery-item-bg { background: #D4C8BC; }
+    .gallery-item:nth-child(2) .gallery-item-bg { background: #C8D4CC; }
+    .gallery-item:nth-child(3) .gallery-item-bg { background: #D4CCC8; }
+    .gallery-item:nth-child(4) .gallery-item-bg { background: #BCC8C4; }
+    .gallery-item:nth-child(5) .gallery-item-bg { background: #C8BCC4; }
+
+    .gallery-item-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .gallery-item:hover .gallery-item-label { opacity: 1; transform: translateY(0); }
+
+    .gallery-item-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.2;
+    }
+
+    /* ============================================================
+       CTA
+    ============================================================ */
+    .cta {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(250,247,242,0.2);
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: rgba(250,247,242,0.65);
+      margin-bottom: 2rem;
+    }
+
+    .cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 3rem;
+    }
+
+    .cta-link {
+      display: inline-block;
+      color: var(--bg);
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      border-bottom: 1px solid rgba(250,247,242,0.5);
+      padding-bottom: 0.25rem;
+      transition: border-color 0.3s, opacity 0.3s;
+    }
+
+    .cta-link:hover { border-color: var(--bg); opacity: 0.8; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      padding: 6rem 3rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--sub);
+      line-height: 1.8;
+      max-width: 30ch;
+    }
+
+    .footer-col h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--sub);
+      text-transform: lowercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a {
+      text-decoration: none;
+      color: var(--sub);
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: var(--text); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--sub);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .philosophy-inner { grid-template-columns: 80px 1fr; gap: 3rem; }
+      .ingredients-grid { grid-template-columns: repeat(2, 1fr); }
+      .ingredient-card:nth-child(3) { border-left: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: span 1; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .site-header { padding: 1.5rem 2rem; }
+      .header-nav { display: none; }
+      .hero { padding: 12rem 2rem 6rem; }
+      .hero h1 { width: 100%; }
+      .hero-desc { margin-left: 0; }
+      .hero-leaf { display: none; }
+      .philosophy { padding: 6rem 2rem; }
+      .philosophy-inner { grid-template-columns: 1fr; }
+      .philosophy-label { writing-mode: horizontal-tb; transform: none; margin-bottom: 1rem; }
+      .features { padding: 6rem 2rem; }
+      .feature-item { grid-template-columns: 1fr; gap: 1rem; }
+      .feature-num { font-size: 2rem; }
+      .ingredients { padding: 6rem 2rem; }
+      .ingredients-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials { padding: 6rem 2rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-featured { grid-column: span 1; padding: 3rem 2rem; }
+      .testimonial-featured::before { font-size: 6rem; }
+      .gallery { padding: 0 2rem 6rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .cta { padding: 6rem 2rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.5rem; }
+      .ingredients-grid { grid-template-columns: 1fr; }
+      .ingredient-card { border-left: none; border-top: 1px solid rgba(250,247,242,0.2); }
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- 1. HERO -->
-    <section class="hero reveal">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-        <div class="hero-container">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-            <h1>Deep breath in a quiet forest. Embodying natural purity.</h1>
-            <p>深呼吸したくなるような余白と、自然由来の温もり。私たちは、植物本来の力を活かしたオーガニック・スキンケアを通じて、心と肌に不要なものを削ぎ落とす時間を提供します。</p>
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <a href="#" class="header-logo">Botanica</a>
+    <nav class="header-nav">
+      <a href="#philosophy">philosophy</a>
+      <a href="#ingredients">ingredients</a>
+      <a href="#collection">collection</a>
+      <a href="#voices">voices</a>
+    </nav>
+    <div class="header-cta"><a href="#contact">shop now</a></div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Leaf SVG -->
+    <svg class="hero-leaf" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10 C140 30 180 80 170 140 C160 200 120 260 100 270 C80 260 40 200 30 140 C20 80 60 30 100 10Z" fill="var(--accent)"/>
+      <path d="M100 10 L100 270" stroke="var(--bg)" stroke-width="1" opacity="0.4"/>
+      <path d="M100 60 C120 70 150 90 155 120" stroke="var(--bg)" stroke-width="0.8" opacity="0.3"/>
+      <path d="M100 60 C80 70 50 90 45 120" stroke="var(--bg)" stroke-width="0.8" opacity="0.3"/>
+      <path d="M100 110 C125 120 148 140 148 160" stroke="var(--bg)" stroke-width="0.8" opacity="0.3"/>
+      <path d="M100 110 C75 120 52 140 52 160" stroke="var(--bg)" stroke-width="0.8" opacity="0.3"/>
+    </svg>
+
+    <div class="hero-eyebrow reveal">— organic skincare, naturally derived</div>
+    <h1 class="reveal">Deep breath in a quiet forest.<br><em>Embodying natural purity.</em></h1>
+    <div class="hero-accent-line reveal"></div>
+    <p class="hero-desc reveal">
+      深呼吸したくなるような余白と、自然由来の温もり。<br>
+      私たちは、植物本来の力を活かしたオーガニック・スキンケアを通じて、<br>
+      心と肌に不要なものを削ぎ落とす時間を提供します。
+    </p>
+
+    <div class="scroll-indicator reveal-fade">
+      <div class="line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-inner">
+      <div class="philosophy-label reveal">/ philosophy</div>
+      <div class="philosophy-text reveal">
+        <h2>Less is not deprivation.<br>It is the highest form<br>of <em>abundance.</em></h2>
+        <p>
+          私たちが「引く」と決めた瞬間から、本当のケアが始まります。
+          合成香料が放つ刺激ではなく、ラベンダーが放つ静けさ。
+          防腐剤が作る保存期間ではなく、素材本来が持つ生命力。
+        </p>
+        <p>
+          引き算の美学とは、欠乏ではなく、
+          必要なものだけが残る状態への到達です。
+        </p>
+        <div class="philosophy-quote">
+          <blockquote>
+            "The more we can remove, the more clearly<br>the essential shines through."
+          </blockquote>
+          <cite>— Botanical Research Institute, 2024</cite>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- 2. FEATURES -->
-    <section class="features">
-        <div class="container features-grid">
-            <div class="feature-item reveal">
-                <h2>Botanical Extraction</h2>
-                <p>農薬を一切使用せずに育てられたハーブのみを使用。水蒸気蒸留法を用いて、植物成分を損なうことなく、純度の高いエッセンスを一滴ずつ丁寧に抽出しています。</p>
-            </div>
-            <div class="feature-item reveal">
-                <h2>Minimal Ingredients</h2>
-                <p>肌にとって本当に必要なものだけを。合成香料、着色料、防腐剤は一切使用せず、全成分の99%以上が自然由来の原料で構成されています。</p>
-            </div>
-            <div class="feature-item reveal">
-                <h2>Earth Harmony</h2>
-                <p>製品パッケージには再生ガラスとバンブー素材を採用。製造過程における環境負荷を最小限に抑え、自然のサイクルと調和するモノづくりを徹底しています。</p>
-            </div>
+  <!-- FEATURES -->
+  <section class="features" id="ingredients">
+    <div class="features-eyebrow reveal">/ our principles</div>
+
+    <div class="feature-item reveal">
+      <div class="feature-num">01</div>
+      <div class="feature-title">Botanical<br>Extraction</div>
+      <div class="feature-body">
+        農薬を一切使用せずに育てられたハーブのみを使用。水蒸気蒸留法を用いて、
+        植物成分を損なうことなく、純度の高いエッセンスを一滴ずつ丁寧に抽出しています。
+      </div>
+    </div>
+
+    <div class="feature-item reveal">
+      <div class="feature-num">02</div>
+      <div class="feature-title">Minimal<br>Ingredients</div>
+      <div class="feature-body">
+        肌にとって本当に必要なものだけを。合成香料、着色料、防腐剤は一切使用せず、
+        全成分の99%以上が自然由来の原料で構成されています。
+      </div>
+    </div>
+
+    <div class="feature-item reveal">
+      <div class="feature-num">03</div>
+      <div class="feature-title">Earth<br>Harmony</div>
+      <div class="feature-body">
+        製品パッケージには再生ガラスとバンブー素材を採用。
+        製造過程における環境負荷を最小限に抑え、自然のサイクルと調和するモノづくりを徹底しています。
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENTS HIGHLIGHT -->
+  <section class="ingredients">
+    <div class="ingredients-blob" aria-hidden="true"></div>
+    <div class="ingredients-inner">
+      <h2 class="reveal">The <em>ingredients</em><br>we trust.</h2>
+      <div class="ingredients-grid">
+        <div class="ingredient-card reveal">
+          <svg class="ingredient-icon" viewBox="0 0 48 48" fill="none">
+            <ellipse cx="24" cy="28" rx="10" ry="16" stroke="#FAF7F2" stroke-width="1.5"/>
+            <line x1="24" y1="8" x2="24" y2="44" stroke="#FAF7F2" stroke-width="1"/>
+            <path d="M24 18 C30 16 36 14 40 18" stroke="#FAF7F2" stroke-width="1" fill="none"/>
+            <path d="M24 18 C18 16 12 14 8 18" stroke="#FAF7F2" stroke-width="1" fill="none"/>
+          </svg>
+          <div class="ingredient-name"><em>Lavender</em></div>
+          <div class="ingredient-desc">プロバンス産オーガニックラベンダー。鎮静・抗菌効果を持つ精油の源。</div>
         </div>
-    </section>
+        <div class="ingredient-card reveal">
+          <svg class="ingredient-icon" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="14" stroke="#FAF7F2" stroke-width="1.5"/>
+            <circle cx="24" cy="24" r="6" fill="#FAF7F2" opacity="0.3"/>
+            <path d="M24 10 L24 4" stroke="#FAF7F2" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M24 44 L24 38" stroke="#FAF7F2" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M10 24 L4 24" stroke="#FAF7F2" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M44 24 L38 24" stroke="#FAF7F2" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="ingredient-name"><em>Rosehip</em></div>
+          <div class="ingredient-desc">チリ産ローズヒップ種子オイル。ビタミンCとレチノールの天然源泉。</div>
+        </div>
+        <div class="ingredient-card reveal">
+          <svg class="ingredient-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M24 8 C28 16 36 20 36 28 C36 36 30 42 24 42 C18 42 12 36 12 28 C12 20 20 16 24 8Z" stroke="#FAF7F2" stroke-width="1.5" fill="none"/>
+            <line x1="24" y1="8" x2="24" y2="42" stroke="#FAF7F2" stroke-width="0.8" opacity="0.5"/>
+          </svg>
+          <div class="ingredient-name"><em>Argan</em></div>
+          <div class="ingredient-desc">モロッコ産コールドプレス・アルガンオイル。不飽和脂肪酸を豊富に含む液体の黄金。</div>
+        </div>
+        <div class="ingredient-card reveal">
+          <svg class="ingredient-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M24 12 L28 20 L36 20 L30 26 L32 34 L24 30 L16 34 L18 26 L12 20 L20 20 Z" stroke="#FAF7F2" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div class="ingredient-name"><em>Chamomile</em></div>
+          <div class="ingredient-desc">ドイツ産ジャーマンカモミール。高濃度のカマズレンが炎症を和らげる。</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 3. CTA -->
-    <section class="cta reveal">
-        <h2>Discover our pure collection</h2>
-        <a href="#" class="cta-link" aria-label="オンラインストアへ進む">Experience the Nature</a>
-    </section>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="voices">
+    <div class="testimonials-header reveal">
+      <h2>What they<br><em>feel</em></h2>
+      <div class="mono" style="color:var(--sub);">/ voices</div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-featured reveal">
+        <p class="testimonial-quote">
+          "使い始めてから、スキンケアが楽しみの時間に変わりました。
+          成分表を読んで、全部わかる言葉しか書いていない製品って、
+          実はこんなに少なかったんだと気づかされました。"
+        </p>
+        <div class="testimonial-meta" style="margin-top:2rem;">
+          <div class="author-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.5">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </div>
+          <div class="author-info">
+            <div class="name">Yuki A.</div>
+            <div class="role">フリーランスデザイナー / 東京</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <p class="testimonial-quote">
+          "初めて手に取ったとき、香りで涙が出そうになりました。
+          これが本物のラベンダーの香りなのかと。"
+        </p>
+        <div class="testimonial-meta">
+          <div class="author-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.5">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </div>
+          <div class="author-info">
+            <div class="name">Haruka M.</div>
+            <div class="role">ヨガインストラクター / 京都</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <p class="testimonial-quote">
+          "子どもの肌にも使えるか確認したところ、
+          全成分について丁寧に説明してくれました。
+          信頼できるブランドとはこういうことだと思います。"
+        </p>
+        <div class="testimonial-meta">
+          <div class="author-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.5">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </div>
+          <div class="author-info">
+            <div class="name">Tomoko S.</div>
+            <div class="role">ナチュラルライフスタイルブロガー / 鎌倉</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 4. FOOTER -->
-    <footer class="footer reveal">
-        <p>&copy; 2026 ORGANIC MINIMAL BOTANICS.</p>
-    </footer>
+  <!-- GALLERY -->
+  <section class="gallery" id="collection">
+    <div class="gallery-header reveal">
+      <h2><em>Pure collection</em></h2>
+      <div class="mono" style="color:var(--sub);">/ 05 items</div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-item-bg"></div>
+        <div class="gallery-item-placeholder">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--text)" stroke-width="0.8">
+            <ellipse cx="30" cy="35" rx="12" ry="20"/><line x1="30" y1="10" x2="30" y2="55"/><path d="M30 22 C38 18 44 18 46 24" fill="none"/><path d="M30 22 C22 18 16 18 14 24" fill="none"/>
+          </svg>
+        </div>
+        <div class="gallery-item-label">Lavender Face Oil</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg"></div>
+        <div class="gallery-item-placeholder">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--text)" stroke-width="0.8"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="6" opacity="0.4"/></svg>
+        </div>
+        <div class="gallery-item-label">Rosehip Serum</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg"></div>
+        <div class="gallery-item-placeholder">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--text)" stroke-width="0.8"><rect x="10" y="8" width="20" height="28" rx="3"/><line x1="10" y1="16" x2="30" y2="16"/></svg>
+        </div>
+        <div class="gallery-item-label">Argan Cream</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg"></div>
+        <div class="gallery-item-placeholder">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--text)" stroke-width="0.8"><path d="M20 5 L24 16 L36 16 L26 23 L30 34 L20 27 L10 34 L14 23 L4 16 L16 16 Z"/></svg>
+        </div>
+        <div class="gallery-item-label">Chamomile Mist</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg"></div>
+        <div class="gallery-item-placeholder">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--text)" stroke-width="0.8"><path d="M20 6 C24 14 32 18 32 24 C32 30 26 36 20 36 C14 36 8 30 8 24 C8 18 16 14 20 6Z"/></svg>
+        </div>
+        <div class="gallery-item-label">Botanical Balm</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Scroll Animation Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const reveals = document.querySelectorAll(".reveal");
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">/ begin your ritual</div>
+      <h2>Discover our<br><em>pure collection</em></h2>
+      <a href="#" class="cta-link">Experience the Nature →</a>
+    </div>
+  </section>
 
-            // 初回表示時にすでに見えている要素にも反映するため、即時実行も行う
-            setTimeout(() => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 50) {
-                        reveal.classList.add("active");
-                    }
-                });
-            }, 100);
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top reveal">
+      <div class="footer-brand">
+        <span class="logo"><em>Botanica</em></span>
+        <p>植物の持つ純粋な力を、そのままの形でお届けする。それが私たちの唯一の誓いです。</p>
+      </div>
+      <div class="footer-col">
+        <h4>shop</h4>
+        <ul>
+          <li><a href="#">Face Oils</a></li>
+          <li><a href="#">Serums</a></li>
+          <li><a href="#">Body Care</a></li>
+          <li><a href="#">Gift Sets</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>learn</h4>
+        <ul>
+          <li><a href="#">Our Philosophy</a></li>
+          <li><a href="#">Ingredients</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Stockists</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ORGANIC MINIMAL BOTANICS.</p>
+      <p>Crafted with care in Kyoto, Japan.</p>
+    </div>
+  </footer>
 
-            const observerOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.15
-            };
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-fade');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
 
-            const scrollObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        // 一度アニメーションしたら監視を外す
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 80);
+    });
 
-            reveals.forEach(reveal => {
-                scrollObserver.observe(reveal);
-            });
-        });
-    </script>
+    // Stagger feature items
+    document.querySelectorAll('.feature-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.15}s`;
+    });
+
+    // Stagger ingredient cards
+    document.querySelectorAll('.ingredient-card').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+    });
+  </script>
 </body>
-
 </html>

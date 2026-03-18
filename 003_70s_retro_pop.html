@@ -1,336 +1,1139 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VINTAGE SOUNDS | 70s Retro Pop</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dela+Gothic+One&family=Noto+Sans+JP:wght@700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --color-base: #F4F1EA;
-            --color-text: #2C2C2C;
-            --color-yellow: #E1AD01;
-            --color-red: #D9534F;
-            --border-main: 3px solid var(--color-text);
-            --border-thick: 5px solid var(--color-yellow);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--color-base);
-            color: var(--color-text);
-            font-family: 'Noto Sans JP', sans-serif;
-            font-weight: 700;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        h1,
-        .number {
-            font-family: 'Bebas Neue', sans-serif;
-            text-transform: uppercase;
-        }
-
-        h2,
-        .btn {
-            font-family: 'Dela Gothic One', sans-serif;
-        }
-
-        *:focus-visible {
-            outline: 3px solid var(--color-yellow);
-            outline-offset: 2px;
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeInAnim 0.6s ease forwards;
-        }
-
-        @keyframes fadeInAnim {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 1. HERO */
-        .hero {
-            min-height: 100vh;
-            background-color: var(--color-yellow);
-            border: 4px solid var(--color-text);
-            display: grid;
-            grid-template-rows: 1fr auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .hero-h1-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(5rem, 12vw, 10rem);
-            letter-spacing: 0.03em;
-            line-height: 0.9;
-            width: 100%;
-            text-align: left;
-            /* Stamp Animation */
-            opacity: 0;
-            transform: scale(1.1);
-            animation: stampAnim 0.4s ease 0.2s forwards;
-        }
-
-        @keyframes stampAnim {
-            from {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 400px;
-            justify-self: end;
-            text-align: right;
-        }
-
-        /* 2. FEATURES */
-        .features {
-            border: var(--border-main);
-            margin: -1px 0;
-            /* ボーダーの重なり調整 */
-            background-color: var(--color-base);
-        }
-
-        .feature-item {
-            display: grid;
-            grid-template-columns: 120px 1fr;
-            border-bottom: var(--border-main);
-        }
-
-        .feature-item:last-child {
-            border-bottom: none;
-        }
-
-        .feature-num-box {
-            border-right: var(--border-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-        }
-
-        .feature-item .number {
-            font-size: clamp(5rem, 10vw, 8rem);
-            color: var(--color-yellow);
-            text-shadow: 2px 2px 0 var(--color-text), -1px -1px 0 var(--color-text), 1px -1px 0 var(--color-text), -1px 1px 0 var(--color-text), 1px 1px 0 var(--color-text);
-            /* アウトライン風 */
-            transition: transform 0.2s ease;
-        }
-
-        .feature-item:hover .number {
-            transform: scale(1.05);
-        }
-
-        .feature-content {
-            padding: 3rem 2rem;
-        }
-
-        .feature-content h2 {
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-
-        /* 3. CTA */
-        .cta {
-            width: 100vw;
-            margin-left: calc(50% - 50vw);
-            background-color: var(--color-red);
-            color: var(--color-base);
-            padding: 6rem 2rem;
-            text-align: center;
-            border: var(--border-main);
-            margin-top: -1px;
-        }
-
-        .cta h2 {
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            margin-bottom: 3rem;
-        }
-
-        .btn {
-            display: inline-block;
-            border: 3px solid var(--color-base);
-            color: var(--color-base);
-            text-decoration: none;
-            padding: 1rem 3rem;
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
-
-        .btn:hover {
-            background-color: var(--color-base);
-            color: var(--color-red);
-        }
-
-        /* 4. FOOTER */
-        .footer {
-            background-color: var(--color-text);
-            color: var(--color-base);
-            border-top: var(--border-thick);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer p {
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .feature-item {
-                grid-template-columns: 80px 1fr;
-            }
-
-            .feature-num-box {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 1.5rem;
-            }
-
-            .hero p {
-                justify-self: start;
-                text-align: left;
-                margin-top: 2rem;
-            }
-
-            .feature-item {
-                grid-template-columns: 1fr;
-            }
-
-            .feature-num-box {
-                border-right: none;
-                border-bottom: var(--border-main);
-                padding: 1rem;
-                justify-content: flex-start;
-            }
-
-            .feature-content {
-                padding: 2rem 1.5rem;
-            }
-        }
-    
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINTAGE SOUNDS | 70s Retro Pop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dela+Gothic+One&family=Noto+Sans+JP:wght@700&family=Abril+Fatface&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --base:   #F4F1EA;
+      --dark:   #2C2C2C;
+      --yellow: #E1AD01;
+      --red:    #D9534F;
+      --cream:  #EDE8DC;
+      --orange: #D4732A;
+      --border: 3px solid var(--dark);
     }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--base);
+      color: var(--dark);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      line-height: 1.8;
+      overflow-x: hidden;
     }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
+
+    h1 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.03em; }
+    h2, h3 { font-family: 'Dela Gothic One', sans-serif; }
+    .abril { font-family: 'Abril Fatface', serif; }
+
+    *:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    .reveal-stamp {
+      opacity: 0;
+      transform: scale(0.85) rotate(-2deg);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
+    .reveal-stamp.active { opacity: 1; transform: scale(1) rotate(0deg); }
+
+    /* ============================================================
+       TOP STRIPE HEADER
+    ============================================================ */
+    .stripe-bar {
+      background: var(--dark);
+      color: var(--yellow);
+      height: 8px;
     }
-    </style>
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--yellow);
+      border-bottom: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 70px;
+    }
+
+    .header-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 0;
+      border: var(--border);
+    }
+
+    .header-nav a {
+      display: block;
+      padding: 0 1.5rem;
+      height: 44px;
+      line-height: 44px;
+      text-decoration: none;
+      color: var(--dark);
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.7rem;
+      border-right: var(--border);
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .header-nav a:last-child { border-right: none; }
+    .header-nav a:hover { background: var(--dark); color: var(--yellow); }
+
+    .header-badge {
+      background: var(--red);
+      color: var(--base);
+      border: var(--border);
+      padding: 0.4rem 1.2rem;
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.75rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.1s;
+    }
+    .header-badge:hover { background: var(--dark); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      background: var(--yellow);
+      border: 4px solid var(--dark);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 3rem 2.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Halftone dots bg */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--dark) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.06;
+    }
+
+    /* Big decorative circle */
+    .hero-circle {
+      position: absolute;
+      right: -8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      border: 8px solid var(--dark);
+      border-radius: 50%;
+      opacity: 0.08;
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '●';
+      font-size: 0.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(5rem, 14vw, 12rem);
+      letter-spacing: 0.02em;
+      line-height: 0.88;
+      opacity: 0;
+      transform: scale(1.08);
+      animation: stampIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+    }
+
+    @keyframes stampIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-year-badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--base);
+      border: var(--border);
+      padding: 0.2rem 1rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      border-top: var(--border);
+      padding-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tagline {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      line-height: 1.2;
+    }
+
+    .hero-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       TICKER
+    ============================================================ */
+    .ticker {
+      overflow: hidden;
+      background: var(--red);
+      border-top: var(--border);
+      border-bottom: var(--border);
+      height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: tickerMove 20s linear infinite;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      color: var(--base);
+    }
+
+    .ticker-track span { padding: 0 2.5rem; }
+    .ticker-track span::before { content: '★ '; font-size: 0.8em; }
+
+    @keyframes tickerMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: var(--border);
+      margin-top: -1px;
+    }
+
+    .about-text {
+      padding: 5rem 3rem;
+      border-right: var(--border);
+    }
+
+    .about-text .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .about-text .section-label::before { content: ''; width: 30px; height: 2px; background: var(--red); display: block; }
+
+    .about-text h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .about-text p {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(44,44,44,0.75);
+    }
+
+    .about-visual {
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Vinyl record SVG */
+    .vinyl {
+      width: 280px;
+      height: 280px;
+      animation: spinVinyl 20s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .about-visual:hover .vinyl {
+      animation-play-state: paused;
+    }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    .features {
+      border: var(--border);
+      margin-top: -1px;
+    }
+
+    .features-header {
+      background: var(--dark);
+      color: var(--yellow);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .features-header h2 { font-size: 1.5rem; letter-spacing: 0.05em; }
+    .features-header .count { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      border-bottom: var(--border);
+    }
+
+    .feature-item:last-child { border-bottom: none; }
+
+    .feature-num-box {
+      border-right: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: var(--cream);
+      transition: background 0.15s;
+    }
+
+    .feature-item:hover .feature-num-box { background: var(--yellow); }
+
+    .number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--dark), -1px -1px 0 var(--dark), 1px -1px 0 var(--dark), -1px 1px 0 var(--dark);
+      line-height: 1;
+      transition: transform 0.2s ease, text-shadow 0.15s;
+    }
+
+    .feature-item:hover .number {
+      transform: scale(1.1) rotate(-3deg);
+      text-shadow: 4px 4px 0 var(--dark), -1px -1px 0 var(--dark), 1px -1px 0 var(--dark), -1px 1px 0 var(--dark);
+    }
+
+    .feature-content {
+      padding: 3rem 2.5rem;
+    }
+
+    .feature-content h3 {
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      background: var(--yellow);
+      border: 2px solid var(--dark);
+      padding: 0.15rem 0.75rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    .stats {
+      background: var(--dark);
+      color: var(--base);
+      border: var(--border);
+      margin-top: -1px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      padding: 4rem 2rem;
+      border-right: 2px solid rgba(244,241,234,0.1);
+      text-align: center;
+      transition: background 0.15s;
+    }
+
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(225,173,1,0.1); }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: var(--yellow);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(244,241,234,0.5);
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials {
+      border: var(--border);
+      margin-top: -1px;
+      padding: 4rem 3rem;
+    }
+
+    .testimonials-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+
+    .testimonials-header h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+
+    .testimonials-header .retro-badge {
+      background: var(--red);
+      color: var(--base);
+      border: var(--border);
+      padding: 0.5rem 1.2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      transform: rotate(2deg);
+      display: inline-block;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: var(--border);
+    }
+
+    .testimonial-card {
+      padding: 2.5rem 2rem;
+      border-right: var(--border);
+      position: relative;
+      transition: background 0.15s;
+    }
+
+    .testimonial-card:last-child { border-right: none; }
+    .testimonial-card:hover { background: var(--cream); }
+
+    .testimonial-stars {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--yellow);
+      text-shadow: 1px 1px 0 var(--dark);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-text {
+      font-weight: 700;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-author-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 2px solid var(--dark);
+      padding-top: 1.5rem;
+    }
+
+    .author-badge {
+      width: 44px;
+      height: 44px;
+      background: var(--yellow);
+      border: 2px solid var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .author-info .name { font-family: 'Dela Gothic One', sans-serif; font-size: 0.75rem; }
+    .author-info .role { font-size: 0.7rem; color: rgba(44,44,44,0.55); font-weight: 700; }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    .gallery {
+      border: var(--border);
+      margin-top: -1px;
+    }
+
+    .gallery-header {
+      background: var(--red);
+      color: var(--base);
+      padding: 2rem 3rem;
+      border-bottom: var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-header h2 { font-size: 1.5rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery-item {
+      aspect-ratio: 1;
+      border-right: var(--border);
+      border-bottom: var(--border);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(3n) { border-right: none; }
+    .gallery-item:nth-child(4), .gallery-item:nth-child(5), .gallery-item:nth-child(6) { border-bottom: none; }
+
+    .gallery-item-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .gallery-item:nth-child(1) .gallery-item-bg { background: var(--yellow); color: var(--dark); }
+    .gallery-item:nth-child(2) .gallery-item-bg { background: var(--cream); color: var(--dark); }
+    .gallery-item:nth-child(3) .gallery-item-bg { background: var(--dark); color: var(--yellow); }
+    .gallery-item:nth-child(4) .gallery-item-bg { background: var(--orange); color: var(--base); }
+    .gallery-item:nth-child(5) .gallery-item-bg { background: var(--cream); color: var(--dark); }
+    .gallery-item:nth-child(6) .gallery-item-bg { background: var(--red); color: var(--base); }
+
+    .gallery-item:hover .gallery-item-bg { transform: scale(1.06); }
+
+    .gallery-item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      color: var(--yellow);
+      padding: 0.75rem 1rem;
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+    }
+
+    .gallery-item:hover .gallery-item-overlay { transform: translateY(0); }
+
+    /* ============================================================
+       CTA
+    ============================================================ */
+    .cta {
+      background: var(--red);
+      color: var(--base);
+      border: var(--border);
+      margin-top: -1px;
+      padding: 6rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cta-left h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .cta-left p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(244,241,234,0.75);
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      padding: 1rem 2rem;
+      border: 3px solid var(--base);
+      color: var(--base);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn:hover { background: var(--base); color: var(--red); }
+
+    .btn-dark {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: var(--yellow);
+    }
+
+    .btn-dark:hover { background: var(--yellow); color: var(--dark); border-color: var(--yellow); }
+
+    .cta-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .form-input {
+      background: transparent;
+      border: 3px solid rgba(244,241,234,0.4);
+      color: var(--base);
+      padding: 0.75rem 1rem;
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-input::placeholder { color: rgba(244,241,234,0.4); }
+    .form-input:focus { border-color: var(--yellow); }
+
+    .form-submit {
+      background: var(--yellow);
+      color: var(--dark);
+      border: 3px solid var(--dark);
+      padding: 1rem;
+      font-family: 'Dela Gothic One', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      width: 100%;
+    }
+
+    .form-submit:hover { background: var(--dark); color: var(--yellow); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--dark);
+      color: var(--base);
+      border: var(--border);
+      border-top: 5px solid var(--yellow);
+      margin-top: -1px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 0;
+    }
+
+    .footer-brand {
+      padding: 4rem 3rem;
+      border-right: 2px solid rgba(244,241,234,0.1);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.08em;
+      color: var(--yellow);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      color: rgba(244,241,234,0.5);
+      line-height: 1.7;
+      max-width: 28ch;
+    }
+
+    .footer-col {
+      padding: 4rem 2rem;
+      border-right: 2px solid rgba(244,241,234,0.1);
+    }
+
+    .footer-col:last-child { border-right: none; }
+
+    .footer-col-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--yellow);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a {
+      text-decoration: none;
+      color: rgba(244,241,234,0.5);
+      font-size: 0.8rem;
+      transition: color 0.15s;
+    }
+    .footer-col ul li a:hover { color: var(--yellow); }
+
+    .footer-bottom {
+      border-top: 2px solid rgba(244,241,234,0.1);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: rgba(244,241,234,0.35);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 2px solid rgba(244,241,234,0.1); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; border-right: none; border-bottom: 2px solid rgba(244,241,234,0.1); }
+    }
+
+    @media (max-width: 768px) {
+      .header-nav { display: none; }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-text { border-right: none; border-bottom: var(--border); }
+      .about-visual { min-height: 300px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card { border-right: none; border-bottom: var(--border); }
+      .testimonial-card:last-child { border-bottom: none; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(2n) { border-right: none; }
+      .gallery-item:nth-child(3n) { border-right: var(--border); }
+      .cta { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+      .footer-col { border-right: none; border-top: 2px solid rgba(244,241,234,0.1); }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 2rem 1.5rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { border-right: none !important; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .about-text { padding: 3rem 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-        <div class="hero-h1-wrapper">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
-            <h1>RETRO<br>GROOVY<br>SOUND</h1>
-        </div>
-        <p class="fade-in" style="animation-delay: 0.6s;">
-            1970年代のレコードジャケットからインスパイアされた、大胆な色使いと極太タイポグラフィ。<br>アナログレコードの温もりを現代に再構築します。
+  <div class="stripe-bar"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="#" class="header-logo">GROOVY REC.</a>
+    <nav class="header-nav">
+      <a href="#about">ABOUT</a>
+      <a href="#sounds">SOUNDS</a>
+      <a href="#artists">ARTISTS</a>
+      <a href="#shop">SHOP</a>
+    </nav>
+    <a href="#join" class="header-badge">JOIN NOW</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-circle" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">VINYL CULTURE REVIVAL</div>
+      <h1>RETRO<br>GROOVY<br>SOUND</h1>
+      <div class="hero-year-badge">EST. 1972</div>
+    </div>
+    <div class="hero-bottom reveal">
+      <div class="hero-tagline">
+        Analog warmth<br>for the digital age.
+      </div>
+      <div class="hero-desc">
+        1970年代のレコードジャケットからインスパイアされた、大胆な色使いと極太タイポグラフィ。アナログレコードの温もりを現代に再構築します。
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>GROOVE</span><span>FUNK</span><span>SOUL</span><span>DISCO</span>
+      <span>VINYL</span><span>ANALOG</span><span>RETRO</span><span>POP</span>
+      <span>GROOVE</span><span>FUNK</span><span>SOUL</span><span>DISCO</span>
+      <span>VINYL</span><span>ANALOG</span><span>RETRO</span><span>POP</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-text reveal">
+      <div class="section-label">OUR STORY</div>
+      <h2>Born from<br>the Record Store.</h2>
+      <p>
+        1972年の小さなレコードショップから始まった私たちの旅。
+        あの頃のグルーヴを現代に伝えることが、私たちのミッションです。
+        シルクスクリーンの色彩、ビニール盤の温もり、アナログの誠実さ——
+        これらはデジタル時代においても失ってはならないものです。
+      </p>
+    </div>
+    <div class="about-visual">
+      <!-- Vinyl Record SVG -->
+      <svg class="vinyl" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="140" cy="140" r="136" fill="#1A1A1A"/>
+        <circle cx="140" cy="140" r="136" fill="none" stroke="#2C2C2C" stroke-width="2"/>
+        <!-- Grooves -->
+        <circle cx="140" cy="140" r="125" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="140" cy="140" r="115" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="140" cy="140" r="105" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="140" cy="140" r="95" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="140" cy="140" r="85" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="140" cy="140" r="75" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+        <!-- Label -->
+        <circle cx="140" cy="140" r="55" fill="#E1AD01"/>
+        <circle cx="140" cy="140" r="55" stroke="#2C2C2C" stroke-width="2" fill="none"/>
+        <text x="140" y="132" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#2C2C2C" letter-spacing="3">GROOVY</text>
+        <text x="140" y="148" text-anchor="middle" font-family="Bebas Neue" font-size="20" fill="#2C2C2C" letter-spacing="2">RECORDS</text>
+        <text x="140" y="163" text-anchor="middle" font-family="Bebas Neue" font-size="10" fill="rgba(44,44,44,0.5)" letter-spacing="2">EST. 1972</text>
+        <!-- Center hole -->
+        <circle cx="140" cy="140" r="6" fill="#1A1A1A"/>
+        <!-- Shine -->
+        <ellipse cx="100" cy="90" rx="30" ry="15" fill="white" opacity="0.03" transform="rotate(-30 100 90)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="sounds">
+    <div class="features-header">
+      <h2>WHAT MAKES US GROOVY</h2>
+      <div class="count">03 TRACKS</div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="feature-num-box"><span class="number">01</span></div>
+      <div class="feature-content">
+        <div class="feature-tag">DESIGN PRINCIPLE</div>
+        <h3>BOLD SHAPES</h3>
+        <p>図形的な力強さを持つフォントと、明確に区切られたグリッドシステム。情報はブロックとして扱われ、視覚的なインパクトを最優先に構成されます。タイポグラフィは装飾ではなく、音楽そのものです。</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="feature-num-box"><span class="number">02</span></div>
+      <div class="feature-content">
+        <div class="feature-tag">PRINT AESTHETIC</div>
+        <h3>PRINT AESTHETIC</h3>
+        <p>シルクスクリーン印刷のようなベタ塗りカラー。グラデーションやドロップシャドウなどのデジタル的なごまかしを排除し、インクの力強さを表現しています。</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="feature-num-box"><span class="number">03</span></div>
+      <div class="feature-content">
+        <div class="feature-tag">COLOR THEORY</div>
+        <h3>HIGH CONTRAST</h3>
+        <p>マスタードイエローとブリックレッドの強力なコントラスト。文字色は漆黒に近いインクブラックを採用し、高い可読性を維持しながら視覚的強度を最大化します。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal">
+    <div class="stat-item">
+      <span class="stat-num">50k+</span>
+      <span class="stat-label">VINYL RECORDS</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">1972</span>
+      <span class="stat-label">FOUNDED</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">300+</span>
+      <span class="stat-label">ARTISTS</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">12M</span>
+      <span class="stat-label">PLAYS</span>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal" id="artists">
+    <div class="testimonials-header">
+      <h2>FAN LETTERS</h2>
+      <span class="retro-badge">★ GROOVY ★</span>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          「レコードに針を落とした瞬間の、あのわずかなノイズがたまらなく好きだ。
+          デジタルが完璧すぎて、むしろ人間味を失っているように感じていた。
+          ここのレコードは違う。本物の空気感がある。」
         </p>
-    </section>
-
-    <section class="features">
-        <div class="feature-item fade-in" style="animation-delay: 0.8s;">
-            <div class="feature-num-box"><span class="number">01</span></div>
-            <div class="feature-content">
-                <h2>BOLD SHAPES</h2>
-                <p>図形的な力強さを持つフォントと、明確に区切られたグリッドシステム。情報はブロックとして扱われ、視覚的なインパクトを最優先に構成されます。</p>
-            </div>
+        <div class="testimonial-author-row">
+          <div class="author-badge">DK</div>
+          <div class="author-info">
+            <div class="name">DJ KYOTO</div>
+            <div class="role">FUNK / SOUL DJ</div>
+          </div>
         </div>
-        <div class="feature-item fade-in" style="animation-delay: 1.0s;">
-            <div class="feature-num-box"><span class="number">02</span></div>
-            <div class="feature-content">
-                <h2>PRINT AESTHETIC</h2>
-                <p>シルクスクリーン印刷のようなベタ塗りカラー。グラデーションやドロップシャドウなどのデジタル的なごまかしを排除し、インクの力強さを表現しています。</p>
-            </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          「このジャケットデザインを見た瞬間、1974年にタイムスリップしたような気分になった。
+          色の使い方が完璧すぎる。
+          コレクターとして、これは間違いなく宝物。」
+        </p>
+        <div class="testimonial-author-row">
+          <div class="author-badge">YM</div>
+          <div class="author-info">
+            <div class="name">YAMAMOTO R.</div>
+            <div class="role">VINYL COLLECTOR</div>
+          </div>
         </div>
-        <div class="feature-item fade-in" style="animation-delay: 1.2s;">
-            <div class="feature-num-box"><span class="number">03</span></div>
-            <div class="feature-content">
-                <h2>HIGH CONTRAST</h2>
-                <p>マスタードイエローとブリックレッドの強力なコントラスト。文字色は漆黒に近いインクブラックを採用し、高い可読性を維持します。</p>
-            </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          「アナログの温もりとデジタルの利便性、両方を求めていた。
+          ここで出会ったサウンドは、その答えそのものだった。
+          毎週通い続けて、もう3年になる。」
+        </p>
+        <div class="testimonial-author-row">
+          <div class="author-badge">SF</div>
+          <div class="author-info">
+            <div class="name">SATO F.</div>
+            <div class="role">MUSIC PRODUCER</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="cta fade-in" style="animation-delay: 1.4s;">
-        <h2>JOIN THE MOVEMENT</h2>
-        <a href="#" class="btn" aria-label="レコードコレクションを見る">EXPLORE COLLECTION</a>
-    </section>
+  <!-- GALLERY -->
+  <section class="gallery" id="shop">
+    <div class="gallery-header">
+      <h2>THE COLLECTION</h2>
+      <span style="font-family:'Bebas Neue'; letter-spacing:0.15em; font-size:0.9rem;">NEW ARRIVALS ★</span>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-item-bg">A</div>
+        <div class="gallery-item-overlay">SOUL CLASSICS VOL.1</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">B</div>
+        <div class="gallery-item-overlay">FUNK ESSENTIALS</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">C</div>
+        <div class="gallery-item-overlay">DISCO NIGHTS</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">D</div>
+        <div class="gallery-item-overlay">RARE GROOVE BOX</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">E</div>
+        <div class="gallery-item-overlay">BOSSA NOVA SELECTION</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-bg">F</div>
+        <div class="gallery-item-overlay">ACID JAZZ COLLECTION</div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="footer">
-        <p>&copy; 2026 GROOVY RECORDS. ALL RIGHTS RESERVED.</p>
-    </footer>
+  <!-- CTA + FORM -->
+  <section class="cta reveal" id="join">
+    <div class="cta-left">
+      <h2>JOIN THE MOVEMENT</h2>
+      <p>グルーヴの最前線へ。毎週届く限定レコード情報、先行予約権、特別割引——すべてがあなたを待っています。</p>
+      <div class="btn-group">
+        <a href="#" class="btn">EXPLORE COLLECTION</a>
+        <a href="#" class="btn btn-dark">LEARN MORE</a>
+      </div>
+    </div>
+    <div class="cta-right">
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="YOUR NAME // お名前">
+        <input class="form-input" type="email" placeholder="EMAIL ADDRESS // メール">
+        <select class="form-input" style="appearance:none; cursor:pointer;">
+          <option value="" disabled selected>GENRE INTEREST // ジャンル</option>
+          <option>SOUL / FUNK</option>
+          <option>DISCO</option>
+          <option>JAZZ</option>
+          <option>ROCK</option>
+        </select>
+        <button class="form-submit">★ JOIN THE GROOVE ★</button>
+      </div>
+    </div>
+  </section>
 
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">GROOVY REC.</span>
+        <p>1972年からアナログの温もりを守り続ける、ヴィンテージ・レコードの総本山。グルーヴは止まらない。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">SHOP</div>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Soul & Funk</a></li>
+          <li><a href="#">Jazz</a></li>
+          <li><a href="#">Rare Finds</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">CULTURE</div>
+        <ul>
+          <li><a href="#">Artists</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Radio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">INFO</div>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 GROOVY RECORDS. ALL RIGHTS RESERVED.</p>
+      <p>★ KEEP IT GROOVY ★</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-stamp');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger feature items
+    document.querySelectorAll('.feature-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.15}s`;
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
 </body>
-
 </html>

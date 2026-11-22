@@ -22,6 +22,7 @@
     /* Placeholder */
     .img-ph { background: var(--surf); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
     .img-ph::after { content:'[ 写真・イラストが入ります ]'; color:var(--mid); font-size:.72rem; font-family:'Noto Sans JP',sans-serif; letter-spacing:.1em; opacity:.45; position:absolute; }
+    .img-ph:has(img)::after { display:none; }
 
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior:smooth; }
@@ -357,7 +358,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="img-ph" style="width:100%;height:100%;"></div>
+    <div class="img-ph" style="width:100%;height:100%;"><img src="images/056_hero.webp" alt="琥珀色のIPAとアンバーエールを並べた醸造所のカウンター" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.65;"></div>
   </div>
   <canvas id="bubble-canvas"></canvas>
 
@@ -384,7 +385,7 @@
 <section class="philosophy section">
   <div class="philosophy-inner">
     <div class="philosophy-img-wrap reveal-left">
-      <div class="img-ph phil-img-main"></div>
+      <div class="img-ph phil-img-main"><img src="images/056_tank.webp" alt="ステンレス発酵タンクと銅製仕込み釜の醸造所" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
       <div class="phil-img-badge">
         <div class="badge-year">2018</div>
         <div class="badge-label">FOUNDED</div>

@@ -450,10 +450,8 @@
 
     <!-- 1. HERO -->
     <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
         <div class="grid">
             <div class="hero-text reveal tilt-text">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
                 <h1 class="hero-h1">Mossgarden<br>Apothecary</h1>
                 <div class="shippori" style="font-size: 1.5rem; color: var(--accent-terra);">土の匂いがする、スキンケア。</div>
                 <p class="hero-lead klee">
@@ -462,8 +460,10 @@
                 </p>
             </div>
 
-            <div class="img-wrap-wrap reveal" style="transition-delay: 0.2s;"><div class="img-ph"></div>
-                <div class="blob-img" style="background-color: #D3D0C2;"></div>
+            <div class="img-wrap-wrap reveal" style="transition-delay: 0.2s; position: relative;">
+                <div class="blob-img" style="background-color: #D3D0C2; position: relative; overflow: hidden;">
+                    <img class="img-ph" src="images/013_hero.webp" alt="琥珀色の薬瓶とハーブ、苔を並べた自然派調合室" style="object-fit:cover;">
+                </div>
                 <div class="stamp-new">Handmade</div>
             </div>
         </div>

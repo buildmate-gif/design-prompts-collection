@@ -381,8 +381,6 @@
     </style>
 </head>
 <body>
-    <!-- Injected Global Background Image Placeholder -->
-    <div class="img-wrap global-bg-ph" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -999; opacity: 0.15;"><img class="img-ph" src="images/047_hero.webp" alt="色鉛筆と絵本、木製ブロックを並べた明るい学習机" style="object-fit:cover;"></div>
 
 <!-- HEADER -->
 <header>
@@ -397,9 +395,12 @@
 <!-- HERO -->
 <section id="hero">
   <div class="book-frame">
-    <!-- 左：イラスト -->
-    <div class="book-left">
-      <div class="illust-grid">
+    <!-- 左：教室写真＋イラスト -->
+    <div class="book-left" style="flex-direction:column; gap:1.25rem; padding:1.75rem;">
+      <div style="width:100%; aspect-ratio:16/10; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.08); border:3px solid #FFF;">
+        <img src="images/047_hero.webp" alt="色鉛筆と絵本、木製ブロックを並べた明るい学習机" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div class="illust-grid" style="grid-template-columns:repeat(4, 1fr); gap:0.6rem; width:100%;">
         <!-- 鉛筆 -->
         <div class="illust-item" style="background:#FFF3DC; border-radius:16px;">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">

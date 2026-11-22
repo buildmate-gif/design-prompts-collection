@@ -1,0 +1,5 @@
+# 元画像（WebP変換前の重いPNG。公開用は images/ を使用）
+images_raw/
+
+# macOS システムファイル
+.DS_Store

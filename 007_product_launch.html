@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veil | Precision Unveiled</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -198,48 +199,231 @@
             z-index: 1;
         }
 
-        /* 3. THE SOLUTION */
-        .solution-intro {
-            grid-column: 2 / 10;
-            margin-bottom: 4rem;
+        /* 3. THE SOLUTION (Sticky Horizontal Scroll) */
+        .solution-section {
+            height: 300vh;
+            border-bottom: var(--border-thin);
+            position: relative;
         }
 
-        .solution-intro h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+        .solution-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
         }
 
-        .sol-card {
-            grid-column: span 4;
-            padding: 0 1rem;
-            border-left: var(--border-thin);
+        .solution-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            will-change: transform;
         }
 
-        .sol-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .solution-panel {
+            width: 33.333%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8vw;
+            position: relative;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Panel Colors */
+        .solution-panel:nth-child(1) {
+            background-color: #F5F4F0;
+            color: #1A1A1A;
+        }
+
+        .solution-panel:nth-child(2) {
+            background-color: #E8E6E1;
+            color: #1A1A1A;
+        }
+
+        .solution-panel:nth-child(3) {
+            background-color: #2E6B6B;
+            color: #F5F4F0;
+        }
+
+        .sol-bg-number {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(8rem, 15vw, 14rem);
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sol-content {
+            z-index: 1;
+        }
+
+        .sol-label {
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
             color: var(--accent);
+            margin-bottom: 1rem;
         }
 
-        /* 4. PROOF */
+        .solution-panel:nth-child(3) .sol-label {
+            color: #E8E6E1;
+        }
+
+        .sol-content p {
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+
+        .sol-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .sol-icon svg {
+            width: clamp(100px, 20vw, 200px);
+            height: auto;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .solution-panel:nth-child(3) .sol-icon svg {
+            stroke: #F5F4F0;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 2vw;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--text-sub);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            opacity: 1;
+            transform: scale(1.5);
+            background-color: var(--accent);
+        }
+
+        /* 4. PROOF (Slide-In) */
         .proof {
-            text-align: center;
+            padding: 10rem 0;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 6rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .proof-item {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .proof-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            bottom: 10%;
+            width: 1px;
+            background-color: var(--accent);
+            opacity: 0.4;
+        }
+
+        /* Slide-in initial state */
+        .proof-item:nth-child(odd) {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .proof-item:nth-child(even) {
+            opacity: 0;
+            text-align: right;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .proof-item:nth-child(even)::before {
+            left: auto;
+            right: 0;
+        }
+
+        .proof-item:nth-child(even) {
+            padding-left: 0;
+            padding-right: 3rem;
+        }
+
+        .proof-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stagger delavs */
+        .proof-item:nth-child(2) {
+            transition-delay: 0.08s;
+        }
+
+        .proof-item:nth-child(3) {
+            transition-delay: 0.05s;
+        }
+
+        .proof-item:nth-child(4) {
+            transition-delay: 0.08s;
         }
 
         .huge-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(6rem, 15vw, 12rem);
+            font-size: clamp(5rem, 10vw, 9rem);
+            font-weight: 300;
+            color: var(--accent);
             line-height: 1;
-            color: var(--text-main);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .proof-desc {
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            max-width: 60ch;
-            margin: 0 auto;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6B6B6B;
         }
 
         /* 5. CTA BOTTOM */
@@ -282,42 +466,53 @@
                 padding: 4rem 0;
             }
         }
-    
-    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
 
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
+        .img-ph {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Directional Image Placeholder CSS */
+        .img-wrap {
+            position: relative;
+        }
+
+        .img-ph {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-ph::after {
+            content: "[ 写真・イラストが入ります ]";
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-align: center;
+            padding: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .global-bg-ph.img-ph {
+            border: none;
+            background-color: transparent;
+        }
+
+        .global-bg-ph.img-ph::after {
+            opacity: 0.3;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -325,11 +520,15 @@
 
     <!-- 1. HERO -->
     <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+        <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+            <div class="img-ph"></div>
+        </div>
         <div class="parallax-bg" id="parallaxBox"></div>
         <div class="folio">01</div>
         <div class="hero-content reveal">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+            <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                <div class="img-ph"></div>
+            </div>
             <div class="label" style="margin-bottom: 1rem;">Introducing</div>
             <h1>Veil™ Chronograph</h1>
             <p>Precision is not merely measured. It is felt.</p>
@@ -347,44 +546,89 @@
                 <h2>複雑さはノイズとなり、本質を曖昧にする。</h2>
                 <p>現代のツールは機能の多さを競い合うあまり、最も重要な「集中」という体験を阻害しています。私たちは、真に必要な機能だけを抽出し、無意識のうちに使いこなせる道具への回帰を目指しました。</p>
             </div>
-            <div class="img-wrap reveal" style="transition-delay: 0.2s;"><div class="img-ph"></div>
+            <div class="img-wrap reveal" style="transition-delay: 0.2s;">
+                <div class="img-ph"></div>
                 <!-- Placeholder for sophisticated product crop -->
             </div>
         </div>
     </section>
 
-    <!-- 3. THE SOLUTION -->
-    <section class="solution">
-        <div class="folio">03</div>
-        <div class="grid">
-            <div class="solution-intro reveal">
-                <h2>意志をノイズから解放する、3つのアプローチ。</h2>
-            </div>
+    <!-- 3. THE SOLUTION (Sticky Horizontal Scroll) -->
+    <section class="solution-section">
+        <div class="scroll-indicator">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="solution-sticky">
+            <div class="solution-track">
 
-            <div class="sol-card reveal" style="transition-delay: 0.1s;">
-                <h3>Silent Interface</h3>
-                <p>視界に入る情報を極限まで削減。必要な瞬間にのみ浮かび上がるUIが、あなたの思考を妨げません。</p>
-            </div>
+                <!-- Panel 01 -->
+                <div class="solution-panel">
+                    <div class="sol-bg-number">01</div>
+                    <div class="sol-content">
+                        <div class="sol-label">Before</div>
+                        <p>現代のツールは機能の多さを競い合うあまり、最も重要な「集中」という体験を阻害しています。</p>
+                    </div>
+                    <div class="sol-icon">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                </div>
 
-            <div class="sol-card reveal" style="transition-delay: 0.2s;">
-                <h3>Tactile Feedback</h3>
-                <p>ガラス面でありながら、確かな「感触」を返すハプティクス。デジタルでありながらアナログの温もりを実現。</p>
-            </div>
+                <!-- Panel 02 -->
+                <div class="solution-panel">
+                    <div class="sol-bg-number">02</div>
+                    <div class="sol-content">
+                        <div class="sol-label">Change</div>
+                        <p>私たちは、視界に入る情報を極限まで削減し、必要な瞬間にのみ浮かび上がるUIを設計しました。</p>
+                    </div>
+                    <div class="sol-icon">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 0 1 9-9" />
+                        </svg>
+                    </div>
+                </div>
 
-            <div class="sol-card reveal" style="transition-delay: 0.3s;">
-                <h3>Timeless Material</h3>
-                <p>航空宇宙グレードの中空チタンフレーム。堅牢でありながら、身に着けていることを忘れる軽さ。</p>
+                <!-- Panel 03 -->
+                <div class="solution-panel">
+                    <div class="sol-bg-number">03</div>
+                    <div class="sol-content">
+                        <div class="sol-label">After</div>
+                        <p>ガラス面でありながら確かな「感触」を返すハプティクスが、あなたの思考を妨げないシームレスな体験を実現します。</p>
+                    </div>
+                    <div class="sol-icon">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 4. PROOF -->
+    <!-- 4. PROOF (Slide-In) -->
     <section class="proof">
         <div class="folio">04</div>
         <div class="grid">
-            <div style="grid-column: 1 / -1;" class="reveal">
-                <div class="huge-number">99.8<span style="font-size: 0.4em;">%</span></div>
-                <p class="proof-desc">のユーザーが「最初の1時間で完全に自分の手の一部になった」と回答。直感的な操作性は、学習という概念すら過去のものにします。</p>
+            <div style="grid-column: 1 / -1;">
+                <div class="proof-grid">
+                    <div class="proof-item">
+                        <div class="huge-number">99.8<span style="font-size: 0.4em;">%</span></div>
+                        <div class="proof-desc">のユーザーが「最初の1時間で完全に自分の手の一部になった」と回答。</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="huge-number">0.2<span style="font-size: 0.4em;">s</span></div>
+                        <div class="proof-desc">ハプティクスフィードバックの応答速度。直感的な操作性は、学習という概念すら過去のものにします。</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="huge-number">15<span style="font-size: 0.4em;">g</span></div>
+                        <div class="proof-desc">航空宇宙グレードの中空チタンフレーム。堅牢でありながら、身に着けていることを忘れる軽さ。</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -406,7 +650,7 @@
     </footer>
 
     <script>
-        // Reveal Observer
+        // Reveal Observer (Existing)
         const reveals = document.querySelectorAll('.reveal');
         const obs = new IntersectionObserver((entries, observer) => {
             entries.forEach(e => {
@@ -436,6 +680,58 @@
                 }
             });
         }, 100);
+
+        // --- NEW ADDONS --- //
+
+        // 3. THE SOLUTION (Horizontal Scroll via Sticky)
+        const solSection = document.querySelector('.solution-section');
+        const solTrack = document.querySelector('.solution-track');
+        const indicator = document.querySelector('.scroll-indicator');
+        const dots = document.querySelectorAll('.dot');
+
+        if (solSection && solTrack) {
+            window.addEventListener('scroll', () => {
+                const rect = solSection.getBoundingClientRect();
+                const total = solSection.offsetHeight - window.innerHeight;
+                const scrolled = Math.max(0, -rect.top);
+                const progress = Math.min(scrolled / total, 1);
+
+                // Show/hide progress indicator when inside the sticky section
+                if (progress > 0 && progress < 1) {
+                    indicator.classList.add('visible');
+                } else if (progress <= 0 || progress >= 1) {
+                    indicator.classList.remove('visible');
+                }
+
+                // 3 panels means we translate from 0 to 66.666% of the track width
+                const shift = progress * (2 / 3) * 100;
+                solTrack.style.transform = `translateX(-${shift}%)`;
+
+                // Update dots based on progress (0-0.33, 0.33-0.66, 0.66-1.0)
+                let activeIndex = 0;
+                if (progress > 0.66) activeIndex = 2;
+                else if (progress > 0.33) activeIndex = 1;
+
+                dots.forEach((dot, idx) => {
+                    if (idx === activeIndex) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            }, { passive: true });
+        }
+
+        // 4. PROOF (Slide-in alternate)
+        const proofItems = document.querySelectorAll('.proof-item');
+        const proofObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    proofObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        proofItems.forEach(item => proofObserver.observe(item));
+
     </script>
 </body>
 

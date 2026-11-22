@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>継ぐ家 建築舎｜築100年の記憶を生かす古民家リノベーション</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --side-w: 272px;
+      --sumi: #171513;
+      --sumi-soft: #23201C;
+      --shikkui: #F8F6F1;
+      --paper: #FFFFFF;
+      --ink: #1C1917;
+      --muted: #6C655D;
+      --copper: #9A6848;
+      --copper-dark: #7A4F34;
+      --line: #E0DAD0;
+      --line-dark: #2E2A25;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--shikkui);
+      color: var(--ink);
+      line-height: 1.9;
+      font-size: 14.5px;
+      font-weight: 300;
+      padding-left: var(--side-w);
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── 左固定ダークサイドバー（図録の背表紙） ─── */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--side-w);
+      background: var(--sumi);
+      color: #EAE5DC;
+      padding: 40px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 200;
+      border-right: 1px solid var(--line-dark);
+    }
+    .side-brand {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .side-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--copper);
+    }
+    .side-nav {
+      list-style: none;
+      margin: 44px 0;
+      border-top: 1px solid var(--line-dark);
+    }
+    .side-nav li { border-bottom: 1px solid var(--line-dark); }
+    .side-nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      color: #A9A196;
+      transition: color 0.2s;
+    }
+    .side-nav a:hover { color: #FFFFFF; }
+    .side-nav span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--copper);
+    }
+    .side-cta {
+      display: block;
+      text-align: center;
+      border: 1px solid var(--copper);
+      color: #EAE5DC;
+      padding: 13px 16px;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      transition: background-color 0.2s, color 0.2s;
+      margin-bottom: 18px;
+    }
+    .side-cta:hover { background: var(--copper); color: #fff; }
+    .side-foot {
+      font-size: 0.72rem;
+      color: #777067;
+      line-height: 1.7;
+    }
+
+    /* モバイル専用ヘッダー */
+    .mobile-bar {
+      display: none;
+      background: var(--sumi);
+      color: #EAE5DC;
+      padding: 16px 20px;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    /* ── 右メインエリア ─────────────────────────── */
+    main { width: 100%; }
+
+    /* フルブリード写真ヒーロー */
+    .hero-visual {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 70vh;
+      min-height: 420px;
+      object-fit: cover;
+    }
+    .hero-statement {
+      padding: 56px 56px 64px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: end;
+    }
+    .kicker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.24em;
+      color: var(--copper);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .hero-statement h1 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.55rem);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: 0.06em;
+    }
+    .hero-statement p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .hero-tags {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--ink);
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    /* 共通セクション */
+    section.sec { padding: 84px 56px; }
+    section.sec.paper {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    h2.sec-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* ── 固有ギミック：Before / After 性能切替トグル ── */
+    .ba-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .ba-switch {
+      display: inline-flex;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+    }
+    .ba-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      padding: 10px 22px;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .ba-btn.active {
+      background: var(--ink);
+      color: #fff;
+      font-weight: 500;
+    }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .ba-cell {
+      background: var(--paper);
+      padding: 28px 24px;
+      transition: background-color 0.25s;
+    }
+    .ba-cell.after-mode { background: #FDFBF7; }
+    .ba-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      letter-spacing: 0.06em;
+    }
+    .ba-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .ba-cell.after-mode .ba-val { color: var(--copper); }
+    .ba-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── 縁側と坪庭（縦積みギャラリー） ──────────── */
+    .archive-photo {
+      border: 1px solid var(--line);
+      overflow: hidden;
+      margin: 28px 0 32px;
+    }
+    .archive-photo img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+    .archive-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .spec-dl {
+      border-top: 1px solid var(--line);
+    }
+    .spec-dl div {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.84rem;
+    }
+    .spec-dl dt { color: var(--muted); }
+    .spec-dl dd { color: var(--ink); font-weight: 500; }
+
+    /* ── 再生工程（横線リスト） ─────────────────── */
+    .process-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 32px;
+    }
+    .process-list li {
+      display: grid;
+      grid-template-columns: 72px 240px 1fr;
+      gap: 24px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .proc-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--copper);
+    }
+    .proc-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .proc-desc { font-size: 0.86rem; color: var(--muted); }
+
+    /* ── 診断依頼 ───────────────────────────────── */
+    .consult-box {
+      background: var(--sumi);
+      color: #EAE5DC;
+      padding: 52px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .consult-box h2 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+    }
+    .consult-box p { font-size: 0.88rem; color: #A9A196; }
+    .btn-copper {
+      background: var(--copper);
+      color: #fff;
+      padding: 15px 34px;
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
+      transition: background-color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-copper:hover { background: var(--copper-dark); }
+
+    @media (max-width: 1024px) {
+      body { padding-left: 0; }
+      .sidebar { display: none; }
+      .mobile-bar { display: flex; }
+      .hero-statement, section.sec { padding: 48px 24px; }
+      .hero-statement, .archive-grid { grid-template-columns: 1fr; gap: 24px; }
+      .ba-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-list li { grid-template-columns: 1fr; gap: 6px; }
+    }
+    @media (max-width: 600px) {
+      .ba-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <span style="font-family:'Zen Old Mincho',serif; letter-spacing:0.14em;">継ぐ家 建築舎</span>
+  <a href="#contact" style="border:1px solid var(--copper); padding:6px 14px; font-size:0.78rem;">古民家診断</a>
+</div>
+
+<aside class="sidebar">
+  <div>
+    <p class="side-brand">継ぐ家 建築舎</p>
+    <p class="side-en">TSUGUIE ARCHITECTURE</p>
+    <ul class="side-nav">
+      <li><a href="#performance">性能再生 Before / After <span>01</span></a></li>
+      <li><a href="#archive">再生事例・縁側と坪庭 <span>02</span></a></li>
+      <li><a href="#process">古民家再生の4工程 <span>03</span></a></li>
+      <li><a href="#contact">現地調査・ご相談 <span>04</span></a></li>
+    </ul>
+  </div>
+  <div>
+    <a href="#contact" class="side-cta">古民家診断を申し込む</a>
+    <p class="side-foot">京都府南丹市・関西全域対応<br>一級建築士事務所</p>
+  </div>
+</aside>
+
+<main>
+  <div class="hero-visual">
+    <img src="images/062_hero.webp" alt="黒い古材の梁と白漆喰の壁が調和する古民家リノベーション空間">
+  </div>
+
+  <section class="hero-statement">
+    <div>
+      <p class="kicker">HERITAGE RENOVATION</p>
+      <h1>古い梁に、いまの光を。<br>百年の住まいを次の百年へ。</h1>
+    </div>
+    <div>
+      <p>
+        築八十年から百二十年の古民家・京町家を対象に、松梁や建具の記憶を残しながら、基礎・耐震・断熱を現代水準へ引き上げる再生建築設計事務所です。
+      </p>
+      <div class="hero-tags">
+        <span>古材保存率 78%</span>
+        <span>耐震評点 1.52</span>
+        <span>空き家改修補助金対応</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="performance">
+    <div class="ba-head">
+      <div>
+        <p class="kicker">01 / PERFORMANCE COMPARISON</p>
+        <h2 class="sec-title">趣を残したまま、「寒い・不安」を数値で変える。</h2>
+      </div>
+      <div class="ba-switch" role="tablist" aria-label="改修前後の比較切替">
+        <button type="button" class="ba-btn" data-mode="before">改修前（Before）</button>
+        <button type="button" class="ba-btn active" data-mode="after">改修後（After）</button>
+      </div>
+    </div>
+
+    <div class="ba-grid" id="ba-grid">
+      <div class="ba-cell after-mode">
+        <p class="ba-label">上部構造評点（耐震）</p>
+        <p class="ba-val" data-before="0.42" data-after="1.52">1.52</p>
+        <p class="ba-note" data-before="玉石基礎と壁量不足により倒壊リスクが高い状態" data-after="基礎補強と伝統構法を活かした耐力壁で倒壊しない水準へ">基礎補強と伝統構法を活かした耐力壁で倒壊しない水準へ</p>
+      </div>
+      <div class="ba-cell after-mode">
+        <p class="ba-label">冬朝の室内温度</p>
+        <p class="ba-val" data-before="6.8℃" data-after="19.5℃">19.5℃</p>
+        <p class="ba-note" data-before="無断熱・単板ガラスで廊下と居室の温度差が激しい" data-after="床下・天井断熱と木製断熱サッシで穏やかな室温を維持">床下・天井断熱と木製断熱サッシで穏やかな室温を維持</p>
+      </div>
+      <div class="ba-cell after-mode">
+        <p class="ba-label">古材・建具の継承</p>
+        <p class="ba-val" data-before="未整備" data-after="78%">78%</p>
+        <p class="ba-note" data-before="雨漏りや白蟻被害で一部柱脚に傷みが進行" data-after="柱の根継ぎ補修と既存ガラス戸の建付け調整で継承">柱の根継ぎ補修と既存ガラス戸の建付け調整で継承</p>
+      </div>
+      <div class="ba-cell after-mode">
+        <p class="ba-label">年間冷暖房費（目安）</p>
+        <p class="ba-val" data-before="約28万円" data-after="約12万円">約12万円</p>
+        <p class="ba-note" data-before="隙間風が大きく暖房効率が著しく低い状態" data-after="気密補修と断熱改修により光熱費を半分以下へ軽減">気密補修と断熱改修により光熱費を半分以下へ軽減</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="archive">
+    <p class="kicker">02 / SELECTED ARCHIVE</p>
+    <h2 class="sec-title">縁側と坪庭が、季節を招く家。</h2>
+    <div class="archive-photo">
+      <img src="images/062_detail.webp" alt="坪庭を望む再生された古民家の縁側と木製ガラス戸">
+    </div>
+    <div class="archive-grid">
+      <p style="color:var(--muted); font-size:0.92rem;">
+        長年空き家になっていた祖父母の住まいを、若いご夫婦の暮らしに合わせて再生したプロジェクト。既存の建具や揺らぎのある大正ガラスは職人が一本ずつ調整して再利用し、苔と紅葉の坪庭を望む静かな縁側を取り戻しました。
+      </p>
+      <dl class="spec-dl">
+        <div><dt>築年数</dt><dd>築95年（木造平屋）</dd></div>
+        <div><dt>延床面積</dt><dd>118.4㎡</dd></div>
+        <div><dt>設計・工期</dt><dd>設計3ヶ月 ／ 工事5.5ヶ月</dd></div>
+        <div><dt>主な改修</dt><dd>耐震補強・全室断熱・水回り一新</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <p class="kicker">03 / RENOVATION PROCESS</p>
+    <h2 class="sec-title">古民家再生の4工程</h2>
+    <ol class="process-list">
+      <li>
+        <span class="proc-no">01</span>
+        <strong class="proc-name">現地調査・古民家診断</strong>
+        <p class="proc-desc">傾き・白蟻・構造材の傷みを建築士と大工が直接診断し、再生可否と概算費用をご報告します。</p>
+      </li>
+      <li>
+        <span class="proc-no">02</span>
+        <strong class="proc-name">基本設計・補助金確認</strong>
+        <p class="proc-desc">残すべき古材と刷新する設備を整理。自治体の空き家改修・断熱補助金もあわせて試算します。</p>
+      </li>
+      <li>
+        <span class="proc-no">03</span>
+        <strong class="proc-name">手解体・構造補強工事</strong>
+        <p class="proc-desc">使える材を傷めない手解体を実施。基礎補強・柱の根継ぎ・耐力壁で骨格を確実に整えます。</p>
+      </li>
+      <li>
+        <span class="proc-no">04</span>
+        <strong class="proc-name">左官仕上げ・お引き渡し</strong>
+        <p class="proc-desc">白漆喰や無垢床で仕上げてお引き渡し。暮らし始めたあとの建具調整や点検も継続して伴走します。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="sec paper" id="contact">
+    <div class="consult-box">
+      <div>
+        <h2>受け継いだ家・購入検討中の古民家、まずは拝見します。</h2>
+        <p>「建て替えと再生のどちらが適しているか」「予算内でどこまで直せるか」を現地調査のうえ丁寧にお答えします。</p>
+      </div>
+      <a href="#" class="btn-copper">古民家診断・相談を申し込む</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const cells = document.querySelectorAll('.ba-cell');
+document.querySelectorAll('.ba-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    document.querySelectorAll('.ba-btn').forEach(b => b.classList.toggle('active', b === btn));
+    cells.forEach(cell => {
+      cell.classList.toggle('after-mode', mode === 'after');
+      const valEl = cell.querySelector('.ba-val');
+      const noteEl = cell.querySelector('.ba-note');
+      valEl.textContent = valEl.dataset[mode];
+      noteEl.textContent = noteEl.dataset[mode];
+    });
+  });
+});
+</script>
+</body>
+</html>

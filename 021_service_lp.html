@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumina | サービス紹介</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -217,7 +218,12 @@
             }
         }
 
-        /* 3. ISSUES (Vertical List) */
+        /* 3. ISSUES (Slide-In) */
+        .issues {
+            overflow: hidden;
+            /* Hide horizontal overflow during slide-in */
+        }
+
         .issues .grid-24 {
             align-items: start;
         }
@@ -235,6 +241,30 @@
         .issue-item {
             padding: 3rem 0;
             border-bottom: var(--border-thin);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+
+            /* Slide-in initial state */
+            opacity: 0;
+            transform: translateX(-70px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .issue-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stagger delays */
+        .issue-item:nth-child(2) {
+            transition-delay: 0.12s;
+        }
+
+        .issue-item:nth-child(3) {
+            transition-delay: 0.24s;
         }
 
         .issue-item:last-child {
@@ -243,43 +273,158 @@
 
         .issue-num {
             font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 800;
             color: var(--accent-color);
-            margin-bottom: 1rem;
+            opacity: 0.5;
+            line-height: 1;
         }
 
-        /* 4. FEATURES (Zigzag) */
-        .feature-item {
+        .issue-text {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #F0EDE8;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .issue-text::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background-color: rgba(240, 237, 232, 0.1);
+        }
+
+        /* 4. FEATURES (Sticky Horizontal Scroll) */
+        .features-section {
+            height: 300vh;
+            border-bottom: var(--border-thin);
+            position: relative;
+            background-color: #0F0F0F;
+        }
+
+        .features-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: #0F0F0F;
+        }
+
+        .features-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .feature-panel {
+            width: 33.333%;
+            height: 100%;
             display: grid;
-            grid-template-columns: repeat(24, 1fr);
-            gap: 15px;
-            margin-bottom: 8rem;
+            grid-template-columns: 3fr 2fr;
+            align-items: center;
+            padding: 8vw 10vw;
+            gap: 4vw;
+            border-left: 1px solid rgba(240, 237, 232, 0.06);
+            position: relative;
         }
 
-        .feature-item:last-child {
-            margin-bottom: 0;
+        .feature-panel::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--accent-color);
         }
 
-        .f-text {
-            grid-column: 2 / 10;
-            align-self: center;
+        .f-col-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
         }
 
-        .f-img {
-            grid-column: 12 / 24;
-            aspect-ratio: 4/3;
-            background-color: var(--bg-surface);
+        .f-bg-num {
+            position: absolute;
+            top: 50%;
+            left: -5%;
+            transform: translateY(-50%);
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(8rem, 14vw, 12rem);
+            font-weight: 800;
+            opacity: 0.05;
+            color: #F0EDE8;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Alternate (Zigzag) */
-        .feature-item.alt .f-text {
-            grid-column: 16 / 24;
-            order: 2;
+        .f-content {
+            z-index: 1;
         }
 
-        .feature-item.alt .f-img {
-            grid-column: 2 / 14;
-            order: 1;
+        .f-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .f-desc {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #888884;
+            max-width: 500px;
+        }
+
+        .f-col-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
+
+        .f-col-right svg {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.8;
+        }
+
+        .feature-indicator {
+            position: fixed;
+            bottom: 4vw;
+            left: 4vw;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .feature-indicator.visible {
+            opacity: 1;
         }
 
         /* 5. METRICS (Full bleed) */
@@ -486,7 +631,7 @@
         </div>
     </div>
 
-    <!-- 3. ISSUES -->
+    <!-- 3. ISSUES (Slide-In) -->
     <section class="issues">
         <div class="grid-24">
             <div class="issue-header">
@@ -496,68 +641,113 @@
             <div class="issue-list">
                 <div class="issue-item">
                     <div class="issue-num">01 /</div>
-                    <h2>Siloed Data</h2>
-                    <p class="accent-text">分散したツール群による情報の断絶。</p>
-                    <p style="color:var(--text-muted); margin-top:1rem;">
-                        複数のSaaSを導入した結果、データが各所に点在し、それらを接続するための手作業が新たなボトルネックを生み出している現状。</p>
+                    <div>
+                        <div class="issue-text">Siloed Data</div>
+                        <p class="accent-text" style="margin-top: 1rem;">分散したツール群による情報の断絶。</p>
+                        <p style="color:var(--text-muted); margin-top:0.5rem;">
+                            複数のSaaSを導入した結果、データが各所に点在し、それらを接続するための手作業が新たなボトルネックを生み出している現状。</p>
+                    </div>
                 </div>
                 <div class="issue-item">
                     <div class="issue-num">02 /</div>
-                    <h2>Manual Overhead</h2>
-                    <p class="accent-text">クリエイティビティを奪う定型業務。</p>
-                    <p style="color:var(--text-muted); margin-top:1rem;">
-                        承認フロー、データ同期、ステータス更新。優秀な人材のアウトプットの30%が、付加価値を生まない作業に消費されています。</p>
+                    <div>
+                        <div class="issue-text">Manual Overhead</div>
+                        <p class="accent-text" style="margin-top: 1rem;">クリエイティビティを奪う定型業務。</p>
+                        <p style="color:var(--text-muted); margin-top:0.5rem;">
+                            承認フロー、データ同期、ステータス更新。優秀な人材のアウトプットの30%が、付加価値を生まない作業に消費されています。</p>
+                    </div>
                 </div>
                 <div class="issue-item">
                     <div class="issue-num">03 /</div>
-                    <h2>Scaling Limits</h2>
-                    <p class="accent-text">属人化によるスケールの限界。</p>
-                    <p style="color:var(--text-muted); margin-top:1rem;">
-                        「あの人しか設定方法を知らない」という状況が、組織の拡大フェーズにおいて致命的なスピード低下を引き起こします。</p>
+                    <div>
+                        <div class="issue-text">Scaling Limits</div>
+                        <p class="accent-text" style="margin-top: 1rem;">属人化によるスケールの限界。</p>
+                        <p style="color:var(--text-muted); margin-top:0.5rem;">
+                            「あの人しか設定方法を知らない」という状況が、組織の拡大フェーズにおいて致命的なスピード低下を引き起こします。</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. FEATURES -->
-    <section class="features">
-        <div class="grid-24" style="display:block;"> <!-- override grid for child grids -->
+    <!-- 4. FEATURES (Sticky Horizontal Scroll) -->
+    <section class="features-section">
+        <div class="feature-indicator">01 / 03</div>
+        <div class="features-sticky">
+            <div class="features-track">
 
-            <div class="feature-item">
-                <div class="f-text">
-                    <div class="label">Core Engine</div>
-                    <h2>Visual Builder</h2>
-                    <p style="color:var(--text-muted);">
-                        コードを一行も書く必要はありません。直感的なドラッグ＆ドロップインターフェースで、複雑な分岐条件を持つワークフローも瞬時に構築可能です。<span
-                            class="accent-text">開発者のリソースを解放</span>します。
-                    </p>
+                <!-- Feature 01 -->
+                <div class="feature-panel">
+                    <div class="f-col-left">
+                        <div class="f-bg-num">01</div>
+                        <div class="f-content">
+                            <div class="label" style="margin-bottom: 0.5rem;">Core Engine</div>
+                            <div class="f-title">Visual Builder</div>
+                            <p class="f-desc">
+                                コードを一行も書く必要はありません。直感的なドラッグ＆ドロップインターフェースで、複雑な分岐条件を持つワークフローも瞬時に構築可能です。開発者のリソースを解放します。</p>
+                        </div>
+                    </div>
+                    <div class="f-col-right">
+                        <!-- Abstract Diagram 1: Nodes connecting -->
+                        <svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="20" cy="50" r="8" />
+                            <circle cx="50" cy="20" r="8" />
+                            <circle cx="50" cy="80" r="8" />
+                            <circle cx="80" cy="50" r="8" />
+                            <path d="M28 46 L42 24" />
+                            <path d="M28 54 L42 76" />
+                            <path d="M58 24 L72 46" />
+                            <path d="M58 76 L72 54" />
+                        </svg>
+                    </div>
                 </div>
-                <div class="f-img"></div>
-            </div>
 
-            <div class="feature-item alt">
-                <div class="f-text">
-                    <div class="label">Connectivity</div>
-                    <h2>Universal Sync</h2>
-                    <p style="color:var(--text-muted);">
-                        Slack、Jira、Salesforceなど、現在お使いの500以上のツールセットとディープに統合。情報の双方向同期をリアルタイムに行い、<span
-                            class="accent-text">単一の真実の情報源</span>を保証します。
-                    </p>
+                <!-- Feature 02 -->
+                <div class="feature-panel">
+                    <div class="f-col-left">
+                        <div class="f-bg-num">02</div>
+                        <div class="f-content">
+                            <div class="label" style="margin-bottom: 0.5rem;">Connectivity</div>
+                            <div class="f-title">Universal Sync</div>
+                            <p class="f-desc">
+                                Slack、Jira、Salesforceなど、現在お使いの500以上のツールセットとディープに統合。情報の双方向同期をリアルタイムに行い、単一の真実の情報源を保証します。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="f-col-right">
+                        <!-- Abstract Diagram 2: Sync cycle -->
+                        <svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M25 50 A 25 25 0 1 1 50 75" />
+                            <path d="M50 75 L50 65 M50 75 L60 75" />
+                            <path d="M75 50 A 25 25 0 1 1 50 25" />
+                            <path d="M50 25 L50 35 M50 25 L40 25" />
+                        </svg>
+                    </div>
                 </div>
-                <div class="f-img" style="background-color: #1C1C1C;"></div>
-            </div>
 
-            <div class="feature-item">
-                <div class="f-text">
-                    <div class="label">Intelligence</div>
-                    <h2>Predictive Routing</h2>
-                    <p style="color:var(--text-muted);">
-                        過去のデータを学習し、最適な担当者や処理ルートをAIが自動提案。タスクの滞留を未然に防ぎ、チームの<span class="accent-text">スループットを最大化</span>します。
-                    </p>
+                <!-- Feature 03 -->
+                <div class="feature-panel">
+                    <div class="f-col-left">
+                        <div class="f-bg-num">03</div>
+                        <div class="f-content">
+                            <div class="label" style="margin-bottom: 0.5rem;">Intelligence</div>
+                            <div class="f-title">Predictive Routing</div>
+                            <p class="f-desc">過去のデータを学習し、最適な担当者や処理ルートをAIが自動提案。タスクの滞留を未然に防ぎ、チームのスループットを最大化します。</p>
+                        </div>
+                    </div>
+                    <div class="f-col-right">
+                        <!-- Abstract Diagram 3: Data flow -->
+                        <svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="20" y="40" width="20" height="20" rx="4" />
+                            <rect x="60" y="20" width="20" height="20" rx="4" />
+                            <rect x="60" y="60" width="20" height="20" rx="4" />
+                            <path d="M40 50 L50 50 L50 30 L60 30" />
+                            <path d="M40 50 L50 50 L50 70 L60 70" />
+                        </svg>
+                    </div>
                 </div>
-                <div class="f-img"></div>
-            </div>
 
+            </div>
         </div>
     </section>
 
@@ -652,6 +842,54 @@
                     cursor.style.width = '20px'; cursor.style.height = '20px';
                 });
             });
+
+            // --- NEW ADDONS --- //
+
+            // 3. ISSUES (Slide-in alternate stagger)
+            const problems = document.querySelectorAll('.issue-item');
+            const problemObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        problemObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            problems.forEach(p => problemObserver.observe(p));
+
+            // 4. FEATURES (Horizontal Scroll via Sticky)
+            const featSection = document.querySelector('.features-section');
+            const featTrack = document.querySelector('.features-track');
+            const indicator = document.querySelector('.feature-indicator');
+
+            if (featSection && featTrack) {
+                window.addEventListener('scroll', () => {
+                    const rect = featSection.getBoundingClientRect();
+                    const total = featSection.offsetHeight - window.innerHeight;
+                    const scrolled = Math.max(0, -rect.top);
+                    const progress = Math.min(scrolled / total, 1);
+
+                    // Show/hide progress indicator
+                    if (progress > 0 && progress < 1) {
+                        indicator.classList.add('visible');
+                    } else if (progress <= 0 || progress >= 1) {
+                        indicator.classList.remove('visible');
+                    }
+
+                    // Translate track
+                    const shift = progress * (2 / 3) * 100;
+                    featTrack.style.transform = `translateX(-${shift}%)`;
+
+                    // Update indicator numbering
+                    let currentNum = "01";
+                    if (progress > 0.66) currentNum = "03";
+                    else if (progress > 0.33) currentNum = "02";
+
+                    if (indicator) indicator.textContent = `${currentNum} / 03`;
+
+                }, { passive: true });
+            }
         });
     </script>
 </body>

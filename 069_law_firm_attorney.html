@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>葵総合法律事務所｜企業法務・相続・紛争解決の専門弁護士法人</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@400;500&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F4EF;
+      --paper: #FFFFFF;
+      --slate: #161D29;
+      --slate-mid: #202938;
+      --muted: #5C6370;
+      --burgundy: #6D2932;
+      --gold: #A0824E;
+      --line: #DCD8CE;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--slate);
+      line-height: 1.95;
+      font-size: 14.5px;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── 法務白書カバー型ダークヒーロー ─────────── */
+    .brief-cover {
+      background: var(--slate);
+      color: #F2EFE8;
+      border-bottom: 3px solid var(--gold);
+    }
+    .cover-nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2A3343;
+    }
+    .brand {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: #B4BCC9;
+      align-items: center;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-res {
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 7px 18px;
+    }
+    .nav-res:hover { background: var(--gold); color: var(--slate) !important; }
+
+    .cover-body {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 64px 32px 72px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .roman {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .cover-body h1 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.85rem, 3vw, 2.65rem);
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+    .cover-body p {
+      color: #BAC1CE;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      padding: 13px 30px;
+      font-size: 0.84rem;
+      letter-spacing: 0.12em;
+      transition: background-color 0.2s;
+    }
+    .btn-gold:hover { background: #856A3C; }
+    .cover-photo {
+      border: 1px solid #303A4B;
+      padding: 10px;
+      background: var(--slate-mid);
+    }
+    .cover-photo img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+
+    /* ── 章立てリーガルブリーフ本文 ─────────────── */
+    .chapter {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 84px 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .chapter-head {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      margin-bottom: 36px;
+    }
+    .chap-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--burgundy);
+      font-weight: 600;
+      line-height: 1;
+    }
+    .chap-title h2 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .chap-title p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── 固有ギミック：分野別・初回相談チェックリスト（アコーディオン） ── */
+    .acc-list {
+      border-top: 2px solid var(--slate);
+      background: var(--paper);
+    }
+    .acc-item { border-bottom: 1px solid var(--line); }
+    .acc-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.15s;
+    }
+    .acc-trigger:hover { background: var(--bg); }
+    .acc-code {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--burgundy);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+    .acc-name {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: var(--slate);
+    }
+    .acc-plus {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .acc-body {
+      display: none;
+      padding: 0 28px 28px 108px;
+    }
+    .acc-item.open .acc-body { display: block; }
+    .acc-desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 18px; }
+    .acc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 18px 22px;
+      font-size: 0.82rem;
+    }
+    .acc-grid dt {
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 4px;
+    }
+    .acc-grid dd { color: var(--muted); }
+
+    /* ── 相談室・費用方針 ───────────────────────── */
+    .room-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .room-photo {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 10px;
+    }
+    .room-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .fee-dl { border-top: 1px solid var(--line); margin-top: 20px; }
+    .fee-dl div {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.86rem;
+      gap: 12px;
+    }
+    .fee-dl dt { font-weight: 700; color: var(--slate); }
+    .fee-dl dd { color: var(--muted); text-align: right; }
+
+    /* ── 予約枠 ─────────────────────────────────── */
+    .reserve-band {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 48px 44px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .tel-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .btn-slate {
+      display: inline-block;
+      background: var(--slate);
+      color: #fff;
+      padding: 14px 32px;
+      font-size: 0.86rem;
+      letter-spacing: 0.1em;
+      margin-top: 16px;
+    }
+    .btn-slate:hover { background: var(--burgundy); }
+
+    footer {
+      background: var(--slate);
+      color: #9CA3AF;
+      padding: 32px;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 860px) {
+      .cover-body, .room-layout, .reserve-band, .acc-grid { grid-template-columns: 1fr; }
+      .chapter-head { grid-template-columns: 1fr; gap: 6px; }
+      .acc-body { padding: 0 20px 24px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="brief-cover">
+  <header class="cover-nav">
+    <a href="#" class="brand">葵総合法律事務所</a>
+    <nav class="nav-links">
+      <a href="#practice">I. 取扱分野・準備書面</a>
+      <a href="#stance">II. 相談体制・費用</a>
+      <a href="#contact" class="nav-res">法律相談の予約</a>
+    </nav>
+  </header>
+
+  <section class="cover-body">
+    <div>
+      <p class="roman">LEGAL BRIEF — ATTORNEYS AT LAW</p>
+      <h1>確かな法理と誠実な対話で、<br>最善の解決へ導きます。</h1>
+      <p>
+        企業法務・労務トラブルの予防から、相続・事業承継・不動産紛争まで。経験豊富な弁護士が直接お話を伺い、依頼者様の権利と未来を守る現実的な解決策をご提示します。
+      </p>
+      <a href="#contact" class="btn-gold">初回法律相談を予約する</a>
+    </div>
+    <div class="cover-photo">
+      <img src="images/069_hero.webp" alt="重厚なウォールナット書棚と静かな照明の法律事務所応接室">
+    </div>
+  </section>
+</div>
+
+<section class="chapter" id="practice">
+  <div class="chapter-head">
+    <span class="chap-num">I.</span>
+    <div class="chap-title">
+      <h2>取扱分野・初回相談チェックリスト</h2>
+      <p>分野をクリックすると、対応範囲・初回相談時のご持参書類・費用目安が開きます。</p>
+    </div>
+  </div>
+
+  <div class="acc-list">
+    <div class="acc-item open">
+      <button type="button" class="acc-trigger">
+        <span class="acc-code">01</span>
+        <span class="acc-name">企業法務・顧問弁護士・契約書レビュー</span>
+        <span class="acc-plus">−</span>
+      </button>
+      <div class="acc-body">
+        <p class="acc-desc">取引基本契約の精査、未払い債権回収、従業員との労務トラブル予防、株主総会対応まで日常の法的リスクを未然に防ぎます。</p>
+        <dl class="acc-grid">
+          <div><dt>初回相談時にあると良い資料</dt><dd>該当契約書・取引経緯メモ・就業規則など</dd></div>
+          <div><dt>顧問料の目安</dt><dd>月額 55,000円〜（税込・業務量に応じ設計）</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <button type="button" class="acc-trigger">
+        <span class="acc-code">02</span>
+        <span class="acc-name">遺産相続・遺言書作成・事業承継</span>
+        <span class="acc-plus">+</span>
+      </button>
+      <div class="acc-body">
+        <p class="acc-desc">遺産分割協議、遺留分侵害額請求、公正証書遺言の作成、自社株の承継計画まで、親族間の感情にも配慮しながら円満解決を図ります。</p>
+        <dl class="acc-grid">
+          <div><dt>初回相談時にあると良い資料</dt><dd>相続関係図メモ・財産一覧・固定資産税通知書</dd></div>
+          <div><dt>着手金の目安</dt><dd>220,000円〜（交渉・調停内容により事前見積）</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <button type="button" class="acc-trigger">
+        <span class="acc-code">03</span>
+        <span class="acc-name">不動産・建築瑕疵・立ち退き交渉</span>
+        <span class="acc-plus">+</span>
+      </button>
+      <div class="acc-body">
+        <p class="acc-desc">賃貸借トラブル、明渡し請求、境界確定、建築瑕疵に関する交渉および訴訟代理を建築士とも連携して多数手がけています。</p>
+        <dl class="acc-grid">
+          <div><dt>初回相談時にあると良い資料</dt><dd>賃貸借契約書・登記事項証明書・現場写真</dd></div>
+          <div><dt>解決までの目安</dt><dd>任意交渉 2〜4ヶ月 ／ 訴訟 6〜12ヶ月</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <button type="button" class="acc-trigger">
+        <span class="acc-code">04</span>
+        <span class="acc-name">民事・商事訴訟・損害賠償交渉</span>
+        <span class="acc-plus">+</span>
+      </button>
+      <div class="acc-body">
+        <p class="acc-desc">取引先との紛争や損害賠償請求において、内容証明郵便の送付から示談交渉・調停・訴訟まで粘り強く依頼者様の利益を守ります。</p>
+        <dl class="acc-grid">
+          <div><dt>初回相談時にあると良い資料</dt><dd>時系列メモ・メール履歴・相手方からの書面</dd></div>
+          <div><dt>対応スピード</dt><dd>緊急案件は最短当日〜翌営業日に面談設定</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="stance">
+  <div class="chapter-head">
+    <span class="chap-num">II.</span>
+    <div class="chap-title">
+      <h2>完全個室での守秘相談と、明確な事前見積</h2>
+      <p>ご納得いただく前に受任することはありません。</p>
+    </div>
+  </div>
+
+  <div class="room-layout">
+    <div class="room-photo">
+      <img src="images/069_room.webp" alt="完全個室でプライバシーに配慮された静かな法律相談室">
+    </div>
+    <div>
+      <p style="color:var(--muted);">
+        ご相談はすべて防音仕様の完全個室（またはオンライン面談）にて承ります。見通し・リスク・費用を書面でご提示したうえで、進めるかどうかをご判断いただけます。
+      </p>
+      <dl class="fee-dl">
+        <div><dt>初回法律相談</dt><dd>45分 5,500円（税込）／ 法人初回無料</dd></div>
+        <div><dt>受付時間</dt><dd>平日 9:30 – 18:30（夜間・土曜は要予約）</dd></div>
+        <div><dt>守秘義務</dt><dd>弁護士法に基づき相談内容を厳格に保護</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="contact" style="border-bottom:none;">
+  <div class="chapter-head">
+    <span class="chap-num">III.</span>
+    <div class="chap-title">
+      <h2>法律相談のご予約・お問い合わせ</h2>
+      <p>法的トラブルは初期対応によって選択肢が大きく変わります。</p>
+    </div>
+  </div>
+
+  <div class="reserve-band">
+    <div>
+      <p style="font-size:0.88rem; color:var(--muted);">
+        「弁護士に相談する段階かどうかわからない」という時点でも構いません。状況を整理するところから丁寧に伺います。
+      </p>
+      <a href="#" class="btn-slate">24時間受付・WEB相談予約フォーム</a>
+    </div>
+    <div style="border-top:1px solid var(--line); padding-top:16px;">
+      <p style="font-size:0.78rem; color:var(--gold); letter-spacing:0.14em;">TELEPHONE</p>
+      <p class="tel-big">06-6555-0148</p>
+      <p style="font-size:0.78rem; color:var(--muted);">大阪弁護士会所属｜北浜駅 徒歩3分</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 弁護士法人 葵総合法律事務所 — AOI GENERAL LAW OFFICE
+</footer>
+
+<script>
+document.querySelectorAll('.acc-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.acc-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.acc-plus').textContent = '+';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.querySelector('.acc-plus').textContent = '−';
+    }
+  });
+});
+</script>
+</body>
+</html>

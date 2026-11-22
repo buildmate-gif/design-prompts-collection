@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>白霧の湯｜薪サウナと天然水風呂の静寂温浴施設</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #12110F;
+      --panel: #1B1916;
+      --ink: #EDE7DC;
+      --muted: #9E9589;
+      --accent: #C97A40;
+      --line: #2E2A25;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.95;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── フルスクリーン没入ヒーロー ──────────────── */
+    .steam-hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .steam-hero img.bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+    }
+    .hero-nav {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.24em;
+    }
+    .nav-links { display: flex; gap: 28px; font-size: 0.8rem; color: #D3CBBF; letter-spacing: 0.14em; align-items: center; }
+    .nav-btn {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 8px 20px;
+    }
+
+    .hero-bottom {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 36px 56px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 44px;
+      align-items: end;
+    }
+    .eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.24em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .hero-bottom h1 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.45;
+      letter-spacing: 0.1em;
+    }
+    .hero-bottom p { color: #CEC6BA; font-size: 0.9rem; }
+
+    /* ── 固有ギミック：熱・冷・風 3幕温度体験切替 ── */
+    .ritual-sec {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 96px 36px;
+    }
+    .ritual-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin: 32px 0;
+    }
+    .r-tab {
+      background: var(--panel);
+      border: none;
+      color: var(--muted);
+      padding: 24px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.25s, color 0.25s;
+    }
+    .r-tab.active {
+      background: var(--bg);
+      color: #fff;
+    }
+    .r-tab-temp {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      display: block;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .r-tab[data-step="cold"] .r-tab-temp { color: #6BA3BE; }
+    .r-tab[data-step="wind"] .r-tab-temp { color: #8FA889; }
+    .r-tab strong { font-family: 'Zen Old Mincho', serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.1em; }
+
+    .ritual-stage {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+    }
+    .ritual-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .ritual-body { padding: 44px 40px; }
+    .ritual-body h3 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+    .ritual-body p { color: var(--muted); font-size: 0.88rem; margin-bottom: 24px; }
+    .ritual-specs {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      font-size: 0.82rem;
+    }
+    .ritual-specs dt { color: var(--muted); margin-bottom: 2px; }
+    .ritual-specs dd { color: #fff; font-weight: 500; }
+
+    /* ── 施設案内・料金 ─────────────────────────── */
+    .guide-sec {
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      padding: 84px 36px;
+    }
+    .guide-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .info-dl { border-top: 1px solid var(--line); }
+    .info-dl div {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.86rem;
+    }
+    .info-dl dt { color: var(--accent); }
+    .btn-amber {
+      display: block;
+      text-align: center;
+      background: var(--accent);
+      color: #fff;
+      padding: 15px 28px;
+      font-size: 0.86rem;
+      letter-spacing: 0.14em;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 36px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+    }
+
+    @media (max-width: 880px) {
+      .hero-bottom, .ritual-tabs, .ritual-stage, .guide-inner { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .ritual-body { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="steam-hero">
+  <img class="bg-img" src="images/075_hero.webp" alt="温かな間接照明と杉木目の静謐な薪サウナ室と蒸気の風景">
+  <header class="hero-nav">
+    <a href="#" class="brand">白霧の湯</a>
+    <nav class="nav-links">
+      <a href="#ritual">三幕の湯浴み</a>
+      <a href="#guide">料金・案内</a>
+      <a href="#guide" class="nav-btn">入館予約</a>
+    </nav>
+  </header>
+
+  <div class="hero-bottom">
+    <div>
+      <p class="eyebrow">WOOD-FIRED SAUNA &amp; SPRING BATH</p>
+      <h1>薪の爆ぜる音と、<br>深い静寂にほどける。</h1>
+    </div>
+    <p>
+      国産杉で組み上げた暗がりの薪サウナ室と、地下120mから汲み上げる軟水の深い水風呂。会話控えめの「黙浴」を基本とし、呼吸と温度だけに向き合う大人の湯処です。
+    </p>
+  </div>
+</section>
+
+<section class="ritual-sec" id="ritual">
+  <p class="eyebrow">THE THREE-ACT RITUAL</p>
+  <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.75rem; font-weight:400; letter-spacing:0.1em;">熱・冷・風をめぐる三幕の体験</h2>
+
+  <div class="ritual-tabs" role="tablist">
+    <button type="button" class="r-tab active" data-step="heat">
+      <span class="r-tab-temp">92℃</span>
+      <strong>第一幕｜薪サウナ室</strong>
+    </button>
+    <button type="button" class="r-tab" data-step="cold">
+      <span class="r-tab-temp">14.5℃</span>
+      <strong>第二幕｜深層地下水風呂</strong>
+    </button>
+    <button type="button" class="r-tab" data-step="wind">
+      <span class="r-tab-temp">外気浴</span>
+      <strong>第三幕｜森の静寂テラス</strong>
+    </button>
+  </div>
+
+  <div class="ritual-stage">
+    <div class="ritual-photo">
+      <img id="r-img" src="images/075_hero.webp" alt="薪サウナ室の風景">
+    </div>
+    <div class="ritual-body">
+      <h3 id="r-title">白樺の蒸気と柔らかな輻射熱</h3>
+      <p id="r-desc">毎時00分にスタッフが白樺ヴィヒタのアロマ水でロウリュを実施。薪ストーブ特有のやわらかな熱が芯まで巡ります。</p>
+      <dl class="ritual-specs">
+        <div><dt>推奨滞在目安</dt><dd id="r-time">8〜10分</dd></div>
+        <div><dt>空間仕様</dt><dd id="r-spec">国産杉・黙浴・定員14名</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="guide-sec" id="guide">
+  <div class="guide-inner">
+    <dl class="info-dl">
+      <div><dt>平日入館（時間無制限）</dt><dd>¥2,200（税込・大小タオル・館内着付）</dd></div>
+      <div><dt>土日祝入館（3時間制）</dt><dd>¥2,750（税込・大小タオル・館内着付）</dd></div>
+      <div><dt>営業時間</dt><dd>07:00 – 23:00（最終入館 22:00）</dd></div>
+      <div><dt>所在地</dt><dd>長野県北佐久郡軽井沢町 森の里 14-2</dd></div>
+    </dl>
+    <div style="border:1px solid var(--line); padding:32px; background:var(--bg); text-align:center;">
+      <p style="font-size:0.84rem; color:var(--muted); margin-bottom:20px;">混雑を避け静寂を保つため、土日祝は事前オンライン予約を優先しております。</p>
+      <a href="#" class="btn-amber">事前チケット・貸切サウナ予約</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 白霧の湯 — SHIRAGIRI SAUNA &amp; BATHHOUSE
+</footer>
+
+<script>
+const STEPS = {
+  heat: {
+    img: 'images/075_hero.webp',
+    title: '白樺の蒸気と柔らかな輻射熱',
+    desc: '毎時00分にスタッフが白樺ヴィヒタのアロマ水でロウリュを実施。薪ストーブ特有のやわらかな熱が体の芯まで静かに巡ります。',
+    time: '8〜10分', spec: '国産杉・黙浴・定員14名'
+  },
+  cold: {
+    img: 'images/075_bath.webp',
+    title: '水深120cm、やわらかな天然軟水',
+    desc: '地下120mから汲み上げた天然水をそのままかけ流し。肩まで深く浸かれる石造りの浴槽で、一気に鼓動を鎮めます。',
+    time: '60〜90秒', spec: '水温14.5℃・水深120cm'
+  },
+  wind: {
+    img: 'images/075_bath.webp',
+    title: '木立を抜ける風と、18席の静寂テラス',
+    desc: '森の緑を望む外気浴テラスにリクライニングチェアを18席配置。温かいほうじ茶を片手に、深い余韻を味わいます。',
+    time: '10〜15分', spec: '外気浴18席・無料ほうじ茶'
+  }
+};
+
+document.querySelectorAll('.r-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = STEPS[btn.dataset.step];
+    document.querySelectorAll('.r-tab').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('r-img').src = d.img;
+    document.getElementById('r-title').textContent = d.title;
+    document.getElementById('r-desc').textContent = d.desc;
+    document.getElementById('r-time').textContent = d.time;
+    document.getElementById('r-spec').textContent = d.spec;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>atelier SORA｜髪質改善と骨格カットのプライベートヘアサロン</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F1EC;
+      --paper: #FFFFFF;
+      --ink: #201E1C;
+      --muted: #767069;
+      --taupe: #968674;
+      --line: #E2DDD4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.9;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 241, 236, 0.94);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+    }
+    .nav { display: flex; gap: 28px; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.14em; align-items: center; }
+    .nav a:hover { color: var(--ink); }
+
+    /* ── ファッション誌見開き・大型タイポ＆2枚組写真ヒーロー ── */
+    .mag-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 32px 72px;
+    }
+    .mag-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .mag-title-row h1 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.38;
+      letter-spacing: 0.06em;
+    }
+    .mag-meta {
+      text-align: right;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--taupe);
+      letter-spacing: 0.12em;
+    }
+    .diptych {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 24px;
+      align-items: end;
+    }
+    .dip-photo { border: 1px solid var(--line); overflow: hidden; }
+    .dip-photo.main img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .dip-photo.sub img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .dip-caption {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    /* ── 固有ギミック：メニュー所要時間＆料金 見積もりチェック ── */
+    .calc-sec {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 88px 32px;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    .eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.94rem;
+      color: var(--taupe);
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+    }
+    h2.sec-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 44px;
+      margin-top: 32px;
+      align-items: start;
+    }
+    .menu-checklist {
+      border-top: 1px solid var(--line);
+    }
+    .m-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 12px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+    .m-row:hover { background: var(--bg); }
+    .m-left { display: flex; align-items: flex-start; gap: 14px; }
+    .m-left input { margin-top: 5px; accent-color: var(--ink); width: 16px; height: 16px; }
+    .m-left strong { display: block; font-weight: 500; font-size: 0.96rem; }
+    .m-left small { color: var(--muted); font-size: 0.78rem; }
+    .m-right {
+      text-align: right;
+      white-space: nowrap;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .m-right span { display: block; font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; color: var(--muted); font-weight: 300; }
+
+    .summary-box {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 36px 32px;
+      position: sticky;
+      top: 90px;
+    }
+    .sum-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+    .sum-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .sum-time {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 0;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+    }
+    .btn-ink {
+      display: block;
+      text-align: center;
+      background: var(--ink);
+      color: #fff;
+      padding: 14px 24px;
+      font-size: 0.84rem;
+      letter-spacing: 0.14em;
+      transition: background-color 0.2s;
+    }
+    .btn-ink:hover { background: var(--taupe); }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 32px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 880px) {
+      .diptych, .calc-grid { grid-template-columns: 1fr; }
+      .mag-meta { text-align: left; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="brand">atelier SORA</a>
+    <nav class="nav">
+      <a href="#menu">MENU &amp; ESTIMATE</a>
+      <a href="#info">ACCESS</a>
+    </nav>
+  </div>
+</header>
+
+<section class="mag-hero">
+  <div class="mag-title-row">
+    <h1>乾かすだけで整う、<br>あなた本来の艶と輪郭。</h1>
+    <div class="mag-meta">Private 3-Seat Salon<br>Omotesando, Tokyo</div>
+  </div>
+
+  <div class="diptych">
+    <div class="dip-photo main">
+      <img src="images/074_hero.webp" alt="自然光が差し込むミニマルで落ち着いたプライベートヘアサロンの内観">
+    </div>
+    <div>
+      <div class="dip-photo sub">
+        <img src="images/074_space.webp" alt="静かな光の入るフルフラットシャンプー台と天然木のサロン空間">
+      </div>
+      <p class="dip-caption">
+        全3席の静かな空間で、カウンセリングから仕上げまでひとりのスタイリストが担当。骨格に合わせたカットと低刺激ケアで、毎朝のスタイリングを軽やかにします。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="calc-sec" id="menu">
+  <div class="wrap">
+    <p class="eyebrow">Menu &amp; Time Estimator</p>
+    <h2 class="sec-title">施術メニュー・所要時間＆料金シミュレーター</h2>
+    <p style="color:var(--muted); font-size:0.86rem;">ご希望のメニューにチェックを入れると、合計税込料金と滞在時間の目安がわかります。</p>
+
+    <div class="calc-grid">
+      <div class="menu-checklist">
+        <label class="m-row">
+          <div class="m-left">
+            <input type="checkbox" class="m-chk" data-price="7700" data-min="60" checked>
+            <div><strong>骨格補正カット</strong><small>シャンプー・ブロー込</small></div>
+          </div>
+          <div class="m-right">¥7,700<span>60分</span></div>
+        </label>
+        <label class="m-row">
+          <div class="m-left">
+            <input type="checkbox" class="m-chk" data-price="9900" data-min="60">
+            <div><strong>透明感イルミナカラー</strong><small>低刺激処方・頭皮保護オイル付</small></div>
+          </div>
+          <div class="m-right">¥9,900<span>60分</span></div>
+        </label>
+        <label class="m-row">
+          <div class="m-left">
+            <input type="checkbox" class="m-chk" data-price="11000" data-min="45">
+            <div><strong>髪質改善メテオトリートメント</strong><small>内部補修・持続約1.5ヶ月</small></div>
+          </div>
+          <div class="m-right">¥11,000<span>45分</span></div>
+        </label>
+        <label class="m-row">
+          <div class="m-left">
+            <input type="checkbox" class="m-chk" data-price="6600" data-min="40">
+            <div><strong>アロマクリームヘッドスパ</strong><small>フルフラット個室シャンプー台</small></div>
+          </div>
+          <div class="m-right">¥6,600<span>40分</span></div>
+        </label>
+      </div>
+
+      <div class="summary-box">
+        <p class="sum-label">選択メニュー合計（税込）</p>
+        <p class="sum-price" id="s-price">¥7,700</p>
+        <div class="sum-time">
+          <span>滞在時間の目安</span>
+          <strong id="s-time">約 60 分</strong>
+        </div>
+        <a href="#" class="btn-ink">この組み合わせで空き枠を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="info">
+  <span>東京都渋谷区神宮前 4-18-9 2F｜10:00 – 20:00（月曜定休）</span>
+  <span>© atelier SORA TOKYO</span>
+</footer>
+
+<script>
+const mChks = document.querySelectorAll('.m-chk');
+function updateMenu() {
+  let price = 0, min = 0;
+  mChks.forEach(c => {
+    if (c.checked) {
+      price += parseInt(c.dataset.price, 10);
+      min += parseInt(c.dataset.min, 10);
+    }
+  });
+  document.getElementById('s-price').textContent = '¥' + price.toLocaleString();
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  document.getElementById('s-time').textContent = min === 0 ? '未選択' : (h > 0 ? `約 ${h}時間${m ? m + '分' : ''}` : `約 ${m}分`);
+}
+mChks.forEach(c => c.addEventListener('change', updateMenu));
+updateMenu();
+</script>
+</body>
+</html>

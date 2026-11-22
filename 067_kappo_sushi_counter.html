@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鮨・割烹 宵月｜白木八席の隠れ家カウンター</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400&family=Zen+Old+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #100E0C;
+      --panel: #191613;
+      --ink: #EDE7DC;
+      --muted: #9E9487;
+      --gold: #C49B5F;
+      --gold-dim: rgba(196, 155, 95, 0.35);
+      --line: #2C2721;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 2.05;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── 100vh 没入フルブリード＋中央縦書き暖簾ヒーロー ── */
+    .noren-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .noren-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.48;
+      transform: scale(1.03);
+    }
+    .hero-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .hero-brand {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.28em;
+    }
+    .hero-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      color: #D2C9BC;
+      align-items: center;
+    }
+    .hero-links a:hover { color: var(--gold); }
+    .hero-res-btn {
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 7px 18px;
+      transition: all 0.2s;
+    }
+    .hero-res-btn:hover { background: var(--gold); color: var(--bg) !important; }
+
+    /* 中央の縦書き暖簾パネル */
+    .noren-center {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 40px 48px;
+      background: rgba(16, 14, 12, 0.72);
+      border: 1px solid var(--gold-dim);
+    }
+    .noren-center h1 {
+      writing-mode: vertical-rl;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.9rem, 3vw, 2.75rem);
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      line-height: 1.8;
+    }
+    .noren-sub {
+      writing-mode: vertical-rl;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.84rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      padding-top: 8px;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+    }
+
+    /* ── 序文（中央極細余白） ──────────────────── */
+    .prologue {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 112px 28px;
+      text-align: center;
+    }
+    .kicker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .prologue h2 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      margin-bottom: 24px;
+    }
+    .prologue p { color: var(--muted); }
+
+    /* ── 固有ギミック：お品書き献立帳（切替タブ） ─── */
+    .menu-scroll {
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 104px 28px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    .menu-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .menu-head h2 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+    }
+    .course-tabs {
+      display: inline-flex;
+      border: 1px solid var(--gold-dim);
+    }
+    .c-tab {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 10px 24px;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .c-tab.active {
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .kondate-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 44px 48px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .kondate-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem;
+      color: var(--gold);
+      line-height: 1.1;
+      margin: 12px 0 14px;
+    }
+    .kondate-note { font-size: 0.82rem; color: var(--muted); }
+    .kondate-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+    .kondate-list li {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+    .kondate-list strong {
+      font-family: 'Zen Old Mincho', serif;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── 一品と器（非対称ダーク展示） ───────────── */
+    .dish-sec {
+      padding: 112px 28px;
+    }
+    .dish-grid {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .dish-photo {
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: var(--panel);
+    }
+    .dish-photo img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .dish-copy h2 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .dish-copy p { color: var(--muted); margin-bottom: 16px; }
+
+    /* ── 予約・二部制案内 ───────────────────────── */
+    .reserve-sec {
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      padding: 96px 28px;
+    }
+    .reserve-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .info-dl { border-top: 1px solid var(--line); }
+    .info-dl div {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.86rem;
+    }
+    .info-dl dt { color: var(--gold); letter-spacing: 0.12em; }
+    .reserve-box {
+      border: 1px solid var(--gold-dim);
+      background: var(--bg);
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .reserve-box p { font-size: 0.84rem; color: var(--muted); margin-bottom: 22px; }
+    .btn-gold {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 14px 36px;
+      letter-spacing: 0.2em;
+      font-size: 0.84rem;
+      transition: all 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold); color: var(--bg); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 28px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+    }
+
+    @media (max-width: 860px) {
+      .hero-top-bar { padding: 18px 20px; }
+      .hero-links { display: none; }
+      .noren-center { padding: 28px 24px; }
+      .kondate-card, .dish-grid, .reserve-grid { grid-template-columns: 1fr; gap: 28px; }
+      .kondate-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="noren-hero">
+  <img src="images/067_hero.webp" alt="檜の一枚板カウンターと柔らかな間接照明の隠れ家割烹・寿司店">
+  <div class="hero-top-bar">
+    <a href="#" class="hero-brand">鮨・割烹 宵月</a>
+    <nav class="hero-links">
+      <a href="#menu">お品書き</a>
+      <a href="#dish">仕事と酒</a>
+      <a href="#reserve" class="hero-res-btn">お席のご予約</a>
+    </nav>
+  </div>
+
+  <div class="noren-center">
+    <h1>白木八席、<br>旬を握る静かな夜。</h1>
+    <p class="noren-sub">京都祇園・完全予約制</p>
+  </div>
+
+  <span class="hero-scroll">SCROLL — OMAKASE</span>
+</section>
+
+<section class="prologue">
+  <p class="kicker">PROLOGUE</p>
+  <h2>路地の奥、樹齢二百年の檜カウンター。</h2>
+  <p>
+    祇園南側の石畳を折れた先に佇む、わずか八席の隠れ家。毎朝市場で目利きした近海の魚介と、赤酢で仕立てた温かな舎利、季節の出汁が香る椀物を、一斉スタートのおまかせにてご用意しております。
+  </p>
+</section>
+
+<section class="menu-scroll" id="menu">
+  <div class="wrap">
+    <div class="menu-head">
+      <div>
+        <p class="kicker">OMAKASE COURSE</p>
+        <h2>季節のお品書き</h2>
+      </div>
+      <div class="course-tabs" role="tablist">
+        <button type="button" class="c-tab active" data-course="yoizuki">宵月コース</button>
+        <button type="button" class="c-tab" data-course="kiwami">季節の極みコース</button>
+      </div>
+    </div>
+
+    <div class="kondate-card">
+      <div>
+        <h3 id="c-name" style="font-family:'Zen Old Mincho',serif; font-size:1.25rem; font-weight:400; letter-spacing:0.1em;">おまかせ 宵月コース</h3>
+        <p class="kondate-price" id="c-price">¥22,000</p>
+        <p class="kondate-note" id="c-note">税込・サービス料別10%。初めてお越しの方におすすめの基本献立です。日本酒ペアリング（6種 ¥7,700）も承ります。</p>
+      </div>
+      <ul class="kondate-list" id="c-list"></ul>
+    </div>
+  </div>
+</section>
+
+<section class="dish-sec" id="dish">
+  <div class="dish-grid">
+    <div class="dish-photo">
+      <img src="images/067_dish.webp" alt="備前焼の黒い皿に盛られた端正な江戸前握り寿司">
+    </div>
+    <div class="dish-copy">
+      <p class="kicker">CRAFT &amp; SAKE</p>
+      <h2>熟成と温度、<br>一皿の余韻を揃える。</h2>
+      <p>
+        白身魚には昆布締め、本鮪には数日の熟成を施し、旨味が最も開く瞬間の温度で握ります。人肌の赤酢舎利が口の中でほどける瞬間を大切にしております。
+      </p>
+      <p>
+        合わせるのは京都・北陸の小さな蔵元から届く純米吟醸や燗酒。料理の移ろいに寄り添う一杯を女将がご提案いたします。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="reserve-sec" id="reserve">
+  <div class="reserve-grid">
+    <div>
+      <p class="kicker">INFORMATION</p>
+      <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.6rem; font-weight:400; letter-spacing:0.12em; margin-bottom:24px;">店舗案内・二部制のご案内</h2>
+      <dl class="info-dl">
+        <div><dt>所在地</dt><dd>京都市東山区祇園町南側 570-12</dd></div>
+        <div><dt>営業時間</dt><dd>一部 18:00 一斉開始 ／ 二部 20:30 一斉開始</dd></div>
+        <div><dt>定休日</dt><dd>水曜日・不定休</dd></div>
+        <div><dt>席数</dt><dd>檜カウンター 8席（完全予約制・全席禁煙）</dd></div>
+      </dl>
+    </div>
+    <div class="reserve-box">
+      <p class="kicker">RESERVATION</p>
+      <p>二ヶ月先までの空席をオンラインにてご案内しております。アレルギーや苦手な食材は予約時にお知らせください。</p>
+      <a href="#" class="btn-gold">空席を確認・予約する</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 鮨・割烹 宵月 — KYOTO GION
+</footer>
+
+<script>
+const COURSES = {
+  yoizuki: {
+    name: 'おまかせ 宵月コース',
+    price: '¥22,000',
+    note: '税込・サービス料別10%。初めてお越しの方におすすめの基本献立です。日本酒ペアリング（6種 ¥7,700）も承ります。',
+    items: [
+      ['先付', '季節の胡麻豆腐と雲丹 べっこう餡'],
+      ['お造り', '明石天然鯛・炙り鰆の二種盛り'],
+      ['椀物', '一番出汁の季節真薯と柚子'],
+      ['焼物', '甘鯛の鱗焼き 酢橘添え'],
+      ['握り', '厳選江戸前握り 十二貫（本鮪中トロ・小肌・車海老ほか）'],
+      ['留椀・甘味', '赤出汁・自家製和三盆わらび餅']
+    ]
+  },
+  kiwami: {
+    name: '特選 季節の極みコース',
+    price: '¥28,600',
+    note: '税込・サービス料別10%。希少な産地魚介や喉黒・松葉蟹など、その時期最上の食材を織り交ぜた特別献立です。',
+    items: [
+      ['先付', '蒸し鮑の肝ソース・キャビア添え'],
+      ['お造り', '天然本鮪赤身・平目昆布締め・ボタン海老'],
+      ['蒸し物', '松葉蟹と湯葉の特製茶碗蒸し'],
+      ['炭火焼', '対馬産 喉黒の塩焼き 鬼おろし'],
+      ['握り', '特選握り 十四貫（大トロ・赤雲丹・煮穴子ほか）'],
+      ['留椀・甘味', '伊勢海老の味噌汁・季節果実と抹茶']
+    ]
+  }
+};
+
+function renderCourse(key) {
+  const d = COURSES[key];
+  document.getElementById('c-name').textContent = d.name;
+  document.getElementById('c-price').textContent = d.price;
+  document.getElementById('c-note').textContent = d.note;
+  document.getElementById('c-list').innerHTML = d.items
+    .map(([k, v]) => `<li><strong>${k}</strong><span>${v}</span></li>`).join('');
+}
+
+document.querySelectorAll('.c-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.c-tab').forEach(b => b.classList.toggle('active', b === btn));
+    renderCourse(btn.dataset.course);
+  });
+});
+renderCourse('yoizuki');
+</script>
+</body>
+</html>

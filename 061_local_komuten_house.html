@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>木ノ葉工務店｜無垢の木と暮らす、地域密着の注文住宅</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --washi: #F4F0E8;
+      --paper: #FCFBF8;
+      --ink: #221E1A;
+      --muted: #6C635A;
+      --wood: #8A5E35;
+      --wood-deep: #684422;
+      --moss: #485A4B;
+      --line: #DED7CA;
+      --sumi: #1C1916;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--washi);
+      color: var(--ink);
+      line-height: 1.95;
+      font-size: 14.5px;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* 微細な和紙の質感（グラデーション不使用） */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── ヘッダー（静かな浮遊型） ───────────────── */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      transition: background-color 0.35s ease, border-color 0.35s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .site-header.scrolled {
+      background: rgba(244, 240, 232, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom-color: var(--line);
+    }
+    .header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .logo-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+    }
+    .logo-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--wood);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .nav a { transition: color 0.2s; }
+    .nav a:hover { color: var(--ink); }
+    .nav-cta {
+      border: 1px solid var(--ink);
+      color: var(--ink) !important;
+      padding: 8px 20px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--ink);
+      color: var(--washi) !important;
+    }
+
+    /* ── ヒーロー：和紙の間（ま）× 縦書き × 大判建築写真 ── */
+    .hero {
+      min-height: 100vh;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 96px 40px 56px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .hero-vertical-wrap {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .hero-title {
+      writing-mode: vertical-rl;
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.85rem, 2.8vw, 2.55rem);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .hero-sub-vertical {
+      writing-mode: vertical-rl;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.28em;
+      color: var(--wood);
+      padding-top: 6px;
+    }
+    .hero-foot-meta {
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .hero-foot-meta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .scroll-link {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+      border-bottom: 1px solid var(--wood);
+      padding-bottom: 3px;
+    }
+    .hero-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-photo-frame {
+      flex: 1;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-photo-frame:hover img { transform: scale(1.02); }
+    .hero-caption-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── 思想セクション（非対称・読み物） ─────────── */
+    .philosophy {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 112px 40px;
+    }
+    .phi-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .phi-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      color: var(--wood);
+      margin-bottom: 18px;
+    }
+    .phi-heading {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.65rem;
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: 0.08em;
+    }
+    .phi-body p {
+      font-size: 0.96rem;
+      color: var(--ink);
+      margin-bottom: 22px;
+      max-width: 620px;
+    }
+    .phi-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .metric-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--wood);
+      line-height: 1.05;
+    }
+    .metric-val span {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.82rem;
+      color: var(--ink);
+      margin-left: 4px;
+    }
+    .metric-cap {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── 固有ギミック：素材・構造スペック切替パネル ── */
+    .spec-section {
+      padding: 112px 40px;
+    }
+    .spec-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .sec-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 44px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .sec-head-row h2 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+    .spec-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .spec-tabs {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--line);
+    }
+    .spec-tab {
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 20px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      font-family: inherit;
+      color: var(--muted);
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .spec-tab:hover {
+      background: rgba(252, 251, 248, 0.7);
+      color: var(--ink);
+    }
+    .spec-tab.active {
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .spec-tab-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--wood);
+      letter-spacing: 0.1em;
+    }
+    .spec-tab-name {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.02rem;
+      font-weight: 500;
+    }
+    .spec-stage {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 44px 48px;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .spec-stage-kicker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--wood);
+      margin-bottom: 10px;
+    }
+    .spec-stage h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.55rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .spec-stage p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+    .spec-data-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .spec-data-item dt {
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .spec-data-item dd {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── 職人の手仕事（雑誌見開きオーバーラップ構図） ── */
+    .craft-section {
+      padding: 40px 40px 120px;
+    }
+    .craft-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      align-items: end;
+    }
+    .craft-photo {
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .craft-photo img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .craft-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 44px 40px;
+      margin-left: -72px;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .craft-box h2 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.55rem;
+      font-weight: 500;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .craft-box p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .craft-meta {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      font-size: 0.8rem;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── 施工事例アーカイブ（建築索引リスト型） ────── */
+    .works-section {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 104px 40px;
+    }
+    .works-inner { max-width: 1120px; margin: 0 auto; }
+    .work-row {
+      display: grid;
+      grid-template-columns: 72px 1.2fr 1.4fr 180px;
+      gap: 24px;
+      align-items: baseline;
+      padding: 30px 16px;
+      border-bottom: 1px solid var(--line);
+      transition: background-color 0.25s;
+    }
+    .work-row:hover { background: var(--washi); }
+    .work-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--wood);
+      letter-spacing: 0.1em;
+    }
+    .work-name h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .work-name span {
+      font-size: 0.76rem;
+      color: var(--moss);
+      letter-spacing: 0.08em;
+    }
+    .work-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .work-spec {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* ── 結び（見学会・相談） ─────────────────── */
+    .closing {
+      background: var(--sumi);
+      color: var(--washi);
+      padding: 104px 40px;
+    }
+    .closing-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .closing h2 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+      font-weight: 400;
+      line-height: 1.55;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .closing p { color: #B7AFA3; font-size: 0.9rem; }
+    .closing-action {
+      border: 1px solid #352F29;
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .closing-action p {
+      font-size: 0.82rem;
+      margin-bottom: 20px;
+    }
+    .btn-wood {
+      display: inline-block;
+      background: var(--wood);
+      color: #fff;
+      padding: 14px 36px;
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
+      transition: background-color 0.2s;
+    }
+    .btn-wood:hover { background: var(--wood-deep); }
+
+    footer {
+      background: var(--sumi);
+      border-top: 1px solid #2C2722;
+      padding: 28px 40px;
+      color: #8C8478;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* 静かなフェード演出 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding: 88px 20px 44px; min-height: auto; }
+      .hero-vertical-wrap { flex-direction: column; }
+      .hero-title, .hero-sub-vertical { writing-mode: horizontal-tb; }
+      .hero-photo-frame img { min-height: 280px; }
+      .phi-inner, .spec-layout, .craft-inner, .closing-inner { grid-template-columns: 1fr; gap: 32px; }
+      .craft-box { margin-left: 0; margin-bottom: 0; padding: 28px 22px; }
+      .work-row { grid-template-columns: 1fr; gap: 8px; }
+      .work-spec { text-align: left; }
+      .spec-stage { padding: 28px 22px; }
+      .spec-data-row { grid-template-columns: 1fr; }
+      .nav { display: none; }
+      .header-inner { padding: 16px 20px; }
+      .philosophy, .spec-section, .craft-section, .works-section, .closing { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-ja">木ノ葉工務店</span>
+      <span class="logo-en">KONOHA KOMUTEN</span>
+    </a>
+    <nav class="nav">
+      <a href="#philosophy">思想</a>
+      <a href="#spec">素材と性能</a>
+      <a href="#craft">手仕事</a>
+      <a href="#works">建築索引</a>
+      <a href="#contact" class="nav-cta">見学会・相談</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-vertical-wrap">
+      <p class="hero-sub-vertical">地域密着・手刻みの木の家</p>
+      <h1 class="hero-title">三十年先も、<br>深呼吸したくなる家。</h1>
+    </div>
+    <div class="hero-foot-meta">
+      <p>EST. 1978 — NARA / KANSAI</p>
+      <a href="#philosophy" class="scroll-link">家づくりの思想へ ↓</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-photo-frame">
+      <img src="images/061_hero.webp" alt="無垢の杉材と柔らかな朝の自然光が広がる注文住宅のリビング">
+    </div>
+    <div class="hero-caption-bar">
+      <span>吉野杉の床と深い軒のある平屋 — 奈良県生駒市</span>
+      <span>自社大工施工 ／ 耐震等級3 ／ UA値 0.42</span>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy" id="philosophy">
+  <div class="phi-inner reveal">
+    <div>
+      <p class="phi-label">01 / PHILOSOPHY</p>
+      <h2 class="phi-heading">木と土と、<br>土地の光を読む。</h2>
+    </div>
+    <div class="phi-body">
+      <p>
+        私たちが建てるのは、完成した瞬間がいちばん新しい家ではありません。家族の歩幅や季節の光を吸い込み、十年、三十年と歳月を重ねるほどに艶と愛着が増していく木の住まいです。
+      </p>
+      <p>
+        営業担当を置かず、最初のヒアリングから敷地調査、設計、作業場での墨付け・手刻み、そして引き渡し後の定期点検まで、建築士と自社大工が同じ顔ぶれで伴走します。
+      </p>
+      <div class="phi-metrics">
+        <div>
+          <p class="metric-val">48<span>年</span></p>
+          <p class="metric-cap">地域に根ざした建築実績</p>
+        </div>
+        <div>
+          <p class="metric-val">320<span>棟</span></p>
+          <p class="metric-cap">累計新築・改修お引き渡し</p>
+        </div>
+        <div>
+          <p class="metric-val">8<span>棟</span></p>
+          <p class="metric-cap">品質を守るための年間上限</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spec-section" id="spec">
+  <div class="spec-inner reveal">
+    <div class="sec-head-row">
+      <div>
+        <p class="phi-label">02 / SPECIFICATION</p>
+        <h2>住まいを支える、四つの標準仕様</h2>
+      </div>
+      <p style="font-size:0.84rem; color:var(--muted);">項目を選ぶと詳細仕様が切り替わります</p>
+    </div>
+
+    <div class="spec-layout">
+      <div class="spec-tabs" role="tablist">
+        <button type="button" class="spec-tab active" data-spec="wood">
+          <span class="spec-tab-no">01</span>
+          <span class="spec-tab-name">国産無垢材と左官壁</span>
+        </button>
+        <button type="button" class="spec-tab" data-spec="quake">
+          <span class="spec-tab-no">02</span>
+          <span class="spec-tab-name">許容応力度・耐震等級3</span>
+        </button>
+        <button type="button" class="spec-tab" data-spec="thermal">
+          <span class="spec-tab-no">03</span>
+          <span class="spec-tab-name">パッシブ設計と高断熱</span>
+        </button>
+        <button type="button" class="spec-tab" data-spec="after">
+          <span class="spec-tab-no">04</span>
+          <span class="spec-tab-name">三十年・地域駆けつけ保証</span>
+        </button>
+      </div>
+
+      <div class="spec-stage" id="spec-stage">
+        <div>
+          <p class="spec-stage-kicker" id="spec-kicker">MATERIAL / 01</p>
+          <h3 id="spec-title">地元の山で育った紀州檜と吉野杉</h3>
+          <p id="spec-desc">土台と柱には防蟻性と粘りに優れた紀州檜、床には素足に心地よい吉野杉の無垢板を採用。壁は調湿・消臭作用のある漆喰塗りを標準とし、新建材や化学接着剤を極力排した澄んだ空気を保ちます。</p>
+        </div>
+        <dl class="spec-data-row" id="spec-data">
+          <div class="spec-data-item"><dt>主要構造材</dt><dd>紀州檜・吉野杉（乾燥材）</dd></div>
+          <div class="spec-data-item"><dt>床材</dt><dd>無垢杉 厚み30mm</dd></div>
+          <div class="spec-data-item"><dt>内壁仕上げ</dt><dd>天然漆喰・和紙クロス</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="craft-section" id="craft">
+  <div class="craft-inner reveal">
+    <div class="craft-photo">
+      <img src="images/061_craft.webp" alt="自社作業場で檜の木材をカンナで丁寧に仕上げる大工の手元">
+    </div>
+    <div class="craft-box">
+      <p class="phi-label">03 / CRAFTSMANSHIP</p>
+      <h2>図面には描けない、<br>木の癖を読む手仕事。</h2>
+      <p>
+        同じ山から切り出された木でも、南向きに育った側と北側では強度も反りの向きも異なります。自社作業場で一本ずつ木目を見極め、適材適所に組むことで、数十年後も建具が軽く開く狂いの少ない骨格が生まれます。
+      </p>
+      <div class="craft-meta">
+        <span>自社専属大工 6名</span>
+        <span>施工エリア：車で1時間圏内</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="works-section" id="works">
+  <div class="works-inner reveal">
+    <div class="sec-head-row">
+      <div>
+        <p class="phi-label">04 / ARCHIVE</p>
+        <h2>建築索引 — 施工事例</h2>
+      </div>
+      <p style="font-size:0.84rem; color:var(--muted);">すべて一棟ごとの自由設計です</p>
+    </div>
+
+    <article class="work-row">
+      <span class="work-no">01</span>
+      <div class="work-name">
+        <h3>縁側と土間がつなぐ、南向きの平屋</h3>
+        <span>平屋・新築 ／ 奈良県生駒市</span>
+      </div>
+      <p class="work-desc">深い軒が夏の強い陽射しを遮り、冬はリビングの奥まで陽だまりを運ぶパッシブ設計。庭の緑と室内がゆるやかにつながります。</p>
+      <div class="work-spec">延床 98.5㎡<br>耐震等級3 / UA値 0.41</div>
+    </article>
+
+    <article class="work-row">
+      <span class="work-no">02</span>
+      <div class="work-name">
+        <h3>中庭を囲む、気配を感じる二世帯の家</h3>
+        <span>二世帯・新築 ／ 京都府木津川市</span>
+      </div>
+      <p class="work-desc">生活リズムの違う親世帯と子世帯が、中庭の紅葉を共有しながらほどよい距離感で暮らせるコの字型プラン。</p>
+      <div class="work-spec">延床 142.0㎡<br>耐震等級3 / 長期優良</div>
+    </article>
+
+    <article class="work-row">
+      <span class="work-no">03</span>
+      <div class="work-name">
+        <h3>吹き抜けと造作家具で広く暮らす家</h3>
+        <span>狭小地・新築 ／ 大阪府枚方市</span>
+      </div>
+      <p class="work-desc">住宅密集地でも明るさを確保するため2階リビングを採用。大工造作の本棚とワークデスクで空間を無駄なく活用。</p>
+      <div class="work-spec">延床 89.2㎡<br>耐震等級3 / 認定低炭素</div>
+    </article>
+  </div>
+</section>
+
+<section class="closing" id="contact">
+  <div class="closing-inner">
+    <div>
+      <p class="phi-label" style="color:#C29A6A;">05 / VISIT &amp; CONSULTATION</p>
+      <h2>まずは、無垢の香りと<br>静かな空気感を体感してください。</h2>
+      <p>毎月開催している完成見学会・作業場見学のほか、土地探しや資金計画の個別相談を無料で承っています。売り込みや訪問営業は一切行いません。</p>
+    </div>
+    <div class="closing-action">
+      <p>完全予約制・各回1組様ずつご案内</p>
+      <a href="#" class="btn-wood">見学会・個別相談を予約する</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>株式会社 木ノ葉工務店｜一級建築士事務所</span>
+    <span>© KONOHA KOMUTEN All Rights Reserved.</span>
+  </div>
+</footer>
+
+<script>
+const header = document.getElementById('site-header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const SPECS = {
+  wood: {
+    kicker: 'MATERIAL / 01',
+    title: '地元の山で育った紀州檜と吉野杉',
+    desc: '土台と柱には防蟻性と粘りに優れた紀州檜、床には素足に心地よい吉野杉の無垢板を採用。壁は調湿・消臭作用のある漆喰塗りを標準とし、新建材や化学接着剤を極力排した澄んだ空気を保ちます。',
+    items: [
+      ['主要構造材', '紀州檜・吉野杉（乾燥材）'],
+      ['床材', '無垢杉 厚み30mm'],
+      ['内壁仕上げ', '天然漆喰・和紙クロス']
+    ]
+  },
+  quake: {
+    kicker: 'STRUCTURE / 02',
+    title: '全棟で許容応力度計算による耐震等級3',
+    desc: '簡易計算ではなく、一棟ごとに詳細な構造計算（許容応力度計算）を実施。消防署や警察署と同等の耐震等級3を標準とし、大きな吹き抜けや開放的な窓も安全に両立させます。',
+    items: [
+      ['耐震性能', '耐震等級3（最高等級）'],
+      ['計算方式', '全棟・許容応力度計算'],
+      ['基礎仕様', '一体打ちベタ基礎']
+    ]
+  },
+  thermal: {
+    kicker: 'THERMAL / 03',
+    title: 'エアコン一台で穏やかに巡る高断熱・高気密',
+    desc: 'セルロースファイバー断熱材とトリプル樹脂サッシを組み合わせ、冬場のヒートショックを防ぎます。夏の軒の出や冬の太陽高度まで計算したパッシブ設計で、光熱費を抑えます。',
+    items: [
+      ['断熱性能', 'UA値 0.42 以下標準'],
+      ['気密測定', '全棟実測 C値 0.5 以下'],
+      ['窓仕様', 'トリプルガラス樹脂サッシ']
+    ]
+  },
+  after: {
+    kicker: 'MAINTENANCE / 04',
+    title: '車で1時間圏内だからできる、30年見守り体制',
+    desc: '建てて終わりではなく、暮らし始めてからが本当のお付き合いです。1年・3年・5年・10年以降の定期点検に加え、建具の調整や急な不具合にも自社スタッフが迅速に駆けつけます。',
+    items: [
+      ['定期点検', '最長30年間・履歴管理'],
+      ['施工エリア', '本社から車で1時間圏内'],
+      ['窓口', '建築士・棟梁が直接対応']
+    ]
+  }
+};
+
+document.querySelectorAll('.spec-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.spec;
+    const d = SPECS[key];
+    document.querySelectorAll('.spec-tab').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('spec-kicker').textContent = d.kicker;
+    document.getElementById('spec-title').textContent = d.title;
+    document.getElementById('spec-desc').textContent = d.desc;
+    document.getElementById('spec-data').innerHTML = d.items
+      .map(([k, v]) => `<div class="spec-data-item"><dt>${k}</dt><dd>${v}</dd></div>`)
+      .join('');
+  });
+});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.14 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

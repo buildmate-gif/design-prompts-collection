@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>栞堂書店 &amp; 喫茶｜本と珈琲、静かな午後を過ごす独立系書店</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F2EDE3;
+      --paper: #FAF7F0;
+      --ink: #231F1A;
+      --muted: #6C6257;
+      --forest: #2A473B;
+      --ochre: #9E6A38;
+      --wine: #6B3236;
+      --navy: #2A3B4E;
+      --line: #DBD2C1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.9;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand { font-family: 'Zen Old Mincho', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.16em; }
+    .nav { display: flex; gap: 26px; font-size: 0.82rem; color: var(--muted); }
+    .nav a:hover { color: var(--forest); }
+
+    /* ── 固有ギミック主役：インタラクティブ本棚ヒーロー ── */
+    .shelf-hero {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 56px 28px 72px;
+    }
+    .eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.2em;
+      color: var(--ochre);
+      margin-bottom: 10px;
+    }
+    .shelf-hero h1 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.85rem, 3.1vw, 2.65rem);
+      font-weight: 600;
+      line-height: 1.48;
+      letter-spacing: 0.08em;
+      margin-bottom: 36px;
+    }
+
+    .bookshelf-stage {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 40px;
+      align-items: end;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 40px 36px 36px;
+    }
+    /* 本の背表紙が並ぶ木棚 */
+    .spines-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 20px 18px 0;
+      border-bottom: 8px solid #5D4735;
+      min-height: 310px;
+      overflow-x: auto;
+    }
+    .spine {
+      writing-mode: vertical-rl;
+      border: none;
+      cursor: pointer;
+      padding: 16px 12px;
+      color: #F7F3EA;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      flex: 1;
+      min-width: 54px;
+    }
+    .spine:hover { transform: translateY(-10px); }
+    .spine.active { transform: translateY(-18px); outline: 2px solid var(--ochre); outline-offset: 2px; }
+    .spine.c1 { background: var(--forest); height: 270px; }
+    .spine.c2 { background: var(--navy); height: 250px; }
+    .spine.c3 { background: var(--wine); height: 282px; }
+    .spine.c4 { background: #5B5349; height: 242px; }
+    .spine.c5 { background: #7D5A38; height: 264px; }
+    .spine-author { font-size: 0.68rem; opacity: 0.78; letter-spacing: 0.1em; }
+
+    /* 右側の読書台（選書カード） */
+    .reading-desk {
+      padding: 8px 4px;
+    }
+    .desk-cat {
+      font-size: 0.76rem;
+      color: var(--forest);
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .reading-desk h2 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .desk-author { font-size: 0.84rem; color: var(--ochre); margin-bottom: 18px; }
+    .desk-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 22px;
+      padding: 18px 20px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+    }
+    .desk-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    /* ── 書店と喫茶の2枚写真セクション ──────────── */
+    .shop-sec {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 84px 28px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .photo-duo {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .frame { border: 1px solid var(--line); padding: 10px; background: var(--bg); }
+    .frame img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .cafe-menu {
+      list-style: none;
+      margin-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .cafe-menu li {
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+    }
+    .cafe-menu span { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--forest); }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 28px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 880px) {
+      .bookshelf-stage, .photo-duo { grid-template-columns: 1fr; }
+      .bookshelf-stage { padding: 24px 18px; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="brand">栞堂書店 &amp; 喫茶</a>
+    <nav class="nav">
+      <a href="#shelf">今月の選書棚</a>
+      <a href="#cafe">書店と喫茶</a>
+      <a href="#info">営業時間</a>
+    </nav>
+  </div>
+</header>
+
+<section class="shelf-hero" id="shelf">
+  <p class="eyebrow">INTERACTIVE BOOKSHELF — CLICK A SPINE TO READ</p>
+  <h1>背表紙をひらく、静かな午後。<br>店主が選んだ五冊の本棚。</h1>
+
+  <div class="bookshelf-stage">
+    <div class="spines-wrap" role="tablist" aria-label="今月の選書本棚">
+      <button type="button" class="spine c1 active" data-book="0"><span>台所と季節のノート</span><span class="spine-author">白石かなえ</span></button>
+      <button type="button" class="spine c2" data-book="1"><span>陰影を設計する</span><span class="spine-author">高木誠一</span></button>
+      <button type="button" class="spine c3" data-book="2"><span>雨の日の古本市</span><span class="spine-author">森本悠</span></button>
+      <button type="button" class="spine c4" data-book="3"><span>北の珈琲紀行</span><span class="spine-author">藤井健太</span></button>
+      <button type="button" class="spine c5" data-book="4"><span>手仕事の記憶</span><span class="spine-author">岡田澄子</span></button>
+    </div>
+
+    <div class="reading-desk">
+      <p class="desk-cat" id="bk-cat">エッセイ・暮らし</p>
+      <h2 id="bk-title">台所と季節のノート</h2>
+      <p class="desk-author" id="bk-author">白石 かなえ 著 ／ 栞堂選書</p>
+      <p class="desk-note" id="bk-note">日々の小さな食卓の記録から、土地の記憶と人の温もりをすくい上げる静かな随筆集。休日の朝、深煎り珈琲を淹れて少しずつページをめくりたくなる一冊です。</p>
+      <div class="desk-meta">
+        <span id="bk-spec">四六判・240頁</span>
+        <strong id="bk-price">¥1,870（税込）</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shop-sec" id="cafe">
+  <div class="wrap">
+    <div class="photo-duo">
+      <div>
+        <div class="frame">
+          <img src="images/078_hero.webp" alt="木製の本棚に本が並び温かな光が差し込む日本の独立系書店とブックカフェ">
+        </div>
+        <p style="font-size:0.84rem; color:var(--muted); margin-top:14px;">
+          文芸・エッセイ・建築・暮らしの本を中心に約3,500冊が並ぶ小さな独立系書店。購入前の本を喫茶席で試し読みしていただけます。
+        </p>
+      </div>
+      <div>
+        <div class="frame" style="margin-bottom:22px;">
+          <img src="images/078_cafe.webp" alt="木の机の上に開かれた文庫本と湯気の立つハンドドリップ珈琲" style="aspect-ratio:4/3;">
+        </div>
+        <p class="eyebrow">READING CAFE（10 SEATS）</p>
+        <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.35rem; margin-bottom:8px;">本を読むためだけの喫茶室</h2>
+        <ul class="cafe-menu">
+          <li><strong>栞堂ブレンド（深煎り / 中煎り）</strong><span>¥600</span></li>
+          <li><strong>京都宇治 ほうじ茶ラテ</strong><span>¥650</span></li>
+          <li><strong>固めのクラシックカスタードプリン</strong><span>¥550</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="info">
+  <span>栞堂書店 &amp; 喫茶｜東京都杉並区西荻北 3-11-4（11:00–20:00／水曜定休）</span>
+  <span>© SHIORIDO BOOKS &amp; CAFE</span>
+</footer>
+
+<script>
+const BOOKS = [
+  { cat: 'エッセイ・暮らし', title: '台所と季節のノート', author: '白石 かなえ 著', note: '日々の小さな食卓の記録から、土地の記憶と人の温もりをすくい上げる静かな随筆集。休日の朝、深煎り珈琲を淹れて少しずつページをめくりたくなる一冊です。', spec: '四六判・240頁', price: '¥1,870（税込）' },
+  { cat: '建築・工芸', title: '陰影を設計するということ', author: '高木 誠一 著', note: '日本の古い民家や茶室に学ぶ光の扱い方を、美しいモノクロ写真とスケッチで解説。いつもの部屋の見え方が少し変わる建築エッセイの名著です。', spec: 'A5判・196頁', price: '¥2,420（税込）' },
+  { cat: '短編小説', title: '雨の日の古本市', author: '森本 悠 著', note: '一冊の古書に挟まれた古いしおりをめぐる七つの連作短編。読み終えたあと、誰かにそっと本を贈りたくなる優しい余韻が残ります。', spec: '文庫判・288頁', price: '¥880（税込）' },
+  { cat: '旅・珈琲', title: '北の珈琲紀行', author: '藤井 健太 著', note: '北海道と東北の港町にある小さな自家焙煎喫茶を訪ね歩いた旅の記録。冬の午後に温かい飲み物と合わせてどうぞ。', spec: '四六判・212頁', price: '¥1,980（税込）' },
+  { cat: '民藝・手仕事', title: '手仕事の記憶', author: '岡田 澄子 著', note: '全国各地で器・和紙・竹細工をつくり続ける職人たちへの聞き書き集。長く使う道具の美しさを再発見させてくれます。', spec: 'B6判・256頁', price: '¥2,090（税込）' }
+];
+
+document.querySelectorAll('.spine').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = BOOKS[parseInt(btn.dataset.book, 10)];
+    document.querySelectorAll('.spine').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('bk-cat').textContent = d.cat;
+    document.getElementById('bk-title').textContent = d.title;
+    document.getElementById('bk-author').textContent = d.author + ' ／ 栞堂選書';
+    document.getElementById('bk-note').textContent = d.note;
+    document.getElementById('bk-spec').textContent = d.spec;
+    document.getElementById('bk-price').textContent = d.price;
+  });
+});
+</script>
+</body>
+</html>

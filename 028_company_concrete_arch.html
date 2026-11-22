@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>構造建築デザイン | STRUCT</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -163,38 +164,130 @@
             margin-bottom: 0.5rem;
         }
 
-        /* 3. Values */
-        .values-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+        /* 3. VALUES (Sticky Horizontal Scroll) */
+        .values-section {
+            height: 300vh;
+            border-top: 1px solid var(--line-color);
+            position: relative;
         }
 
-        .value-box {
-            position: relative;
-            padding: 3rem 2rem;
-            background-color: var(--bg-alt);
-            border: 1px solid var(--line-color);
+        .values-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .values-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .value-panel {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+            padding: 0 8vw;
+            overflow: hidden;
+            border-left: 1px solid var(--line-color);
+        }
+
+        .value-panel:nth-child(1) {
+            background-color: #F2F2F1;
+        }
+
+        .value-panel:nth-child(2) {
+            background-color: #EBEBEA;
+        }
+
+        .value-panel:nth-child(3) {
+            background-color: #0A0A0A;
+            color: #F2F2F1;
+        }
+
+        .value-num {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: clamp(10rem, 18vw, 16rem);
+            opacity: 0.05;
+            color: #0A0A0A;
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            z-index: 0;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .value-panel:nth-child(3) .value-num {
+            color: #F2F2F1;
+        }
+
+        .value-struct-line {
+            position: absolute;
+            right: 8vw;
+            height: 50%;
+            top: 25%;
+            width: 1px;
+            background-color: var(--accent-color);
+            opacity: 0.3;
+        }
+
+        .value-panel:nth-child(3) .value-struct-line {
+            background-color: #B08A3E;
+            /* Industrial Gold */
+        }
+
+        .v-content {
+            grid-column: 2 / 3;
             z-index: 1;
         }
 
-        .value-box h3 {
-            font-weight: 700;
-            font-size: 1.2rem;
+        .v-title-en {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .v-line {
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-color);
+            margin: 1.5rem 0;
+        }
+
+        .value-panel:nth-child(3) .v-line {
+            background-color: #B08A3E;
+            /* Industrial Gold */
+        }
+
+        .v-title-jp {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
             margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
+            font-weight: bold;
         }
 
-        .value-box p {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            position: relative;
-            z-index: 2;
+        .v-desc {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #707070;
+            max-width: 500px;
         }
 
-        /* 4. Members */
+        /* 4. MEMBERS (Slide-In Alternate) */
         .member-list {
             display: flex;
             flex-direction: column;
@@ -215,13 +308,32 @@
         .member-img {
             width: 100%;
             aspect-ratio: 3/4;
-            background-color: var(--line-color);
+            background-color: #EBEBEA;
+            border: 1px solid #B0B0AE;
             filter: grayscale(100%);
             transition: filter 0.4s ease;
         }
 
         .member-item:hover .member-img {
             filter: grayscale(0%);
+        }
+
+        .member-item .member-img {
+            opacity: 0;
+            transform: translateX(-45px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+        }
+
+        .member-item .member-info {
+            opacity: 0;
+            transform: translateX(45px);
+            transition: opacity 0.8s ease 0.1s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+
+        .member-item.visible .member-img,
+        .member-item.visible .member-info {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .member-info {
@@ -231,57 +343,87 @@
         }
 
         .member-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
         }
 
         .member-role {
             font-family: 'Unbounded', sans-serif;
             text-transform: uppercase;
-            font-size: 0.8rem;
-            color: var(--accent-color);
+            font-size: 0.65rem;
+            color: #707070;
+            letter-spacing: 0.15em;
             margin-bottom: 1.5rem;
         }
 
         .member-comment {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: var(--text-sub);
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.85rem;
+            line-height: 1.9;
+            color: #707070;
             max-width: 600px;
         }
 
-        /* 5. History */
+        /* 5. HISTORY (Slide-In with Line Drawing) */
+        .history-section {
+            padding-bottom: 200px;
+            position: relative;
+        }
+
         .timeline {
             position: relative;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .tl-line {
+        .timeline-line {
             position: absolute;
-            left: 150px;
-            /* Offset for year */
+            left: 177px;
             top: 0;
             width: 1px;
-            background-color: var(--line-color);
             height: 0;
-            /* Animate this */
-            transition: height 1s ease-out;
+            /* Animated */
+            background-color: #B0B0AE;
+            transition: height 2s ease;
         }
 
-        .tl-item {
+        .history-item {
             display: flex;
             padding: 3rem 0;
             position: relative;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateX(-40px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .tl-item.visible {
+        .history-item.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
+        }
+
+        .history-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .history-item:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .history-item:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .history-item:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .history-item:nth-child(5) {
+            transition-delay: 0.5s;
         }
 
         .tl-year {
@@ -385,40 +527,47 @@
                 grid-template-columns: 1fr;
             }
         }
-    
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
+
+        /* Directional Image Placeholder CSS */
+        .img-wrap {
+            position: relative;
+        }
+
+        .img-ph {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-ph::after {
+            content: "[ 写真・イラストが入ります ]";
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-align: center;
+            padding: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .global-bg-ph.img-ph {
+            border: none;
+            background-color: transparent;
+        }
+
+        .global-bg-ph.img-ph::after {
+            opacity: 0.3;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -428,9 +577,13 @@
 
         <!-- 1. Hero -->
         <section class="hero">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+            <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                <div class="img-ph"></div>
+            </div>
             <div class="hero-top">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+                <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                    <div class="img-ph"></div>
+                </div>
                 <div class="label" style="font-weight:900; color:var(--text-main); font-size:1rem;">STRUCT INC.</div>
                 <div class="label">EST. 2011 // TOKYO</div>
             </div>
@@ -478,24 +631,43 @@
         </section>
 
         <!-- 3. Values -->
-        <section id="values">
-            <div class="label" style="margin-bottom:1rem;">02. Philosophy</div>
-            <h2>Core Values</h2>
-            <div class="values-list">
-                <div class="value-box">
-                    <div class="value-num num-anim">01</div>
-                    <h3>Structural Honesty</h3>
-                    <p>構造的誠実さ。柱は柱として、梁は梁として見せる。荷重を支える骨格を隠さず、むしろその力学的な美しさをデザインの主役とします。</p>
-                </div>
-                <div class="value-box">
-                    <div class="value-num num-anim">02</div>
-                    <h3>Material Purity</h3>
-                    <p>素材の純度。コンクリートの質感、鉄の冷たさ。素材が持つ本来のテクスチャを尊重し、過剰な仕上げやコーティングを避けます。</p>
-                </div>
-                <div class="value-box">
-                    <div class="value-num num-anim">03</div>
-                    <h3>Timeless Form</h3>
-                    <p>時を超える造形。一時的なトレンドに消費されない、幾何学的な普遍性を持ったフォルムを追求します。廃墟となっても美しい建築を。</p>
+        <section id="values" class="values-section">
+            <div class="values-sticky">
+                <div class="values-track">
+
+                    <div class="value-panel">
+                        <div class="value-num num-anim">01</div>
+                        <div class="v-content">
+                            <h3 class="v-title-en">Structural Honesty</h3>
+                            <div class="v-line"></div>
+                            <h4 class="v-title-jp">構造的誠実さ</h4>
+                            <p class="v-desc">柱は柱として、梁は梁として見せる。荷重を支える骨格を隠さず、むしろその力学的な美しさをデザインの主役とします。</p>
+                        </div>
+                        <div class="value-struct-line"></div>
+                    </div>
+
+                    <div class="value-panel">
+                        <div class="value-num num-anim">02</div>
+                        <div class="v-content">
+                            <h3 class="v-title-en">Material Purity</h3>
+                            <div class="v-line"></div>
+                            <h4 class="v-title-jp">素材の純度</h4>
+                            <p class="v-desc">コンクリートの質感、鉄の冷たさ。素材が持つ本来のテクスチャを尊重し、過剰な仕上げやコーティングを避けます。</p>
+                        </div>
+                        <div class="value-struct-line"></div>
+                    </div>
+
+                    <div class="value-panel">
+                        <div class="value-num num-anim">03</div>
+                        <div class="v-content">
+                            <h3 class="v-title-en">Timeless Form</h3>
+                            <div class="v-line"></div>
+                            <h4 class="v-title-jp">時を超える造形</h4>
+                            <p class="v-desc">一時的なトレンドに消費されない、幾何学的な普遍性を持ったフォルムを追求します。廃墟となっても美しい建築を。</p>
+                        </div>
+                        <div class="value-struct-line"></div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -507,7 +679,11 @@
             <div class="member-list">
 
                 <div class="member-item">
-                    <div class="member-img"></div>
+                    <div class="member-img">
+                        <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%;">
+                            <div class="img-ph"></div>
+                        </div>
+                    </div>
                     <div class="member-info">
                         <div class="member-name">黒川 健</div>
                         <div class="member-role">Founder / Principal Architect</div>
@@ -516,7 +692,11 @@
                 </div>
 
                 <div class="member-item">
-                    <div class="member-img"></div>
+                    <div class="member-img">
+                        <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%;">
+                            <div class="img-ph"></div>
+                        </div>
+                    </div>
                     <div class="member-info">
                         <div class="member-name">S. Reynolds</div>
                         <div class="member-role">Partner / Structural Engineer</div>
@@ -525,7 +705,11 @@
                 </div>
 
                 <div class="member-item">
-                    <div class="member-img"></div>
+                    <div class="member-img">
+                        <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%;">
+                            <div class="img-ph"></div>
+                        </div>
+                    </div>
                     <div class="member-info">
                         <div class="member-name">安藤 玲子</div>
                         <div class="member-role">Director / Interior Design</div>
@@ -536,13 +720,13 @@
         </section>
 
         <!-- 5. History -->
-        <section id="history" style="padding-bottom: 200px;">
+        <section id="history" class="history-section">
             <div class="label" style="margin-bottom:1rem; text-align:center;">04. Timeline</div>
             <h2 style="text-align:center;">History</h2>
             <div class="timeline" id="tl-container">
-                <div class="tl-line" id="tl-line"></div>
+                <div class="timeline-line"></div>
 
-                <div class="tl-item">
+                <div class="history-item">
                     <div class="tl-year">2011</div>
                     <div class="tl-dot"></div>
                     <div class="tl-content">
@@ -551,7 +735,7 @@
                     </div>
                 </div>
 
-                <div class="tl-item">
+                <div class="history-item">
                     <div class="tl-year">2015</div>
                     <div class="tl-dot"></div>
                     <div class="tl-content">
@@ -560,7 +744,7 @@
                     </div>
                 </div>
 
-                <div class="tl-item">
+                <div class="history-item">
                     <div class="tl-year">2019</div>
                     <div class="tl-dot"></div>
                     <div class="tl-content">
@@ -569,7 +753,7 @@
                     </div>
                 </div>
 
-                <div class="tl-item">
+                <div class="history-item">
                     <div class="tl-year">2024</div>
                     <div class="tl-dot"></div>
                     <div class="tl-content">
@@ -624,31 +808,55 @@
                 });
             });
 
-            // 3. Timeline Animation Observer
-            const tlContainer = document.getElementById('tl-container');
-            const tlLine = document.getElementById('tl-line');
-            const tlItems = document.querySelectorAll('.tl-item');
+            // 3. VALUES (Horizontal Scroll Panel)
+            const section = document.querySelector('.values-section');
+            const track = document.querySelector('.values-track');
 
-            const tlObserver = new IntersectionObserver((entries) => {
+            if (section && track) {
+                window.addEventListener('scroll', () => {
+                    const rect = section.getBoundingClientRect();
+                    const total = section.offsetHeight - window.innerHeight;
+                    const scrolled = Math.max(0, -rect.top);
+                    const progress = Math.min(scrolled / total, 1);
+                    const shift = progress * (2 / 3) * 100;
+                    track.style.transform = `translateX(-${shift}%)`;
+                }, { passive: true });
+            }
+
+            // 4. MEMBERS (Alternate Slide-in)
+            const members = document.querySelectorAll('.member-item');
+
+            const memberObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Calculate how far down we are
-                        const rect = tlContainer.getBoundingClientRect();
-                        // Start growing line
-                        tlLine.style.height = '100%';
-
-                        // Show items stagger
-                        tlItems.forEach((item, index) => {
-                            setTimeout(() => {
-                                item.classList.add('visible');
-                            }, index * 300);
-                        });
-                        tlObserver.unobserve(entry.target);
+                        entry.target.classList.add('visible');
+                        memberObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.2 });
 
-            tlObserver.observe(tlContainer);
+            members.forEach(m => memberObserver.observe(m));
+
+            // 5. HISTORY (Slide-in with Timeline Line Stretch)
+            const historySection = document.querySelector('.history-section');
+            const timelineLine = document.querySelector('.timeline-line');
+            const historyItems = document.querySelectorAll('.history-item');
+
+            if (historySection && timelineLine && historyItems.length > 0) {
+                const historyObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Shrink offset height just slightly to align aesthetic with final dot
+                            timelineLine.style.height = (timelineLine.parentElement.offsetHeight - 50) + 'px';
+                            historyItems.forEach(item => item.classList.add('visible'));
+                            historyObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                historyObserver.observe(historySection);
+            }
+
         });
     </script>
 </body>

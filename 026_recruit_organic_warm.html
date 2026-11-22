@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careers | Studio OAK</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -249,13 +250,35 @@
             transform: rotate(45deg);
         }
 
-        /* 4. REQUIREMENTS */
+        /* 2. CULTURE & 4. REQUIREMENTS (Alternate Slide-in) */
+        .culture-item:nth-child(odd),
+        .req-item:nth-child(odd) {
+            opacity: 0;
+            transform: translateX(-55px);
+            transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .culture-item:nth-child(even),
+        .req-item:nth-child(even) {
+            opacity: 0;
+            transform: translateX(55px);
+            transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .culture-item.visible,
+        .req-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .req-col {
             grid-column: 2 / 8;
         }
 
         .req-list {
             list-style-type: none;
+            overflow: hidden;
+            /* Prevent horizontal scroll bar on mobile during intro */
         }
 
         .req-item {
@@ -289,42 +312,142 @@
             padding: 3rem;
         }
 
-        /* 6. FLOW (Horizontal Steps) */
-        .flow-sec {
-            overflow-x: auto;
-            padding-bottom: 2rem;
+        /* 6. FLOW (Sticky Horizontal Scroll) */
+        .flow-section {
+            /* 4 steps * 100vh */
+            height: 400vh;
+            position: relative;
+        }
+
+        .flow-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: #F8F3EB;
         }
 
         .flow-track {
             display: flex;
-            gap: 2rem;
-            min-width: 800px;
-            /* Ensure horizontal scroll on small screens */
+            width: 400%;
+            /* 4 steps * 100% */
+            height: 100%;
+            will-change: transform;
         }
 
-        .flow-step {
-            flex: 1;
-            border-top: 1px solid var(--accent-color);
-            padding-top: 1.5rem;
+        .flow-panel {
+            width: 25%;
+            /* 100% / 4 steps */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10vw 12vw;
+            gap: 2.5rem;
             position: relative;
         }
 
-        .flow-step::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            width: 5px;
-            height: 5px;
-            /* removed border-radius per requirement */
-            background-color: var(--accent-color);
+        /* Panel Specific Colors */
+        .flow-panel:nth-child(1) {
+            background-color: #F8F3EB;
+            color: #1E1208;
         }
 
-        .step-num {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.8rem;
+        .flow-panel:nth-child(2) {
+            background-color: #EDE6D8;
+            color: #1E1208;
+        }
+
+        .flow-panel:nth-child(3) {
+            background-color: #E3D9C8;
+            color: #1E1208;
+        }
+
+        .flow-panel:nth-child(4) {
+            background-color: #1E1208;
+            color: #F8F3EB;
+        }
+
+        .flow-panel:nth-child(4) .step-desc {
+            color: #C9BBA8;
+        }
+
+        .flow-panel:nth-child(4) .step-label {
+            color: #E3D9C8;
+        }
+
+        .step-bg-num {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Fraunces', serif;
+            font-size: clamp(8rem, 15vw, 13rem);
+            font-weight: 200;
+            opacity: 0.06;
+            color: #1E1208;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .flow-panel:nth-child(4) .step-bg-num {
+            color: #F8F3EB;
+            opacity: 0.03;
+        }
+
+        .step-content {
+            z-index: 1;
+            position: relative;
+        }
+
+        .step-label {
+            font-family: 'Fraunces', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
             color: var(--accent-color);
             margin-bottom: 1rem;
+        }
+
+        .step-name {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #756B60;
+            max-width: 600px;
+        }
+
+        .step-arrow {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-top: 2rem;
+        }
+
+        .flow-indicator {
+            position: fixed;
+            bottom: 4vw;
+            right: 4vw;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .flow-indicator.visible {
+            opacity: 1;
         }
 
         /* 7. CTA */
@@ -389,42 +512,53 @@
                 margin-bottom: 6rem;
             }
         }
-    
-    .img-ph { width: 100%; height: 100%; background-color: rgba(0,0,0,0.05); }
 
-    /* Directional Image Placeholder CSS */
-    .img-wrap {
-        position: relative;
-    }
-    .img-ph {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: transparent;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .img-ph::after {
-        content: "[ 写真・イラストが入ります ]";
-        font-family: 'Noto Sans JP', sans-serif;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 1rem;
-        white-space: pre-wrap;
-    }
-    .global-bg-ph.img-ph {
-        border: none;
-        background-color: transparent;
-    }
-    .global-bg-ph.img-ph::after {
-        opacity: 0.3;
-        font-size: 2rem;
-    }
+        .img-ph {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Directional Image Placeholder CSS */
+        .img-wrap {
+            position: relative;
+        }
+
+        .img-ph {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-ph::after {
+            content: "[ 写真・イラストが入ります ]";
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-align: center;
+            padding: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .global-bg-ph.img-ph {
+            border: none;
+            background-color: transparent;
+        }
+
+        .global-bg-ph.img-ph::after {
+            opacity: 0.3;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -434,9 +568,13 @@
 
         <!-- 1. HERO -->
         <section class="hero grid-12 fade-up">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+            <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                <div class="img-ph"></div>
+            </div>
             <div class="hero-text">
-    <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"><div class="img-ph"></div></div>
+                <div class="img-wrap" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+                    <div class="img-ph"></div>
+                </div>
                 <div class="label">Join the team</div>
                 <h1>Design with<br>Intention.</h1>
                 <p style="font-size: 1.1rem; color: var(--text-sub); margin-bottom: 2rem;">
@@ -444,7 +582,9 @@
                 </p>
                 <a href="#contact" class="btn">話を聞く</a>
             </div>
-            <div class="img-wrap"><div class="img-ph"></div></div>
+            <div class="img-wrap">
+                <div class="img-ph"></div>
+            </div>
         </section>
 
         <!-- 2. CULTURE -->
@@ -456,19 +596,19 @@
             </div>
 
             <div class="grid-12 culture-grid">
-                <div class="c-item">
+                <div class="c-item culture-item">
                     <div class="label">01 / Process</div>
                     <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">対話から始める</h3>
                     <p style="color:var(--text-sub); font-size: 0.9rem;">
                         効率よりも納得を。クライアントの奥底にある言葉にならない想いを言語化するところから、デザインは始まります。</p>
                 </div>
-                <div class="c-item">
+                <div class="c-item culture-item">
                     <div class="label">02 / Craft</div>
                     <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">細部への執着</h3>
                     <p style="color:var(--text-sub); font-size: 0.9rem;">
                         ピクセル単位の余白、1文字のタイポグラフィ。「神は細部に宿る」というクラフトマンシップを全員が共有しています。</p>
                 </div>
-                <div class="c-item">
+                <div class="c-item culture-item">
                     <div class="label">03 / Life</div>
                     <h3 style="font-family: 'Fraunces'; font-size: 1.3rem; margin-bottom:1rem;">生活者の視点</h3>
                     <p style="color:var(--text-sub); font-size: 0.9rem;">
@@ -548,7 +688,7 @@
                     <h2>こんな方と働きたい</h2>
 
                     <ul class="req-list" style="margin-top: 3rem;">
-                        <li class="req-item">
+                        <li class="req-item requirement-item">
                             <div class="num-huge req-num">1</div>
                             <div class="req-text">
                                 <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">美意識を言葉で説明できる方
@@ -557,7 +697,7 @@
                                     「なんとなく」ではなく、なぜそのデザイン表現を選んだのか、論理的に言語化し、議論できる姿勢を重視します。</p>
                             </div>
                         </li>
-                        <li class="req-item">
+                        <li class="req-item requirement-item">
                             <div class="num-huge req-num">2</div>
                             <div class="req-text">
                                 <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">
@@ -566,7 +706,7 @@
                                     職能の境界線を引かず、デザインから実装、ときには企画まで、越境してプロジェクトに関わろうとする知的好奇心を歓迎します。</p>
                             </div>
                         </li>
-                        <li class="req-item">
+                        <li class="req-item requirement-item">
                             <div class="num-huge req-num">3</div>
                             <div class="req-text">
                                 <h3 style="font-family:'Fraunces'; font-weight:400; margin-bottom:0.5rem;">長期的な視点を持てる方
@@ -619,31 +759,56 @@
             </div>
         </section>
 
-        <!-- 6. FLOW -->
-        <section class="fade-up flow-sec">
-            <div class="label">Selection Flow</div>
-            <h2 style="margin-bottom: 3rem;">選考プロセス</h2>
+        <!-- 6. FLOW (Sticky Horizontal Scroll) -->
+        <section class="flow-section">
+            <div class="flow-indicator">STEP 01 / 04</div>
+            <div class="flow-sticky">
+                <div class="flow-track">
 
-            <div class="flow-track">
-                <div class="flow-step">
-                    <div class="step-num">STEP 01</div>
-                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">書類選考・ポートフォリオ提出</h3>
-                    <p style="color:var(--text-sub); font-size:0.8rem;">これまでの制作物や、携わったプロジェクトでの役割がわかる資料をご提出ください。</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-num">STEP 02</div>
-                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">カジュアル面談（オンライン）</h3>
-                    <p style="color:var(--text-sub); font-size:0.8rem;">お互いの価値観が合うか、まずはざっくばらんにお話ししましょう。</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-num">STEP 03</div>
-                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">スキルトライアル（1Day）</h3>
-                    <p style="color:var(--text-sub); font-size:0.8rem;">小さな課題を通じて、実際の思考プロセスやアウトプットの質を拝見します。</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-num">STEP 04</div>
-                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">最終面接（対面推奨）</h3>
-                    <p style="color:var(--text-sub); font-size:0.8rem;">代表とメンバー全員との面接。オフィスの空気感も感じていただきます。</p>
+                    <!-- Step 01 -->
+                    <div class="flow-panel">
+                        <div class="step-bg-num">01</div>
+                        <div class="step-content">
+                            <div class="step-label">Selection Flow</div>
+                            <h3 class="step-name">書類選考・<br>ポートフォリオ提出</h3>
+                            <p class="step-desc">これまでの制作物や、携わったプロジェクトでの役割がわかる資料をご提出ください。</p>
+                            <div class="step-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div class="flow-panel">
+                        <div class="step-bg-num">02</div>
+                        <div class="step-content">
+                            <div class="step-label">Selection Flow</div>
+                            <h3 class="step-name">カジュアル面談<br>（オンライン）</h3>
+                            <p class="step-desc">お互いの価値観が合うか、まずはざっくばらんにお話ししましょう。</p>
+                            <div class="step-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div class="flow-panel">
+                        <div class="step-bg-num">03</div>
+                        <div class="step-content">
+                            <div class="step-label">Selection Flow</div>
+                            <h3 class="step-name">スキルトライアル<br>（1Day）</h3>
+                            <p class="step-desc">小さな課題を通じて、実際の思考プロセスやアウトプットの質を拝見します。</p>
+                            <div class="step-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 04 -->
+                    <div class="flow-panel">
+                        <div class="step-bg-num">04</div>
+                        <div class="step-content">
+                            <div class="step-label">Selection Flow</div>
+                            <h3 class="step-name">最終面接<br>（対面推奨）</h3>
+                            <p class="step-desc">代表とメンバー全員との面接。オフィスの空気感も感じていただきます。</p>
+                            <!-- 最終ステップは矢印非表示 -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -699,12 +864,64 @@
 
             // 3. Parallax for Culture Band
             const plxLayer = document.getElementById('parallaxLayer');
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                // Simple horizontal parallax translation
-                const val = -5 + (scrolled * 0.02);
-                plxLayer.style.transform = `translateX(${val}%)`;
-            });
+            if (plxLayer) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.scrollY;
+                    // Simple horizontal parallax translation
+                    const val = -5 + (scrolled * 0.02);
+                    plxLayer.style.transform = `translateX(${val}%)`;
+                });
+            }
+
+            // --- NEW ADDONS --- //
+
+            // 4. Culture & Requirements (Intersection Slide-in)
+            const slideItems = document.querySelectorAll('.culture-item, .requirement-item');
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        slideObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            slideItems.forEach(el => slideObserver.observe(el));
+
+            // 5. FLOW (Horizontal Scroll via Sticky)
+            const flowSection = document.querySelector('.flow-section');
+            const flowTrack = document.querySelector('.flow-track');
+            const indicator = document.querySelector('.flow-indicator');
+            const STEPS = 4;
+
+            if (flowSection && flowTrack) {
+                window.addEventListener('scroll', () => {
+                    const rect = flowSection.getBoundingClientRect();
+                    const total = flowSection.offsetHeight - window.innerHeight;
+                    const scrolled = Math.max(0, -rect.top);
+                    const progress = Math.min(scrolled / total, 1);
+
+                    // Show/hide progress indicator when inside the sticky section
+                    if (progress > 0 && progress < 1) {
+                        indicator.classList.add('visible');
+                    } else if (progress <= 0 || progress >= 1) {
+                        indicator.classList.remove('visible');
+                    }
+
+                    // translate up to (STEPS - 1)/STEPS * 100%
+                    const shift = progress * ((STEPS - 1) / STEPS) * 100;
+                    flowTrack.style.transform = `translateX(-${shift}%)`;
+
+                    // Update indicator text 01-04
+                    let currentNum = "01";
+                    if (progress > 0.75) currentNum = "04";
+                    else if (progress > 0.50) currentNum = "03";
+                    else if (progress > 0.25) currentNum = "02";
+
+                    if (indicator) indicator.textContent = `STEP ${currentNum} / 04`;
+
+                }, { passive: true });
+            }
 
         });
     </script>

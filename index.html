@@ -4,234 +4,643 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>デザインプロンプト集</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI2IiBmaWxsPSIjMmY1ZDUwIi8+CiAgPHRleHQgeD0iMTYiIHk9IjIxLjQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTQuMDgiIGZpbGw9IiNmZmZmZmYiPkI8L3RleHQ+CiAgPGNpcmNsZSBjeD0iMjMuMDQiIGN5PSI4Ljk2IiByPSIyLjg4IiBmaWxsPSIjYThkNWM0Ii8+Cjwvc3ZnPg==">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f7f9;
-      --surface: #ffffff;
-      --border: #e8eaed;
-      --text-primary: #0f172a;
-      --text-secondary: #64748b;
-      --text-muted: #94a3b8;
-      --accent: #2563eb;
-      --accent-light: #eff6ff;
-      --accent-hover: #1d4ed8;
-      --green: #16a34a;
-      --green-light: #f0fdf4;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-      --shadow-lg: 0 20px 40px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.06);
-      --radius: 10px;
-      --radius-lg: 16px;
+      --hiro-bg:          #FCFBF7;
+      --hiro-paper:       #ffffff;
+      --hiro-text:        #1F2A44;
+      --hiro-gray:        #5A6478;
+      --hiro-brand:       #1F2A44;
+      --hiro-brandHover:  #16203A;
+      --hiro-accent:      #B99745;
+      --hiro-accentHover: #9E7E35;
+      --hiro-blue:        #2563EB;
+      --hiro-blueLight:   #EFF4FF;
+      --hiro-border:      #E8E4DA;
+      --hiro-highlight:   #FDF8EC;
+      --hiro-code:        #1E293B;
+      --radius-sm:        6px;
+      --radius-md:        10px;
+      --radius-lg:        14px;
+      --shadow-sm:        0 1px 2px rgba(31, 42, 68, 0.05);
+      --shadow-md:        0 6px 20px rgba(31, 42, 68, 0.08);
+      --shadow-lg:        0 20px 44px rgba(31, 42, 68, 0.16);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'DM Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
-      background-color: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.6;
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--hiro-bg);
+      color: var(--hiro-text);
+      line-height: 1.75;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── ヘッダー ─────────────────────────────── */
     .page-header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 40px;
+      background: var(--hiro-paper);
+      border-bottom: 1px solid var(--hiro-border);
       position: sticky;
       top: 0;
       z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 20px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .brand-titles {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .page-header h1 {
-      font-size: 1.1rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: var(--text-primary);
-      letter-spacing: -0.01em;
+      color: var(--hiro-brand);
+      letter-spacing: 0.02em;
+      line-height: 1.3;
     }
 
-    .header-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-family: 'DM Mono', monospace;
+    .header-count {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--hiro-accent);
+      background: var(--hiro-highlight);
+      border: 1px solid var(--hiro-border);
+      padding: 2px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    .header-count strong {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--hiro-brand);
     }
 
     /* 検索ボックス */
     .search-wrap {
       position: relative;
-      flex: 0 0 260px;
+      flex: 0 0 300px;
     }
-    .search-wrap svg {
+
+    .search-icon {
       position: absolute;
-      left: 10px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
+      color: var(--hiro-gray);
       pointer-events: none;
     }
+
     #search-input {
       width: 100%;
-      padding: 7px 12px 7px 32px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.85rem;
+      padding: 9px 34px 9px 36px;
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
       font-family: inherit;
-      background: var(--bg);
-      color: var(--text-primary);
+      background: var(--hiro-bg);
+      color: var(--hiro-text);
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, background-color 0.15s;
     }
-    #search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-    #search-input::placeholder { color: var(--text-muted); }
 
-    /* ── メインコンテンツ ─────────────────────── */
-    .container {
-      max-width: 1160px;
+    #search-input:focus {
+      background: var(--hiro-paper);
+      border-color: var(--hiro-brand);
+      box-shadow: 0 0 0 3px rgba(31, 42, 68, 0.08);
+    }
+
+    #search-input::placeholder { color: var(--hiro-gray); opacity: 0.75; }
+
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      color: var(--hiro-gray);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+
+    .search-clear:hover {
+      background: var(--hiro-border);
+      color: var(--hiro-brand);
+    }
+
+    .search-clear.visible { display: flex; }
+
+    /* ── ヒーロー・使い方セクション ──────────────── */
+    .intro-section {
+      background: var(--hiro-bg);
+      border-bottom: 1px solid var(--hiro-border);
+    }
+
+    .intro-inner {
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 32px 40px 60px;
+      padding: 36px 32px 32px;
     }
 
-    .grid-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
+    .intro-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .intro-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      color: var(--hiro-accent);
+      margin-bottom: 6px;
     }
 
-    #count-label { color: var(--accent); }
+    .intro-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--hiro-brand);
+      line-height: 1.45;
+    }
 
-    /* ── カードグリッド ──────────────────────── */
-    .card-grid {
+    .intro-desc {
+      font-size: 0.875rem;
+      color: var(--hiro-gray);
+      max-width: 460px;
+      line-height: 1.7;
+    }
+
+    .steps-bar {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .step-item {
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
       gap: 12px;
     }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .step-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--hiro-paper);
+      background: var(--hiro-brand);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--hiro-brand);
+      margin-bottom: 2px;
+    }
+
+    .step-body span {
+      font-size: 0.8rem;
+      color: var(--hiro-gray);
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ── カテゴリー・ツールバー ──────────────────── */
+    .filter-section {
+      background: var(--hiro-paper);
+      border-bottom: 1px solid var(--hiro-border);
+    }
+
+    .filter-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .category-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--hiro-border);
+      background: var(--hiro-bg);
+      color: var(--hiro-gray);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .cat-tab:hover {
+      border-color: var(--hiro-brand);
+      color: var(--hiro-brand);
+      background: var(--hiro-paper);
+    }
+
+    .cat-tab.active {
+      background: var(--hiro-brand);
+      border-color: var(--hiro-brand);
+      color: var(--hiro-paper);
+      font-weight: 700;
+    }
+
+    .cat-count {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .cat-tab.active .cat-count {
+      color: var(--hiro-accent);
+      opacity: 1;
+    }
+
+    /* 表示切替 */
+    .view-toggle {
+      display: inline-flex;
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-sm);
       overflow: hidden;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--hiro-bg);
+      flex-shrink: 0;
+    }
+
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border: none;
+      background: transparent;
+      color: var(--hiro-gray);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .view-btn + .view-btn {
+      border-left: 1px solid var(--hiro-border);
+    }
+
+    .view-btn.active {
+      background: var(--hiro-brand);
+      color: var(--hiro-paper);
+    }
+
+    /* ── メイン一覧 ───────────────────────────── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 32px 64px;
+    }
+
+    .list-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .grid-label {
+      font-size: 0.82rem;
+      color: var(--hiro-gray);
+    }
+
+    .grid-label strong {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--hiro-brand);
+    }
+
+    .reset-filter-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--hiro-blue);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .reset-filter-btn.visible { display: inline-block; }
+
+    /* カード表示 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--shadow-sm);
     }
 
     .card:hover {
-      border-color: #c7d2fe;
+      border-color: var(--hiro-accent);
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
     }
 
     .card-body {
-      padding: 16px 18px 12px;
+      padding: 18px 20px 14px;
       flex: 1;
     }
 
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
     .card-number {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--hiro-accent);
+      letter-spacing: 0.06em;
+    }
+
+    .card-cat {
       font-size: 0.7rem;
-      color: var(--text-muted);
       font-weight: 500;
-      margin-bottom: 4px;
+      color: var(--hiro-gray);
+      background: var(--hiro-bg);
+      border: 1px solid var(--hiro-border);
+      padding: 2px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
     }
 
     .card-title {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.4;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--hiro-brand);
+      line-height: 1.45;
+      margin-bottom: 4px;
     }
 
     .card-slug {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.74rem;
+      color: var(--hiro-gray);
+      opacity: 0.85;
+      word-break: break-all;
     }
 
     .card-actions {
       display: flex;
       gap: 8px;
-      padding: 10px 18px 14px;
-      border-top: 1px solid var(--border);
-      background: #fafbfc;
+      padding: 12px 20px 16px;
+      border-top: 1px solid var(--hiro-border);
+      background: var(--hiro-bg);
     }
 
+    /* リスト表示モード */
+    .card-grid.list-view {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-grid.list-view .card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      gap: 16px;
+    }
+
+    .card-grid.list-view .card:hover {
+      transform: none;
+    }
+
+    .card-grid.list-view .card-body {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .card-grid.list-view .card-top {
+      margin-bottom: 0;
+      flex-shrink: 0;
+      gap: 10px;
+    }
+
+    .card-grid.list-view .card-number {
+      width: 34px;
+    }
+
+    .card-grid.list-view .card-title {
+      margin-bottom: 0;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-grid.list-view .card-slug {
+      display: none;
+    }
+
+    .card-grid.list-view .card-actions {
+      padding: 0;
+      border-top: none;
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    /* ボタン共通 */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.78rem;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
       font-weight: 500;
       font-family: inherit;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.15s;
-      border: none;
+      border: 1px solid transparent;
       white-space: nowrap;
     }
 
     .btn-preview {
-      background: var(--accent-light);
-      color: var(--accent);
+      background: var(--hiro-paper);
+      color: var(--hiro-brand);
+      border-color: var(--hiro-border);
       flex: 1;
     }
-    .btn-preview:hover { background: #dbeafe; }
+
+    .btn-preview:hover {
+      border-color: var(--hiro-brand);
+      background: var(--hiro-highlight);
+    }
 
     .btn-prompt {
-      background: var(--green-light);
-      color: var(--green);
-      flex: 1.4;
+      background: var(--hiro-brand);
+      color: var(--hiro-paper);
+      flex: 1.25;
     }
-    .btn-prompt:hover { background: #dcfce7; }
+
+    .btn-prompt:hover {
+      background: var(--hiro-brandHover);
+    }
+
+    .card-grid.list-view .btn {
+      flex: 0 0 auto;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
 
     .btn svg { flex-shrink: 0; }
 
-    /* 検索でヒットしないカードを隠す */
     .card.hidden { display: none; }
+
+    /* ── 見つからない表示 ─────────────────────── */
+    .no-results {
+      text-align: center;
+      padding: 56px 20px;
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-md);
+      color: var(--hiro-gray);
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .no-results.show { display: block; }
+
+    .no-results p { margin-bottom: 12px; }
 
     /* ── モーダル ────────────────────────────── */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(31, 42, 68, 0.58);
       backdrop-filter: blur(4px);
       z-index: 1000;
       padding: 24px;
       align-items: center;
       justify-content: center;
     }
+
     .modal-overlay.open { display: flex; }
 
     .modal {
-      background: var(--surface);
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
       width: 100%;
-      max-width: 780px;
+      max-width: 820px;
       max-height: 88vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      animation: modal-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes modal-in {
-      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      from { opacity: 0; transform: translateY(10px) scale(0.985); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
@@ -241,26 +650,47 @@
       justify-content: space-between;
       gap: 16px;
       padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--hiro-border);
+      background: var(--hiro-bg);
     }
 
-    .modal-title-block {}
+    .modal-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
     .modal-number {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-bottom: 3px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--hiro-accent);
+      letter-spacing: 0.06em;
     }
+
+    .modal-cat {
+      font-size: 0.7rem;
+      color: var(--hiro-gray);
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
+      padding: 1px 8px;
+      border-radius: 3px;
+    }
+
     .modal-title {
-      font-size: 1.05rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.12rem;
       font-weight: 600;
-      color: var(--text-primary);
+      color: var(--hiro-brand);
+      line-height: 1.4;
     }
+
     .modal-slug {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 3px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      color: var(--hiro-gray);
+      margin-top: 2px;
     }
 
     .modal-actions {
@@ -270,31 +700,49 @@
       flex-shrink: 0;
     }
 
-    .btn-copy {
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.82rem;
+    .btn-modal-preview {
+      background: var(--hiro-paper);
+      color: var(--hiro-brand);
+      border: 1px solid var(--hiro-border);
+      padding: 8px 13px;
+      font-size: 0.8rem;
     }
-    .btn-copy:hover { background: var(--accent-hover); }
-    .btn-copy.copied { background: var(--green); }
+
+    .btn-modal-preview:hover {
+      border-color: var(--hiro-brand);
+      background: var(--hiro-highlight);
+    }
+
+    .btn-copy {
+      background: var(--hiro-brand);
+      color: var(--hiro-paper);
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .btn-copy:hover { background: var(--hiro-brandHover); }
+    .btn-copy.copied { background: var(--hiro-accent); }
 
     .btn-close {
-      background: var(--bg);
-      color: var(--text-secondary);
+      background: var(--hiro-paper);
+      border: 1px solid var(--hiro-border);
+      color: var(--hiro-gray);
       width: 34px;
       height: 34px;
       padding: 0;
-      justify-content: center;
-      border-radius: 8px;
     }
-    .btn-close:hover { background: var(--border); color: var(--text-primary); }
+
+    .btn-close:hover {
+      border-color: var(--hiro-brand);
+      color: var(--hiro-brand);
+    }
 
     .modal-body {
       flex: 1;
       overflow-y: auto;
-      padding: 24px;
+      padding: 24px 28px;
+      background: var(--hiro-paper);
     }
 
     /* ローディング */
@@ -303,282 +751,257 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 40px 0;
+      color: var(--hiro-gray);
+      font-size: 0.875rem;
+      padding: 44px 0;
     }
+
     .spinner {
       width: 18px;
       height: 18px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
+      border: 2px solid var(--hiro-border);
+      border-top-color: var(--hiro-accent);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
     }
+
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Markdownレンダリング */
-    .md-content h1, .md-content h2, .md-content h3 {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-      line-height: 1.4;
-    }
-    .md-content h1 { font-size: 1.2rem; margin-top: 0; }
-    .md-content h2 { font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    .md-content h3 { font-size: 0.92rem; }
-    .md-content p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75em; line-height: 1.7; }
-    .md-content ul, .md-content ol { font-size: 0.88rem; color: var(--text-secondary); padding-left: 1.4em; margin-bottom: 0.75em; }
-    .md-content li { margin-bottom: 0.3em; line-height: 1.6; }
-    .md-content strong { color: var(--text-primary); font-weight: 600; }
-    .md-content code {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8em;
-      background: #f1f5f9;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1px 5px;
-      color: #e11d48;
-    }
-    .md-content pre {
-      background: #0f172a;
-      border-radius: 8px;
-      padding: 16px 18px;
-      overflow-x: auto;
-      margin: 1em 0;
-      position: relative;
-    }
-    .md-content pre code {
-      background: none;
-      border: none;
-      color: #e2e8f0;
-      font-size: 0.82rem;
-      padding: 0;
-      line-height: 1.65;
-    }
-    .md-content hr { border: none; border-top: 1px solid var(--border); margin: 1.5em 0; }
-    .md-content blockquote {
-      border-left: 3px solid var(--accent);
-      margin-left: 0;
-      padding: 4px 12px;
-      color: var(--text-muted);
+    /* プロンプト統一表示パネル（濃い背景） */
+    .prompt-viewer {
+      background: var(--hiro-code);
+      color: #F1F5F9;
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      font-family: 'Noto Sans JP', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.85rem;
+      line-height: 1.85;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      margin: 0;
     }
-    .md-content table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 1em 0; }
-    .md-content th { background: var(--bg); text-align: left; padding: 8px 12px; border: 1px solid var(--border); font-weight: 600; }
-    .md-content td { padding: 7px 12px; border: 1px solid var(--border); color: var(--text-secondary); }
 
     /* エラー */
     .error-msg {
-      font-size: 0.85rem;
-      color: #dc2626;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      padding: 12px 16px;
+      font-size: 0.86rem;
+      color: var(--hiro-brand);
+      background: var(--hiro-highlight);
+      border: 1px solid var(--hiro-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
     }
 
-    /* 「見つかりません」 */
-    .no-results {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      display: none;
-    }
-    .no-results.show { display: block; }
-
-    /* ── 使い方バナー ────────────────────────── */
-    .how-to {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 40px;
+    /* ── フッター ─────────────────────────────── */
+    .page-footer {
+      background: var(--hiro-paper);
+      border-top: 1px solid var(--hiro-border);
+      padding: 24px 32px;
     }
 
-    .how-to-inner {
-      max-width: 1160px;
+    .footer-inner {
+      max-width: 1120px;
       margin: 0 auto;
       display: flex;
-      align-items: flex-start;
-      gap: 32px;
-    }
-
-    .how-to-lead {
-      flex: 0 0 auto;
-    }
-
-    .how-to-lead p {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .how-to-lead h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.5;
-    }
-
-    .how-to-steps {
-      display: flex;
-      gap: 8px;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
       flex-wrap: wrap;
-      flex: 1;
+      font-size: 0.8rem;
+      color: var(--hiro-gray);
     }
 
-    .step {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      min-width: 180px;
+    .footer-top-link {
+      color: var(--hiro-blue);
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    .step-num {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-family: 'DM Mono', monospace;
+    .footer-top-link:hover { text-decoration: underline; }
+
+    /* ── レスポンシブ ─────────────────────────── */
+    @media (max-width: 820px) {
+      .steps-bar { grid-template-columns: 1fr; }
+      .card-grid.list-view .card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .card-grid.list-view .card-body {
+        flex-wrap: wrap;
+      }
+      .card-grid.list-view .card-actions {
+        width: 100%;
+      }
+      .card-grid.list-view .btn {
+        flex: 1;
+      }
     }
 
-    .step-text {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    .step-text strong {
-      display: block;
-      font-weight: 600;
-      color: var(--text-primary);
-      font-size: 0.83rem;
-    }
-
-    .step-arrow {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      flex-shrink: 0;
-    }
-
-    /* モバイル */
     @media (max-width: 640px) {
-      .page-header { padding: 14px 16px; flex-wrap: wrap; }
-      .search-wrap { flex: 1 1 100%; order: 3; }
-      .container { padding: 20px 16px 40px; }
+      .header-inner { padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+      .search-wrap { flex: 1 1 100%; }
+      .intro-inner { padding: 24px 16px; }
+      .intro-title { font-size: 1.25rem; }
+      .filter-inner { padding: 14px 16px; }
+      .container { padding: 20px 16px 48px; }
       .card-grid { grid-template-columns: 1fr; }
-      .modal-overlay { padding: 12px; }
-      .how-to { padding: 16px; }
-      .how-to-inner { flex-direction: column; gap: 16px; }
-      .how-to-steps { gap: 6px; }
-      .step { min-width: 0; flex: 1 1 100%; }
-      .step-arrow { display: none; }
+      .modal-overlay { padding: 10px; }
+      .modal-header { padding: 16px; flex-direction: column; }
+      .modal-actions { width: 100%; justify-content: flex-end; }
+      .modal-body { padding: 18px 16px; }
+      .page-footer { padding: 20px 16px; }
     }
   </style>
 </head>
-<body>
+<body id="top">
 
 <!-- ヘッダー -->
 <header class="page-header">
-  <div style="display:flex; align-items:center; gap:12px;">
-    <h1>デザインプロンプト集</h1>
-    <span class="header-meta"><span id="count-label">60</span> prompts</span>
-  </div>
-  <div class="search-wrap">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-    <input type="text" id="search-input" placeholder="名前・スタイルで検索…" autocomplete="off">
+  <div class="header-inner">
+    <div class="brand-group">
+      <svg class="brand-mark" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#1F2A44"/>
+        <rect x="2" y="2" width="28" height="28" rx="5.5" fill="none" stroke="#B99745" stroke-opacity="0.45" stroke-width="1"/>
+        <text x="15.5" y="22" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="16" fill="#FCFBF7">B</text>
+        <circle cx="24" cy="8.5" r="2.6" fill="#B99745"/>
+      </svg>
+      <div class="brand-titles">
+        <h1>デザインプロンプト集</h1>
+        <span class="header-count"><strong id="total-count">0</strong> PROMPTS</span>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="番号・名前・業種で検索…" autocomplete="off" aria-label="プロンプトを検索">
+      <button type="button" class="search-clear" id="search-clear" title="検索をクリア" aria-label="検索をクリア">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<!-- 使い方バナー -->
-<div class="how-to">
-  <div class="how-to-inner">
-    <div class="how-to-lead">
-      <p>USAGE</p>
-      <h2>AIでWebページを作るときの<br>デザイン指示書集</h2>
+<!-- 使い方ガイド -->
+<section class="intro-section">
+  <div class="intro-inner">
+    <div class="intro-top">
+      <div>
+        <p class="intro-eyebrow">DESIGN PROMPT COLLECTION</p>
+        <h2 class="intro-title">AIでWebページを作るときのデザイン指示書集</h2>
+      </div>
+      <p class="intro-desc">
+        仕上がりの見本を確認し、気に入ったデザインの指示書をそのままコピーして Claude や ChatGPT に貼り付けるだけで、統一感のあるWebページを制作できます。
+      </p>
     </div>
-    <div class="how-to-steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">
-          <strong>デザイン確認</strong>
-          気に入ったスタイルを見つける
+
+    <div class="steps-bar">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <strong>デザインを確認する</strong>
+          <span>カテゴリーや検索から、目的に合う見本ページをプレビュー</span>
         </div>
       </div>
-      <span class="step-arrow">→</span>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">
-          <strong>プロンプトを見る</strong>
-          内容を確認してコピー
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <strong>プロンプトをコピーする</strong>
+          <span>「プロンプトを見る」から指示書を開き、ワンクリックでコピー</span>
         </div>
       </div>
-      <span class="step-arrow">→</span>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">
-          <strong>AIに貼り付ける</strong>
-          Claude・ChatGPTにそのまま使える
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <strong>AIに貼り付けて生成</strong>
+          <span>文章や社名を差し替えてAIに渡せば、そのままページが完成</span>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- カテゴリー絞り込み & 表示切替 -->
+<section class="filter-section" aria-label="絞り込みと表示切替">
+  <div class="filter-inner">
+    <div class="category-tabs" id="category-tabs"></div>
+
+    <div class="view-toggle" role="group" aria-label="表示形式の切替">
+      <button type="button" class="view-btn active" id="view-grid-btn" onclick="setViewMode('grid')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        カード
+      </button>
+      <button type="button" class="view-btn" id="view-list-btn" onclick="setViewMode('list')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        一覧
+      </button>
+    </div>
+  </div>
+</section>
 
 <!-- メイン -->
-<div class="container">
-  <p class="grid-label">ALL PROMPTS — <span id="visible-count">60</span> 件表示</p>
-
-  <div class="card-grid" id="card-grid">
-
-    <!-- カード生成はJSで行う -->
-
+<main class="container">
+  <div class="list-meta">
+    <p class="grid-label">
+      全 <strong id="meta-total">0</strong> 件中 <strong id="visible-count">0</strong> 件を表示
+    </p>
+    <button type="button" class="reset-filter-btn" id="reset-filter-btn" onclick="resetFilters()">絞り込みをリセット</button>
   </div>
+
+  <div class="card-grid" id="card-grid"></div>
 
   <div class="no-results" id="no-results">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px; display:block; color:#cbd5e1">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-    「<span id="search-query"></span>」に一致するプロンプトが見つかりません
+    <p>条件に一致するプロンプトが見つかりませんでした。</p>
+    <button type="button" class="btn btn-preview" onclick="resetFilters()" style="flex:none; padding: 8px 18px;">すべて表示に戻す</button>
   </div>
-</div>
+</main>
+
+<!-- フッター -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <span>Design Prompts Collection — BuildMate</span>
+    <a class="footer-top-link" href="#top">ページの先頭へ戻る</a>
+  </div>
+</footer>
 
 <!-- モーダル -->
-<div class="modal-overlay" id="modal-overlay">
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal" id="modal">
     <div class="modal-header">
-      <div class="modal-title-block">
-        <p class="modal-number" id="modal-number"></p>
+      <div>
+        <div class="modal-meta-row">
+          <span class="modal-number" id="modal-number"></span>
+          <span class="modal-cat" id="modal-cat"></span>
+        </div>
         <p class="modal-title" id="modal-title"></p>
         <p class="modal-slug" id="modal-slug"></p>
       </div>
       <div class="modal-actions">
-        <button class="btn btn-copy" id="copy-btn" onclick="copyPrompt()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <a class="btn btn-modal-preview" id="modal-preview-link" href="#" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          見本を開く
+        </a>
+        <button type="button" class="btn btn-copy" id="copy-btn" onclick="copyPrompt()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
           </svg>
           プロンプトをコピー
         </button>
-        <button class="btn btn-close" onclick="closeModal()" title="閉じる">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <button type="button" class="btn btn-close" onclick="closeModal()" title="閉じる" aria-label="閉じる">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
         </button>
@@ -595,154 +1018,248 @@
 // データ定義
 // ─────────────────────────────────────────────
 const REPO_RAW = 'https://raw.githubusercontent.com/buildmate-gif/design-prompts-collection/main/';
-const REPO_PREVIEW = 'https://buildmate-gif.github.io/design-prompts-collection/';
+
+const CATEGORIES = [
+  { id: 'all',       label: 'すべて' },
+  { id: 'style',     label: 'スタイル・表現' },
+  { id: 'business',  label: 'コーポレート・LP' },
+  { id: 'lifestyle', label: '女性向け・暮らし' },
+  { id: 'service',   label: '教育・医療・専門' },
+  { id: 'culture',   label: '店舗・地域・文化' }
+];
+
+const CATEGORY_MAP = Object.fromEntries(CATEGORIES.map(c => [c.id, c.label]));
 
 const prompts = [
-  { id: '001', name: 'インダストリアルブルータリズム', slug: 'industrial_brutalism' },
-  { id: '002', name: 'オーガニックミニマル', slug: 'organic_minimal' },
-  { id: '003', name: '70sレトロポップ', slug: '70s_retro_pop' },
-  { id: '004', name: 'スイスグリッド', slug: 'swiss_grid' },
-  { id: '005', name: 'シネマティックノワール', slug: 'cinematic_noir' },
-  { id: '006', name: 'ポートフォリオ_ダークミニマル', slug: 'portfolio_dark_minimal' },
-  { id: '007', name: 'プロダクトローンチ', slug: 'product_launch' },
-  { id: '008', name: 'マガジン記事_エディトリアル紙面', slug: 'magazine_editorial' },
-  { id: '009', name: 'コーポレートフィロソフィー', slug: 'corporate_philosophy' },
-  { id: '010', name: '展覧会告知_カウントダウン', slug: 'exhibition_countdown' },
-  { id: '011', name: 'ダッシュボード_ブルータリスト', slug: 'dashboard_brutalist' },
-  { id: '012', name: 'ネオン夜市', slug: 'neon_night_market' },
-  { id: '013', name: 'オーガニックボタニカル', slug: 'organic_botanical' },
-  { id: '014', name: 'レトロスペース', slug: 'retro_space' },
-  { id: '015', name: 'ストリートジン', slug: 'street_zine' },
-  { id: '016', name: 'インダストリアルクラフト', slug: 'industrial_craft' },
-  { id: '017', name: '禅ミニマル', slug: 'zen_minimal' },
-  { id: '018', name: 'ボールドエディトリアル', slug: 'bold_editorial' },
-  { id: '019', name: 'ダークラグジュアリー', slug: 'dark_luxury' },
-  { id: '020', name: 'データヒューマニスト', slug: 'data_humanist' },
-  { id: '021', name: 'サービスLP', slug: 'service_lp' },
-  { id: '022', name: 'マガジン記事_活版印刷アナログ', slug: 'magazine_letterpress' },
-  { id: '023', name: 'ポートフォリオ_和クラフト', slug: 'portfolio_japanese_craft' },
-  { id: '024', name: 'イベント告知_コンサートポスター', slug: 'event_concert_poster' },
-  { id: '025', name: 'プロフィール', slug: 'profile' },
-  { id: '026', name: '採用_オーガニック温', slug: 'recruit_organic_warm' },
-  { id: '027', name: 'プロダクト_テクノロジー系', slug: 'product_tech' },
-  { id: '028', name: '会社概要_建築コンクリート', slug: 'company_concrete_arch' },
-  { id: '029', name: '料金プラン_フィナンシャル', slug: 'pricing_financial' },
-  { id: '030', name: 'ナレッジ用語集_学術図書館', slug: 'glossary_academic' },
-  { id: '031', name: '採用_WPAポスター風', slug: 'recruit_wpa_poster' },
-  { id: '032', name: 'プロダクト_和工芸系', slug: 'product_japanese_craft' },
-  { id: '033', name: '会社概要_レトロターミナル', slug: 'company_retro_terminal' },
-  { id: '034', name: '料金プラン_オートクチュール', slug: 'pricing_haute_couture' },
-  { id: '035', name: 'ナレッジ用語集_フィールドノート', slug: 'glossary_field_notes' },
-  { id: '036', name: 'スキンケアLP_ラグジュアリー(女性向け)', slug: 'skincare_luxury_women' },
-  { id: '037', name: 'ライフスタイルショップ_韓国系(女性向け)', slug: 'lifestyle_korean_women' },
-  { id: '038', name: 'ウェブマガジン_丁寧な暮らし(女性向け)', slug: 'web_magazine_teinei' },
-  { id: '039', name: 'ウェディングプランナー_プレミアム(女性向け)', slug: 'wedding_premium_women' },
-  { id: '040', name: 'ヴィンテージ古着セレクトショップ(女性向け)', slug: 'vintage_select_shop' },
-  { id: '041', name: 'ホテルライクインテリアブランド(女性向け)', slug: 'hotel_interior_brand' },
-  { id: '042', name: 'フードフォトグラファー(女性向け)', slug: 'food_photographer' },
-  { id: '043', name: 'ひとり旅プランニング(女性向け)', slug: 'womens_travel' },
-  { id: '044', name: 'パーソナルカラー診断(女性向け)', slug: 'personal_color' },
-  { id: '045', name: 'アウトドアギア製品LP', slug: 'outdoor_gear_product' },
-  { id: '046', name: 'アウトドアブランド・エディトリアル', slug: 'outdoor_brand_editorial' },
-  { id: '047', name: '子供向け学習塾_絵本風', slug: 'kids_juku_storybook' },
-  { id: '048', name: '子供向け学習塾_冒険風', slug: 'kids_juku_adventure_map' },
-  { id: '049', name: '子供向け学習塾_知性・信頼感(親向け)', slug: 'kids_juku_intellectual_trust' },
-  { id: '050', name: '子供向け学習塾_温かみ・寄り添い(親向け)', slug: 'kids_juku_warm_guidance' },
-  { id: '051', name: '地方移住促進LP', slug: 'migration_promotion_lp' },
-  { id: '052', name: '老舗旅館ブランドサイト', slug: 'ryokan_brand_site' },
-  { id: '053', name: '現代アートギャラリーHP', slug: 'contemporary_art_gallery' },
-  { id: '054', name: 'DAWプラグイン・音楽ツールLP', slug: 'daw_plugin_music_tools' },
-  { id: '055', name: 'アーティストレジデンスHP', slug: 'artist_residency' },
-  { id: '056', name: 'クラフトビール醸造所・タップルーム', slug: 'craft_brewery_taproom' },
-  { id: '057', name: '葬儀社・終活サービス', slug: 'funeral_memorial_dignified' },
-  { id: '058', name: '建築設計事務所ポートフォリオ', slug: 'architecture_firm_portfolio' },
-  { id: '059', name: 'クリニック・内科・生活習慣病', slug: 'medical_clinic_warm_trust' },
-  { id: '060', name: 'スポーツジム・パーソナルトレーニング', slug: 'sports_gym_performance' },
+  { id: '001', name: 'インダストリアルブルータリズム', slug: 'industrial_brutalism', cat: 'style' },
+  { id: '002', name: 'オーガニックミニマル', slug: 'organic_minimal', cat: 'style' },
+  { id: '003', name: '70sレトロポップ', slug: '70s_retro_pop', cat: 'style' },
+  { id: '004', name: 'スイスグリッド', slug: 'swiss_grid', cat: 'style' },
+  { id: '005', name: 'シネマティックノワール', slug: 'cinematic_noir', cat: 'style' },
+  { id: '006', name: 'ポートフォリオ_ダークミニマル', slug: 'portfolio_dark_minimal', cat: 'business' },
+  { id: '007', name: 'プロダクトローンチ', slug: 'product_launch', cat: 'business' },
+  { id: '008', name: 'マガジン記事_エディトリアル紙面', slug: 'magazine_editorial', cat: 'culture' },
+  { id: '009', name: 'コーポレートフィロソフィー', slug: 'corporate_philosophy', cat: 'business' },
+  { id: '010', name: '展覧会告知_カウントダウン', slug: 'exhibition_countdown', cat: 'culture' },
+  { id: '011', name: 'ダッシュボード_ブルータリスト', slug: 'dashboard_brutalist', cat: 'business' },
+  { id: '012', name: 'ネオン夜市', slug: 'neon_night_market', cat: 'style' },
+  { id: '013', name: 'オーガニックボタニカル', slug: 'organic_botanical', cat: 'style' },
+  { id: '014', name: 'レトロスペース', slug: 'retro_space', cat: 'style' },
+  { id: '015', name: 'ストリートジン', slug: 'street_zine', cat: 'style' },
+  { id: '016', name: 'インダストリアルクラフト', slug: 'industrial_craft', cat: 'style' },
+  { id: '017', name: '禅ミニマル', slug: 'zen_minimal', cat: 'style' },
+  { id: '018', name: 'ボールドエディトリアル', slug: 'bold_editorial', cat: 'style' },
+  { id: '019', name: 'ダークラグジュアリー', slug: 'dark_luxury', cat: 'style' },
+  { id: '020', name: 'データヒューマニスト', slug: 'data_humanist', cat: 'style' },
+  { id: '021', name: 'サービスLP', slug: 'service_lp', cat: 'business' },
+  { id: '022', name: 'マガジン記事_活版印刷アナログ', slug: 'magazine_letterpress', cat: 'culture' },
+  { id: '023', name: 'ポートフォリオ_和クラフト', slug: 'portfolio_japanese_craft', cat: 'culture' },
+  { id: '024', name: 'イベント告知_コンサートポスター', slug: 'event_concert_poster', cat: 'culture' },
+  { id: '025', name: 'プロフィール', slug: 'profile', cat: 'business' },
+  { id: '026', name: '採用_オーガニック温', slug: 'recruit_organic_warm', cat: 'business' },
+  { id: '027', name: 'プロダクト_テクノロジー系', slug: 'product_tech', cat: 'business' },
+  { id: '028', name: '会社概要_建築コンクリート', slug: 'company_concrete_arch', cat: 'business' },
+  { id: '029', name: '料金プラン_フィナンシャル', slug: 'pricing_financial', cat: 'business' },
+  { id: '030', name: 'ナレッジ用語集_学術図書館', slug: 'glossary_academic', cat: 'business' },
+  { id: '031', name: '採用_WPAポスター風', slug: 'recruit_wpa_poster', cat: 'business' },
+  { id: '032', name: 'プロダクト_和工芸系', slug: 'product_japanese_craft', cat: 'culture' },
+  { id: '033', name: '会社概要_レトロターミナル', slug: 'company_retro_terminal', cat: 'business' },
+  { id: '034', name: '料金プラン_オートクチュール', slug: 'pricing_haute_couture', cat: 'business' },
+  { id: '035', name: 'ナレッジ用語集_フィールドノート', slug: 'glossary_field_notes', cat: 'business' },
+  { id: '036', name: 'スキンケアLP_ラグジュアリー(女性向け)', slug: 'skincare_luxury_women', cat: 'lifestyle' },
+  { id: '037', name: 'ライフスタイルショップ_韓国系(女性向け)', slug: 'lifestyle_korean_women', cat: 'lifestyle' },
+  { id: '038', name: 'ウェブマガジン_丁寧な暮らし(女性向け)', slug: 'web_magazine_teinei', cat: 'lifestyle' },
+  { id: '039', name: 'ウェディングプランナー_プレミアム(女性向け)', slug: 'wedding_premium_women', cat: 'lifestyle' },
+  { id: '040', name: 'ヴィンテージ古着セレクトショップ(女性向け)', slug: 'vintage_select_shop', cat: 'lifestyle' },
+  { id: '041', name: 'ホテルライクインテリアブランド(女性向け)', slug: 'hotel_interior_brand', cat: 'lifestyle' },
+  { id: '042', name: 'フードフォトグラファー(女性向け)', slug: 'food_photographer', cat: 'lifestyle' },
+  { id: '043', name: 'ひとり旅プランニング(女性向け)', slug: 'womens_travel', cat: 'lifestyle' },
+  { id: '044', name: 'パーソナルカラー診断(女性向け)', slug: 'personal_color', cat: 'lifestyle' },
+  { id: '045', name: 'アウトドアギア製品LP', slug: 'outdoor_gear_product', cat: 'culture' },
+  { id: '046', name: 'アウトドアブランド・エディトリアル', slug: 'outdoor_brand_editorial', cat: 'culture' },
+  { id: '047', name: '子供向け学習塾_絵本風', slug: 'kids_juku_storybook', cat: 'service' },
+  { id: '048', name: '子供向け学習塾_冒険風', slug: 'kids_juku_adventure_map', cat: 'service' },
+  { id: '049', name: '子供向け学習塾_知性・信頼感(親向け)', slug: 'kids_juku_intellectual_trust', cat: 'service' },
+  { id: '050', name: '子供向け学習塾_温かみ・寄り添い(親向け)', slug: 'kids_juku_warm_guidance', cat: 'service' },
+  { id: '051', name: '地方移住促進LP', slug: 'migration_promotion_lp', cat: 'culture' },
+  { id: '052', name: '老舗旅館ブランドサイト', slug: 'ryokan_brand_site', cat: 'culture' },
+  { id: '053', name: '現代アートギャラリーHP', slug: 'contemporary_art_gallery', cat: 'culture' },
+  { id: '054', name: 'DAWプラグイン・音楽ツールLP', slug: 'daw_plugin_music_tools', cat: 'business' },
+  { id: '055', name: 'アーティストレジデンスHP', slug: 'artist_residency', cat: 'culture' },
+  { id: '056', name: 'クラフトビール醸造所・タップルーム', slug: 'craft_brewery_taproom', cat: 'culture' },
+  { id: '057', name: '葬儀社・終活サービス', slug: 'funeral_memorial_dignified', cat: 'service' },
+  { id: '058', name: '建築設計事務所ポートフォリオ', slug: 'architecture_firm_portfolio', cat: 'culture' },
+  { id: '059', name: 'クリニック・内科・生活習慣病', slug: 'medical_clinic_warm_trust', cat: 'service' },
+  { id: '060', name: 'スポーツジム・パーソナルトレーニング', slug: 'sports_gym_performance', cat: 'service' },
+  { id: '061', name: '地域密着の注文住宅・工務店', slug: 'local_komuten_house', cat: 'culture' },
+  { id: '062', name: '古民家リノベーション・再生建築', slug: 'kominka_renovation', cat: 'culture' },
+  { id: '063', name: '町工場・精密部品メーカー', slug: 'precision_machining_factory', cat: 'business' },
+  { id: '064', name: '農家直送・産直オンラインストア', slug: 'farm_direct_store', cat: 'culture' },
+  { id: '065', name: 'スペシャルティコーヒー焙煎所', slug: 'specialty_coffee_roastery', cat: 'culture' },
+  { id: '066', name: '職人系パティスリー・洋菓子店', slug: 'artisan_patisserie', cat: 'culture' },
+  { id: '067', name: '隠れ家割烹・カウンター寿司', slug: 'kappo_sushi_counter', cat: 'culture' },
+  { id: '068', name: '税理士・会計事務所', slug: 'tax_accounting_office', cat: 'service' },
+  { id: '069', name: '法律事務所・弁護士法人', slug: 'law_firm_attorney', cat: 'service' },
+  { id: '070', name: 'BtoB向けクラウドツール（SaaS）LP', slug: 'btob_saas_product', cat: 'business' },
+  { id: '071', name: 'AI・DXコンサルティング会社', slug: 'ai_dx_consulting', cat: 'business' },
+  { id: '072', name: '歯科医院・審美歯科クリニック', slug: 'dental_aesthetic_clinic', cat: 'service' },
+  { id: '073', name: '動物病院・ペットクリニック', slug: 'veterinary_pet_clinic', cat: 'service' },
+  { id: '074', name: 'ヘアサロン・プライベート美容室', slug: 'private_hair_salon', cat: 'lifestyle' },
+  { id: '075', name: 'サウナ・温浴施設ブランドサイト', slug: 'sauna_bathhouse_brand', cat: 'culture' },
+  { id: '076', name: '社会人向け英会話・語学スクール', slug: 'business_english_school', cat: 'service' },
+  { id: '077', name: '料理教室・お菓子教室', slug: 'cooking_baking_class', cat: 'lifestyle' },
+  { id: '078', name: '独立系書店・ブックカフェ', slug: 'indie_bookstore_cafe', cat: 'culture' },
+  { id: '079', name: 'ピラティス・ヨガスタジオ', slug: 'pilates_yoga_studio', cat: 'lifestyle' },
+  { id: '080', name: '介護・デイサービス施設', slug: 'elderly_care_dayservice', cat: 'service' }
 ];
 
 // ─────────────────────────────────────────────
-// カード生成
+// 状態管理 & 初期描画
 // ─────────────────────────────────────────────
-const grid = document.getElementById('card-grid');
+let activeCategory = 'all';
+let currentRawText = '';
 
+const grid = document.getElementById('card-grid');
+const tabsContainer = document.getElementById('category-tabs');
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const visibleCountEl = document.getElementById('visible-count');
+const noResultsEl = document.getElementById('no-results');
+const resetFilterBtn = document.getElementById('reset-filter-btn');
+
+document.getElementById('total-count').textContent = prompts.length;
+document.getElementById('meta-total').textContent = prompts.length;
+
+// カテゴリータブ生成
+CATEGORIES.forEach(cat => {
+  const count = cat.id === 'all'
+    ? prompts.length
+    : prompts.filter(p => p.cat === cat.id).length;
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'cat-tab' + (cat.id === 'all' ? ' active' : '');
+  btn.dataset.cat = cat.id;
+  btn.innerHTML = `${cat.label} <span class="cat-count">${count}</span>`;
+  btn.addEventListener('click', () => {
+    activeCategory = cat.id;
+    tabsContainer.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat.id));
+    applyFilters();
+  });
+  tabsContainer.appendChild(btn);
+});
+
+// カード生成
 prompts.forEach(p => {
   const filename = `${p.id}_${p.slug}`;
   const previewUrl = `${filename}.html`;
-  const mdUrl = `${REPO_RAW}${filename}.md`;
+  const catLabel = CATEGORY_MAP[p.cat] || '';
 
-  const card = document.createElement('div');
+  const card = document.createElement('article');
   card.className = 'card';
-  card.dataset.name = p.name;
-  card.dataset.slug = p.slug;
   card.dataset.id = p.id;
+  card.dataset.name = p.name.toLowerCase();
+  card.dataset.slug = p.slug.toLowerCase();
+  card.dataset.cat = p.cat;
+  card.dataset.catLabel = catLabel.toLowerCase();
 
   card.innerHTML = `
     <div class="card-body">
-      <p class="card-number">${p.id}</p>
-      <p class="card-title">${p.name}</p>
+      <div class="card-top">
+        <span class="card-number">${p.id}</span>
+        <span class="card-cat">${catLabel}</span>
+      </div>
+      <h3 class="card-title">${p.name}</h3>
       <p class="card-slug">${p.slug}</p>
     </div>
     <div class="card-actions">
-      <a class="btn btn-preview" href="${previewUrl}" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <a class="btn btn-preview" href="${previewUrl}" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
         デザイン確認
       </a>
-      <button class="btn btn-prompt" onclick="openModal('${p.id}', '${p.name}', '${p.slug}', '${mdUrl}')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <button type="button" class="btn btn-prompt" data-open-id="${p.id}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
           <line x1="16" y1="13" x2="8" y2="13"/>
           <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
         </svg>
         プロンプトを見る
       </button>
     </div>
   `;
 
+  card.querySelector('[data-open-id]').addEventListener('click', () => openModal(p));
   grid.appendChild(card);
 });
 
 // ─────────────────────────────────────────────
-// 検索
+// 絞り込み & 検索
 // ─────────────────────────────────────────────
-const searchInput = document.getElementById('search-input');
-const visibleCount = document.getElementById('visible-count');
-const noResults = document.getElementById('no-results');
-const searchQuery = document.getElementById('search-query');
-
-searchInput.addEventListener('input', () => {
+function applyFilters() {
   const q = searchInput.value.trim().toLowerCase();
+  searchClear.classList.toggle('visible', q.length > 0);
+
   const cards = grid.querySelectorAll('.card');
   let count = 0;
 
   cards.forEach(card => {
-    const match = !q
-      || card.dataset.name.toLowerCase().includes(q)
-      || card.dataset.slug.toLowerCase().includes(q)
-      || card.dataset.id.includes(q);
+    const matchCat = activeCategory === 'all' || card.dataset.cat === activeCategory;
+    const matchQuery = !q
+      || card.dataset.name.includes(q)
+      || card.dataset.slug.includes(q)
+      || card.dataset.id.includes(q)
+      || card.dataset.catLabel.includes(q);
 
-    card.classList.toggle('hidden', !match);
-    if (match) count++;
+    const visible = matchCat && matchQuery;
+    card.classList.toggle('hidden', !visible);
+    if (visible) count++;
   });
 
-  visibleCount.textContent = count;
-  noResults.classList.toggle('show', count === 0);
-  searchQuery.textContent = q;
+  visibleCountEl.textContent = count;
+  noResultsEl.classList.toggle('show', count === 0);
+  resetFilterBtn.classList.toggle('visible', activeCategory !== 'all' || q.length > 0);
+}
+
+function resetFilters() {
+  activeCategory = 'all';
+  searchInput.value = '';
+  tabsContainer.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'all'));
+  applyFilters();
+}
+
+searchInput.addEventListener('input', applyFilters);
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchInput.focus();
+  applyFilters();
 });
+
+applyFilters();
+
+// 表示切替
+function setViewMode(mode) {
+  grid.classList.toggle('list-view', mode === 'list');
+  document.getElementById('view-grid-btn').classList.toggle('active', mode === 'grid');
+  document.getElementById('view-list-btn').classList.toggle('active', mode === 'list');
+}
 
 // ─────────────────────────────────────────────
 // モーダル
 // ─────────────────────────────────────────────
-let currentRawText = '';
+async function openModal(promptItem) {
+  const filename = `${promptItem.id}_${promptItem.slug}`;
+  const localMdUrl = `${filename}.md`;
+  const remoteMdUrl = `${REPO_RAW}${filename}.md`;
 
-async function openModal(id, name, slug, mdUrl) {
-  document.getElementById('modal-number').textContent = id;
-  document.getElementById('modal-title').textContent = name;
-  document.getElementById('modal-slug').textContent = slug;
+  document.getElementById('modal-number').textContent = promptItem.id;
+  document.getElementById('modal-cat').textContent = CATEGORY_MAP[promptItem.cat] || '';
+  document.getElementById('modal-title').textContent = promptItem.name;
+  document.getElementById('modal-slug').textContent = promptItem.slug;
+  document.getElementById('modal-preview-link').href = `${filename}.html`;
   document.getElementById('modal-content').innerHTML = `
     <div class="loading">
       <div class="spinner"></div>
@@ -755,16 +1272,24 @@ async function openModal(id, name, slug, mdUrl) {
   document.body.style.overflow = 'hidden';
 
   try {
-    const res = await fetch(mdUrl);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    currentRawText = text;
-    document.getElementById('modal-content').innerHTML = `<div class="md-content">${renderMarkdown(text)}</div>`;
+    let text = '';
+    try {
+      const localRes = await fetch(localMdUrl);
+      if (!localRes.ok) throw new Error(`HTTP ${localRes.status}`);
+      text = await localRes.text();
+    } catch (_) {
+      const remoteRes = await fetch(remoteMdUrl);
+      if (!remoteRes.ok) throw new Error(`HTTP ${remoteRes.status}`);
+      text = await remoteRes.text();
+    }
+    const promptText = extractPromptBody(text);
+    currentRawText = promptText;
+    document.getElementById('modal-content').innerHTML = `<pre class="prompt-viewer">${escHtml(promptText)}</pre>`;
   } catch (e) {
     document.getElementById('modal-content').innerHTML = `
       <div class="error-msg">
         プロンプトの読み込みに失敗しました。<br>
-        <small>GitHub Raw が公開されているか確認してください (${e.message})</small>
+        <small>ローカルで開いている場合は簡易サーバー経由か、GitHub Pages 上でご覧ください (${escHtml(e.message)})</small>
       </div>`;
   }
 }
@@ -774,12 +1299,10 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// ESCキーで閉じる
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-// オーバーレイクリックで閉じる
 document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 });
@@ -796,7 +1319,7 @@ function copyPrompt() {
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <polyline points="20 6 9 17 4 12"/>
       </svg>
-      コピーしました！`;
+      コピーしました`;
     setTimeout(resetCopyBtn, 2500);
   });
 }
@@ -805,45 +1328,73 @@ function resetCopyBtn() {
   const btn = document.getElementById('copy-btn');
   btn.classList.remove('copied');
   btn.innerHTML = `
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
       <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
     </svg>
     プロンプトをコピー`;
 }
 
+function extractPromptBody(md) {
+  const plainBlocks = [...md.matchAll(/```[ \t]*\n([\s\S]*?)```/g)]
+    .map(m => m[1].trim())
+    .filter(body => body.length >= 200);
+
+  if (plainBlocks.length === 1) {
+    return plainBlocks[0];
+  }
+  return md.trim();
+}
+
 // ─────────────────────────────────────────────
-// シンプルなMarkdownパーサー
+// シンプルなMarkdownパーサー（テーブル対応）
 // ─────────────────────────────────────────────
 function renderMarkdown(md) {
-  let html = md
-    // コードブロック
-    .replace(/```[\w]*\n?([\s\S]*?)```/g, (_, code) =>
-      `<pre><code>${escHtml(code.trim())}</code></pre>`)
-    // インラインコード
-    .replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`)
-    // 水平線
-    .replace(/^---+$/gm, '<hr>')
-    // 見出し
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    // 太字
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // 引用
-    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-    // リスト
-    .replace(/^[\-\*] (.+)$/gm, '<li>$1</li>')
-    .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
-    // 空行→段落
-    .replace(/\n\n/g, '</p><p>')
-    // リストをulで囲む
-    .replace(/((<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+  const codeBlocks = [];
+  let text = md.replace(/```[\w]*\n?([\s\S]*?)```/g, (_, code) => {
+    const idx = codeBlocks.length;
+    codeBlocks.push(`<pre><code>${escHtml(code.trim())}</code></pre>`);
+    return `@@CODEBLOCK_${idx}@@`;
+  });
 
-  return `<p>${html}</p>`;
+  // テーブル変換
+  text = text.replace(/(^\|.+\|\n\|[\s\-:|]+\|\n(?:\|.+\|\n?)+)/gm, tableBlock => {
+    const lines = tableBlock.trim().split('\n');
+    const headers = lines[0].slice(1, -1).split('|').map(c => `<th>${formatInline(c.trim())}</th>`).join('');
+    const rows = lines.slice(2).map(line => {
+      const cells = line.slice(1, -1).split('|').map(c => `<td>${formatInline(c.trim())}</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+  });
+
+  let html = text
+    .replace(/^---+$/gm, '<hr>')
+    .replace(/^### (.+)$/gm, (_, s) => `<h3>${formatInline(s)}</h3>`)
+    .replace(/^## (.+)$/gm, (_, s) => `<h2>${formatInline(s)}</h2>`)
+    .replace(/^# (.+)$/gm, (_, s) => `<h1>${formatInline(s)}</h1>`)
+    .replace(/^> (.+)$/gm, (_, s) => `<blockquote>${formatInline(s)}</blockquote>`)
+    .replace(/^[\-\*] (.+)$/gm, (_, s) => `<li>${formatInline(s)}</li>`)
+    .replace(/^\d+\. (.+)$/gm, (_, s) => `<li>${formatInline(s)}</li>`)
+    .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>')
+    .replace(/\n\n+/g, '</p><p>')
+    .replace(/<p>(<(?:h[1-3]|ul|table|hr|blockquote|pre|@@CODEBLOCK))/g, '$1')
+    .replace(/(<\/(?:h[1-3]|ul|table|blockquote|pre)>|<hr>|@@CODEBLOCK_\d+@@)<\/p>/g, '$1');
+
+  html = `<p>${html}</p>`
+    .replace(/<p>\s*<\/p>/g, '')
+    .replace(/@@CODEBLOCK_(\d+)@@/g, (_, i) => codeBlocks[Number(i)]);
+
+  return html;
+}
+
+function formatInline(str) {
+  return str
+    .replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
 function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 </script>
 

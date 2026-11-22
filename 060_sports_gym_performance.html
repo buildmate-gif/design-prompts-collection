@@ -217,6 +217,7 @@
       .footer-inner { grid-template-columns:1fr; gap:2.5rem; }
       .section { padding:5rem 1.5rem; }
     }
+    .img-ph:has(img)::after { display:none !important; }
   </style>
 </head>
 <body>
@@ -231,7 +232,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"><div class="img-ph" style="width:100%;height:100%;"></div></div>
+  <div class="hero-bg"><div class="img-ph" style="width:100%;height:100%;"><img src="images/060_hero.webp" alt="ダークトーンの洗練されたパーソナルトレーニングジム空間" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.55;"></div></div>
   <div class="hero-overlay"></div>
   <div class="hero-stripe"></div>
   <div class="hero-marquee">APEX PERFORMANCE GYM — TRAIN HARD — PROVE IT — APEX PERFORMANCE GYM — TRAIN HARD — PROVE IT —</div>
@@ -266,6 +267,7 @@
 <!-- PROGRAMS -->
 <section class="program section">
   <div class="program-inner">
+    <div class="reveal" style="margin-bottom:2.5rem;overflow:hidden;border:1px solid rgba(255,255,255,0.08);max-height:360px;"><img src="images/060_gear.webp" alt="マットブラックのダンベルとケトルベルの精密トレーニング器具" style="width:100%;height:360px;object-fit:cover;display:block;"></div>
     <div class="reveal"><p class="stag">PROGRAMS</p><h2 class="sh2">プログラム</h2></div>
     <div class="prog-grid">
       <div class="prog-card reveal"><div class="prog-label">PERSONAL</div><div class="prog-name">パーソナルトレーニング</div><p class="prog-desc">専属トレーナーが完全マンツーマンで指導。あなたの体組成・生活習慣・目標をもとに、完全オーダーメイドのプログラムを設計します。</p><p class="prog-freq">週1〜3回推奨</p></div>

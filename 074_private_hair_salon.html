@@ -196,6 +196,125 @@
     }
     .btn-ink:hover { background: var(--taupe); }
 
+    /* ── こだわり・スタイリスト・初回来店の流れ・FAQ＆アクセス ── */
+    .salon-sec {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 84px 32px;
+    }
+    .salon-sec.paper-band {
+      max-width: none;
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .phi-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+    }
+    .phi-list li {
+      display: grid;
+      grid-template-columns: 64px 240px 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .phi-list span.no { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--taupe); font-weight: 600; }
+    .phi-list strong { font-family: 'Shippori Mincho', serif; font-size: 1.06rem; font-weight: 500; }
+    .phi-list p { font-size: 0.86rem; color: var(--muted); }
+
+    .stylist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 28px;
+    }
+    .stylist-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+    }
+    .stylist-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--taupe);
+      margin-bottom: 6px;
+    }
+    .stylist-card h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .stylist-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+    .stylist-spec {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      font-size: 0.78rem;
+      color: var(--ink);
+    }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .flow-step {
+      border-top: 1px solid var(--ink);
+      padding-top: 18px;
+    }
+    .flow-step small {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.86rem;
+      color: var(--taupe);
+      letter-spacing: 0.14em;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .flow-step h3 { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 500; margin-bottom: 8px; }
+    .flow-step p { font-size: 0.82rem; color: var(--muted); }
+
+    .faq-access-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .salon-faq { border-top: 1px solid var(--line); margin-top: 20px; }
+    .salon-faq details { border-bottom: 1px solid var(--line); }
+    .salon-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.96rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .salon-faq summary::-webkit-details-marker { display: none; }
+    .salon-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--taupe); }
+    .salon-faq details[open] summary::after { content: "−"; }
+    .salon-faq p { padding-bottom: 18px; font-size: 0.84rem; color: var(--muted); }
+
+    .access-dl { border-top: 1px solid var(--line); margin: 20px 0 28px; }
+    .access-dl div {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.84rem;
+    }
+    .access-dl dt { font-family: 'Cormorant Garamond', serif; color: var(--taupe); letter-spacing: 0.14em; }
+    .access-dl dd { text-align: right; color: var(--ink); }
+
     footer {
       max-width: 1200px;
       margin: 0 auto;
@@ -209,7 +328,8 @@
     }
 
     @media (max-width: 880px) {
-      .diptych, .calc-grid { grid-template-columns: 1fr; }
+      .diptych, .calc-grid, .stylist-grid, .flow-steps, .faq-access-grid { grid-template-columns: 1fr; }
+      .phi-list li { grid-template-columns: 1fr; gap: 6px; }
       .mag-meta { text-align: left; }
       .nav { display: none; }
     }
@@ -221,8 +341,10 @@
   <div class="header-inner">
     <a href="#" class="brand">atelier SORA</a>
     <nav class="nav">
+      <a href="#philosophy">PHILOSOPHY</a>
       <a href="#menu">MENU &amp; ESTIMATE</a>
-      <a href="#info">ACCESS</a>
+      <a href="#stylists">STYLISTS</a>
+      <a href="#faq">FAQ &amp; ACCESS</a>
     </nav>
   </div>
 </header>
@@ -246,6 +368,28 @@
       </p>
     </div>
   </div>
+</section>
+
+<section class="salon-sec" id="philosophy">
+  <p class="eyebrow">Salon Philosophy</p>
+  <h2 class="sec-title">毎朝5分が軽くなる、三つのこだわり</h2>
+  <ol class="phi-list">
+    <li>
+      <span class="no">01</span>
+      <strong>全3席・完全マンツーマン施術</strong>
+      <p>大型店のような待ち時間やスタッフの入れ替わりはありません。カウンセリングからシャンプー・仕上げまで担当スタイリストが一貫して向き合います。</p>
+    </li>
+    <li>
+      <span class="no">02</span>
+      <strong>骨格と生え癖を読むドライカット</strong>
+      <p>濡れた状態だけでなく、乾かしたときの毛流れや重なりを確認しながらハサミを入れるため、2ヶ月後までシルエットが崩れにくいのが特長です。</p>
+    </li>
+    <li>
+      <span class="no">03</span>
+      <strong>頭皮と髪に優しい低刺激・内部補修処方</strong>
+      <p>カラー前の頭皮保護オイルと残留アルカリ除去をすべての施術に標準化。繰り返すほどに素髪のような艶が育つケアを徹底しています。</p>
+    </li>
+  </ol>
 </section>
 
 <section class="calc-sec" id="menu">
@@ -294,6 +438,73 @@
           <strong id="s-time">約 60 分</strong>
         </div>
         <a href="#" class="btn-ink">この組み合わせで空き枠を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="salon-sec" id="stylists">
+  <p class="eyebrow">Stylists &amp; First Visit</p>
+  <h2 class="sec-title">スタイリスト紹介・初回来店の流れ</h2>
+  <div class="stylist-grid">
+    <article class="stylist-card">
+      <p class="stylist-role">Owner / Art Director</p>
+      <h3>蒼井 律（Ritsu Aoi）</h3>
+      <p>表参道の名店で12年ディレクターを務めたのち独立。ショート・ボブの骨格補正カットと、赤みを抑えた透明感カラーを得意としています。</p>
+      <p class="stylist-spec">得意：大人ショート・くびれボブ・白髪ぼかしハイライト ／ 指名料無料</p>
+    </article>
+    <article class="stylist-card">
+      <p class="stylist-role">Top Stylist / Hair Care Specialist</p>
+      <h3>美咲 栞（Shiori Misaki）</h3>
+      <p>毛髪診断士の資格を持ち、うねりや乾燥に悩む方の髪質改善・自然な縮毛矯正を多数担当。おうちでの乾かし方まで丁寧にお伝えします。</p>
+      <p class="stylist-spec">得意：髪質改善トリートメント・顔周りレイヤー・ヘッドスパ ／ 指名料無料</p>
+    </article>
+  </div>
+
+  <div class="flow-steps">
+    <div class="flow-step"><small>STEP 01</small><h3>丁寧なカウンセリング</h3><p>初回は15分ほどお時間をいただき、髪質・普段のお手入れ・なりたい雰囲気を共有します。</p></div>
+    <div class="flow-step"><small>STEP 02</small><h3>事前料金・時間の確認</h3><p>施術前にメニューと合計金額・終了目安時刻をお伝えします。追加請求はありません。</p></div>
+    <div class="flow-step"><small>STEP 03</small><h3>静かなフルフラットスパ</h3><p>半個室のシャンプー台で首に負担をかけず、アロマの香りとともに頭皮をほぐします。</p></div>
+    <div class="flow-step"><small>STEP 04</small><h3>再現しやすい仕上げ</h3><p>サロン帰りだけでなく、翌朝ご自身で再現できるブローとオイルの付け方をご案内します。</p></div>
+  </div>
+</section>
+
+<section class="salon-sec paper-band" id="faq">
+  <div class="wrap">
+    <div class="faq-access-grid">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="sec-title">よくあるご質問</h2>
+        <div class="salon-faq">
+          <details open>
+            <summary>スタイルが決まっていなくても相談しながら決められますか？</summary>
+            <p>もちろんです。「朝のセットを楽にしたい」「伸びても気にならない長さが良い」など大まかなご希望から、骨格とライフスタイルに合う2〜3案をご提案します。</p>
+          </details>
+          <details>
+            <summary>ロング料金やスタイリスト指名料はかかりますか？</summary>
+            <p>いいえ、髪の長さによる追加料金および指名料は一切いただいておりません。上記のシミュレーター表示価格がそのまま税込総額です。</p>
+          </details>
+          <details>
+            <summary>お直し保証はありますか？</summary>
+            <p>ご帰宅後に前髪の微調整やカラーの馴染みなど気になる点がありましたら、施術日より10日以内は無料でお直しを承ります。</p>
+          </details>
+          <details>
+            <summary>お支払い方法を教えてください。</summary>
+            <p>各種クレジットカード・交通系IC・QR決済（PayPay等）に対応しております（キャッシュレス決済推奨）。</p>
+          </details>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow">Access &amp; Reservation</p>
+        <h2 class="sec-title">サロン情報・ご予約</h2>
+        <dl class="access-dl">
+          <div><dt>ADDRESS</dt><dd>東京都渋谷区神宮前 4-18-9 2F（表参道駅 A2出口 徒歩4分）</dd></div>
+          <div><dt>HOURS</dt><dd>10:00 – 20:00（最終受付 カット19:00）</dd></div>
+          <div><dt>CLOSED</dt><dd>毎週月曜・第3火曜</dd></div>
+          <div><dt>SEATS</dt><dd>セット面 3席 ／ フルフラットシャンプー台 2台</dd></div>
+        </dl>
+        <a href="#menu" class="btn-ink">24時間 WEB予約・空き状況を見る</a>
       </div>
     </div>
   </div>

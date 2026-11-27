@@ -213,6 +213,101 @@
     }
     .btn-cocoa:hover { background: var(--berry); }
 
+    /* ── 素材と作り手・四季の果実・Q&A ──────────── */
+    .story-section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .ing-dl {
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+    }
+    .ing-dl div {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .ing-dl dt {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--cocoa);
+    }
+    .ing-dl dt small {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--gold);
+    }
+    .ing-dl dd { font-size: 0.85rem; color: var(--muted); }
+
+    .chef-note {
+      margin-top: 36px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 32px 36px;
+    }
+    .chef-note h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.08rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .chef-note p { font-size: 0.85rem; color: var(--muted); }
+    .chef-sign {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+      font-size: 0.8rem;
+      color: var(--cocoa);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .season-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+    .season-list li {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.86rem;
+    }
+    .season-list strong {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 500;
+      color: var(--berry);
+    }
+    .season-list span { color: var(--muted); }
+
+    .pat-faq { border-top: 1px solid var(--line); }
+    .pat-faq details { border-bottom: 1px solid var(--line); }
+    .pat-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.96rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .pat-faq summary::-webkit-details-marker { display: none; }
+    .pat-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+    .pat-faq details[open] summary::after { content: "−"; }
+    .pat-faq p { padding-bottom: 18px; font-size: 0.84rem; color: var(--muted); }
+
     /* ── 店舗情報（控えめな2列） ────────────────── */
     .atelier-info {
       padding: 56px 0 36px;
@@ -242,7 +337,8 @@
     @media (max-width: 640px) {
       .poster-column { padding: 0 18px 56px; }
       .menu-sheet { padding: 24px 20px; }
-      .menu-item { grid-template-columns: 1fr; gap: 4px; }
+      .menu-item, .ing-dl div, .season-list li { grid-template-columns: 1fr; gap: 6px; }
+      .chef-note { padding: 24px 20px; }
       .atelier-info { grid-template-columns: 1fr; gap: 8px; }
     }
   </style>
@@ -255,7 +351,9 @@
     <a href="#" class="brand">PÂTISSERIE CLAIRE</a>
     <nav class="center-nav">
       <a href="#menu">お品書き</a>
+      <a href="#story">素材と季節</a>
       <a href="#gift">焼き菓子ギフト</a>
+      <a href="#faq">よくある質問</a>
       <a href="#atelier">アトリエ案内</a>
     </nav>
   </header>
@@ -287,6 +385,51 @@
     <div class="menu-sheet" id="menu-sheet"></div>
   </section>
 
+  <section class="story-section" id="story">
+    <div class="sec-center">
+      <p class="est">Ingrédients &amp; Savoir-faire</p>
+      <h2>素材と作り手の約束</h2>
+    </div>
+    <dl class="ing-dl">
+      <div>
+        <dt>国産発酵バター<small>Fermented Butter</small></dt>
+        <dd>北海道・根釧地区の生乳を乳酸発酵させた香り高いバターのみを使用。焼き菓子には銅鍋でじっくり焦がしたブール・ノワゼットを合わせます。</dd>
+      </div>
+      <div>
+        <dt>産直の完熟果実<small>Seasonal Fruits</small></dt>
+        <dd>福岡の苺、信州の紅玉、熊本・山鹿の和栗など、信頼する農家から届く完熟果実をその日のうちに下ごしらえし、香料に頼らない香りを引き出します。</dd>
+      </div>
+      <div>
+        <dt>甘さ控えめの口どけ<small>Delicate Balance</small></dt>
+        <dd>和三盆や洗双糖を使い分け、クリームの脂肪分と温度帯を細かく調整。最後の一口まで軽やかに余韻が残る味わいを心がけています。</dd>
+      </div>
+    </dl>
+
+    <div class="chef-note">
+      <h3>毎朝五時のオーブンから、その日いちばんの香りを。</h3>
+      <p>
+        パリの老舗パティスリーと都内のホテルで研鑽を積んだのち、「季節の移ろいをいちばん静かに感じられる小さなお菓子屋」を目指して自由が丘にアトリエを開きました。大量生産はせず、目の届く数だけを丁寧に焼き上げています。
+      </p>
+      <div class="chef-sign">
+        <span>シェフパティシエ：佐伯 澄子（Sumiko Saeki）</span>
+        <span>毎朝 11:00 焼き立てフィナンシェ販売</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="story-section" id="calendar">
+    <div class="sec-center">
+      <p class="est">Calendrier des Fruits</p>
+      <h2>四季の果実カレンダー</h2>
+    </div>
+    <ul class="season-list">
+      <li><strong>春（3〜5月）</strong><span>あまおうのショートケーキ ／ 桜とグリオットチェリーのムース ／ 瀬戸内レモンのウィークエンド</span></li>
+      <li><strong>夏（6〜8月）</strong><span>山梨・白桃の丸ごとタルト ／ 宮崎マンゴーのヴェリーヌ ／ 青梅のコンポートゼリー</span></li>
+      <li><strong>秋（9〜11月）</strong><span>熊本和栗の絞りたてモンブラン ／ 長野パープルのタルト ／ 信州紅玉のタルト・タタン</span></li>
+      <li><strong>冬（12〜2月）</strong><span>洋梨とキャラメルのシャルロット ／ 単一産地カカオのガトーショコラ ／ 柚子とホワイトチョコのケーク</span></li>
+    </ul>
+  </section>
+
   <section class="gift-exhibit" id="gift">
     <p class="est">Coffret Cadeau</p>
     <h2 style="font-family:'Shippori Mincho',serif; font-size:1.55rem; font-weight:500; letter-spacing:0.1em;">焦がしバター香る、手土産の詰合せ</h2>
@@ -299,6 +442,31 @@
       アーモンドプードルと焦がし発酵バターのフィナンシェ、瀬戸内レモンのマドレーヌを白い貼り箱に収めました。熨斗掛け・全国クール便配送も承ります。
     </p>
     <a href="#" class="btn-cocoa">オンラインショップを見る</a>
+  </section>
+
+  <section class="story-section" id="faq">
+    <div class="sec-center">
+      <p class="est">Questions Fréquentes</p>
+      <h2>ご予約・ギフトのよくあるご質問</h2>
+    </div>
+    <div class="pat-faq">
+      <details open>
+        <summary>生菓子の当日取り置きはお願いできますか？</summary>
+        <p>はい、営業日の10:30よりお電話にて1点から承っております。土日祝は午後に品薄となることが多いため、事前のご連絡をおすすめいたします。</p>
+      </details>
+      <details>
+        <summary>ホールケーキにメッセージやろうそくは付けられますか？</summary>
+        <p>チョコレートプレートへのお名前入れと細身のろうそく（5本まで）を無料でご用意しております。ご予約時にお申し付けください。</p>
+      </details>
+      <details>
+        <summary>焼き菓子ギフトの賞味期限と配送について教えてください。</summary>
+        <p>製造日より14日間（常温保存・夏季は冷蔵便推奨）です。全国発送に対応しており、内祝いや慶事の熨斗掛けも無料で承ります。</p>
+      </details>
+      <details>
+        <summary>保冷剤・保冷バッグの用意はありますか？</summary>
+        <p>お持ち歩き時間（最大2時間まで）に合わせた保冷剤を無料でお付けしています。長時間の移動にはオリジナル保冷バッグ（¥450）もございます。</p>
+      </details>
+    </div>
   </section>
 
   <section class="atelier-info" id="atelier">

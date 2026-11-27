@@ -425,6 +425,90 @@
     .spec-table td:first-child { color: #fff; font-weight: 500; }
     .spec-table td.mono { font-family: 'IBM Plex Mono', monospace; color: var(--ink); }
 
+    /* ── 製作フロー（5工程 1px罫線水平ステップ） ──── */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .flow-cell {
+      background: var(--panel);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+    .flow-step-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+    .flow-cell h3 { font-size: 0.96rem; color: #fff; margin-bottom: 8px; }
+    .flow-cell p { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+    .flow-leadtime {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink);
+    }
+
+    /* ── 技術FAQ ＆ 会社概要スペック ─────────────── */
+    .faq-company-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .tech-faq { border-top: 1px solid var(--line); }
+    .tech-faq details { border-bottom: 1px solid var(--line); }
+    .tech-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .tech-faq summary::-webkit-details-marker { display: none; }
+    .tech-faq summary::after {
+      content: "+";
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--amber);
+      font-size: 1.1rem;
+    }
+    .tech-faq details[open] summary::after { content: "−"; }
+    .tech-faq p {
+      padding: 0 4px 18px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .corp-dl {
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .corp-dl div {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 12px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.82rem;
+    }
+    .corp-dl div:last-child { border-bottom: none; }
+    .corp-dl dt { font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace; color: var(--muted); }
+    .corp-dl dd { color: var(--ink); }
+
     /* ── 図面見積もりCTA ────────────────────────── */
     .rfq-panel {
       background: var(--panel-2);
@@ -476,7 +560,8 @@
       body { padding-left: 0; }
       .side-rail { display: none; }
       .top-strip, .blueprint-hero, section.sec, footer { padding-left: 20px; padding-right: 20px; }
-      .hero-head-grid, .hero-body-grid, .matrix-grid, .qa-grid, .rfq-panel { grid-template-columns: 1fr; }
+      .hero-head-grid, .hero-body-grid, .matrix-grid, .qa-grid, .flow-grid, .faq-company-grid, .rfq-panel { grid-template-columns: 1fr; }
+      .corp-dl div { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
 </head>
@@ -488,7 +573,9 @@
     <a href="#matrix">01 MATRIX</a>
     <a href="#qa">02 QUALITY</a>
     <a href="#equip">03 MACHINE</a>
-    <a href="#rfq">04 RFQ</a>
+    <a href="#flow">04 FLOW</a>
+    <a href="#faq">05 FAQ/CORP</a>
+    <a href="#rfq">06 RFQ</a>
   </nav>
   <span class="rail-rev">ISO9001</span>
 </aside>
@@ -669,10 +756,102 @@
   </table>
 </section>
 
+<section class="sec" id="flow">
+  <div class="sec-bar">
+    <div>
+      <p class="dwg-tag">04 // PRODUCTION WORKFLOW</p>
+      <h2>図面受領から検査・出荷までの製作フロー</h2>
+    </div>
+    <p style="font-size:0.82rem; color:var(--muted);">特急試作は最短3営業日出荷に対応</p>
+  </div>
+  <div class="flow-grid">
+    <div class="flow-cell">
+      <div>
+        <p class="flow-step-code">STEP 01</p>
+        <h3>図面・3D受領</h3>
+        <p>STEP / IGES / DXF / PDF を受領。加工技術者が公差と加工可否を即時確認します。</p>
+      </div>
+      <span class="flow-leadtime">DAY 0 // 即時受付</span>
+    </div>
+    <div class="flow-cell">
+      <div>
+        <p class="flow-step-code">STEP 02</p>
+        <h3>見積・VA提案</h3>
+        <p>価格と納期をご回答。コスト削減や精度安定に効く形状・公差のVA案も併記します。</p>
+      </div>
+      <span class="flow-leadtime">当日〜翌営業日</span>
+    </div>
+    <div class="flow-cell">
+      <div>
+        <p class="flow-step-code">STEP 03</p>
+        <h3>CAM・精密加工</h3>
+        <p>材料手配から5軸MC・複合旋盤・ワイヤー放電まで一貫加工。歪み対策治具も内製。</p>
+      </div>
+      <span class="flow-leadtime">DAY 1–4</span>
+    </div>
+    <div class="flow-cell">
+      <div>
+        <p class="flow-step-code">STEP 04</p>
+        <h3>恒温室・全数測定</h3>
+        <p>20℃±1℃の検査室で三次元測定機により幾何公差を計測し、検査成績書を作成。</p>
+      </div>
+      <span class="flow-leadtime">ISO9001準拠</span>
+    </div>
+    <div class="flow-cell">
+      <div>
+        <p class="flow-step-code">STEP 05</p>
+        <h3>防錆梱包・出荷</h3>
+        <p>ミルシート・検査成績書を添付し、打痕防止の個別トレー梱包にて全国へ発送します。</p>
+      </div>
+      <span class="flow-leadtime">全国直送・チャーター可</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="faq-company-grid">
+    <div>
+      <p class="dwg-tag">05 // TECHNICAL FAQ</p>
+      <h2 style="font-size:1.55rem; color:#fff; margin-bottom:20px;">試作・お取引のよくある質問</h2>
+      <div class="tech-faq">
+        <details open>
+          <summary>試作1個だけ、または手描きポンチ絵からの相談も可能ですか？</summary>
+          <p>はい、1個からの単品試作を主力としています。明確な2D図面が揃っていない段階でも、3Dデータや現物サンプル、ポンチ絵から寸法を協議し加工図へ落とし込みます。</p>
+        </details>
+        <details>
+          <summary>秘密保持契約（NDA）の締結に対応していますか？</summary>
+          <p>対応しています。半導体製造装置や医療機器の開発案件が多いため、図面受領前のNDA締結およびデータ管理規定に沿った厳格な取り扱いを徹底しています。</p>
+        </details>
+        <details>
+          <summary>熱処理やアルマイト・メッキまで含めて完成品で納品できますか？</summary>
+          <p>東大阪エリアの専門協力工場と連携しており、真空焼入れ・無電解ニッケル・硬質アルマイト・不動態化処理まで一括手配し、処理後の最終検査を経て納品します。</p>
+        </details>
+        <details>
+          <summary>材料支給での加工のみ依頼することも可能ですか？</summary>
+          <p>可能です。特殊合金やお客様支給の鋳物・鍛造素材への追加工も承っています。支給時の注意点はお見積り時にご案内します。</p>
+        </details>
+      </div>
+    </div>
+
+    <div>
+      <p class="dwg-tag">COMPANY PROFILE</p>
+      <h2 style="font-size:1.55rem; color:#fff; margin-bottom:20px;">会社概要・本社工場</h2>
+      <dl class="corp-dl">
+        <div><dt>COMPANY</dt><dd>株式会社 黒田精機製作所</dd></div>
+        <div><dt>ESTABLISHED</dt><dd>1974年4月（資本金 3,000万円）</dd></div>
+        <div><dt>LOCATION</dt><dd>大阪府東大阪市高井田本通 4-8-12</dd></div>
+        <div><dt>CERTIFICATION</dt><dd>ISO 9001:2015 認証取得</dd></div>
+        <div><dt>INDUSTRIES</dt><dd>半導体製造装置 / 医療機器 / 光学・分析 / FA・ロボット / 航空宇宙</dd></div>
+        <div><dt>EMPLOYEES</dt><dd>34名（うち機械加工技能士 18名）</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="rfq">
   <div class="rfq-panel">
     <div>
-      <p class="dwg-tag">04 // REQUEST FOR QUOTATION</p>
+      <p class="dwg-tag">06 // REQUEST FOR QUOTATION</p>
       <h2>2D図面・3D CADデータで、当日〜翌営業日にお見積り回答。</h2>
       <p>1個からの特急試作や、他社で断られた難削材・複雑形状もお気軽にお送りください。加工技術者が直接図面を確認します。</p>
       <div class="cad-formats">

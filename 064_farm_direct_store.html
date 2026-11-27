@@ -336,6 +336,112 @@
     }
     .col-item p { font-size: 0.86rem; color: var(--muted); }
 
+    /* ── 園主の畑だより（2段組特集記事） ────────── */
+    .farm-story-sec {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .farm-story-sec p { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+    .harvest-facts {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 24px 26px;
+    }
+    .harvest-facts h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .harvest-dl div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 0.84rem;
+    }
+    .harvest-dl div:last-child { border-bottom: none; }
+    .harvest-dl dt { color: var(--muted); }
+    .harvest-dl dd { font-weight: 500; text-align: right; }
+
+    /* ── 食卓だより（お客様の声・投書欄風） ──────── */
+    .voices-sec {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .voice-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 24px;
+    }
+    .voice-col {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 24px;
+    }
+    .voice-col h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .voice-col p { font-size: 0.84rem; color: var(--muted); margin-bottom: 14px; }
+    .voice-from {
+      font-size: 0.76rem;
+      color: var(--leaf);
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      font-weight: 500;
+    }
+
+    /* ── 配送案内 ＆ よくある質問 ───────────────── */
+    .delivery-sec {
+      padding: 52px 0;
+      border-bottom: 3px double var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .ship-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--line);
+      font-size: 0.84rem;
+      margin-top: 14px;
+    }
+    .ship-table th, .ship-table td {
+      text-align: left;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .ship-table th { background: var(--leaf-soft); color: var(--leaf); font-weight: 700; }
+    .faq-box { border-top: 1px solid var(--rule); }
+    .faq-box details { border-bottom: 1px solid var(--line); }
+    .faq-box summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 4px;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.96rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-box summary::-webkit-details-marker { display: none; }
+    .faq-box summary::after { content: "+"; color: var(--tomato); font-family: 'Outfit', sans-serif; font-size: 1.2rem; }
+    .faq-box details[open] summary::after { content: "−"; }
+    .faq-box p { padding: 0 4px 16px; font-size: 0.84rem; color: var(--muted); }
+
     /* ── 注文切り抜き枠（クーポン風） ─────────── */
     .clip-cta {
       margin-top: 44px;
@@ -365,7 +471,7 @@
     @media (max-width: 860px) {
       .mast-main { grid-template-columns: 1fr; text-align: center; }
       .mast-left, .mast-right { justify-content: center; }
-      .front-page, .box-section, .season-board, .columns-section { grid-template-columns: 1fr; }
+      .front-page, .box-section, .season-board, .columns-section, .farm-story-sec, .voice-list, .delivery-sec { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -383,6 +489,8 @@
       <div class="mast-right">
         <a href="#box">おまかせBOX</a>
         <a href="#season">旬カレンダー</a>
+        <a href="#farmer">園主より</a>
+        <a href="#delivery">配送・Q&amp;A</a>
         <a href="#order" class="mast-btn">今すぐ注文</a>
       </div>
     </div>
@@ -488,6 +596,91 @@
     <div class="col-item">
       <h3>03. ふぞろい野菜も無駄なく</h3>
       <p>少し曲がったきゅうりや大小ふぞろいの人参も味は同じ。フードロスを減らしながら、たっぷりお届けします。</p>
+    </div>
+  </section>
+
+  <section class="farm-story-sec" id="farmer">
+    <div>
+      <p class="kicker">FARMER'S NOTE</p>
+      <h2 class="ed-title">標高720mの寒暖差と、二年寝かせた里山の土。</h2>
+      <p>
+        あさひの畑がある長野県伊那谷は、南アルプスと中央アルプスに挟まれた自然豊かな盆地です。昼は太陽をたっぷり浴び、夜はぐっと冷え込むため、野菜が自ら身を守ろうとして糖分を蓄え、濃い甘みが生まれます。
+      </p>
+      <p>
+        農薬や化学肥料に頼らず、秋に集めた広葉樹の落ち葉と地元精米所の米ぬかを二年かけて発酵させた自家製堆肥で土を育てています。虫食いの跡が少し残ることもありますが、それは子どもたちが安心して皮ごと食べられる証です。
+      </p>
+    </div>
+    <div class="harvest-facts">
+      <h3>収穫から発送までの朝の時間割</h3>
+      <dl class="harvest-dl">
+        <div><dt>05:30</dt><dd>朝露の残る畑へ出動・生育状態を確認</dd></div>
+        <div><dt>06:00</dt><dd>完熟の葉物・果菜から順に手摘み収穫</dd></div>
+        <div><dt>09:30</dt><dd>井戸水で土を落とし、予冷庫で鮮度保持</dd></div>
+        <div><dt>13:00</dt><dd>畑のお便り・レシピを添えて箱詰め</dd></div>
+        <div><dt>15:30</dt><dd>ヤマト運輸クール便にて全国へ当日発送</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="voices-sec" id="voices">
+    <p class="kicker">VOICES FROM THE TABLE</p>
+    <h2 class="ed-title">届いたご家庭からの食卓だより</h2>
+    <div class="voice-list">
+      <article class="voice-col">
+        <h3>「トマトの匂いで箱を開けた瞬間から笑顔に」</h3>
+        <p>スーパーの野菜をあまり食べなかった4歳の息子が、同封のレシピ通りに蒸し焼きにした春キャベツを「甘い！」とおかわりしました。泥つき人参も香りが別格です。</p>
+        <p class="voice-from">東京都世田谷区・S様（Sサイズご利用）</p>
+      </article>
+      <article class="voice-col">
+        <h3>「畑のお便りのおかげで使い切れます」</h3>
+        <p>普段自分では手に取らない珍しい旬野菜が入っていても、保存法と5分で作れる調理メモが付いているので無駄になりません。火曜日の到着が毎週の楽しみです。</p>
+        <p class="voice-from">愛知県名古屋市・K様（Mサイズご利用）</p>
+      </article>
+      <article class="voice-col">
+        <h3>「定期縛りがないから気軽に試せました」</h3>
+        <p>最初は1回だけのお試しつもりでしたが、朝のサラダのシャキシャキ感に驚いて、今では月2回のペースで頼んでいます。実家への贈り物にも喜ばれました。</p>
+        <p class="voice-from">大阪府吹田市・T様（Sサイズご利用）</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="delivery-sec" id="delivery">
+    <div>
+      <p class="kicker">SHIPPING &amp; GUIDE</p>
+      <h2 class="ed-title">配送・送料のご案内</h2>
+      <p style="font-size:0.86rem; color:var(--muted);">鮮度を保つため、4月〜11月はクール冷蔵便でお届けします（初回お試しは全国送料無料）。</p>
+      <table class="ship-table">
+        <thead>
+          <tr><th>お届け地域</th><th>到着目安</th><th>通常送料（2回目以降）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>関東・甲信越・中部・関西</td><td>発送日の翌日午前〜</td><td>¥680（税込）</td></tr>
+          <tr><td>東北・中国・四国</td><td>発送日の翌日午後〜</td><td>¥780（税込）</td></tr>
+          <tr><td>北海道・九州</td><td>発送日の翌々日午前〜</td><td>¥980（税込）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="kicker">Q&amp;A</p>
+      <h2 class="ed-title">よくあるご質問</h2>
+      <div class="faq-box">
+        <details open>
+          <summary>苦手な野菜やアレルギーがある場合、抜いてもらえますか？</summary>
+          <p>はい、ご注文時の備考欄に「セロリ・パクチーは苦手」など2品目までご記入いただければ、別の旬野菜へ差し替えて箱詰めします。</p>
+        </details>
+        <details>
+          <summary>受け取り日時の指定はできますか？</summary>
+          <p>毎週火曜・金曜の発送に合わせて、翌日以降のお届け時間帯（午前中・14〜16時・16〜18時・18〜20時・19〜21時）をご指定いただけます。</p>
+        </details>
+        <details>
+          <summary>初回お試しを頼むと自動で定期購入になりますか？</summary>
+          <p>いいえ、1回きりのお届けです。自動更新や勧誘のお電話は一切ありませんので、安心してお味をお確かめください。</p>
+        </details>
+        <details>
+          <summary>虫や土がついていることはありますか？</summary>
+          <p>農薬不使用栽培のため、丁寧に検品・水洗いしておりますが、まれに小さな土粒が残る場合があります。葉物は調理前にさっと水洗いしてお召し上がりください。</p>
+        </details>
+      </div>
     </div>
   </section>
 

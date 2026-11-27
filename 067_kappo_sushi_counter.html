@@ -261,6 +261,93 @@
     }
     .dish-copy p { color: var(--muted); margin-bottom: 16px; }
 
+    /* ── 美酒・茶ペアリング＆大将紹介＆しおりFAQ ── */
+    .pairing-sec {
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 96px 28px;
+    }
+    .pairing-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 32px;
+    }
+    .pairing-list li {
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      gap: 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .pairing-list strong {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.02rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+    .pairing-list span { font-size: 0.84rem; color: var(--muted); }
+    .pairing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .master-sec {
+      padding: 104px 28px;
+    }
+    .master-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .master-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+    .master-role { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.14em; }
+    .master-body p { color: var(--muted); margin-bottom: 18px; }
+    .master-career {
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+      padding-top: 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .guide-faq {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 88px 28px;
+      border-top: 1px solid var(--line);
+    }
+    .yoi-faq { border-top: 1px solid var(--line); margin-top: 28px; }
+    .yoi-faq details { border-bottom: 1px solid var(--line); }
+    .yoi-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 0;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .yoi-faq summary::-webkit-details-marker { display: none; }
+    .yoi-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--gold); }
+    .yoi-faq details[open] summary::after { content: "−"; }
+    .yoi-faq p { padding-bottom: 20px; font-size: 0.85rem; color: var(--muted); }
+
     /* ── 予約・二部制案内 ───────────────────────── */
     .reserve-sec {
       background: var(--panel);
@@ -315,7 +402,7 @@
       .hero-top-bar { padding: 18px 20px; }
       .hero-links { display: none; }
       .noren-center { padding: 28px 24px; }
-      .kondate-card, .dish-grid, .reserve-grid { grid-template-columns: 1fr; gap: 28px; }
+      .kondate-card, .dish-grid, .reserve-grid, .master-grid, .pairing-list li { grid-template-columns: 1fr; gap: 20px; }
       .kondate-card { padding: 28px 20px; }
     }
   </style>
@@ -329,6 +416,8 @@
     <nav class="hero-links">
       <a href="#menu">お品書き</a>
       <a href="#dish">仕事と酒</a>
+      <a href="#pairing">美酒と茶</a>
+      <a href="#shiori">ご来店のしおり</a>
       <a href="#reserve" class="hero-res-btn">お席のご予約</a>
     </nav>
   </div>
@@ -388,6 +477,74 @@
         合わせるのは京都・北陸の小さな蔵元から届く純米吟醸や燗酒。料理の移ろいに寄り添う一杯を女将がご提案いたします。
       </p>
     </div>
+  </div>
+</section>
+
+<section class="pairing-sec" id="pairing">
+  <div class="wrap">
+    <p class="kicker">SAKE &amp; TEA PAIRING</p>
+    <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.65rem; font-weight:400; letter-spacing:0.14em;">料理に寄り添う、美酒と茶の合わせ</h2>
+    <ul class="pairing-list">
+      <li>
+        <strong>日本酒ペアリング（六種）</strong>
+        <span>京都・北陸・東北の小蔵元より厳選。先付の繊細な出汁から赤酢の握りまで、冷酒とぬる燗を織り交ぜてお出しします。</span>
+        <span class="pairing-price">¥7,700</span>
+      </li>
+      <li>
+        <strong>熟成酒・プレミアムペアリング（七種）</strong>
+        <span>希少な生酛熟成酒やブルゴーニュ白ワインを織り交ぜ、喉黒や大トロの脂を美しく切る特別構成です。</span>
+        <span class="pairing-price">¥12,100</span>
+      </li>
+      <li>
+        <strong>京都宇治茶ペアリング（五種）</strong>
+        <span>お酒を召し上がらないお客様へ。水出し玉露・釜炒り茶・焙じ番茶など、温度と抽出時間を変えた五杯をご用意します。</span>
+        <span class="pairing-price">¥5,500</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="master-sec" id="master">
+  <div class="master-grid">
+    <div>
+      <p class="kicker">MASTER CHEF</p>
+      <p class="master-name">水野 宗一郎</p>
+      <p class="master-role">店主 ／ Soichiro Mizuno</p>
+    </div>
+    <div class="master-body">
+      <p>
+        京都の老舗割烹で出汁と季節の椀物を学び、のちに銀座の江戸前鮨の名店で十年研鑽を積む。「京の出汁のやさしさ」と「江戸前の端正な仕事」を白木八席の距離感で供する場として、二〇一九年に祇園南側へ『宵月』を開店。
+      </p>
+      <p>
+        魚は毎朝自ら中央市場と明石・舞鶴の仲買へ足を運び、脂の乗りや身の締まりを手で確かめて仕入れます。同じ魚でも日によって塩の当て方と熟成日数を変えるのが、宵月の仕事です。
+      </p>
+      <div class="master-career">
+        1982年 京都府生まれ ／ 京都老舗割烹にて8年修業 ／ 銀座江戸前鮨店にて10年修業 ／ 2019年「鮨・割烹 宵月」開店
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guide-faq" id="shiori">
+  <p class="kicker">ETIQUETTE &amp; Q&amp;A</p>
+  <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.6rem; font-weight:400; letter-spacing:0.14em;">ご来店のしおり</h2>
+  <div class="yoi-faq">
+    <details open>
+      <summary>一斉スタートの時間に遅れそうな場合はどうすればよいですか？</summary>
+      <p>舎利の温度と椀物の出汁を最良の状態で召し上がっていただくため、開始時刻の5〜10分前を目安にご来店をお願いしております。万が一遅れる場合はお早めにお電話ください。</p>
+    </details>
+    <details>
+      <summary>香水や整髪料についてお願いはありますか？</summary>
+      <p>繊細な出汁や柚子、赤酢の香りを皆様にお楽しみいただくため、香りの強い香水・柔軟剤のご使用はお控えくださいますようお願い申し上げます。</p>
+    </details>
+    <details>
+      <summary>貸切や記念日での利用、お子様の同伴は可能ですか？</summary>
+      <p>6名様〜8名様でのカウンター貸切を承っております。通常営業は大人の方と同じコースをお召し上がりいただける中学生以上のお客様をご案内しております（貸切時は年齢制限ございません）。</p>
+    </details>
+    <details>
+      <summary>キャンセル規定を教えてください。</summary>
+      <p>仕入れ・熟成の準備の都合上、ご予約日の3日前より50%、前日・当日は100%のキャンセル料を頂戴しております。日程変更はお早めにご相談ください。</p>
+    </details>
   </div>
 </section>
 

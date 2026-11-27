@@ -167,6 +167,130 @@
     .pet-points strong { color: var(--ink); }
     .pet-points span { color: var(--muted); text-align: right; }
 
+    /* ── 診療案内・季節の予防カレンダー・獣医師＆診療時間・FAQ ── */
+    .pet-sec {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+    .pet-sec-title {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .pet-sec-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
+
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .dept-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 26px 24px;
+    }
+    .dept-tag {
+      display: inline-block;
+      background: var(--sage-soft);
+      color: var(--sage);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .dept-card h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.1rem; margin-bottom: 8px; }
+    .dept-card p { font-size: 0.85rem; color: var(--muted); }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .cal-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 20px;
+    }
+    .cal-season {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--sage);
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .cal-box.warm .cal-season { color: var(--warm); }
+    .cal-box p { font-size: 0.82rem; color: var(--muted); }
+
+    .vet-hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .vet-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px 26px;
+    }
+    .vet-box h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.15rem; color: var(--sage); margin-bottom: 8px; }
+    .vet-box p { font-size: 0.86rem; color: var(--muted); margin-bottom: 12px; }
+    .vet-career {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      font-size: 0.78rem;
+      color: var(--ink);
+    }
+
+    table.pet-hours {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      font-size: 0.84rem;
+    }
+    table.pet-hours th, table.pet-hours td {
+      padding: 12px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    table.pet-hours th { background: var(--sage-soft); color: var(--sage); font-weight: 700; }
+    table.pet-hours td:first-child { text-align: left; padding-left: 14px; font-weight: 700; }
+
+    .pet-faq {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 8px 26px;
+    }
+    .pet-faq details { border-bottom: 1px solid var(--line); }
+    .pet-faq details:last-child { border-bottom: none; }
+    .pet-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .pet-faq summary::-webkit-details-marker { display: none; }
+    .pet-faq summary::after { content: "+"; color: var(--warm); font-size: 1.25rem; }
+    .pet-faq details[open] summary::after { content: "−"; }
+    .pet-faq p { padding-bottom: 18px; font-size: 0.85rem; color: var(--muted); }
+
     /* 予防カレンダー帯 */
     .care-sec {
       max-width: 1120px;
@@ -211,7 +335,8 @@
     }
 
     @media (max-width: 860px) {
-      .pet-stage, .care-band { grid-template-columns: 1fr; padding: 24px 20px; }
+      .pet-stage, .care-band, .dept-grid, .cal-grid, .vet-hours-grid { grid-template-columns: 1fr; padding: 24px 20px; }
+      .dept-grid, .cal-grid, .vet-hours-grid { padding: 0; }
       .nav { display: none; }
     }
   </style>
@@ -223,6 +348,10 @@
     <a href="#" class="brand">ひだまり動物病院</a>
     <nav class="nav">
       <a href="#stage">犬・猫別の工夫</a>
+      <a href="#departments">診療案内</a>
+      <a href="#calendar">予防カレンダー</a>
+      <a href="#hours">診療時間</a>
+      <a href="#faq">よくある質問</a>
       <a href="#reserve" class="nav-btn">WEB順番予約</a>
     </nav>
   </div>
@@ -252,6 +381,112 @@
       <ul class="pet-points" id="pet-points"></ul>
       <a href="#reserve" class="btn-warm">当日のWEB順番予約をとる</a>
     </div>
+  </div>
+</section>
+
+<section class="pet-sec" id="departments">
+  <h2 class="pet-sec-title">対応診療科目と院内検査設備</h2>
+  <p class="pet-sec-sub">日常のちょっとした違和感から専門的な検査・予防医療まで、かかりつけ医として幅広く対応しています。</p>
+  <div class="dept-grid">
+    <div class="dept-card">
+      <span class="dept-tag">一般内科・皮膚科</span>
+      <h3>かゆみ・外耳炎・胃腸・腎臓ケア</h3>
+      <p>ワンちゃんに多いアレルギー性皮膚炎・外耳炎や、ネコちゃんに多い慢性腎臓病・膀胱炎に対し、食事療法と投薬を組み合わせた負担の少ない治療を行います。</p>
+    </div>
+    <div class="dept-card">
+      <span class="dept-tag">予防医療・歯科ケア</span>
+      <h3>ワクチン・フィラリア・無麻酔/麻酔下歯石ケア</h3>
+      <p>ライフスタイルに合わせた混合ワクチン選択、狂犬病予防接種、ノミダニ対策、口臭や歯周病を防ぐデンタルケア指導まで丁寧にサポートします。</p>
+    </div>
+    <div class="dept-card">
+      <span class="dept-tag">避妊・去勢・軟部外科</span>
+      <h3>痛みに配慮した日帰り・短期入院手術</h3>
+      <p>術前血液検査と安全性の高い吸入麻酔・疼痛管理を徹底。退院後のエリザベスカラーや術後服の選び方まで細やかにご案内します。</p>
+    </div>
+    <div class="dept-card">
+      <span class="dept-tag">シニア健診・画像検査</span>
+      <h3>7歳からの「半日わんにゃんドック」</h3>
+      <p>院内血液検査・デジタルレントゲン・腹部超音波（エコー）・血圧測定を半日で実施。言葉で不調を伝えられない子の病気を早期に見つけます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pet-sec" id="calendar" style="padding-top:16px;">
+  <h2 class="pet-sec-title">季節の予防・健康チェックカレンダー</h2>
+  <p class="pet-sec-sub">1年を通じて大切な家族を守るための予防スケジュール目安です。</p>
+  <div class="cal-grid">
+    <div class="cal-box">
+      <p class="cal-season">春（3〜5月）</p>
+      <p>狂犬病予防接種・フィラリア抗原検査＆予防薬スタート。春の血液健康診断キャンペーンも実施しています。</p>
+    </div>
+    <div class="cal-box warm">
+      <p class="cal-season">夏（6〜8月）</p>
+      <p>フィラリア・ノミマダニの毎月予防、皮膚の蒸れ・外耳炎チェック、熱中症対策の水分補給相談。</p>
+    </div>
+    <div class="cal-box">
+      <p class="cal-season">秋（9〜11月）</p>
+      <p>フィラリア投薬の完遂（12月まで）、秋のシニア健診、季節の変わり目の胃腸・関節ケア。</p>
+    </div>
+    <div class="cal-box warm">
+      <p class="cal-season">冬（12〜2月）</p>
+      <p>飲水量が減りやすい冬の尿石症・腎臓チェック、乾燥による肉球ケア、歯科検診のおすすめ時期です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pet-sec" id="hours" style="padding-top:16px;">
+  <h2 class="pet-sec-title">獣医師のご紹介・診療時間とアクセス</h2>
+  <p class="pet-sec-sub">日曜午前も診療しているため、平日はお仕事で通院が難しいご家族も安心です。</p>
+  <div class="vet-hours-grid">
+    <div class="vet-box">
+      <h3>院長：陽向 健太（獣医師）</h3>
+      <p>
+        「病院が怖い場所にならないように」をモットーに、診察台の上でもその子のペースを最優先にしています。専門用語をかみ砕き、ご家族が納得して選べる治療方針をご提案します。
+      </p>
+      <div class="vet-career">
+        日本獣医生命科学大学卒 ／ 神奈川県内総合動物病院にて8年勤務後、ひだまり動物病院を開院<br>
+        国際猫医学会（ISFM）キャットフレンドリークリニック認定基準準拠
+      </div>
+    </div>
+
+    <div>
+      <table class="pet-hours">
+        <thead>
+          <tr><th>診療時間</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>09:00 – 12:00</td><td>●</td><td>●</td><td>休</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+          <tr><td>16:00 – 19:00</td><td>●</td><td>●</td><td>休</td><td>●</td><td>●</td><td>●</td><td>休</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:var(--muted); margin-top:10px;">
+        ※12:00〜16:00は手術・予約検査時間 ／ 水曜・祝日は休診<br>
+        所在地：神奈川県横浜市青葉区ひだまり台 2-8-14（専用駐車場8台・お車待機OK）
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="pet-sec" id="faq" style="padding-top:16px;">
+  <h2 class="pet-sec-title">初めて来院される方からのよくある質問</h2>
+  <p class="pet-sec-sub">受診前のちょっとした疑問をまとめました。</p>
+  <div class="pet-faq">
+    <details open>
+      <summary>予約なしでも診察してもらえますか？</summary>
+      <p>はい、当日のWEB順番予約優先ですが、急な体調不良やケガの場合はご予約なしでも診察いたします。お電話（045-555-0162）をいただけますとスムーズにご案内できます。</p>
+    </details>
+    <details>
+      <summary>ペット保険の窓口精算には対応していますか？</summary>
+      <p>アニコム損保・アイペット損保の窓口精算に対応しています。その他のペット保険をご利用の場合も、診療明細書を当日発行いたします。</p>
+    </details>
+    <details>
+      <summary>他の動物が苦手な子なので、車の中で待てますか？</summary>
+      <p>もちろんです。受付後に駐車場のお車でお待ちいただき、順番が近づきましたらスマホ通知または呼び出しベルでお知らせします。</p>
+    </details>
+    <details>
+      <summary>ネコちゃんを連れて行くときの準備のコツはありますか？</summary>
+      <p>脱走防止と安心感のため、大きめの洗濯ネットに入れたうえでハードキャリーに入れ、上からバスタオルを掛けてお越しいただくと緊張がやわらぎます。</p>
+    </details>
   </div>
 </section>
 

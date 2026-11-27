@@ -293,6 +293,108 @@
     .info-dl dt { color: var(--amber); font-family: 'Cormorant Garamond', serif; letter-spacing: 0.14em; }
     .info-dl dd { color: var(--espresso); text-align: right; }
 
+    /* ── 焙煎哲学・抽出ガイド・ギフト＆FAQ ──────── */
+    .roast-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+    }
+    .roast-list li {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .roast-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--amber);
+      font-weight: 600;
+    }
+    .roast-list h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .roast-list p { font-size: 0.84rem; color: var(--muted); }
+
+    .brew-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 1px solid var(--espresso);
+      margin-top: 20px;
+      font-size: 0.83rem;
+    }
+    .brew-table th, .brew-table td {
+      text-align: left;
+      padding: 13px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brew-table th {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+      font-weight: 600;
+    }
+    .brew-table td.time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--espresso);
+      white-space: nowrap;
+    }
+    .brew-table td { color: var(--muted); }
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 22px 0 28px;
+    }
+    .gift-box {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 22px 20px;
+    }
+    .gift-box small {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+    .gift-box h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .gift-box p { font-size: 0.82rem; color: var(--muted); }
+
+    .roast-faq { border-top: 1px solid var(--line); margin-top: 24px; }
+    .roast-faq details { border-bottom: 1px solid var(--line); }
+    .roast-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 0;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .roast-faq summary::-webkit-details-marker { display: none; }
+    .roast-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--amber); }
+    .roast-faq details[open] summary::after { content: "−"; }
+    .roast-faq p { padding-bottom: 16px; font-size: 0.83rem; color: var(--muted); }
+
     .pane-footer {
       padding: 28px 48px;
       font-size: 0.76rem;
@@ -304,7 +406,7 @@
       .split-shell { grid-template-columns: 1fr; }
       .visual-pane { position: relative; height: 52vh; min-height: 320px; border-right: none; border-bottom: 1px solid var(--line); }
       .mini-nav, .pane-sec, .pane-footer { padding-left: 20px; padding-right: 20px; }
-      .bean-selector { grid-template-columns: 1fr; }
+      .bean-selector, .gift-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -326,6 +428,7 @@
     <nav class="mini-nav">
       <div class="mini-nav-links">
         <a href="#profile">TASTING</a>
+        <a href="#brew">BREW GUIDE</a>
         <a href="#subscription">SUBSCRIPTION</a>
         <a href="#access">ROASTERY</a>
       </div>
@@ -383,6 +486,67 @@
       </div>
     </section>
 
+    <section class="pane-sec" id="philosophy">
+      <p class="eyebrow">Roasting Philosophy</p>
+      <h2>澄んだ甘さを引き出す、三つの基準。</h2>
+      <ol class="roast-list">
+        <li>
+          <span class="roast-no">01</span>
+          <div>
+            <h3>農園の顔が見えるダイレクトトレード</h3>
+            <p>カッピングスコア86点以上のマイクロロットのみを選定。標高・品種・精製工程まで透明な生豆を買い付けています。</p>
+          </div>
+        </li>
+        <li>
+          <span class="roast-no">02</span>
+          <div>
+            <h3>5kg小釜での緻密なプロファイル管理</h3>
+            <p>その日の気温と湿度に合わせて火力を秒単位で記録。焦げや渋みを出さず、果実本来のジューシーな酸味と長い余韻を残します。</p>
+          </div>
+        </li>
+        <li>
+          <span class="roast-no">03</span>
+          <div>
+            <h3>焙煎後48時間以内の発送とエイジング案内</h3>
+            <p>浅煎りの香味がもっとも開く焙煎後5〜14日目の飲み頃に合わせて、おすすめの抽出メモを添えてお届けします。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="pane-sec paper" id="brew">
+      <p class="eyebrow">Home Brewing Guide</p>
+      <h2>ご自宅で透明な一杯を淹れる標準レシピ</h2>
+      <p style="font-size:0.86rem; color:var(--muted);">中細挽き 15g ／ 湯温 90〜92℃ ／ 合計湯量 240ml（円錐ドリッパー推奨）</p>
+      <table class="brew-table">
+        <thead>
+          <tr><th>TIME</th><th>POUR</th><th>PROCESS</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time">0:00</td>
+            <td>40ml</td>
+            <td>粉全体が均一に湿るように中心から静かに注ぎ、40秒蒸らしてガスを抜く。</td>
+          </tr>
+          <tr>
+            <td class="time">0:40</td>
+            <td>+80ml（計120ml）</td>
+            <td>のの字を描くようにゆっくり注ぎ、果実の華やかな酸味と香りを引き出す。</td>
+          </tr>
+          <tr>
+            <td class="time">1:20</td>
+            <td>+70ml（計190ml）</td>
+            <td>湯面が下がり切る前に中心へ細く注ぎ、甘みの層を重ねる。</td>
+          </tr>
+          <tr>
+            <td class="time">1:55</td>
+            <td>+50ml（計240ml）</td>
+            <td>2分30秒を目安に落ち切り。サーバーを軽く回して香りを均一に。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <section class="pane-sec" id="subscription">
       <p class="eyebrow">Roaster's Subscription</p>
       <h2>焙煎48時間以内に届く、豆の定期便。</h2>
@@ -393,6 +557,34 @@
         毎月第1・第3水曜日に焙煎したばかりの豆（200g×2種／月額¥3,400・送料無料）を、おすすめの抽出レシピカードとともにポスト投函でお届けします。スキップや解約はいつでも可能です。
       </p>
       <a href="#" class="btn-dark">定期便を申し込む</a>
+
+      <div class="gift-grid">
+        <div class="gift-box">
+          <small>GIFT BOX</small>
+          <h3>季節の飲み比べギフト（100g×3種）</h3>
+          <p>活版印刷のテイスティングカード付き化粧箱入り。熨斗・メッセージカード対応（¥3,600税込）。</p>
+        </div>
+        <div class="gift-box">
+          <small>WHOLESALE</small>
+          <h3>飲食店・オフィス向け卸販売</h3>
+          <p>1kg単位から焙煎納品。お店の料理や焼き菓子に合わせたオリジナルブレンド開発も承ります。</p>
+        </div>
+      </div>
+
+      <div class="roast-faq">
+        <details>
+          <summary>粉に挽いて届けてもらうことはできますか？</summary>
+          <p>はい、ご注文時に「豆のまま」「ハンドドリップ用（中細挽き）」「フレンチプレス用（粗挽き）」からお選びいただけます。</p>
+        </details>
+        <details>
+          <summary>浅煎り豆のおすすめの保存方法を教えてください。</summary>
+          <p>ガス抜きバルブ付きの専用袋のまま、直射日光を避けた涼しい場所で保管してください。1ヶ月以上保存する場合は小分けにして冷凍庫へ。</p>
+        </details>
+        <details>
+          <summary>焙煎所で試飲してから購入できますか？</summary>
+          <p>店頭のテイスティングバーにて、その日販売している全シングルオリジンを無料でご試飲いただけます。</p>
+        </details>
+      </div>
     </section>
 
     <section class="pane-sec paper" id="access">

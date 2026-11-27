@@ -193,6 +193,122 @@
     .meal-card h3 { font-size: 1.12rem; color: var(--green-dark); margin-bottom: 8px; }
     .meal-card p { font-size: 0.92rem; color: var(--muted); }
 
+    /* ── 3つの安心・ご利用料金表・ご家族の声と流れ・FAQ＆施設概要 ── */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .trust-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 26px 24px;
+    }
+    .trust-num {
+      display: inline-block;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .trust-card h3 { font-size: 1.12rem; color: var(--green-dark); margin-bottom: 10px; }
+    .trust-card p { font-size: 0.94rem; color: var(--muted); }
+
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      border: 2px solid var(--green);
+      font-size: 0.95rem;
+    }
+    .fee-table th, .fee-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    .fee-table th { background: var(--green-soft); color: var(--green-dark); font-weight: 700; }
+    .fee-table td.yen { font-weight: 700; color: var(--green-dark); white-space: nowrap; }
+    .fee-note { font-size: 0.9rem; color: var(--muted); margin-top: 14px; }
+
+    .family-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .family-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 26px 24px;
+    }
+    .family-card h3 { font-size: 1.08rem; color: var(--green-dark); margin-bottom: 10px; }
+    .family-card p { font-size: 0.94rem; color: var(--muted); margin-bottom: 12px; }
+    .family-from { font-size: 0.88rem; font-weight: 700; color: var(--ink); border-top: 1px solid var(--line); padding-top: 10px; }
+
+    .start-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .start-step {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .start-step strong { display: block; color: var(--orange); font-size: 0.9rem; margin-bottom: 6px; }
+    .start-step h3 { font-size: 1.02rem; color: var(--green-dark); margin-bottom: 6px; }
+    .start-step p { font-size: 0.9rem; color: var(--muted); }
+
+    .ud-faq {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 26px;
+      margin-bottom: 36px;
+    }
+    .ud-faq details { border-bottom: 1px solid var(--line); }
+    .ud-faq details:last-child { border-bottom: none; }
+    .ud-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .ud-faq summary::-webkit-details-marker { display: none; }
+    .ud-faq summary::after { content: "＋"; color: var(--orange); font-size: 1.2rem; }
+    .ud-faq details[open] summary::after { content: "－"; }
+    .ud-faq p { padding-bottom: 18px; font-size: 0.94rem; color: var(--muted); }
+
+    .facility-dl {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 24px;
+    }
+    .facility-dl div {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+    .facility-dl div:last-child { border-bottom: none; }
+    .facility-dl dt { font-weight: 700; color: var(--green-dark); }
+    .facility-dl dd { color: var(--ink); }
+
     /* ── ご家族・ケアマネ様向け見学案内 ─────────── */
     .cta-box {
       background: var(--green-soft);
@@ -214,7 +330,8 @@
     }
 
     @media (max-width: 860px) {
-      .hero-card, .day-grid { grid-template-columns: 1fr; }
+      .hero-card, .day-grid, .trust-grid, .family-grid, .start-steps { grid-template-columns: 1fr; }
+      .facility-dl div { grid-template-columns: 1fr; gap: 4px; }
       .tel-block { display: none; }
     }
   </style>
@@ -262,6 +379,27 @@
   </div>
 </section>
 
+<section class="sec" id="assurances">
+  <h2 class="sec-title">わかばの家が選ばれる三つの安心</h2>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <span class="trust-num">安心 01</span>
+      <h3>看護師が毎日常駐する体調見守り</h3>
+      <p>ご到着時の血圧・体温測定から服薬確認、急な体調変化まで看護師が丁寧に見守ります。インスリンや在宅酸素など医療処置が必要な方もご相談ください。</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-num">安心 02</span>
+      <h3>理学療法士による個別機能訓練</h3>
+      <p>「自分の足で歩き続けたい」「階段を安心して昇りたい」など、お一人ごとの目標に合わせて無理のない運動メニューをマンツーマンで組みます。</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-num">安心 03</span>
+      <h3>お一人ずつ入れる個浴と玄関送迎</h3>
+      <p>人目を気にせずリラックスできる手すり付き個浴（リフト浴対応）をご用意。車いす対応車両でご自宅の玄関先までスタッフが安全に送迎します。</p>
+    </div>
+  </div>
+</section>
+
 <section class="sec">
   <h2 class="sec-title">わかばの家での1日の過ごし方と手作り昼食</h2>
   <div class="day-grid">
@@ -281,6 +419,75 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="sec" id="fees">
+  <h2 class="sec-title">ご利用料金の目安（介護保険 1割負担の場合）</h2>
+  <table class="fee-table">
+    <thead>
+      <tr><th>要介護度</th><th>基本利用料（1日・1割負担）</th><th>昼食・おやつ代（実費）</th><th>1日あたりの合計目安</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>要介護 1</td><td class="yen">753円</td><td class="yen">750円</td><td class="yen">約 1,503円</td></tr>
+      <tr><td>要介護 2</td><td class="yen">890円</td><td class="yen">750円</td><td class="yen">約 1,640円</td></tr>
+      <tr><td>要介護 3</td><td class="yen">1,032円</td><td class="yen">750円</td><td class="yen">約 1,782円</td></tr>
+      <tr><td>要介護 4</td><td class="yen">1,172円</td><td class="yen">750円</td><td class="yen">約 1,922円</td></tr>
+      <tr><td>要介護 5</td><td class="yen">1,312円</td><td class="yen">750円</td><td class="yen">約 2,062円</td></tr>
+    </tbody>
+  </table>
+  <p class="fee-note">※入浴介助加算（約40円/回）・個別機能訓練加算（約56円/回）等が別途加わります。要支援1・2の方も月定額制でご利用いただけます。お見積りは無料でお作りします。</p>
+</section>
+
+<section class="sec" id="voices">
+  <h2 class="sec-title">ご家族様の声と、ご利用開始までの流れ</h2>
+  <div class="family-grid">
+    <article class="family-card">
+      <h3>「家にこもりがちだった母が、朝からお化粧して待つように」</h3>
+      <p>最初は『デイサービスは行きたくない』と言っていた母が、無料体験の温かい和食とお風呂をとても気に入り、今では週2回の通所を何より楽しみにしています。連絡帳の丁寧な記録も家族の安心です。</p>
+      <p class="family-from">80代女性のご長女様（週2回ご利用・要介護2）</p>
+    </article>
+    <article class="family-card">
+      <h3>「仕事と介護の両立に、心からゆとりが生まれました」</h3>
+      <p>玄関まで笑顔で迎えに来てくださり、帰宅時もその日の食事量やリハビリの様子を丁寧に伝えてくださいます。入浴介助の負担が減り、家族みんなが穏やかに過ごせています。</p>
+      <p class="family-from">70代男性のご家族様（週3回ご利用・要介護3）</p>
+    </article>
+  </div>
+
+  <div class="start-steps">
+    <div class="start-step"><strong>手順 1</strong><h3>お電話・ご相談</h3><p>まずはお気軽にご連絡ください。介護認定がこれからの方も申請手順をご案内します。</p></div>
+    <div class="start-step"><strong>手順 2</strong><h3>無料見学・体験</h3><p>送迎付き・手作り昼食付きの無料体験で、施設の雰囲気をご本人様とご確認ください。</p></div>
+    <div class="start-step"><strong>手順 3</strong><h3>ケアマネ様と連携</h3><p>担当ケアマネジャー様と利用曜日や目標を共有し、無理のない通所計画を整えます。</p></div>
+    <div class="start-step"><strong>手順 4</strong><h3>ご利用開始</h3><p>ご自宅玄関までのお迎えでスタート。体調やご様子は毎回連絡帳でお伝えします。</p></div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <h2 class="sec-title">よくあるご質問・施設概要</h2>
+  <div class="ud-faq">
+    <details open>
+      <summary>介護認定をまだ受けていませんが、見学や相談はできますか？</summary>
+      <p>はい、もちろんです。市役所や地域包括支援センターでの申請方法から、ご本人様に合ったサービス選びまで生活相談員が分かりやすくご案内します。</p>
+    </details>
+    <details>
+      <summary>認知症の症状がありますが利用できますか？</summary>
+      <p>定員15名の少人数制ですので、落ち着いた環境の中でスタッフが寄り添って対応いたします。ご不安な点は事前にゆっくりお聞かせください。</p>
+    </details>
+    <details>
+      <summary>送迎できるエリアを教えてください。</summary>
+      <p>さいたま市浦和区・南区・中央区・緑区（施設から車で約15分圏内）を中心にご自宅の玄関先まで送迎しております。エリア外の方もご相談ください。</p>
+    </details>
+    <details>
+      <summary>おむつや着替えなど、利用時の持ち物はありますか？</summary>
+      <p>バスタオル・入浴用品は施設でご用意しています。普段お飲みのお薬・室内履き・着替え1組だけお持ちください。</p>
+    </details>
+  </div>
+
+  <dl class="facility-dl">
+    <div><dt>事業所名</dt><dd>デイサービス わかばの家（指定地域密着型通所介護）</dd></div>
+    <div><dt>所在地</dt><dd>〒330-0061 埼玉県さいたま市浦和区常盤 4-12-6（駐車場5台あり）</dd></div>
+    <div><dt>営業時間・休業日</dt><dd>月曜〜土曜 8:30〜17:30（サービス提供 9:00〜16:30）／ 日曜・年末年始休業</dd></div>
+    <div><dt>電話番号</dt><dd>048-555-0183（見学・空き状況のお問い合わせ随時受付）</dd></div>
+  </dl>
 </section>
 
 <section class="sec" id="contact">

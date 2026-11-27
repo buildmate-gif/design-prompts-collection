@@ -223,6 +223,117 @@
     .impact-dl dt { font-size: 0.86rem; color: var(--muted); }
     .impact-dl dd { font-family: 'Syne', sans-serif; font-size: 1.35rem; color: var(--cyan); font-weight: 700; }
 
+    /* ── 支援プログラム・業界別事例・ガバナンスFAQ・診断CTA ── */
+    .prog-sec {
+      padding: 84px 28px;
+      border-top: 1px solid var(--line);
+    }
+    .prog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 28px;
+    }
+    .prog-cell {
+      background: var(--surface);
+      padding: 30px 28px;
+    }
+    .prog-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+    .prog-cell h3 { font-size: 1.08rem; color: #fff; margin-bottom: 10px; }
+    .prog-cell p { font-size: 0.84rem; color: var(--muted); }
+
+    .ind-list {
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+    }
+    .ind-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 180px;
+      gap: 24px;
+      padding: 24px 12px;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .ind-cat {
+      font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+      font-size: 0.78rem;
+      color: var(--cyan);
+    }
+    .ind-row h3 { font-size: 1rem; color: #fff; margin-bottom: 6px; }
+    .ind-row p { font-size: 0.84rem; color: var(--muted); }
+    .ind-kpi {
+      text-align: right;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+    .ind-kpi small {
+      display: block;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .gov-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .gov-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+    .gov-list li {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.84rem;
+    }
+    .gov-list strong { display: block; color: #fff; margin-bottom: 3px; }
+    .gov-list span { color: var(--muted); }
+
+    .ai-faq { border-top: 1px solid var(--line); margin-top: 20px; }
+    .ai-faq details { border-bottom: 1px solid var(--line); }
+    .ai-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .ai-faq summary::-webkit-details-marker { display: none; }
+    .ai-faq summary::after { content: "+"; font-family: 'IBM Plex Mono', monospace; color: var(--cyan); font-size: 1.15rem; }
+    .ai-faq details[open] summary::after { content: "−"; }
+    .ai-faq p { padding-bottom: 18px; font-size: 0.83rem; color: var(--muted); }
+
+    .diag-cta {
+      background: var(--surface-2);
+      border: 1px solid var(--cyan);
+      padding: 44px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .diag-cta h2 { font-size: 1.5rem; color: #fff; margin-bottom: 8px; }
+    .diag-cta p { font-size: 0.86rem; color: var(--muted); }
+
     footer {
       border-top: 1px solid var(--line);
       padding: 30px 28px;
@@ -233,7 +344,10 @@
     }
 
     @media (max-width: 880px) {
-      .hero-split, .roi-grid, .case-grid { grid-template-columns: 1fr; }
+      .hero-split, .roi-grid, .case-grid, .prog-grid, .gov-faq-grid { grid-template-columns: 1fr; }
+      .ind-row { grid-template-columns: 1fr; gap: 8px; }
+      .ind-kpi { text-align: left; }
+      .diag-cta { padding: 30px 22px; }
       .nav { display: none; }
     }
   </style>
@@ -245,8 +359,10 @@
     <a href="#" class="logo">STRATEX<span>.AI</span></a>
     <nav class="nav">
       <a href="#roi">削減効果試算</a>
+      <a href="#programs">支援プログラム</a>
       <a href="#cases">定着実績</a>
-      <a href="#roi" class="nav-cta">無料業務診断</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#contact" class="nav-cta">無料業務診断</a>
     </nav>
   </div>
 </header>
@@ -321,6 +437,35 @@
   </div>
 </section>
 
+<section class="prog-sec" id="programs">
+  <div class="wrap">
+    <p class="sys-tag">SOLUTIONS ARCHITECTURE</p>
+    <h2 class="sec-title">3ヶ月で自走する、四つの実装支援プログラム</h2>
+    <div class="prog-grid">
+      <div class="prog-cell">
+        <p class="prog-code">MOD 01 // AUDIT &amp; ROADMAP</p>
+        <h3>業務棚卸し・AI投資対効果（ROI）診断</h3>
+        <p>各部門の定型業務をヒアリングし、「最も早く現場が楽になり利益に直結する3業務」を数値根拠付きで特定します。</p>
+      </div>
+      <div class="prog-cell">
+        <p class="prog-code">MOD 02 // CUSTOM WORKFLOW</p>
+        <h3>社内専用ナレッジ検索・自動化実装</h3>
+        <p>見積書・報告書作成、過去図面や社内規定の横断検索（RAG）、議事録からタスク起票までの自動化基盤を構築します。</p>
+      </div>
+      <div class="prog-cell">
+        <p class="prog-code">MOD 03 // HANDS-ON ENABLEMENT</p>
+        <h3>実務データを用いた部門別ハンズオン研修</h3>
+        <p>座学ではなく、自社の実際のExcel・PDF・メール文面を使って演習。ITに不慣れなスタッフも翌日から実務で使える状態へ導きます。</p>
+      </div>
+      <div class="prog-cell">
+        <p class="prog-code">MOD 04 // GOVERNANCE &amp; SECURITY</p>
+        <h3>生成AI利用ガイドライン・安全環境設計</h3>
+        <p>入力データが学習に使われない法人契約設計、個人情報マスキング、社内利用規定の整備まで法務・情シス目線で完了させます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="case-sec" id="cases">
   <div class="wrap">
     <div class="case-grid">
@@ -337,6 +482,86 @@
           <div><dt>研修3ヶ月後のアクティブ利用率</dt><dd>89%</dd></div>
         </dl>
       </div>
+    </div>
+
+    <div class="ind-list">
+      <article class="ind-row">
+        <span class="ind-cat">CONSTRUCTION // 建設・工務店</span>
+        <div>
+          <h3>過去の施工事例・仕様書から見積根拠と提案文を自動ドラフト</h3>
+          <p>ベテラン営業に属人化していた見積積算とお客様向け仕様説明書の作成を標準化。若手でも同品質の提案を半日で準備可能に。</p>
+        </div>
+        <div class="ind-kpi">-58%<small>提案書作成時間</small></div>
+      </article>
+      <article class="ind-row">
+        <span class="ind-cat">MANUFACTURING // 精密製造業</span>
+        <div>
+          <h3>品質トラブル履歴・図面注記の横断検索システムを構築</h3>
+          <p>紙とPDFに散在していた過去10年分の検査報告・不具合対策書をAI検索化。ベテランへの問い合わせ工数を大幅削減。</p>
+        </div>
+        <div class="ind-kpi">120h<small>月間削減工数（全社）</small></div>
+      </article>
+      <article class="ind-row">
+        <span class="ind-cat">BtoB SERVICE // 専門商社・士業</span>
+        <div>
+          <h3>商談録音からの議事録・CRM登録・お礼メール自動化</h3>
+          <p>営業担当が帰社後に行っていた日報・議事録入力を自動化。顧客対応スピードが上がり、商談化率が1.3倍へ向上。</p>
+        </div>
+        <div class="ind-kpi">89%<small>3ヶ月後アクティブ率</small></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="prog-sec" id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <div class="gov-faq-grid">
+      <div>
+        <p class="sys-tag">SECURITY &amp; GOVERNANCE</p>
+        <h2 class="sec-title">安全な業務利用の4原則</h2>
+        <ul class="gov-list">
+          <li><strong>01. オプトアウト（学習利用ゼロ）環境</strong><span>入力した社内データがAIモデルの再学習に使われないエンタープライズAPI環境のみを採用。</span></li>
+          <li><strong>02. 権限分離と監査ログ</strong><span>部署ごとのアクセス権限と利用履歴を可視化し、シャドーAI化を防止。</span></li>
+          <li><strong>03. 社内ガイドライン雛形提供</strong><span>個人情報・機密情報の入力ルールを明文化した規定書を自社仕様にカスタマイズ納品。</span></li>
+          <li><strong>04. 既存クラウドへの最小限連携</strong><span>Microsoft 365 / Google Workspace 等、現在お使いの基盤を活かして低コストに実装。</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="sys-tag">TECHNICAL FAQ</p>
+        <h2 class="sec-title">よくあるご質問</h2>
+        <div class="ai-faq">
+          <details open>
+            <summary>社内にIT専任担当者やエンジニアがいなくても導入できますか？</summary>
+            <p>はい、クライアント企業の7割以上がIT専任担当者不在の中小・中堅企業です。専門用語を使わず、現場の推進リーダー候補の方と並走して内製化まで支援します。</p>
+          </details>
+          <details>
+            <summary>費用感と支援期間の目安を教えてください。</summary>
+            <p>初回業務診断は無料です。本支援は「3ヶ月定着パッケージ（月額40万円〜・規模に応じ設計）」を中心に、人材開発支援助成金などの活用相談も承っています。</p>
+          </details>
+          <details>
+            <summary>ChatGPTやGeminiなど、どのAIツールを使うのが前提ですか？</summary>
+            <p>特定ベンダーに縛られません。Microsoft 365環境ならCopilot、Google環境ならGemini、専用自動化にはClaude/OpenAI APIなど、貴社の既存ツールとコストに最適な構成をご提案します。</p>
+          </details>
+          <details>
+            <summary>まずは役員・管理職向けの1回勉強会からお願いできますか？</summary>
+            <p>可能です。90分の実演付き経営層ワークショップからスタートし、手応えを確認したうえで本格導入へ進む企業様も多数ございます。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prog-sec" id="contact">
+  <div class="wrap">
+    <div class="diag-cta">
+      <div>
+        <p class="sys-tag">FREE 60-MIN ASSESSMENT</p>
+        <h2>まずは60分の無料業務診断で、削減できる工数を可視化します。</h2>
+        <p>具体的な業務フローを2〜3点お聞かせいただければ、その場でAI活用の優先順位と概算ROIレポートをお戻しします。</p>
+      </div>
+      <a href="#roi" class="btn-cyan" style="padding:16px 32px;">無料業務診断を予約する →</a>
     </div>
   </div>
 </section>

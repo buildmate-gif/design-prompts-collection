@@ -476,6 +476,153 @@
       line-height: 1.7;
     }
 
+    /* ── 家づくりの流れ（6工程インデックス） ────── */
+    .flow-section {
+      padding: 104px 40px;
+    }
+    .flow-inner { max-width: 1120px; margin: 0 auto; }
+    .flow-list {
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+    .flow-list li {
+      display: grid;
+      grid-template-columns: 72px 240px 1fr 140px;
+      gap: 24px;
+      padding: 28px 12px;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .flow-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--wood);
+      letter-spacing: 0.1em;
+    }
+    .flow-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+    .flow-desc { font-size: 0.86rem; color: var(--muted); }
+    .flow-term {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--moss);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── 暮らしの記録（施主の声）＆ よくある質問 ── */
+    .voices-section {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 104px 40px;
+    }
+    .voices-inner { max-width: 1120px; margin: 0 auto; }
+    .voice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .voice-entry {
+      border-top: 2px solid var(--wood);
+      padding-top: 28px;
+    }
+    .voice-meta {
+      font-size: 0.78rem;
+      color: var(--wood);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .voice-entry h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.22rem;
+      font-weight: 500;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .voice-entry p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .voice-owner {
+      font-size: 0.78rem;
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .faq-section {
+      padding: 104px 40px;
+    }
+    .faq-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 8px;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.04rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--wood);
+      line-height: 1;
+    }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-ans {
+      padding: 0 8px 24px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ── 会社概要・アクセス ────────────────────── */
+    .company-strip {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      padding: 72px 40px;
+    }
+    .company-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .company-dl {
+      border-top: 1px solid var(--line);
+    }
+    .company-dl div {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.86rem;
+    }
+    .company-dl dt { color: var(--muted); }
+    .company-dl dd { color: var(--ink); }
+
     /* ── 結び（見学会・相談） ─────────────────── */
     .closing {
       background: var(--sumi);
@@ -552,7 +699,10 @@
       .hero-vertical-wrap { flex-direction: column; }
       .hero-title, .hero-sub-vertical { writing-mode: horizontal-tb; }
       .hero-photo-frame img { min-height: 280px; }
-      .phi-inner, .spec-layout, .craft-inner, .closing-inner { grid-template-columns: 1fr; gap: 32px; }
+      .phi-inner, .spec-layout, .craft-inner, .closing-inner, .voice-grid, .faq-inner, .company-inner { grid-template-columns: 1fr; gap: 32px; }
+      .flow-list li { grid-template-columns: 1fr; gap: 6px; }
+      .flow-term { text-align: left; }
+      .company-dl div { grid-template-columns: 1fr; gap: 4px; }
       .craft-box { margin-left: 0; margin-bottom: 0; padding: 28px 22px; }
       .work-row { grid-template-columns: 1fr; gap: 8px; }
       .work-spec { text-align: left; }
@@ -560,7 +710,7 @@
       .spec-data-row { grid-template-columns: 1fr; }
       .nav { display: none; }
       .header-inner { padding: 16px 20px; }
-      .philosophy, .spec-section, .craft-section, .works-section, .closing { padding: 64px 20px; }
+      .philosophy, .spec-section, .craft-section, .works-section, .flow-section, .voices-section, .faq-section, .company-strip, .closing { padding: 64px 20px; }
     }
   </style>
 </head>
@@ -575,8 +725,9 @@
     <nav class="nav">
       <a href="#philosophy">思想</a>
       <a href="#spec">素材と性能</a>
-      <a href="#craft">手仕事</a>
       <a href="#works">建築索引</a>
+      <a href="#flow">家づくりの流れ</a>
+      <a href="#faq">よくある質問</a>
       <a href="#contact" class="nav-cta">見学会・相談</a>
     </nav>
   </div>
@@ -742,10 +893,114 @@
   </div>
 </section>
 
+<section class="flow-section" id="flow">
+  <div class="flow-inner reveal">
+    <div class="sec-head-row">
+      <div>
+        <p class="phi-label">05 / PROCESS</p>
+        <h2>家づくりの流れ</h2>
+      </div>
+      <p style="font-size:0.84rem; color:var(--muted);">ご相談から完成・お引き渡しまで約12〜15ヶ月</p>
+    </div>
+    <ol class="flow-list">
+      <li>
+        <span class="flow-no">01</span>
+        <strong class="flow-title">見学会・初回相談</strong>
+        <p class="flow-desc">完成見学会や作業場にて無垢の空気感を体感いただきながら、暮らしのご要望やご予算の目安を伺います。</p>
+        <span class="flow-term">1〜2ヶ月目</span>
+      </li>
+      <li>
+        <span class="flow-no">02</span>
+        <strong class="flow-title">敷地調査・資金計画</strong>
+        <p class="flow-desc">陽当たり・風向き・隣地の視線を現地で確認。土地探しからご一緒する場合も建築士が同行して判断します。</p>
+        <span class="flow-term">2〜3ヶ月目</span>
+      </li>
+      <li>
+        <span class="flow-no">03</span>
+        <strong class="flow-title">基本プラン・概算ご提案</strong>
+        <p class="flow-desc">手描きの平面図と模型で暮らしの動線をご確認いただき、資金計画に無理のない詳細見積りを作成します。</p>
+        <span class="flow-term">3〜5ヶ月目</span>
+      </li>
+      <li>
+        <span class="flow-no">04</span>
+        <strong class="flow-title">実施設計・墨付け手刻み</strong>
+        <p class="flow-desc">ご契約後、構造計算と詳細図面を確定。自社作業場で棟梁が一本ずつ木材の癖を読みながら手刻みを進めます。</p>
+        <span class="flow-term">6〜8ヶ月目</span>
+      </li>
+      <li>
+        <span class="flow-no">05</span>
+        <strong class="flow-title">上棟・左官・造作工事</strong>
+        <p class="flow-desc">大工と左官職人が丁寧に仕上げます。建築中も現場で収納の高さや棚板の配置を直接ご確認いただけます。</p>
+        <span class="flow-term">9〜13ヶ月目</span>
+      </li>
+      <li>
+        <span class="flow-no">06</span>
+        <strong class="flow-title">お引き渡し・30年見守り</strong>
+        <p class="flow-desc">気密測定と完了検査を経てお引き渡し。暮らし始めたあとの建具調整や定期点検も自社スタッフが担います。</p>
+        <span class="flow-term">お引き渡し後</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="voices-section" id="voices">
+  <div class="voices-inner reveal">
+    <div class="sec-head-row">
+      <div>
+        <p class="phi-label">06 / OWNERS' VOICES</p>
+        <h2>暮らしの記録 — お住まいの方の声</h2>
+      </div>
+      <p style="font-size:0.84rem; color:var(--muted);">入居3年〜7年を迎えたお宅より</p>
+    </div>
+    <div class="voice-grid">
+      <article class="voice-entry">
+        <p class="voice-meta">NARA IKOMA / 入居4年目</p>
+        <h3>冬でも素足で歩ける杉の床と、エアコン一台の穏やかな暖かさ。</h3>
+        <p>以前は冬の朝、布団から出るのがつらいほど冷える借家暮らしでした。この家に越してからは朝の冷え込みがまるで違い、子どもたちも一年中素足で走り回っています。年々飴色に深まっていく床の艶を見るのが楽しみです。</p>
+        <p class="voice-owner">生駒市 K様ご家族（ご夫婦＋お子様2人・平屋 98.5㎡）</p>
+      </article>
+      <article class="voice-entry">
+        <p class="voice-meta">KYOTO KIZUGAWA / 入居6年目</p>
+        <h3>大工さんと現場で話しながら決めた造作棚が、いちばんのお気に入りです。</h3>
+        <p>営業担当を挟まず、設計士さんと棟梁に直接相談できた安心感が何より大きかったです。住み始めて5年目に引き戸の調整をお願いしたときも、すぐ翌日に見に来てくださり、地元の工務店に頼んで良かったと実感しています。</p>
+        <p class="voice-owner">木津川市 M様ご家族（二世帯住宅 142.0㎡）</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section" id="faq">
+  <div class="faq-inner reveal">
+    <div>
+      <p class="phi-label">07 / Q&amp;A</p>
+      <h2 class="phi-heading">よくあるご質問</h2>
+      <p style="font-size:0.86rem; color:var(--muted); margin-top:16px;">家づくりを検討し始めたばかりの段階でも、遠慮なくお尋ねください。</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>土地がまだ決まっていなくても相談できますか？</summary>
+        <p class="faq-ans">はい、土地探しからのご相談を多く承っています。日当たりや高低差、造成費用の有無など、不動産情報だけでは分かりにくい条件を建築士の視点で現地確認し、総予算に無理のない土地選びをお手伝いします。</p>
+      </details>
+      <details class="faq-item">
+        <summary>建築費用の目安はどのくらいでしょうか？</summary>
+        <p class="faq-ans">標準仕様（国産無垢材・漆喰壁・耐震等級3・UA値0.42以下）で、延床30坪前後・本体価格3,000万円台前半からが目安です。初回相談時に付帯工事や諸費用まで含めた資金計画表をお作りします。</p>
+      </details>
+      <details class="faq-item">
+        <summary>施工対応エリアを教えてください。</summary>
+        <p class="faq-ans">お引き渡し後の迅速なメンテナンスを守るため、奈良県北部・京都府南部・大阪府東部（本社作業場から車で1時間圏内）を施工エリアとしています。</p>
+      </details>
+      <details class="faq-item">
+        <summary>モデルハウスはありますか？</summary>
+        <p class="faq-ans">常設の展示場を持たず、その分の経費を住まいの品質に還元しています。代わりにお施主様のご厚意で毎月開催する「完成見学会」や、実際の木材をご覧いただける「自社作業場見学」をご案内しています。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <section class="closing" id="contact">
   <div class="closing-inner">
     <div>
-      <p class="phi-label" style="color:#C29A6A;">05 / VISIT &amp; CONSULTATION</p>
+      <p class="phi-label" style="color:#C29A6A;">08 / VISIT &amp; CONSULTATION</p>
       <h2>まずは、無垢の香りと<br>静かな空気感を体感してください。</h2>
       <p>毎月開催している完成見学会・作業場見学のほか、土地探しや資金計画の個別相談を無料で承っています。売り込みや訪問営業は一切行いません。</p>
     </div>
@@ -753,6 +1008,21 @@
       <p>完全予約制・各回1組様ずつご案内</p>
       <a href="#" class="btn-wood">見学会・個別相談を予約する</a>
     </div>
+  </div>
+</section>
+
+<section class="company-strip">
+  <div class="company-inner">
+    <div>
+      <p class="phi-label">COMPANY PROFILE</p>
+      <h2 class="phi-heading" style="font-size:1.3rem;">会社概要・作業場</h2>
+    </div>
+    <dl class="company-dl">
+      <div><dt>社名</dt><dd>株式会社 木ノ葉工務店（一級建築士事務所）</dd></div>
+      <div><dt>所在地・作業場</dt><dd>〒630-0255 奈良県生駒市山崎新町 2-14（駐車場あり）</dd></div>
+      <div><dt>創業・許可</dt><dd>1978年創業 ／ 建設業許可 奈良県知事（般-5）第12840号</dd></div>
+      <div><dt>営業時間</dt><dd>9:00〜18:00（水曜定休・土日祝の見学相談対応可）</dd></div>
+    </dl>
   </div>
 </section>
 

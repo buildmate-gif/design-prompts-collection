@@ -198,6 +198,102 @@
     .coach-photo { border: 1px solid var(--line); background: var(--paper); padding: 10px; }
     .coach-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 
+    /* ── 選ばれる理由・受講生実績・給付金＆FAQ・最終CTA ── */
+    .reason-sec {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 80px 28px;
+    }
+    .reason-list {
+      list-style: none;
+      border-top: 2px solid var(--navy);
+      margin-top: 28px;
+    }
+    .reason-list li {
+      display: grid;
+      grid-template-columns: 72px 240px 1fr;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .r-no { font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--coral); font-size: 0.92rem; }
+    .reason-list strong { font-size: 1rem; color: var(--navy); }
+    .reason-list p { font-size: 0.85rem; color: var(--muted); }
+
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .alumni-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 30px 28px;
+    }
+    .alumni-tag { font-size: 0.76rem; font-weight: 700; color: var(--coral); margin-bottom: 8px; }
+    .alumni-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; line-height: 1.5; }
+    .alumni-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+    .alumni-score {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .sub-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .subsidy-box {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 28px;
+      margin-top: 20px;
+    }
+    .subsidy-box h3 { font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+    .subsidy-box p { font-size: 0.84rem; color: var(--muted); margin-bottom: 12px; }
+    .eng-faq { border-top: 1px solid var(--line); margin-top: 20px; }
+    .eng-faq details { border-bottom: 1px solid var(--line); }
+    .eng-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .eng-faq summary::-webkit-details-marker { display: none; }
+    .eng-faq summary::after { content: "+"; font-family: 'DM Sans', sans-serif; color: var(--coral); font-size: 1.2rem; }
+    .eng-faq details[open] summary::after { content: "−"; }
+    .eng-faq p { padding-bottom: 18px; font-size: 0.84rem; color: var(--muted); }
+
+    .counsel-band {
+      background: var(--navy);
+      color: #fff;
+      padding: 64px 28px;
+    }
+    .counsel-flex {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .counsel-flex h2 { font-family: 'Noto Serif JP', serif; font-size: 1.6rem; margin-bottom: 8px; }
+    .counsel-flex p { color: #CBD5E1; font-size: 0.88rem; }
+
     footer {
       background: var(--paper);
       border-top: 1px solid var(--line);
@@ -208,7 +304,8 @@
     }
 
     @media (max-width: 880px) {
-      .hero-banner, .diag-grid, .road-grid { grid-template-columns: 1fr; }
+      .hero-banner, .diag-grid, .road-grid, .alumni-grid, .sub-faq-grid { grid-template-columns: 1fr; }
+      .reason-list li { grid-template-columns: 1fr; gap: 6px; }
       .hero-banner { padding: 28px 20px; }
       .nav { display: none; }
     }
@@ -222,7 +319,9 @@
     <nav class="nav">
       <a href="#diag">コース診断</a>
       <a href="#roadmap">90日ロードマップ</a>
-      <a href="#diag" class="nav-cta">無料レベル診断</a>
+      <a href="#reasons">選ばれる理由</a>
+      <a href="#faq">給付金・Q&amp;A</a>
+      <a href="#contact" class="nav-cta">無料レベル診断</a>
     </nav>
   </div>
 </header>
@@ -298,6 +397,99 @@
         <img src="images/076_session.webp" alt="落ち着いた学習スペースで専属コーチとノートを見ながら学習計画を相談する様子">
       </div>
     </div>
+  </div>
+</section>
+
+<section class="reason-sec" id="reasons">
+  <div class="wrap">
+    <p class="eyebrow">WHY VERGE ENGLISH</p>
+    <h2 class="sec-title">忙しい社会人が90日で伸びきる、三つの設計</h2>
+    <ol class="reason-list">
+      <li>
+        <span class="r-no">01</span>
+        <strong>第二言語習得論に基づく弱点特定</strong>
+        <p>初回テストで「聞き取れない音」「文法の瞬発力」「語彙の運用力」を分解測定。闇雲な暗記をやめ、最短で効くトレーニングだけに絞ります。</p>
+      </li>
+      <li>
+        <span class="r-no">02</span>
+        <strong>毎日の音声シャドーイング添削</strong>
+        <p>専用アプリから毎日3分の音声を提出。TOEIC950点以上・実務経験豊富な専属コーチが、発音の癖と自然なビジネス表現を24時間以内に返却します。</p>
+      </li>
+      <li>
+        <span class="r-no">03</span>
+        <strong>実際の会議資料を持ち込むロールプレイ</strong>
+        <p>テキストの例文ではなく、翌週の海外会議アジェンダやプレゼン資料を使って演習するため、学んだその週から業務で成果が出ます。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="road-sec" id="alumni">
+  <div class="wrap">
+    <p class="eyebrow">ALUMNI RESULTS</p>
+    <h2 class="sec-title">受講生の変化・キャリア実績</h2>
+    <div class="alumni-grid">
+      <article class="alumni-card">
+        <p class="alumni-tag">外資系IT企業 プロダクトマネージャー（34歳）</p>
+        <h3>「聞き返すのが怖かった英語定例で、自ら議論をファシリテートできるように」</h3>
+        <p>1日75分の朝学習をコーチと習慣化。毎朝のシャドーイング添削でネイティブの速い議論がクリアに聞き取れるようになり、昇進面談も英語で突破しました。</p>
+        <p class="alumni-score">成果：TOEIC 640 → 845点 ／ 英語定例会議の主導を担当</p>
+      </article>
+      <article class="alumni-card">
+        <p class="alumni-tag">精密機器メーカー 海外営業課長（42歳）</p>
+        <h3>「価格交渉の切り返しを徹底演習し、欧州代理店との契約更新に成功」</h3>
+        <p>単語を並べるだけの英語から脱却したく受講。実際の商談想定Q&amp;Aを20パターン以上ロールプレイしたおかげで、現地交渉でも落ち着いて根拠を示せました。</p>
+        <p class="alumni-score">成果：Versant 43 → 56 ／ 欧州向け新規取引先を開拓</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="reason-sec" id="faq">
+  <div class="wrap">
+    <div class="sub-faq-grid">
+      <div>
+        <p class="eyebrow">GOVERNMENT SUBSIDY</p>
+        <h2 class="sec-title">一般教育訓練給付金について</h2>
+        <div class="subsidy-box">
+          <h3>受講料の20%（最大10万円）がハローワークから支給</h3>
+          <p>厚生労働大臣指定の一般教育訓練給付制度対象コースをご用意しています。雇用保険の加入期間が1年以上（初回利用の場合）の社会人の方が対象です。</p>
+          <p style="margin-bottom:0;">無料カウンセリング時に、受給要件の確認から申請書類の書き方まで丁寧にご案内します。</p>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Q&amp;A</p>
+        <h2 class="sec-title">よくあるご質問</h2>
+        <div class="eng-faq">
+          <details open>
+            <summary>現在TOEIC500点台ですが、ビジネス英語コースについていけますか？</summary>
+            <p>はい、基礎文法・発音矯正から組み直すカリキュラムをご用意しています。現在のレベルに合わせて無理なく負荷を設計しますのでご安心ください。</p>
+          </details>
+          <details>
+            <summary>残業が多く、毎日まとまった時間を確保できるか不安です。</summary>
+            <p>通勤15分・昼休み15分・就寝前15分など、生活リズムに組み込むスキマ学習設計を週次面談で見直します。継続率は96.2%を維持しています。</p>
+          </details>
+          <details>
+            <summary>オンライン完結で受講できますか？</summary>
+            <p>はい、全国・海外駐在中の方を含め完全オンラインで受講可能です。平日21時以降や土日祝の面談枠も豊富にご用意しています。</p>
+          </details>
+          <details>
+            <summary>無料レベル診断では何をしますか？</summary>
+            <p>15分の簡易スピーキング・リスニング診断と、課題に合わせた「今後90日の自習ロードマップ」を無料でお持ち帰りいただけます。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="counsel-band" id="contact">
+  <div class="counsel-flex">
+    <div>
+      <h2>まずは60分の無料レベル診断で、現在地と最短ルートを確認しませんか？</h2>
+      <p>無理な勧誘は一切行いません。平日夜間・土日もオンラインで実施しています。</p>
+    </div>
+    <a href="#diag" class="btn-coral" style="padding:15px 32px;">無料レベル診断を予約する</a>
   </div>
 </section>
 

@@ -315,6 +315,154 @@
     .plan-list { list-style: none; border-top: 1px solid var(--line); margin-bottom: 22px; }
     .plan-list li { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.84rem; color: var(--muted); }
 
+    /* ── 連携・セキュリティ・導入事例・導入ステップ・FAQ・最終CTA ── */
+    .trust-sec {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 64px 28px;
+    }
+    .int-bar {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    .int-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .int-badge {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .sec-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .sec-spec-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .sec-spec-card small {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .sec-spec-card h3 { font-size: 0.96rem; margin-bottom: 6px; }
+    .sec-spec-card p { font-size: 0.8rem; color: var(--muted); }
+
+    .case-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .saas-case {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 30px 28px;
+    }
+    .case-tag {
+      display: inline-block;
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .saas-case h3 { font-size: 1.1rem; margin-bottom: 10px; line-height: 1.5; }
+    .saas-case p { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    .case-metrics {
+      display: flex;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .case-metrics strong {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      color: var(--blue);
+    }
+
+    .onboard-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .ob-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .ob-step {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .ob-card h3 { font-size: 1rem; margin-bottom: 8px; }
+    .ob-card p { font-size: 0.82rem; color: var(--muted); }
+
+    .saas-faq { border-top: 1px solid var(--line); margin-top: 20px; }
+    .saas-faq details {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 0 22px;
+    }
+    .saas-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .saas-faq summary::-webkit-details-marker { display: none; }
+    .saas-faq summary::after { content: "+"; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--blue); font-size: 1.2rem; }
+    .saas-faq details[open] summary::after { content: "−"; }
+    .saas-faq p { padding-bottom: 18px; font-size: 0.84rem; color: var(--muted); }
+
+    .final-cta {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 52px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .final-cta h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin-bottom: 8px; }
+    .final-cta p { color: #94A3B8; font-size: 0.88rem; }
+
     footer {
       text-align: center;
       padding: 32px 28px;
@@ -324,7 +472,8 @@
 
     @media (max-width: 900px) {
       .span-7, .span-5, .span-4, .span-8 { grid-column: span 12; }
-      .app-kpis, .plan-grid { grid-template-columns: 1fr; }
+      .app-kpis, .plan-grid, .sec-specs, .case-row-grid, .onboard-steps { grid-template-columns: 1fr; }
+      .final-cta { padding: 36px 24px; }
       .nav { display: none; }
     }
   </style>
@@ -336,8 +485,10 @@
     <a href="#" class="logo">Flow<span>Desk</span></a>
     <nav class="nav">
       <a href="#demo">画面デモ</a>
-      <a href="#bento">機能と導入効果</a>
+      <a href="#bento">機能と効果</a>
+      <a href="#cases">導入事例</a>
       <a href="#pricing">料金プラン</a>
+      <a href="#faq">よくある質問</a>
       <a href="#pricing" class="btn btn-primary">14日間無料で試す</a>
     </nav>
   </div>
@@ -420,6 +571,60 @@
   </div>
 </section>
 
+<section class="trust-sec" id="security">
+  <p class="sec-eyebrow">INTEGRATIONS &amp; SECURITY</p>
+  <h2 class="sec-title">お使いの会計ソフト・銀行とシームレスに連携</h2>
+  <div class="int-bar">
+    <p style="font-size:0.88rem; color:var(--muted);">既存の業務ツールを入れ替える必要はありません。APIおよびCSV標準フォーマットで主要サービスと即時連携します。</p>
+    <div class="int-badges">
+      <span class="int-badge">freee会計</span>
+      <span class="int-badge">マネーフォワード クラウド</span>
+      <span class="int-badge">弥生会計</span>
+      <span class="int-badge">勘定奉行クラウド</span>
+      <span class="int-badge">全国主要銀行API（入金消込）</span>
+      <span class="int-badge">Slack / Chatwork 承認通知</span>
+      <span class="int-badge">Salesforce / HubSpot</span>
+    </div>
+  </div>
+  <div class="sec-specs">
+    <div class="sec-spec-card"><small>CERTIFICATION</small><h3>ISO 27001 (ISMS)</h3><p>国際規格に基づく情報セキュリティマネジメント体制を運用。</p></div>
+    <div class="sec-spec-card"><small>ENCRYPTION</small><h3>通信・DB完全暗号化</h3><p>TLS1.3およびAES-256暗号化で請求・顧客データを安全に保護。</p></div>
+    <div class="sec-spec-card"><small>ACCESS CONTROL</small><h3>部署・役職別の権限管理</h3><p>原価や粗利の閲覧権限を役職ごとに細かく設定可能です。</p></div>
+    <div class="sec-spec-card"><small>COMPLIANCE</small><h3>電帳法・インボイス準拠</h3><p>タイムスタンプ付与と検索要件を標準搭載し法改正にも自動対応。</p></div>
+  </div>
+</section>
+
+<section class="trust-sec" id="cases" style="padding-top:16px;">
+  <p class="sec-eyebrow">CUSTOMER STORIES</p>
+  <h2 class="sec-title">導入企業の変化と、最短1週間の導入ステップ</h2>
+  <div class="case-row-grid">
+    <article class="saas-case">
+      <span class="case-tag">精密機械商社・従業員48名</span>
+      <h3>「営業8名分のExcel見積を統合し、月末の請求処理が3日から半日へ」</h3>
+      <p>担当者ごとにバラバラだった見積フォーマットをFlowDeskへ統一。上長承認から請求書郵送・PDF送付まで一気通貫になり、請求漏れゼロを18ヶ月継続しています。</p>
+      <div class="case-metrics">
+        <div><strong>-72%</strong>月末請求の工数</div>
+        <div><strong>0件</strong>請求漏れ・転記ミス</div>
+      </div>
+    </article>
+    <article class="saas-case">
+      <span class="case-tag">Webシステム開発・従業員24名</span>
+      <h3>「外注費を含めた案件粗利がリアルタイムで見え、平均粗利率が6.4pt向上」</h3>
+      <p>案件完了後にしか分からなかった赤字リスクを進行中に検知できるようになり、見積単価の見直しと工数配分が劇的に改善しました。</p>
+      <div class="case-metrics">
+        <div><strong>+6.4pt</strong>全社平均の粗利率</div>
+        <div><strong>1週間</strong>初期移行から定着</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="onboard-steps">
+    <div class="ob-card"><p class="ob-step">STEP 01 / DAY 1</p><h3>無料トライアル開始</h3><p>クレジットカード不要で14日間すべての機能をお試しいただけます。</p></div>
+    <div class="ob-card"><p class="ob-step">STEP 02 / DAY 2–4</p><h3>既存Excelマスタの一括移行</h3><p>専任スタッフが顧客・商品リストと社判・帳票テンプレートを無料セットアップ。</p></div>
+    <div class="ob-card"><p class="ob-step">STEP 03 / DAY 5–7</p><h3>社内説明会・本番運用</h3><p>30分のオンライン操作レクチャーを経て、翌週からスムーズに運用を開始できます。</p></div>
+  </div>
+</section>
+
 <section class="pricing-sec" id="pricing">
   <div class="wrap">
     <div class="price-head">
@@ -472,6 +677,42 @@
         </div>
         <a href="#" class="btn btn-outline" style="width:100%;">導入を相談する</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-sec" id="faq">
+  <p class="sec-eyebrow">FAQ</p>
+  <h2 class="sec-title">導入前のよくあるご質問</h2>
+  <div class="saas-faq">
+    <details open>
+      <summary>14日間の無料トライアル終了後、自動で課金されることはありますか？</summary>
+      <p>いいえ、自動課金は一切ありません。トライアル期間中にご納得いただき、お客様から本契約のお申し込みをされた場合のみ有料プランへ移行します。</p>
+    </details>
+    <details>
+      <summary>自社独自の書式（ロゴ・社印・備考欄）で見積書や請求書を出せますか？</summary>
+      <p>はい、標準テンプレートへのロゴ・角印の配置に加え、Businessプラン以上では自社フォーマットに合わせた項目カスタムにも対応しています。</p>
+    </details>
+    <details>
+      <summary>インボイス制度の適格請求書や電子帳簿保存法に対応していますか？</summary>
+      <p>完全対応しています。登録番号の自動記載、税率ごとの消費税集計、電子取引データの検索要件・訂正削除履歴の保存まで標準機能で完結します。</p>
+    </details>
+    <details>
+      <summary>導入後にプラン変更やユーザー数の増減はできますか？</summary>
+      <p>管理画面からいつでも変更可能です。繁忙期や組織拡大に合わせて柔軟にアカウントを追加・調整いただけます。</p>
+    </details>
+  </div>
+</section>
+
+<section class="trust-sec" style="padding-top:0;">
+  <div class="final-cta">
+    <div>
+      <h2>転記と集計に追われる月末を、今日で終わりにしませんか？</h2>
+      <p>14日間の無料トライアル、または専任担当による30分オンライン画面デモを随時承っています。</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a href="#pricing" class="btn btn-primary" style="padding:14px 28px;">14日間無料で試す</a>
+      <a href="#demo" class="btn btn-outline" style="padding:14px 24px;">30分デモを予約</a>
     </div>
   </div>
 </section>

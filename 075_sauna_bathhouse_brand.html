@@ -170,6 +170,99 @@
     .ritual-specs dt { color: var(--muted); margin-bottom: 2px; }
     .ritual-specs dd { color: #fff; font-weight: 500; }
 
+    /* ── ロウリュ時間割・貸切＆湯上がり処・黙浴とFAQ ── */
+    .sub-sec {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 84px 36px;
+      border-top: 1px solid var(--line);
+    }
+    .loyly-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 28px;
+      border-top: 1px solid var(--accent);
+      font-size: 0.86rem;
+    }
+    .loyly-table th, .loyly-table td {
+      text-align: left;
+      padding: 16px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .loyly-table th {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      font-weight: 600;
+      background: var(--panel);
+    }
+    .loyly-table td { color: var(--muted); }
+    .loyly-table td.time { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--ink); white-space: nowrap; }
+
+    .lounge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 28px;
+    }
+    .lounge-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 34px 30px;
+    }
+    .lounge-box h3 {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .lounge-box p { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    .lounge-list { list-style: none; border-top: 1px solid var(--line); }
+    .lounge-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.83rem;
+    }
+    .lounge-list span { color: var(--accent); font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
+
+    .sauna-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .amenity-list { list-style: none; border-top: 1px solid var(--line); margin-top: 20px; }
+    .amenity-list li {
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .amenity-list strong { color: var(--ink); margin-right: 10px; font-weight: 500; }
+
+    .s-faq { border-top: 1px solid var(--line); margin-top: 20px; }
+    .s-faq details { border-bottom: 1px solid var(--line); }
+    .s-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.96rem;
+      letter-spacing: 0.06em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .s-faq summary::-webkit-details-marker { display: none; }
+    .s-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--accent); }
+    .s-faq details[open] summary::after { content: "−"; }
+    .s-faq p { padding-bottom: 18px; font-size: 0.84rem; color: var(--muted); }
+
     /* ── 施設案内・料金 ─────────────────────────── */
     .guide-sec {
       background: var(--panel);
@@ -214,7 +307,7 @@
     }
 
     @media (max-width: 880px) {
-      .hero-bottom, .ritual-tabs, .ritual-stage, .guide-inner { grid-template-columns: 1fr; }
+      .hero-bottom, .ritual-tabs, .ritual-stage, .guide-inner, .lounge-grid, .sauna-faq-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .ritual-body { padding: 28px 22px; }
     }
@@ -228,6 +321,8 @@
     <a href="#" class="brand">白霧の湯</a>
     <nav class="nav-links">
       <a href="#ritual">三幕の湯浴み</a>
+      <a href="#loyly">ロウリュ時間割</a>
+      <a href="#lounge">貸切・湯上がり処</a>
       <a href="#guide">料金・案内</a>
       <a href="#guide" class="nav-btn">入館予約</a>
     </nav>
@@ -274,6 +369,102 @@
         <div><dt>推奨滞在目安</dt><dd id="r-time">8〜10分</dd></div>
         <div><dt>空間仕様</dt><dd id="r-spec">国産杉・黙浴・定員14名</dd></div>
       </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sub-sec" id="loyly">
+  <p class="eyebrow">LOYLY &amp; AROMA SCHEDULE</p>
+  <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.7rem; font-weight:400; letter-spacing:0.1em;">薪サウナ・ロウリュと香りの時間割</h2>
+  <p style="color:var(--muted); font-size:0.86rem; margin-top:8px;">毎時00分のスタッフロウリュのほか、時間帯に合わせて天然抽出のアロマ水を変えています。</p>
+  <table class="loyly-table">
+    <thead>
+      <tr><th>TIME</th><th>AROMA</th><th>EXPERIENCE</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time">08:00 / 10:00</td>
+        <td>信州白樺ヴィヒタ</td>
+        <td>朝の澄んだ空気に合う爽やかな森の香り。緩やかな蒸気で眠った身体をやさしく目覚めさせます。</td>
+      </tr>
+      <tr>
+        <td class="time">13:00 / 15:00</td>
+        <td>木曽檜と青柚子</td>
+        <td>樹皮の深いウッディな香りに柑橘を添えた午後のロウリュ。湿度を高め、発汗を促します。</td>
+      </tr>
+      <tr>
+        <td class="time">17:00 / 19:00</td>
+        <td>宇治一番茶・焙じ茶</td>
+        <td>薪ストーブの熱で焙じ茶が香ばしく立ちのぼる人気回。夕暮れの外気浴へと心地よくつなぎます。</td>
+      </tr>
+      <tr>
+        <td class="time">21:00</td>
+        <td>夜霧ラベンダー＆ヒバ</td>
+        <td>照明をさらに落とした静寂の最終ロウリュ。深い眠りへと誘う穏やかな余韻をお届けします。</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sub-sec" id="lounge">
+  <p class="eyebrow">PRIVATE SAUNA &amp; DINING LOUNGE</p>
+  <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.7rem; font-weight:400; letter-spacing:0.1em;">貸切個室サウナと、湯上がり処の献立</h2>
+  <div class="lounge-grid">
+    <div class="lounge-box">
+      <h3>貸切薪サウナ「霧の間」（完全予約制）</h3>
+      <p>ご夫婦やご友人同士（最大4名様）で気兼ねなくセルフロウリュと専用水風呂・外気浴デッキを独占できるプライベート棟です。</p>
+      <ul class="lounge-list">
+        <li>90分 貸切利用（1〜2名様）<span>¥11,000</span></li>
+        <li>120分 貸切利用（1〜4名様）<span>¥15,400</span></li>
+        <li>専用ヴィヒタ・サウナハット貸出<span>無料付属</span></li>
+      </ul>
+    </div>
+    <div class="lounge-box">
+      <h3>湯上がり処「囲炉裏ラウンジ」</h3>
+      <p>外気浴のあと、暖炉のそばで味わう信州食材の滋味深い温浴飯と自家製ドリンクをご用意しています。</p>
+      <ul class="lounge-list">
+        <li>信州味噌と根菜の焼きおにぎり豚汁膳<span>¥1,280</span></li>
+        <li>スパイス香る鹿肉キーマカレー<span>¥1,450</span></li>
+        <li>自家製クラフトジンジャーエール<span>¥650</span></li>
+        <li>冷やしオロポ（大ジョッキ・天然氷）<span>¥600</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sub-sec" id="etiquette">
+  <div class="sauna-faq-grid">
+    <div>
+      <p class="eyebrow">AMENITIES</p>
+      <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.55rem; font-weight:400; letter-spacing:0.1em;">手ぶらで来館できる備品</h2>
+      <ul class="amenity-list">
+        <li><strong>タオル・館内着</strong>バスタオル・フェイスタオル・ワッフル館内着を入館料に含みます。</li>
+        <li><strong>バスアメニティ</strong>国産ヒノキ精油のシャンプー・ボディソープ・化粧水・乳液を完備。</li>
+        <li><strong>水分補給</strong>脱衣所および外気浴テラスに軟水ウォーターサーバー・温かいほうじ茶を常設。</li>
+        <li><strong>サウナハット</strong>ウール製サウナハットの無料貸出（受付にてお渡し）。</li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">MOKUYOKU &amp; FAQ</p>
+      <h2 style="font-family:'Zen Old Mincho',serif; font-size:1.55rem; font-weight:400; letter-spacing:0.1em;">黙浴のお願い・よくある質問</h2>
+      <div class="s-faq">
+        <details open>
+          <summary>初めてサウナを利用するのですが大丈夫でしょうか？</summary>
+          <p>もちろんです。温度計だけでなくご自身の呼吸と心地よさを目安に、まずは下段で5〜6分からゆっくりお楽しみください。スタッフがお勧めの巡り方もご案内します。</p>
+        </details>
+        <details>
+          <summary>水着は必要ですか？男女別ですか？</summary>
+          <p>大浴場・薪サウナは男女別（裸浴）のため水着は不要です。貸切個室サウナ「霧の間」を男女混浴でご利用になる場合のみ、水着または無料貸出ポンチョをご着用ください。</p>
+        </details>
+        <details>
+          <summary>予約なしでも当日入館できますか？</summary>
+          <p>平日はご予約なしでもスムーズにご入館いただけます。土日祝は静寂を保つため入場制限を行っておりますので、オンライン事前チケットをおすすめしております。</p>
+        </details>
+        <details>
+          <summary>軽井沢駅からのアクセス・駐車場について教えてください。</summary>
+          <p>軽井沢駅南口より車で約12分、無料駐車場を28台完備しております。毎時30分発の無料送迎バス（要予約）も運行しています。</p>
+        </details>
+      </div>
     </div>
   </div>
 </section>

@@ -312,6 +312,107 @@
     }
     .proc-desc { font-size: 0.86rem; color: var(--muted); }
 
+    /* ── その他の再生事例索引 ───────────────────── */
+    .case-table {
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+    }
+    .case-row {
+      display: grid;
+      grid-template-columns: 64px 1.2fr 1.5fr 180px;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .case-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--copper);
+    }
+    .case-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.04rem;
+      font-weight: 600;
+    }
+    .case-title small {
+      display: block;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.74rem;
+      color: var(--copper);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+    .case-note { font-size: 0.84rem; color: var(--muted); }
+    .case-meta { text-align: right; font-size: 0.78rem; color: var(--ink); line-height: 1.7; }
+
+    /* ── 予算目安・補助金活用表 ─────────────────── */
+    .budget-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 2px solid var(--ink);
+      margin-top: 28px;
+      font-size: 0.86rem;
+    }
+    .budget-table th, .budget-table td {
+      text-align: left;
+      padding: 16px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .budget-table th {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--shikkui);
+    }
+    .budget-table td { color: var(--muted); }
+    .budget-table td.num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--copper);
+      white-space: nowrap;
+    }
+    .subsidy-note {
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: var(--shikkui);
+      border: 1px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .subsidy-note strong { color: var(--ink); display: block; margin-bottom: 6px; font-weight: 500; }
+
+    /* ── よくあるご質問（開閉式） ───────────────── */
+    .faq-list { border-top: 1px solid var(--line); margin-top: 24px; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 0;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--copper);
+    }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-ans {
+      padding-bottom: 22px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
     /* ── 診断依頼 ───────────────────────────────── */
     .consult-box {
       background: var(--sumi);
@@ -347,7 +448,8 @@
       .sidebar { display: none; }
       .mobile-bar { display: flex; }
       .hero-statement, section.sec { padding: 48px 24px; }
-      .hero-statement, .archive-grid { grid-template-columns: 1fr; gap: 24px; }
+      .hero-statement, .archive-grid, .case-row { grid-template-columns: 1fr; gap: 20px; }
+      .case-meta { text-align: left; }
       .ba-grid { grid-template-columns: repeat(2, 1fr); }
       .process-list li { grid-template-columns: 1fr; gap: 6px; }
     }
@@ -369,9 +471,11 @@
     <p class="side-en">TSUGUIE ARCHITECTURE</p>
     <ul class="side-nav">
       <li><a href="#performance">性能再生 Before / After <span>01</span></a></li>
-      <li><a href="#archive">再生事例・縁側と坪庭 <span>02</span></a></li>
+      <li><a href="#archive">再生事例・図録索引 <span>02</span></a></li>
       <li><a href="#process">古民家再生の4工程 <span>03</span></a></li>
-      <li><a href="#contact">現地調査・ご相談 <span>04</span></a></li>
+      <li><a href="#budget">費用目安・補助金 <span>04</span></a></li>
+      <li><a href="#faq">よくあるご質問 <span>05</span></a></li>
+      <li><a href="#contact">現地調査・ご相談 <span>06</span></a></li>
     </ul>
   </div>
   <div>
@@ -455,6 +559,27 @@
         <div><dt>主な改修</dt><dd>耐震補強・全室断熱・水回り一新</dd></div>
       </dl>
     </div>
+
+    <div class="case-table">
+      <article class="case-row">
+        <span class="case-no">02</span>
+        <div class="case-title">通り庭と吹き抜けの京町家<small>京都市上京区 ／ 築108年</small></div>
+        <p class="case-note">うなぎの寝床特有の暗さと底冷えを、中庭の採光吹き抜けと床暖房・内窓改修で解消。既存格子戸はすべて補修して継承。</p>
+        <div class="case-meta">延床 94.2㎡<br>評点 1.48 ／ 断熱等級5</div>
+      </article>
+      <article class="case-row">
+        <span class="case-no">03</span>
+        <div class="case-title">太い松梁を現した農家住宅<small>兵庫県丹波篠山市 ／ 築115年</small></div>
+        <p class="case-note">天井裏に隠れていた丸太梁を現しにし、薪ストーブのある土間リビングへ再生。母屋の離れは在宅ワークの書斎に転用。</p>
+        <div class="case-meta">延床 156.0㎡<br>古材保存率 82%</div>
+      </article>
+      <article class="case-row">
+        <span class="case-no">04</span>
+        <div class="case-title">土蔵を活かした住まい兼アトリエ<small>滋賀県近江八幡市 ／ 築88年</small></div>
+        <p class="case-note">漆喰の土蔵を陶芸作家の展示室に、母屋を住居として一体改修。補助金を活用し、耐震と断熱を同時に確保。</p>
+        <div class="case-meta">延床 128.6㎡<br>耐震補強＋水回り刷新</div>
+      </article>
+    </div>
   </section>
 
   <section class="sec" id="process">
@@ -482,6 +607,66 @@
         <p class="proc-desc">白漆喰や無垢床で仕上げてお引き渡し。暮らし始めたあとの建具調整や点検も継続して伴走します。</p>
       </li>
     </ol>
+  </section>
+
+  <section class="sec paper" id="budget">
+    <p class="kicker">04 / BUDGET &amp; SUBSIDY</p>
+    <h2 class="sec-title">改修費用の目安と、補助金活用</h2>
+    <p style="color:var(--muted); font-size:0.9rem; max-width:680px;">
+      古民家は傷み具合や残す範囲によって工事費が大きく変わります。解体後に想定外の追加費用が出ないよう、事前の構造診断をもとに明快な概算をご提示します。
+    </p>
+    <table class="budget-table">
+      <thead>
+        <tr><th>改修プランの目安</th><th>対象規模</th><th>主な工事範囲</th><th>概算費用（税込）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>部分再生・断熱改修</td>
+          <td>LDK・水回り中心（約60㎡）</td>
+          <td>断熱サッシ交換・床壁断熱・キッチン/浴室刷新</td>
+          <td class="num">1,200万〜1,800万円</td>
+        </tr>
+        <tr>
+          <td>全面再生リノベーション</td>
+          <td>延床 100〜130㎡</td>
+          <td>基礎補強・耐震改修・全室断熱・古材補修・設備一新</td>
+          <td class="num">2,400万〜3,500万円</td>
+        </tr>
+        <tr>
+          <td>大型古民家・二世帯再生</td>
+          <td>延床 140㎡〜</td>
+          <td>屋根葺き替え・間取り再構築・外構/坪庭整備含む</td>
+          <td class="num">3,600万円〜</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="subsidy-note">
+      <strong>活用可能な公的補助金（申請サポート込み）</strong>
+      国の「長期優良住宅化リフォーム推進事業」「先進的窓リノベ事業」に加え、京都府・兵庫県の各自治体が設ける「空き家改修補助金」「耐震改修補助」を組み合わせることで、最大150万〜250万円規模の補助を受けられるケースがあります。
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <p class="kicker">05 / FAQ</p>
+    <h2 class="sec-title">古民家再生のよくあるご質問</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>建て替えとリノベーション、どちらが良いか迷っています。</summary>
+        <p class="faq-ans">築80年以上の古民家は、現在では入手困難な太い松や欅の良材が使われていることが多く、構造体が健全なら再生する価値が十分にあります。現地調査で傾きや白蟻被害を確認したうえで、中立の立場から比較アドバイスを行います。</p>
+      </details>
+      <details class="faq-item">
+        <summary>購入を検討している中古古民家に同行してもらえますか？</summary>
+        <p class="faq-ans">はい、ご契約前の物件同行調査を承っています。屋根裏や床下の状態、再建築の可否、概算の改修費用を購入前に把握できるため、予算オーバーを防げます。</p>
+      </details>
+      <details class="faq-item">
+        <summary>白蟻被害や柱の傾きがあっても直せますか？</summary>
+        <p class="faq-ans">多くの場合、ジャッキアップによる傾き矯正と、傷んだ柱の下部だけを新しい檜材で継ぎ足す「根継ぎ（ねつぎ）」技法によって、古材を活かしたまま構造強度を回復できます。</p>
+      </details>
+      <details class="faq-item">
+        <summary>工事期間中は仮住まいが必要でしょうか？</summary>
+        <p class="faq-ans">基礎や構造の全面補強を伴う場合は仮住まいをお願いしています。部分改修や離れがある場合は、住みながらの工程計画もご相談いただけます。</p>
+      </details>
+    </div>
   </section>
 
   <section class="sec paper" id="contact">

@@ -178,6 +178,110 @@
     .style-photo { background: var(--paper); border: 1px solid var(--line); padding: 10px; border-radius: 8px; }
     .style-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
 
+    /* ── 講師・当日の流れ・生徒の声・FAQ＆アクセス ── */
+    .kitchen-sec {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 80px 28px;
+    }
+    .inst-flow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .inst-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 30px 28px;
+    }
+    .inst-card h3 { font-family: 'Shippori Mincho', serif; font-size: 1.18rem; margin-bottom: 10px; }
+    .inst-card p { font-size: 0.86rem; color: var(--muted); margin-bottom: 12px; }
+    .inst-meta {
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+      font-size: 0.8rem;
+      color: var(--olive);
+      font-weight: 500;
+    }
+    .day-steps {
+      list-style: none;
+      border-top: 1px solid var(--line);
+      margin-top: 16px;
+    }
+    .day-steps li {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.85rem;
+    }
+    .day-steps strong { color: var(--terra); font-weight: 700; }
+    .day-steps span { color: var(--muted); }
+
+    .voice-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .v-note {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 26px 24px;
+    }
+    .v-note h3 { font-family: 'Shippori Mincho', serif; font-size: 1.04rem; margin-bottom: 8px; }
+    .v-note p { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+    .v-from { font-size: 0.78rem; color: var(--olive); border-top: 1px solid var(--line); padding-top: 10px; }
+
+    .faq-acc-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .cook-faq { border-top: 1px solid var(--line); margin-top: 18px; }
+    .cook-faq details { border-bottom: 1px solid var(--line); }
+    .cook-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 0;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.96rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .cook-faq summary::-webkit-details-marker { display: none; }
+    .cook-faq summary::after { content: "+"; color: var(--terra); font-size: 1.2rem; }
+    .cook-faq details[open] summary::after { content: "−"; }
+    .cook-faq p { padding-bottom: 16px; font-size: 0.84rem; color: var(--muted); }
+
+    .acc-dl {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 22px;
+      margin: 18px 0 22px;
+    }
+    .acc-dl div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 0.84rem;
+    }
+    .acc-dl div:last-child { border-bottom: none; }
+    .acc-dl dt { color: var(--olive); font-weight: 700; }
+    .acc-dl dd { text-align: right; color: var(--ink); }
+
     footer {
       background: var(--paper);
       border-top: 1px solid var(--line);
@@ -188,7 +292,7 @@
     }
 
     @media (max-width: 880px) {
-      .recipe-hero, .style-grid { grid-template-columns: 1fr; }
+      .recipe-hero, .style-grid, .inst-flow-grid, .voice-duo, .faq-acc-grid { grid-template-columns: 1fr; }
       .ledger-row { grid-template-columns: 1fr; gap: 6px; }
       .l-price { text-align: left; }
       .nav { display: none; }
@@ -203,6 +307,8 @@
     <nav class="nav">
       <a href="#lessons">今月のレッスン台帳</a>
       <a href="#style">教室の雰囲気</a>
+      <a href="#instructor">講師・当日の流れ</a>
+      <a href="#faq">よくある質問</a>
       <a href="#lessons" class="nav-btn">体験予約</a>
     </nav>
   </div>
@@ -283,6 +389,95 @@
     </div>
     <div class="style-photo">
       <img src="images/077_class.webp" alt="温かな木のテーブルで焼き菓子の生地を丁寧に仕上げる料理教室の風景">
+    </div>
+  </div>
+</section>
+
+<section class="kitchen-sec" id="instructor">
+  <div class="wrap">
+    <div class="inst-flow-grid">
+      <div class="inst-card">
+        <p class="note-date">Instructor</p>
+        <h3>主宰：実り 陽子（調理師・製菓衛生師）</h3>
+        <p>
+          洋菓子店での製造とフードコーディネーターとしてのレシピ開発を経て、「スーパーで買える身近な食材で、家族に喜ばれる定番料理と焼き菓子を」という想いから2018年に教室を開きました。
+        </p>
+        <p>
+          「なぜこのタイミングで塩を入れるのか」「生地がどのくらい艶めいたら混ぜ終わりか」を五感でお伝えすることを大切にしています。
+        </p>
+        <p class="inst-meta">著書『季節の台所メモ』 ／ 少人数制・定員4名（入会金・年会費不要）</p>
+      </div>
+
+      <div>
+        <p class="note-date">Lesson Schedule</p>
+        <h2 class="sec-title">レッスン当日の流れ（約2時間30分）</h2>
+        <ol class="day-steps">
+          <li><strong>10:30</strong><span>ウェルカムティーを飲みながら、その日のレシピと食材のポイントを確認します。</span></li>
+          <li><strong>10:50</strong><span>デモンストレーションを交えながら実習スタート。一人ずつ作業工程を体験できます。</span></li>
+          <li><strong>12:15</strong><span>出来上がったお料理を木のテーブルに並べて試食ランチタイム（焼き菓子回は紅茶と一緒に）。</span></li>
+          <li><strong>13:00</strong><span>お持ち帰り用の箱詰め・写真付きの復習レシピをお渡しして解散です。</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="style-sec" id="voices">
+  <div class="wrap">
+    <p class="note-date">Guest Notes</p>
+    <h2 class="sec-title">参加された生徒さんの声</h2>
+    <div class="voice-duo">
+      <article class="v-note">
+        <h3>「帰ったその日の夜に、すぐ復習できました」</h3>
+        <p>特別な調味料を使わないので、近所のスーパーで買い足して家族に作ったら「お店みたい！」と大好評。おひとり参加でしたが、4人だけなので自然と会話も弾みました。</p>
+        <p class="v-from">30代・会社員（家庭料理クラス 初回参加）</p>
+      </article>
+      <article class="v-note">
+        <h3>「フィナンシェの焼き加減の見極めが目から鱗でした」</h3>
+        <p>動画レシピでは分からなかった焦がしバターの香りのピークと混ぜ方をすぐ隣で見せてもらえて納得。今では手土産に焼くのが一番の楽しみになっています。</p>
+        <p class="v-from">40代・主婦（焼き菓子クラス リピート参加）</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="kitchen-sec" id="faq">
+  <div class="wrap">
+    <div class="faq-acc-grid">
+      <div>
+        <p class="note-date">Questions</p>
+        <h2 class="sec-title">よくあるご質問</h2>
+        <div class="cook-faq">
+          <details open>
+            <summary>入会金や回数券の購入は必要ですか？</summary>
+            <p>いいえ、入会金・年会費は一切いただいておりません。お好きなメニューの回だけ1回ずつご予約いただける完全単発制です。</p>
+          </details>
+          <details>
+            <summary>持ち物はありますか？</summary>
+            <p>リネンエプロン・ハンドタオル・筆記用具・お持ち帰り用の箱と紙袋はすべて教室でご用意しています。手ぶらでお気軽にお越しください。</p>
+          </details>
+          <details>
+            <summary>料理がほとんど初めてでも大丈夫でしょうか？</summary>
+            <p>もちろんです。最大4名の少人数ですので、包丁の扱い方や計量のコツから周囲を気にせずご質問いただけます。</p>
+          </details>
+          <details>
+            <summary>急な体調不良などのキャンセル規定を教えてください。</summary>
+            <p>食材準備のため、3日前までは無料キャンセル・日程振替が可能です。2日前以降はレシピ郵送または代理の方のご参加も承っております。</p>
+          </details>
+        </div>
+      </div>
+
+      <div>
+        <p class="note-date">Access</p>
+        <h2 class="sec-title">教室のご案内</h2>
+        <dl class="acc-dl">
+          <div><dt>最寄り駅</dt><dd>東急東横線 学芸大学駅 徒歩6分</dd></div>
+          <div><dt>開催曜日</dt><dd>木・金・土・日（10:30〜13:00 / 午後回あり）</dd></div>
+          <div><dt>定員</dt><dd>各回 2〜4名（女性・ご夫婦歓迎）</dd></div>
+          <div><dt>お支払い</dt><dd>事前カード決済 または 当日現金・PayPay</dd></div>
+        </dl>
+        <a href="#lessons" class="btn-terra" style="width:100%; text-align:center;">今月の残席を見て予約する</a>
+      </div>
     </div>
   </div>
 </section>

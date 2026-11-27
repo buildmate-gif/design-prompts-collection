@@ -235,6 +235,105 @@
     .fee-dl dt { font-weight: 700; color: var(--slate); }
     .fee-dl dd { color: var(--muted); text-align: right; }
 
+    /* ── 所属弁護士・相談フロー・費用表・FAQ ─────── */
+    .attorney-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .attorney-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+    }
+    .attorney-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      color: var(--burgundy);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .attorney-card h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .attorney-card h3 small {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 10px;
+      letter-spacing: 0.1em;
+    }
+    .attorney-card p { font-size: 0.86rem; color: var(--muted); margin-bottom: 16px; }
+    .attorney-meta {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      font-size: 0.78rem;
+      color: var(--slate);
+    }
+
+    .legal-flow {
+      list-style: none;
+      border-top: 2px solid var(--slate);
+      background: var(--paper);
+      margin-bottom: 36px;
+    }
+    .legal-flow li {
+      display: grid;
+      grid-template-columns: 76px 210px 1fr;
+      gap: 20px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .legal-flow span { font-family: 'Cormorant Garamond', serif; color: var(--burgundy); font-weight: 600; font-size: 1.05rem; }
+    .legal-flow strong { font-family: 'Shippori Mincho', serif; font-size: 1rem; color: var(--slate); }
+    .legal-flow p { font-size: 0.84rem; color: var(--muted); }
+
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font-size: 0.84rem;
+    }
+    .fee-table th, .fee-table td {
+      text-align: left;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .fee-table th {
+      background: var(--slate);
+      color: #F2EFE8;
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 500;
+    }
+    .fee-table td { color: var(--muted); }
+    .fee-table td:first-child { color: var(--slate); font-weight: 500; }
+
+    .law-faq { border-top: 1px solid var(--line); margin-top: 40px; }
+    .law-faq details { border-bottom: 1px solid var(--line); }
+    .law-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .law-faq summary::-webkit-details-marker { display: none; }
+    .law-faq summary::after { content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--gold); }
+    .law-faq details[open] summary::after { content: "−"; }
+    .law-faq p { padding-bottom: 18px; font-size: 0.85rem; color: var(--muted); }
+
     /* ── 予約枠 ─────────────────────────────────── */
     .reserve-band {
       background: var(--paper);
@@ -275,7 +374,8 @@
     }
 
     @media (max-width: 860px) {
-      .cover-body, .room-layout, .reserve-band, .acc-grid { grid-template-columns: 1fr; }
+      .cover-body, .room-layout, .reserve-band, .acc-grid, .attorney-grid { grid-template-columns: 1fr; }
+      .legal-flow li { grid-template-columns: 1fr; gap: 6px; padding: 18px; }
       .chapter-head { grid-template-columns: 1fr; gap: 6px; }
       .acc-body { padding: 0 20px 24px; }
       .nav-links { display: none; }
@@ -288,8 +388,10 @@
   <header class="cover-nav">
     <a href="#" class="brand">葵総合法律事務所</a>
     <nav class="nav-links">
-      <a href="#practice">I. 取扱分野・準備書面</a>
-      <a href="#stance">II. 相談体制・費用</a>
+      <a href="#practice">I. 取扱分野</a>
+      <a href="#attorneys">II. 弁護士紹介</a>
+      <a href="#flow">III. 流れ・費用</a>
+      <a href="#stance">IV. 相談体制</a>
       <a href="#contact" class="nav-res">法律相談の予約</a>
     </nav>
   </header>
@@ -381,9 +483,68 @@
   </div>
 </section>
 
-<section class="chapter" id="stance">
+<section class="chapter" id="attorneys">
   <div class="chapter-head">
     <span class="chap-num">II.</span>
+    <div class="chap-title">
+      <h2>所属弁護士紹介</h2>
+      <p>ご面談から交渉・法廷代理まで、担当弁護士が責任をもって一貫対応します。</p>
+    </div>
+  </div>
+
+  <div class="attorney-grid">
+    <article class="attorney-card">
+      <p class="attorney-role">MANAGING PARTNER / 代表弁護士</p>
+      <h3>葵 誠一 <small>Seiichi Aoi</small></h3>
+      <p>
+        企業法務・M&amp;A・労務紛争・建築瑕疵訴訟を中心に20年以上の実務経験。法的妥当性だけでなく、事業継続や取引先との関係性を見据えた現実的な解決策を重視しています。
+      </p>
+      <p class="attorney-meta">大阪弁護士会所属（登録番号 31482）／ 京都大学法学部卒 ／ 元大阪弁護士会 民事介入暴力対策委員</p>
+    </article>
+
+    <article class="attorney-card">
+      <p class="attorney-role">PARTNER / パートナー弁護士</p>
+      <h3>橘 涼子 <small>Ryoko Tachibana</small></h3>
+      <p>
+        遺産相続・遺言作成・事業承継・不動産明渡し交渉を多数担当。税理士・司法書士と連携し、親族間の感情的なこじれをほぐしながら早期の円満解決を目指します。
+      </p>
+      <p class="attorney-meta">大阪弁護士会所属（登録番号 48921）／ 大阪大学法科大学院修了 ／ 宅地建物取引士資格保有</p>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="flow">
+  <div class="chapter-head">
+    <span class="chap-num">III.</span>
+    <div class="chap-title">
+      <h2>ご相談から解決までの流れ・弁護士費用目安</h2>
+      <p>すべての案件で着手前に見積書を作成し、見通しと費用を明確にご説明します。</p>
+    </div>
+  </div>
+
+  <ol class="legal-flow">
+    <li><span>STEP 01</span><strong>相談日時ご予約</strong><p>お電話または24時間受付WEBフォームより、ご希望の日時と簡単な概要をお知らせください。</p></li>
+    <li><span>STEP 02</span><strong>完全個室での法律相談</strong><p>45分〜60分かけて資料を確認し、法的な見通し・選択肢・想定されるリスクを丁寧にお伝えします。</p></li>
+    <li><span>STEP 03</span><strong>事前見積・委任契約</strong><p>ご依頼を希望される場合のみ、着手金・報酬金・実費を明記した見積書をもとに契約を締結します。</p></li>
+    <li><span>STEP 04</span><strong>交渉・調停・訴訟対応</strong><p>進捗を節目ごとに書面・お電話でご報告しながら、依頼者様にとって最善の解決へ導きます。</p></li>
+  </ol>
+
+  <table class="fee-table">
+    <thead>
+      <tr><th>区分</th><th>着手金（税込目安）</th><th>報酬金・月額（税込目安）</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>初回法律相談</td><td>5,500円（45分）</td><td>—</td><td>法人・顧問検討の初回相談は無料</td></tr>
+      <tr><td>顧問弁護士契約</td><td>不要</td><td>月額 55,000円〜</td><td>契約書チェック・日常法務相談込み</td></tr>
+      <tr><td>遺産分割・交渉案件</td><td>220,000円〜</td><td>獲得経済的利益の11%〜</td><td>調停・審判移行時は事前協議</td></tr>
+      <tr><td>内容証明郵便の作成・送付</td><td>55,000円〜</td><td>—</td><td>弁護士名義での通知・回収交渉</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="chapter" id="stance">
+  <div class="chapter-head">
+    <span class="chap-num">IV.</span>
     <div class="chap-title">
       <h2>完全個室での守秘相談と、明確な事前見積</h2>
       <p>ご納得いただく前に受任することはありません。</p>
@@ -405,11 +566,30 @@
       </dl>
     </div>
   </div>
+
+  <div class="law-faq">
+    <details>
+      <summary>相談したことが相手方や職場、家族に知られることはありませんか？</summary>
+      <p>弁護士には法律上の厳格な守秘義務があります。ご相談内容はもちろん、当事務所へ来所された事実も含め、ご本人の許可なく外部へ漏らすことは一切ありません。</p>
+    </details>
+    <details>
+      <summary>まだ訴えられたわけではありませんが、予防的に相談できますか？</summary>
+      <p>はい、むしろ紛争化する前の初期段階でのご相談をおすすめしております。契約締結前や内容証明を受け取った直後であれば、選べる解決策が大きく広がります。</p>
+    </details>
+    <details>
+      <summary>遠方のためオンライン（Zoom等）での相談は可能ですか？</summary>
+      <p>可能です。事前にPDFや写真で関係資料をご共有いただければ、ご来所時と変わらない精度でご相談を承ります。</p>
+    </details>
+    <details>
+      <summary>平日の日中は仕事があり、夜間や土曜日に相談できますか？</summary>
+      <p>事前のご予約により、平日19:00以降の夜間面談および土曜日午前中のご相談にも柔軟に対応しております。</p>
+    </details>
+  </div>
 </section>
 
 <section class="chapter" id="contact" style="border-bottom:none;">
   <div class="chapter-head">
-    <span class="chap-num">III.</span>
+    <span class="chap-num">V.</span>
     <div class="chap-title">
       <h2>法律相談のご予約・お問い合わせ</h2>
       <p>法的トラブルは初期対応によって選択肢が大きく変わります。</p>
@@ -424,9 +604,9 @@
       <a href="#" class="btn-slate">24時間受付・WEB相談予約フォーム</a>
     </div>
     <div style="border-top:1px solid var(--line); padding-top:16px;">
-      <p style="font-size:0.78rem; color:var(--gold); letter-spacing:0.14em;">TELEPHONE</p>
+      <p style="font-size:0.78rem; color:var(--gold); letter-spacing:0.14em;">TELEPHONE &amp; ACCESS</p>
       <p class="tel-big">06-6555-0148</p>
-      <p style="font-size:0.78rem; color:var(--muted);">大阪弁護士会所属｜北浜駅 徒歩3分</p>
+      <p style="font-size:0.78rem; color:var(--muted);">大阪市中央区北浜 2-3-10 葵法務ビル8F（北浜駅 徒歩3分）<br>大阪弁護士会所属｜平日 9:30 – 18:30</p>
     </div>
   </div>
 </section>
